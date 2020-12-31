@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Lesjardinsdetailles</title>
+    <title>Les Jardins détaillés</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -12,7 +12,9 @@
   </head>
 
   <body>
-    <%= render 'shared/navbar' %>
+    <% if controller_name != 'sessions' && controller_name != 'registrations' %>
+      <%= render 'shared/navbar' %>
+    <% end %>
     <%= render 'shared/flashes' %>
 
     <%= yield %>
