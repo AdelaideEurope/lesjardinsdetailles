@@ -1,0 +1,39 @@
+<div class="container">
+  ICI ON AURA LE DASHBOARD FERME
+
+
+  <div class="mt-4">
+    <h2>Infos de la ferme</h2>
+    <div>
+      <%= @farm.full_name %>
+    </div>
+    <div>
+      <%= @farm.address %>
+    </div>
+    <div>
+      <%= @farm.zip_code %>
+      <%= @farm.city %>
+    </div>
+  </div>
+
+  <h2 class="mt-4">Clients directs de la ferme</h2>
+  <% @clients.each do |client| %>
+    <div>
+      <div>
+        <%= client.first_name %>
+        <%= client.last_name %> <%= client.phone_number ? "-" : "" %> <%= client.phone_number %>
+      </div>
+    </div>
+  <% end %>
+
+  <h2  class="mt-4">Travailleurs, travailleuses ⚒</h2>
+  <% @workers.each do |client| %>
+    <div>
+      <div>
+        <%= client.first_name %>
+        <%= client.last_name %> <%= client.phone_number ? "-" : "" %> <%= client.phone_number %>
+      </div>
+    </div>
+  <% end %>
+</div>
+

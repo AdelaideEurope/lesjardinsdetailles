@@ -10,3 +10,45 @@
 .navbar .navbar-brand img {
   height: 40px;
 }
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+}
+
+#sidebar {
+  width: 4%;
+  min-height: 100vh;
+  color: white;
+  background: $green;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 4vh 0;
+}
+
+.logout-button-link {
+  padding: 0;
+  &:hover {
+    background: $green;
+  }
+}
+
+.sidebar-img-item {
+  height: 24px;
+}
+
+.sidebar-icon-item {
+  color: white;
+  font-size: 24px;
+}
+
+.sidebar-item {
+  text-align: center;
+  padding: 12px 0;
+}
+
+.sidebar-items {
+  margin-top: 10vh;
+}

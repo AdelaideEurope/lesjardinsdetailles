@@ -1,0 +1,39 @@
+<div class="navbar navbar-expand-sm navbar-light navbar">
+  <div class="d-flex">
+    <%= link_to root_path, class: "navbar-brand" do %>
+      <%= image_tag "logo.png" %>
+    <% end %>
+    <h1>Les Jardins détaillés</h1>
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <% if user_signed_in? %>
+        <% if current_user.worker == false %>
+          <%= link_to "Mon compte", about_path, class: "dropdown-item" %>
+        <% end %>
+        <% if current_user.worker == true %>
+          <%= link_to "UI Kit", about_path, class: "dropdown-item" %>
+        <% end %>
+        <% if current_user.worker == true %>
+          <%= link_to "Dashboard activités", about_path, class: "dropdown-item" %>
+        <% end %>
+        <% if current_user.manager == true %>
+          <%= link_to "Dashboard ferme", farm_path(current_user.farm_id), class: "dropdown-item" %>
+        <% end %>
+        <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to new_user_session_path, class: "nav-link" do %><%= image_tag "connexion.png", alt: "connexion", class: "login-button" %><% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+

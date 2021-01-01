@@ -7,16 +7,21 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
   </head>
 
   <body>
-    <% if controller_name != 'sessions' && controller_name != 'registrations' %>
-      <%= render 'shared/navbar' %>
-    <% end %>
     <%= render 'shared/flashes' %>
-
-    <%= yield %>
+    <% if controller_name != 'sessions' && controller_name != 'registrations' && controller_name == 'pages' %>
+      <%= render 'shared/pages_navbar' %>
+      <%= yield %>
+    <% elsif controller_name != 'sessions' && controller_name != 'registrations' %>
+      <div class="wrapper">
+        <%= render 'shared/main_navbar' %>
+        <%= yield %>
+      </div>
+    <% else %>
+      <%= yield %>
+    <% end %>
   </body>
 </html>

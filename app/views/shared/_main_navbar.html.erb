@@ -1,0 +1,33 @@
+<nav id="sidebar">
+  <div>
+    <div>
+    <%= link_to root_path do %>
+      <%= image_tag "logo-green-bg.png", class: "small-logo" %>
+    <% end %>
+    </div>
+
+    <ul class="list-unstyled sidebar-items">
+      <li class="active sidebar-item align-middle">
+        <a href="#"><i class="fas fa-clipboard-list sidebar-icon-item"></i></a>
+      </li>
+      <li class="sidebar-item">
+        <a href="#"><i class="fas fa-calendar-alt sidebar-icon-item"></i></a>
+      </li>
+      <li class="sidebar-item">
+        <a href="#"><i class="fas fa-seedling sidebar-icon-item"></i></a>
+      </li>
+      <li class="sidebar-item">
+        <%= link_to farm_path(current_user.farm_id) do %><%= image_tag "greenhouse.png", class: "sidebar-img-item" %><% end %>
+      </li>
+      <li class="sidebar-item">
+        <i class="fas fa-euro-sign sidebar-icon-item"></i>
+      </li>
+    </ul>
+  </div>
+
+  <div>
+    <%= link_to destroy_user_session_path, method: :delete, class: "logout-button-link" do %>
+      <%= image_tag "deconnexion-green-bg.png", class: "logout-button" %>
+    <% end %>
+  </div>
+</nav>
