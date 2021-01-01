@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   get 'about', to: 'pages#about'
 
   resources :farms, only: [ :show ]
+  resources :products, only: [ :index ]
 end

@@ -1,0 +1,10 @@
+<div class="container mt-4">
+  <ul>
+    <% @products.each do |product| %>
+    <li>
+      <%= product.name %>
+      <%= cl_image_tag product.photo.key, width: 100, crop: :scale %>
+    </li>
+  <% end %>
+  </ul>
+</div>

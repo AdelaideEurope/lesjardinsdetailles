@@ -17,10 +17,17 @@
         <a href="#"><i class="fas fa-seedling sidebar-icon-item"></i></a>
       </li>
       <li class="sidebar-item">
-        <%= link_to farm_path(current_user.farm_id) do %><%= image_tag "greenhouse.png", class: "sidebar-img-item" %><% end %>
+        <%= link_to farm_path(current_user.farm_id) do %>
+          <%= image_tag "greenhouse.png", class: "sidebar-img-item" %>
+        <% end %>
       </li>
       <li class="sidebar-item">
         <i class="fas fa-euro-sign sidebar-icon-item"></i>
+      </li>
+      <li class="sidebar-item">
+        <%= link_to products_path do %>
+          <%= image_tag "carrot.png", class: "sidebar-img-item" %>
+        <% end %>
       </li>
     </ul>
   </div>
