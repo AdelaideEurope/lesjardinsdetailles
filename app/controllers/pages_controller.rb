@@ -5,5 +5,6 @@ class PagesController < ApplicationController
   end
 
   def about
+    @products = Product.all
   end
 end
