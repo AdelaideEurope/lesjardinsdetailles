@@ -1,0 +1,62 @@
+.crop-plan-months {
+  border-bottom: 2px solid $light-grey;
+  padding-bottom: 12px;
+}
+
+.crop-plan-title-txt {
+  padding: 0 12px;
+  text-align: center;
+  border-right: 1px solid $light-grey;
+  width:16%;
+}
+
+.crop-plan-title-txt:last-child{
+    border: 0;
+}
+
+.crop-plan-garden-names {
+  a {
+    color: $raisin !important;
+  }
+
+  li {
+    line-height: 48px;
+    border-bottom: 1px solid $light-grey;
+  }
+}
+
+.crop-plan-garden-name {
+  padding: 0 12px;
+}
+
+.crop-plan-bed-name {
+  padding-left: 24px;
+}
+
+
+.crop-plan-right-column {
+  width: 84%;
+}
+
+.crop-plan-left-column {
+  width: 16%;
+}
+
+[data-toggle="collapse"] .fa:before {
+  content: "\f078";
+  font-size: 12px;
+  padding-left: 12px;
+  color: $raisin;
+}
+
+[data-toggle="collapse"].collapsed .fa:before {
+  content: "\f054";
+  font-size: 12px;
+  padding-left: 12px;
+  color: $raisin;
+}
+
+.vertical-line-today {
+  height: 104%;
+  border-left: 2px solid $green;
+}

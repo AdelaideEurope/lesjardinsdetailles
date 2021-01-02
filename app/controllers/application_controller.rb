@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
+  before_action :get_abbreviated_months
 
   include Pundit
 
@@ -8,6 +9,11 @@ class ApplicationController < ActionController::Base
 
   after_action :verify_authorized, unless: :skip_pundit?
   # after_action :verify_policy_scoped, only: :index, unless: :skip_pundit?
+
+  def get_abbreviated_months
+    @abbr_month_names = I18n.t(:abbr_month_names).map {|k, v| v}
+  end
+
 
 
   private

@@ -52,3 +52,38 @@
 .sidebar-items {
   margin-top: 10vh;
 }
+
+#bottom-navbar {
+  background-color: $green;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 12px;
+  border-radius: 24px 24px 0 0;
+}
+
+
+#bottom-navbar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+}
+
+// /* Change the color of links on hover */
+// #bottom-navbar a:hover {
+//   background-color: $olive;
+// }
+
+/* Add a color to the active/current link */
+// #bottom-navbar a.active {
+//   background-color: $olive;
+// }
+
+.bottom-navbar-img-item {
+  height: 20px;
+}
