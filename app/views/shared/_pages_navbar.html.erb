@@ -22,6 +22,9 @@
           <%= link_to "Dashboard ferme", farm_path(current_user.farm_id), class: "dropdown-item d-none" %>
         <% end %>
         <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class: "dropdown-item d-none" %>
+        <li class="nav-item d-sm-none">
+          <%= link_to farm_path(current_user.farm_id), class: "nav-link" do %><%= image_tag "connexion.png", alt: "connexion", class: "login-button" %><% end %>
+        </li>
       <% else %>
         <li class="nav-item">
           <%= link_to new_user_session_path, class: "nav-link" do %><%= image_tag "connexion.png", alt: "connexion", class: "login-button" %><% end %>
