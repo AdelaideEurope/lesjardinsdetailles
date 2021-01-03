@@ -44,9 +44,12 @@
 <div class="mobile_only">
   <div id="bottom-navbar" >
     <a href="#" class="active"><i class="fas fa-clipboard-list sidebar-icon-item"></i></a>
+    <a href="#"><i class="fas fa-calendar-alt sidebar-icon-item"></i></a>
     <%= link_to farm_path(current_user.farm_id) do %>
       <%= image_tag "greenhouse.png", class: "bottom-navbar-img-item" %>
     <% end %>
-    <a href="#contact">Contact</a>
+    <%= link_to produits_path do %>
+      <%= image_tag "carrot.png", class: "sidebar-img-item" %>
+    <% end %>
   </div>
 </div>
