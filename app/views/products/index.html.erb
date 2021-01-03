@@ -1,17 +1,37 @@
-<div class="container mt-4">
-  <div class="m-4 product-card">
-    <div class="card-colored-top-part">
-      <div class="card-top-part-text"><%= @products[0].name.capitalize %></div>
+<div class="container mt-4 d-flex flex-wrap justify-content-between">
+  <% @products.each do |product| %>
+    <div class="m-4 product-card">
+      <div class="card-colored-top-part">
+        <div class="card-top-part-text"><%= product.name.capitalize %></div>
+      </div>
+      <%#= cl_image_tag @products[0].photo.key, class: "card-product-img" %>
+      <div class="card-bottom-part">
+        <div class="card-bottom-part-text">
+          <div class="card-main-info-top-right">122 €</div>
+          <p class="mt-2">Ceci est un bloc de texte basique, blabla bla blabla</p>
+        </div>
+        <div class="d-flex justify-content-end">
+          <div class="card-bottom-right-triangle" data-drawer-product="<%= product %>" data-drawer-trigger aria-controls="drawer-name" aria-expanded="false"><i class="fas fa-plus"></i></div>
+        </div>
+      </div>
     </div>
-    <%#= cl_image_tag @products[0].photo.key, class: "card-product-img" %>
-    <div class="card-bottom-part">
-      <div class="card-bottom-part-text">
-        <div class="card-main-info-top-right">122 €</div>
-        <p class="mt-2">Ceci est un bloc de texte basique, blabla bla blabla</p>
+  <% end %>
+</div>
+
+<section class="drawer" id="drawer-name" data-drawer-target>
+  <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+  <div class="drawer__wrapper">
+    <div class="drawer__header">
+      <div class="drawer__title">
+        Drawer Title Here
       </div>
-      <div class="d-flex justify-content-end">
-        <div class="card-bottom-right-triangle"><i class="fas fa-plus"></i></div>
-      </div>
+      <button class="drawer__close" data-drawer-close aria-label="Close Drawer"></button>
+    </div>
+    <div class="drawer__content">
+      Drawer Content Here
     </div>
   </div>
-</div>
+</section>
+
+<script>
+  </script>

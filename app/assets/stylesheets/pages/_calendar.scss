@@ -32,11 +32,30 @@
 }
 
 .calendar-heading {
-  text-align: center;
+  text-align: right;
   color: $green;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .calendar-previous, .calendar-next {
-  padding: 16px;
-  color: $olive;
+  padding: 12px 16px;
+  color: white;
+  margin: 16px 0;
+  background: $green;
+}
+
+.calendar-previous {
+  border-radius: 0 0 0 24px;
+}
+
+.calendar-next {
+  border-radius: 0 24px 0 0;
+}
+
+.calendar-title {
+  padding: 10px 20px;
+  height: 40px;
+  margin: 16px 0;
+  border: 1px solid $green;
 }

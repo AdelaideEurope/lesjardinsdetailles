@@ -27,6 +27,9 @@ import "bootstrap";
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
+import { drawerOpener } from 'components/drawer_opener.js.erb';
+
+drawerOpener();
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:

@@ -12,7 +12,7 @@
 
   <body>
     <%= render 'shared/flashes' %>
-    <% if controller_name != 'sessions' && controller_name != 'registrations' && controller_name == 'pages' %>
+    <% if controller_name != 'sessions' && controller_name != 'registrations' && controller_name == 'pages' && action_name != 'dashboard' %>
       <%= render 'shared/pages_navbar' %>
       <%= yield %>
     <% elsif controller_name != 'sessions' && controller_name != 'registrations' %>

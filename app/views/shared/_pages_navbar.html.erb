@@ -10,19 +10,19 @@
     <ul class="navbar-nav mr-auto">
       <% if user_signed_in? %>
         <% if current_user.worker == false %>
-          <%= link_to "Mon compte", about_path, class: "dropdown-item d-none" %>
+          <%= link_to "Mon compte", about_path, class: "dropdown-item desktop_only" %>
         <% end %>
         <% if current_user.worker == true %>
-          <%= link_to "UI Kit", about_path, class: "dropdown-item d-none" %>
+          <%= link_to "UI Kit", about_path, class: "dropdown-item desktop_only" %>
         <% end %>
         <% if current_user.worker == true %>
-          <%= link_to "Dashboard activités", about_path, class: "dropdown-item d-none" %>
+          <%= link_to "Dashboard activités", about_path, class: "dropdown-item desktop_only" %>
         <% end %>
         <% if current_user.manager == true %>
-          <%= link_to "Dashboard ferme", farm_path(current_user.farm_id), class: "dropdown-item d-none" %>
+          <%= link_to "Dashboard ferme", farm_path(current_user.farm_id), class: "dropdown-item desktop_only" %>
         <% end %>
-        <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class: "dropdown-item d-none" %>
-        <li class="nav-item d-sm-none">
+        <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class: "dropdown-item desktop_only" %>
+        <li class="nav-item">
           <%= link_to farm_path(current_user.farm_id), class: "nav-link" do %><%= image_tag "connexion.png", alt: "connexion", class: "login-button" %><% end %>
         </li>
       <% else %>

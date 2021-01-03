@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_03_193737) do
+ActiveRecord::Schema.define(version: 2021_01_03_220114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,8 +130,8 @@ ActiveRecord::Schema.define(version: 2021_01_03_193737) do
     t.string "general_unit"
     t.integer "general_price_final_client"
     t.integer "general_price_intermediary"
-    t.integer "yearly_bed_count"
-    t.integer "yield_per_sqm"
+    t.decimal "yearly_bed_count"
+    t.decimal "yield_per_sqm"
     t.integer "estimated_turnover"
     t.bigint "farm_id", null: false
     t.bigint "product_group_id", null: false
