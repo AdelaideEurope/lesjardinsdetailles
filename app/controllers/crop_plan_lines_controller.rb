@@ -8,8 +8,6 @@ class CropPlanLinesController < ApplicationController
 end
 
   def get_elapsed_days_since_beginning_of_year
-    today = Date.today
-    first_day_of_year = Date.new(today.year)
-    number_days_since_first_day_of_year = (today - first_day_of_year).to_i
+    number_days_since_first_day_of_year = Date.today.strftime("%j").to_i
     @percentage_number_days_since_first_day_of_year = ((number_days_since_first_day_of_year * 100) / 365).to_i
   end

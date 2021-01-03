@@ -11,7 +11,9 @@
         <a href="#"><i class="fas fa-clipboard-list sidebar-icon-item"></i></a>
       </li>
       <li class="sidebar-item">
-        <a href="#"><i class="fas fa-calendar-alt sidebar-icon-item"></i></a>
+        <%= link_to calendrier_index_path do %>
+          <i class="fas fa-calendar-alt sidebar-icon-item"></i>
+        <% end %>
       </li>
       <li class="sidebar-item">
         <%= link_to plandeculture_index_path do %>
@@ -44,7 +46,7 @@
 <div class="mobile_only">
   <div id="bottom-navbar" >
     <a href="#" class="active"><i class="fas fa-clipboard-list sidebar-icon-item"></i></a>
-    <a href="#"><i class="fas fa-calendar-alt sidebar-icon-item"></i></a>
+    <%= link_to calendrier_index_path do %><i class="fas fa-calendar-alt sidebar-icon-item"></i><% end %>
     <%= link_to farm_path(current_user.farm_id) do %>
       <%= image_tag "greenhouse.png", class: "bottom-navbar-img-item" %>
     <% end %>

@@ -1,0 +1,42 @@
+.simple-calendar .today {
+  background: white;
+  border-top: 3px solid $olive;
+  border-bottom: 3px solid $olive;
+  border-left: 2px solid $olive;
+  border-right: 2px solid $olive;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background: none;
+}
+
+.day {
+  text-align: right;
+}
+
+.simple-calendar th {
+  text-align: center;
+}
+
+.simple-calendar {
+  overflow: scroll;
+}
+
+.simple-calendar .day {
+  height: 160px;
+}
+
+.calendar-user-presence-periods {
+  padding-bottom: 8px;
+  margin-top: -8px;
+}
+
+.calendar-heading {
+  text-align: center;
+  color: $green;
+}
+
+.calendar-previous, .calendar-next {
+  padding: 16px;
+  color: $olive;
+}

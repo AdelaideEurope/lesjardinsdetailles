@@ -45,8 +45,8 @@
   &.orange {
     background: $orange;
   }
-  &.light-grey {
-    background: $light-grey;
+  &.lightgrey {
+    background: $lightgrey;
   }
 }
 
@@ -55,6 +55,8 @@
   height: 20px;
   border-radius: 50%;
   color: white;
+  font-size: 14px;
+  text-align: center;
 
   &.raisin {
     background: $raisin;
@@ -73,8 +75,8 @@
   &.orange {
     background: $orange;
   }
-  &.light-grey {
-    background: $light-grey;
+  &.lightgrey {
+    background: $lightgrey;
     color: $raisin;
   }
 }

@@ -32,6 +32,9 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
 gem 'pundit'
 
+# calendar
+gem "simple_calendar", "~> 2.0"
+
 gem 'rails-i18n', '~> 6.0.0'
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'

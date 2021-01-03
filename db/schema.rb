@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_01_234415) do
+ActiveRecord::Schema.define(version: 2021_01_03_193737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,22 @@ ActiveRecord::Schema.define(version: 2021_01_01_234415) do
     t.index ["vegetable_variet_id"], name: "index_crop_plan_lines_on_vegetable_variet_id"
   end
 
+  create_table "events", force: :cascade do |t|
+    t.datetime "date"
+    t.string "description"
+    t.string "details"
+    t.string "comment"
+    t.string "event_category"
+    t.string "event_subcategory"
+    t.datetime "date_done"
+    t.bigint "farm_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.index ["farm_id"], name: "index_events_on_farm_id"
+  end
+
   create_table "farms", force: :cascade do |t|
     t.string "full_name"
     t.string "shortened_name"
@@ -86,6 +102,18 @@ ActiveRecord::Schema.define(version: 2021_01_01_234415) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["farm_id"], name: "index_gardens_on_farm_id"
+  end
+
+  create_table "presence_periods", force: :cascade do |t|
+    t.datetime "date"
+    t.boolean "on_call_period"
+    t.string "comment"
+    t.string "moment_in_day"
+    t.boolean "specific_moment"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "start_time"
+    t.datetime "end_time"
   end
 
   create_table "product_groups", force: :cascade do |t|
@@ -120,6 +148,24 @@ ActiveRecord::Schema.define(version: 2021_01_01_234415) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["farm_id"], name: "index_products_on_farm_id"
     t.index ["product_group_id"], name: "index_products_on_product_group_id"
+  end
+
+  create_table "user_events", force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_user_events_on_event_id"
+    t.index ["user_id"], name: "index_user_events_on_user_id"
+  end
+
+  create_table "user_presence_periods", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "presence_period_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["presence_period_id"], name: "index_user_presence_periods_on_presence_period_id"
+    t.index ["user_id"], name: "index_user_presence_periods_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -159,9 +205,14 @@ ActiveRecord::Schema.define(version: 2021_01_01_234415) do
   add_foreign_key "crop_plan_lines", "beds"
   add_foreign_key "crop_plan_lines", "products"
   add_foreign_key "crop_plan_lines", "vegetable_variets"
+  add_foreign_key "events", "farms"
   add_foreign_key "gardens", "farms"
   add_foreign_key "products", "farms"
   add_foreign_key "products", "product_groups"
+  add_foreign_key "user_events", "events"
+  add_foreign_key "user_events", "users"
+  add_foreign_key "user_presence_periods", "presence_periods"
+  add_foreign_key "user_presence_periods", "users"
   add_foreign_key "users", "farms"
   add_foreign_key "vegetable_variets", "products"
 end

@@ -6,7 +6,7 @@ $green: #276259;
 $olive: #A1BD7F;
 $orange: #E85F5C;
 $red: #B23A48;
-$light-grey: #E5E5E5;
+$lightgrey: #E5E5E5;
 
 // $red: #FD1015;
 // $blue: #167FFB;
@@ -15,3 +15,22 @@ $light-grey: #E5E5E5;
 // $green: #276259;
 // $gray: #0E0000;
 // $light-gray: #F4F4F4;
+
+.bgcolor-242331 {
+  background: $raisin;
+}
+.bgcolor-276259 {
+  background: $green;
+}
+.bgcolor-A1BD7F {
+  background: $olive;
+}
+.bgcolor-E85F5C {
+  background: $orange;
+}
+.bgcolor-B23A48 {
+  background: $red;
+}
+.bgcolor-E5E5E5 {
+  background: $lightgrey;
+}
