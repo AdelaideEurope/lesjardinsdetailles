@@ -1,51 +1,52 @@
 h1 {
-font-family: $headers-font;
-font-size: 28px;
-font-style: normal;
-font-weight: 700;
-line-height: 32px;
-text-align: left;
-color: $green;
+  font-family: $headers-font;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 48px;
+  text-align: left;
+  color: $green;
+  margin-bottom: 0;
 }
 
 h2 {
-font-family: $headers-font;
-font-size: 24px;
-font-style: normal;
-font-weight: 400;
-line-height: 26px;
-text-align: left;
-color: $green;
+  font-family: $headers-font;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px;
+  text-align: left;
+  color: $green;
 }
 
 h3 {
-font-family: $headers-font;
-font-size: 20px;
-font-style: normal;
-font-weight: 400;
-line-height: 21px;
-text-align: left;
-color: $olive;
+  font-family: $headers-font;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: left;
+  color: $olive;
 }
 
 h4 {
-font-family: $headers-font;
-font-size: 20px;
-font-style: normal;
-font-weight: 400;
-line-height: 21px;
-text-align: left;
-color: $green;
+  font-family: $headers-font;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: left;
+  color: $green;
 }
 
 p {
-font-family: Red Hat Display;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: 16px;
-text-align: left;
-color: $raisin;
+  font-family: Red Hat Display;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+  text-align: left;
+  color: $raisin;
 }
 
 a {
@@ -100,4 +101,79 @@ input {
    .desktop_only {
      display: none !important;
    }
+}
+
+// VERSION MOBILE
+@media(max-width:767px) {
+  h1 {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 50px;
+    text-align: left;
+    color: $green;
+    margin-bottom: 0;
+  }
+
+  h2 {
+    font-family: $headers-font;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: left;
+    color: $green;
+  }
+
+  h3 {
+    font-family: $headers-font;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 13px;
+    text-align: left;
+    color: $olive;
+  }
+
+  h4 {
+    font-family: $headers-font;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 13px;
+    text-align: left;
+    color: $green;
+  }
+
+  p {
+    font-family: Red Hat Display;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 10px;
+    text-align: left;
+    color: $raisin;
+  }
+
+  ::placeholder {
+    font-size: 12px;
+  }
+
+  input {
+    &.search-input {
+      border: $green solid 1px !important;
+      color: $raisin;
+      outline: none !important;
+      padding-left: 12px;
+      height: 28px;
+    }
+  }
+
+  .small-infos {
+    font-size: 8px;
+    color: $olive;
+    &:hover {
+      color: $olive;
+    }
+  }
 }

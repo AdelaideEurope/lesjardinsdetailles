@@ -14,7 +14,11 @@ class ApplicationController < ActionController::Base
     @abbr_month_names = I18n.t(:abbr_month_names).map {|k, v| v}
   end
 
-
+  def after_sign_in_path_for(resource)
+    if resource.worker
+      farm_path(resource.farm_id)
+    end
+  end
 
   private
 

@@ -1,5 +1,10 @@
-<div class="d-flex">
-  <div class="signup-signin-left-pane">Se connecter</div>
+<div class="signup-signin-layout">
+  <div class="signup-signin-left-pane">
+    <%= link_to root_path, class: "signup-signin-logo" do %>
+      <%= image_tag "logo-green-bg.png", class: "small-logo-signup-signin" %>
+    <% end %>
+    Se connecter
+  </div>
   <div class="signup-signin-right-pane">
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="form-inputs">
@@ -9,6 +14,7 @@
                     input_html: { autocomplete: "email" } %>
         <%= f.input :password,
                     required: false,
+                    :label => "Mot de passe",
                     input_html: { autocomplete: "current-password" } %>
         <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
       </div>

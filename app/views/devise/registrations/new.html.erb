@@ -1,5 +1,10 @@
-<div class="d-flex">
-  <div class="signup-signin-left-pane">Créer un compte</div>
+<div class="signup-signin-layout">
+  <div class="signup-signin-left-pane">
+    <%= link_to root_path, class: "signup-signin-logo" do %>
+      <%= image_tag "logo-green-bg.png", class: "small-logo-signup-signin" %>
+    <% end %>
+    Créer un compte
+  </div>
   <div class="signup-signin-right-pane">
     <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= f.error_notification %>
@@ -11,9 +16,11 @@
                     input_html: { autocomplete: "email" }%>
         <%= f.input :password,
                     required: true,
+                    :label => "Mot de passe",
                     hint: ("#{@minimum_password_length} caractères minimum" if @minimum_password_length),
                     input_html: { autocomplete: "new-password" } %>
         <%= f.input :password_confirmation,
+                    :label => "Confirmation du mot de passe",
                     required: true,
                     input_html: { autocomplete: "new-password" } %>
       </div>

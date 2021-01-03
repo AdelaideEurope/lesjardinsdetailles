@@ -20,7 +20,7 @@ fr:
       unauthenticated: "Vous devez vous connecter ou vous inscrire pour continuer."
       unconfirmed: "Vous devez confirmer votre compte pour continuer."
       locked: "Votre compte est verrouillé."
-      invalid: "Courriel ou mot de passe incorrect."
+      invalid: "L'email ou le mot de passe est incorrect"
       invalid_token: "Jeton d'authentification incorrect."
       timeout: "Votre session est expirée, veuillez vous reconnecter pour continuer."
       inactive: "Votre compte n'est pas encore activé."
@@ -28,6 +28,7 @@ fr:
       signed_in: "Connecté·e"
       signed_out: "Déconnecté·e"
     passwords:
+      password: "Mot de passe"
       change_your_password: "Changez votre mot de passe"
       new_password: "Nouveau mot de passe"
       confirm_new_password: "Confirmer le nouveau mot de passe"
