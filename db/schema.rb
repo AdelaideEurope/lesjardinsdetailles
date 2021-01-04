@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_03_220114) do
+ActiveRecord::Schema.define(version: 2021_01_04_211549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 2021_01_03_220114) do
     t.string "seedling_type"
     t.string "comment"
     t.boolean "different_from_original"
-    t.bigint "vegetable_variet_id", null: false
+    t.bigint "vegetable_variet_id"
     t.integer "estimated_turnover"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
