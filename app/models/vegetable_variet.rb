@@ -3,3 +3,5 @@ class VegetableVariet < ApplicationRecord
 
   has_many :crop_plan_lines
 end
+
+
