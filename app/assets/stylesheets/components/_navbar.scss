@@ -15,10 +15,11 @@
   display: flex;
   width: 100%;
   align-items: stretch;
+  position: absolute;
 }
 
 #sidebar {
-  width: 4%;
+  width: 72px;
   min-height: 100vh;
   color: white;
   background: $green;
@@ -26,6 +27,8 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 4vh 0;
+  position: fixed;
+  z-index: 100;
 }
 
 .logout-button-link {
@@ -63,6 +66,7 @@
   justify-content: space-between;
   padding: 0 12px;
   border-radius: 24px 24px 0 0;
+  z-index: 100;
 }
 
 

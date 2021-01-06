@@ -1,8 +1,46 @@
 .product-card {
   display: flex;
   flex-direction: column;
-  height: 260px;
+  height: fit-content;
   width: 200px;
+  margin: 16px 16px;
+}
+
+.dashboard-info-card {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  width: 200px;
+}
+
+.product-card-fixed-color {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  &.green {
+    box-shadow: 0px 2px 4px 0px $green;
+  }
+  &.orange {
+    box-shadow: 0px 2px 4px 0px $orange;
+  }
+  &.red {
+    box-shadow: 0px 2px 4px 0px $red;
+  }
+}
+
+.dashboard-crop-plan-line-card {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  &.green {
+    box-shadow: 0px 2px 4px 0px $green;
+  }
+  &.orange {
+    box-shadow: 0px 2px 4px 0px $orange;
+  }
+  &.red {
+    box-shadow: 0px 2px 4px 0px $red;
+  }
 }
 
 .card-colored-top-part {
@@ -11,12 +49,27 @@
   border-radius: 0px 0px 24px 0px;
 }
 
+.card-colored-top-part-fixed-color {
+  height: 100px;
+  width: 100%;
+  border-radius: 0px 0px 24px 0px;
+  &.green {
+    background: $green;
+  }
+  &.orange {
+    background: $orange;
+  }
+  &.red {
+    background: $red;
+  }
+}
+
 .card-top-part-text {
   display: flex;
   color: white;
   padding: 0 24px 8px 0;
   height: 100px;
-  width: 200px;
+  width: 100%;
   align-items: flex-end;
   justify-content: flex-end;
 }
@@ -34,10 +87,18 @@
   display: flex;
   justify-content: flex-end;
   color: white;
-  background: linear-gradient(to bottom right, #fff 0%, #fff 50%, #276259 50%, #276259 100%);
   padding: 24px 8px;
   width: 48px;
   height: 48px;
+  &.green {
+    background: linear-gradient(to bottom right, #fff 0%, #fff 50%, $green 50%, $green 100%);
+  }
+  &.orange {
+    background: linear-gradient(to bottom right, #fff 0%, #fff 50%, $orange 50%, $orange 100%);
+  }
+  &.red {
+    background: linear-gradient(to bottom right, #fff 0%, #fff 50%, $red 50%, $red 100%);
+  }
 }
 
 .card-product-img {
@@ -50,12 +111,30 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 160px;
+  height: -webkit-fill-available;
 }
 
-@media(max-width:767px) {
+
+.dashboard-crop-plan-line-card {
+  .card-top-part-text {
+    width: 100%;
+    height: 60px;
+  }
+
+  .card-colored-top-part-fixed-color {
+    height: 60px;
+  }
+}
+
+.card-bottom-section-with-icon {
+  position: relative;
+  bottom: 0;
+}
+
+// MOBILE
+@media(max-width:812px) {
   .product-card {
-    height: 204px;
+    height: fit-content;
     width: 100%;
   }
 
@@ -65,7 +144,7 @@
   }
 
   .card-bottom-part {
-    height: 148px;
+    height: fit-content;
   }
 
   .card-top-part-text {

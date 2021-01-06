@@ -1,3 +1,9 @@
+.custom-container {
+  margin-top: 24px;
+  margin-bottom: 24px;
+  padding-left: 87px;
+}
+
 h1 {
   font-family: $headers-font;
   font-size: 28px;
@@ -89,6 +95,9 @@ input {
   }
 }
 
+.w-48-desktop {
+  width: 48%
+}
 
 .mobile_only {
   display: none;
@@ -104,7 +113,7 @@ input {
 }
 
 // VERSION MOBILE
-@media(max-width:767px) {
+@media(max-width:812px) {
   h1 {
     font-size: 20px;
     font-style: normal;
@@ -176,4 +185,15 @@ input {
       color: $olive;
     }
   }
+
+  .custom-container {
+    margin-top: 24px;
+    margin-bottom: 80px;
+    padding-left: 15px;
+  }
+
+  .w-48-desktop {
+    width: 100%
+  }
 }
+
