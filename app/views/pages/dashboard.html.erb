@@ -33,7 +33,7 @@
         <div class="card-bottom-part-text">
           <p class="mt-4">Ceci est un bloc de texte basique, blabla bla blablte basique, blabla bla blablte basique, blabla bla blablte basique, blabla bla blablte basique, blabla bla blablte basique, blabla bla blablte basique, blabla bla blablte basique, blabla bla blabla</p>
         </div>
-          <div class="d-sm-flex justify-content-end card-bottom-section-with-icon">
+          <div class="d-flex justify-content-end card-bottom-section-with-icon">
             <%= link_to plandeculture_index_path do %>
               <div class="card-bottom-right-triangle green"><i class="fas fa-seedling" style="padding: 3px 0;"></i></div>
             <% end %>
@@ -71,7 +71,7 @@
       </div>
     </div>
   </div>
-  <div class="dashboard-today-date">
+  <div class="dashboard-today-date desktop_only">
     <h1><%= I18n.l(Date.today, format: :long, locale: :'fr-FR') %></h1>
   </div>
 </div>

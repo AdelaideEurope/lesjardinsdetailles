@@ -36,6 +36,7 @@
 }
 
 .calendar-heading {
+  z-index: 2;
   text-align: right;
   color: $green;
   display: flex;
@@ -73,6 +74,43 @@
   font-weight: 700;
 }
 
+
+// MOBILE
+@media(max-width:812px) {
+  .calendar-heading {
+    z-index: 2;
+    text-align: right;
+    color: #276259;
+    display: flex;
+    justify-content: flex-end;
+    position: fixed;
+    padding-right: 8%;
+    right: 0;
+    width: 100%;
+    background: white;
+    padding-bottom: 12px;
+    padding-top: 16px;
+    margin-top: -24px;
+  }
+
+  .calendar-title {
+    padding: 8px 12px;
+    height: 32px;
+    margin: 0 -1px;
+    border: 1px solid #276259;
+    font-weight: 700;
+    font-size: 12px;
+  }
+
+  .calendar-previous, .calendar-next {
+    padding: 10px 14px;
+    color: white;
+    margin: 0;
+    background: #276259;
+    font-size: 12px;
+  }
+
+}
 
 
 

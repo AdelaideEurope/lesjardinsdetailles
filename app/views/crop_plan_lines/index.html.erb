@@ -47,7 +47,7 @@
                                   white-space: nowrap;
                                   overflow: hidden;">
                         <div style="line-height: 64px;"><%= cpl.planting_date.strftime('%U').to_i %></div>
-                        <div style="margin: 0 auto"><%= cpl.product.name.capitalize[0..1] %></div>
+                        <div style="margin: 0 auto; cursor: pointer" data-drawer-trigger aria-controls="drawer-name<%= cpl.product.id %>"><%= cpl.product.name.capitalize[0..1] %></div>
                       </div>
                       <div style="position: relative;
                                   line-height: 64px;
@@ -63,6 +63,40 @@
                         <div><%= cpl.harvest_start_date.strftime('%U').to_i %></div>
                         <div><%= cpl.harvest_end_date.strftime('%U').to_i %></div>
                       </div>
+                      <section class="drawer" id="drawer-name<%= cpl.product.id %>" data-drawer-target>
+                        <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+                        <div class="drawer__wrapper">
+                          <div class="drawer__header">
+                            <div class="d-flex justify-content-between">
+                              <div class="drawer__title d-flex">
+                                <h1><%= cpl.product.name.capitalize %></h1>
+                                <% if cpl.product.photo.attached? %>
+                                  <%= cl_image_tag cpl.product.photo.key, class: "drawer-product-img" %>
+                                <% end %>
+                              </div>
+                              <button class="drawer__close" data-drawer-close aria-label="Close Drawer"></button>
+                            </div>
+                          <div style="margin-top: -8px;"><%= cpl.product.product_group.name.capitalize %></div>
+                          </div>
+                          <div class="drawer__content">
+                            <div>Nombre de planches <%= Date.today.strftime('%Y') %> : <%= remove_trailing_zero(cpl.product.yearly_bed_count) %></div>
+                            <h2 class="mt-4">Infos culture</h2>
+                            <div>Rendement par mètre carré : <%= get_price_in_cents(cpl.product.yield_per_sqm) %></div>
+                            <div>Chiffre d'affaires estimé : <%= get_price_in_cents(cpl.product.estimated_turnover) %></div>
+                            <div>Espacement : <%= show_replace_nil_with_dash(cpl.product.spacing) %></div>
+                            <div>Nombre de rangs : <%= cpl.product.row_count %></div>
+                            <div>Perte : <%= cpl.product.loss_percentage %> %</div>
+                            <div>Durée de croissance en semaines : <%= cpl.product.growth_duration_in_weeks %></div>
+                            <div>Durée de récolte en semaines : <%= cpl.product.harvest_duration_in_weeks %></div>
+
+                            <h2 class="mt-4">Money money money 💵</h2>
+                            <div>Prix général : <%= get_price_in_cents(cpl.product.general_price_final_client) %>/<%= cpl.product.general_unit %></div>
+                            <div>Prix général intermédiaire : <%= get_price_in_cents(cpl.product.general_price_intermediary) %>/<%= cpl.product.general_unit %></div>
+                            <div>Chiffre d'affaires HT : <%= get_price_in_cents(cpl.product.ht_turnover) %></div>
+                            <div>Chiffre d'affaires TTC : <%= get_price_in_cents(cpl.product.ttc_turnover) %></div>
+                          </div>
+                        </div>
+                      </section>
                     <% end %>
                   </div>
                 </div>
@@ -74,3 +108,4 @@
     </ul>
   </div>
 </div>
+
