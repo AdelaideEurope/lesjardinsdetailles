@@ -1,0 +1,38 @@
+.card-list-item-second-line {
+  color: $olive;
+  font-size: 14px;
+}
+
+.card-list-item-block {
+  padding: 8px 0;
+  border-bottom: 1px solid $lightgrey;
+}
+
+.card-list-item-main-info-block {
+  margin-left: 8px;
+}
+
+.card-list-item-round-button-block {
+  flex-grow: 1
+}
+
+.card-list-item-left-block {
+  display: flex;
+  flex-grow: 2;
+  width: 40%;
+}
+// VERSION MOBILE
+@media(max-width:812px) {
+  .card-list-item-second-line {
+    color: $olive;
+    font-size: 10px;
+  }
+
+  .card-list-item-left-block {
+    width: 100%
+  }
+
+  .card-list-item-block {
+    flex-direction: column;
+  }
+}
