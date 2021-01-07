@@ -1,5 +1,4 @@
 <div class="container mt-4 custom-container">
-
   <%= week_calendar(number_of_weeks: 1, events: @presence_periods+@events) do |date, events| %>
     <%= date.day %>
     <% events.each do |event| %>
@@ -44,7 +43,7 @@
               <div class="d-flex justify-content-between card-list-item-round-button-block">
                 <div><div class="round-button green mobile_only m-2"><i class="fas fa-check round-txt-button"></i></div></div>
                 <div class="d-flex">
-                  <div class="round-button green m-2"><i class="fas fa-comment round-txt-button"></i></i></div>
+                  <div class="round-button lightgrey m-2"><i class="fas fa-comment round-txt-button"></i></i></div>
                   <div class="round-button orange m-2"><i class="fas fa-redo-alt round-txt-button"></i></i></div>
                 </div>
                 <div>
@@ -84,7 +83,7 @@
               <div class="d-flex justify-content-between card-list-item-round-button-block">
                 <div><div class="round-button green mobile_only m-2"><i class="fas fa-check round-txt-button"></i></div></div>
                 <div class="d-flex">
-                  <div class="round-button green m-2"><i class="fas fa-comment round-txt-button"></i></i></div>
+                  <div class="round-button lightgrey m-2"><i class="fas fa-comment round-txt-button"></i></i></div>
                   <div class="round-button orange m-2"><i class="fas fa-redo-alt round-txt-button"></i></i></div>
                 </div>
                 <div>
@@ -118,10 +117,17 @@
             </div>
             <div class="mt-3">
               <h3>Dispo pour la récolte cette semaine</h3>
+              <div class="d-flex flex-wrap justify-content-center">
+                <div class="d-flex px-sm-2 px-1"><div class="d-flex"><div class="align-self-center"><p>Aubergine | </p></div><div class="card-list-item-second-line align-self-center"> The 6 - 4</div></div><div class="sm-round-button orange m-sm-2 m-1"><i class="fas fa-redo-alt round-txt-button"></i></i></div></div>
+                <div class="d-flex px-sm-2 px-1"><div class="d-flex"><div class="align-self-center"><p>Salade | </p></div><div class="card-list-item-second-line align-self-center"> Jardin 1 - 2</div></div><div class="sm-round-button orange m-sm-2 m-1"><i class="fas fa-redo-alt round-txt-button"></i></i></div></div>
+                <div class="d-flex px-sm-2 px-1"><div class="d-flex"><div class="align-self-center"><p>Mesclun | </p></div><div class="card-list-item-second-line align-self-center"> Jardin 8 - 9</div></div><div class="sm-round-button orange m-sm-2 m-1"><i class="fas fa-redo-alt round-txt-button"></i></i></div></div>
+
+
+              </div>
             </div>
           </div>
         </div>
-          <div class="d-flex justify-content-end card-bottom-section-with-icon">
+          <div id="decharge-mentale-anchor" class="d-flex justify-content-end card-bottom-section-with-icon">
             <%= link_to plandeculture_index_path do %>
               <div class="card-bottom-right-triangle green"><i class="fas fa-seedling" style="padding: 3px 0;"></i></div>
             <% end %>
@@ -138,7 +144,7 @@
           <div class="card-bottom-part-text">
             <p class="mt-4">Ceci est un bloc de texte basique, blabla bla blablte basique</p>
           </div>
-          <div class="d-flex justify-content-end card-bottom-section-with-icon">
+          <div id="tour-des-jardins-anchor" class="d-flex justify-content-end card-bottom-section-with-icon">
             <div class="card-bottom-right-triangle orange"><i class="fas fa-plus"></i></div>
           </div>
         </div>
@@ -161,5 +167,13 @@
   </div>
   <div class="dashboard-today-date desktop_only">
     <h1><%= I18n.l(Date.today, format: :long, locale: :'fr-FR') %></h1>
+  </div>
+  <div class="dashboard-links-to-bottom d-flex">
+    <%= link_to dashboard_path(:anchor => "decharge-mentale-anchor") do %>
+      <div class="px-2">🤯</div>
+    <% end %>
+    <%= link_to dashboard_path(:anchor => "tour-des-jardins-anchor") do %>
+      <div class="px-2">👀</div>
+    <% end %>
   </div>
 </div>

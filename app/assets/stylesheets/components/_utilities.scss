@@ -101,7 +101,7 @@ input {
 }
 
 .mobile_only {
-  display: none;
+  display: none !important;
 }
 
 @media screen and (max-width: 812px) {

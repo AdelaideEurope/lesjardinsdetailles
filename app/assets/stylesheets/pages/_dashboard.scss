@@ -3,3 +3,15 @@
   position: fixed;
   top: 12px;
 }
+.dashboard-links-to-bottom {
+  display: none;
+}
+
+@media(max-width:812px) {
+  .dashboard-links-to-bottom {
+    z-index: 10;
+    position: fixed;
+    top: 30px;
+  }
+
+}
