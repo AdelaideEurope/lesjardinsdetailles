@@ -11,7 +11,16 @@
   .dashboard-links-to-bottom {
     z-index: 10;
     position: fixed;
-    top: 30px;
+    top: 19px;
+  }
+
+  .dashboard-link-to-bottom-brain {
+    width: 24px;
+  }
+
+  .dashboard-link-to-bottom-eye {
+    font-size: 24px;
+    padding-top: 2px;
   }
 
 }
