@@ -80,3 +80,34 @@
     color: $raisin;
   }
 }
+
+.vsm-txt-avatar {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  color: white;
+  font-size: 10px;
+  text-align: center;
+
+  &.raisin {
+    background: $raisin;
+  }
+
+  &.green {
+    background: $green;
+  }
+
+  &.olive {
+    background: $olive;
+  }
+  &.red {
+    background: $red;
+  }
+  &.orange {
+    background: $orange;
+  }
+  &.lightgrey {
+    background: $lightgrey;
+    color: $raisin;
+  }
+}

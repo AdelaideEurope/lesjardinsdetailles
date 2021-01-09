@@ -1,3 +1,7 @@
+.dashboard-calendar-event {
+  overflow: scroll;
+}
+
 .simple-calendar .today {
   background: white;
   border-top: 3px solid $olive;
@@ -11,7 +15,7 @@
 }
 
 .simple-calendar table {
-  margin-top: 54px;
+  margin-top: 90px;
 }
 
 .day {
@@ -20,29 +24,32 @@
 
 .simple-calendar th {
   text-align: center;
+  font-weight: 100;
 }
 
-.simple-calendar {
-  overflow: scroll;
+.simple-calendar td {
+  padding: 0 !important;
+  width: 14% !important;
+  overflow-wrap: anywhere;
 }
 
 .simple-calendar .day {
-  height: 160px;
+  min-height: 160px;
 }
 
 .calendar-user-presence-periods {
   padding-bottom: 8px;
-  margin-top: -8px;
 }
 
 .calendar-heading {
+  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.2) !important;
   z-index: 2;
   text-align: right;
   color: $green;
   display: flex;
   justify-content: flex-end;
   position: fixed;
-  padding-right: 8%;
+  padding-right: 16px;
   right: 0;
   width: 100%;
   background: white;
@@ -74,6 +81,9 @@
   font-weight: 700;
 }
 
+.simple-calendar {
+  max-width: 100% !important;
+}
 
 // MOBILE
 @media(max-width:812px) {
@@ -109,7 +119,16 @@
     background: #276259;
     font-size: 12px;
   }
+
+  .simple-calendar table {
+    margin-top: 64px;
+  }
+
+  .simple-calendar .day {
+    min-height: 80px;
+  }
 }
+
 
 
 

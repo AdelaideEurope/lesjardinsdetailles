@@ -6,7 +6,11 @@ $green: #276259;
 $olive: #A1BD7F;
 $orange: #E85F5C;
 $red: #B23A48;
-$lightgrey: #E5E5E5;
+$lightgrey: #C5CBD3;
+$greensheen: #89B6A5;
+$teagreen: #CAE7B9;
+$orangeyellow: #FED766;
+
 
 // $red: #FD1015;
 // $blue: #167FFB;
@@ -37,3 +41,44 @@ $lightgrey: #E5E5E5;
 .white {
   color: white;
 }
+.greensheen {
+  color: $greensheen;
+}
+.teagreen {
+  color: $teagreen;
+}
+.orangeyellow {
+  color: $orangeyellow;
+}
+
+.bgcolor-raisin {
+  background-color: $raisin;
+}
+.bgcolor-green {
+  background-color: $green;
+}
+.bgcolor-olive {
+  background-color: $olive;
+}
+.bgcolor-orange {
+  background-color: $orange;
+}
+.bgcolor-red {
+  background-color: $red;
+}
+.bgcolor-lightgrey {
+  background-color: $lightgrey;
+}
+.bgcolor-white {
+  background-color: white;
+}
+.bgcolor-greensheen {
+  background-color: $greensheen;
+}
+.bgcolor-teagreen {
+  background-color: $teagreen;
+}
+.bgcolor-orangeyellow {
+  background-color: $orangeyellow;
+}
+
