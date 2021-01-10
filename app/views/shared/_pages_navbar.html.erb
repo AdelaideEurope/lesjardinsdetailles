@@ -23,7 +23,7 @@
         <% end %>
         <%= link_to "Déconnexion", destroy_user_session_path, method: :delete, class: "dropdown-item desktop_only" %>
         <li class="nav-item">
-          <%= link_to dashboard_path, class: "nav-link" do %><%= image_tag "connexion.png", alt: "connexion", class: "login-button" %><% end %>
+          <%= link_to farm_dashboard_path(current_user.farm_id), class: "nav-link" do %><%= image_tag "connexion.png", alt: "connexion", class: "login-button" %><% end %>
         </li>
       <% else %>
         <li class="nav-item">

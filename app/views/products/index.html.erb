@@ -1,6 +1,6 @@
 <div class="container custom-container">
   <div class="search-form">
-  <%= form_tag produits_path, method: :get, class: "search-input" do %>
+  <%= form_tag farm_produits_path(current_user.farm_id), method: :get, class: "search-input" do %>
     <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Chercher un produit" %>
     <button type="submit" class="btn search-button" id="submit">
       <i class="fas fa-search"></i>
