@@ -2,9 +2,11 @@
   <%= month_calendar(events: @presence_periods+@events) do |date, events| %>
     <%= date.day %>
 
+    <!-- DESKTOP -->
     <% events.each do |event| %>
+        <!-- presence days -->
       <% if !event.is_a? Event %>
-        <div>
+        <div class="desktop_only">
           <div class="d-flex justify-content-around calendar-user-presence-periods">
             <% event.users.each do |user| %>
               <div class="sm-txt-avatar <%= user.color %>"><%= user.first_name[0] %></div>
@@ -12,14 +14,74 @@
           </div>
         </div>
       <% else %>
-        <div class="bgcolor-<%= @event_colors[event.event_subcategory.to_sym] %> text-white">
-          <div class="d-flex justify-content-between p-2">
-            <%= event.description %>
+        <!-- events: sale, admin, dated_admin -->
+        <div class="bgcolor-<%= @event_colors[event.event_subcategory.to_sym] %> desktop_only">
+          <div class="d-flex justify-content-between pt-2 pl-1 pointer" data-drawer-trigger aria-controls="drawer-event-<%= event.id %>" aria-expanded="false">
+            <div class="text-left"><%= event.description[0..30] %><%= event.description.length > 31 ? "..." : "" %></div>
+            <div class="d-flex flex-wrap">
+              <% event.users.each do |user| %>
+              <div class="d-flex pr-1">
+                <div class="text-white sm-txt-avatar <%= user.color %>"><%= user.first_name[0] %></div>
+              </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <!-- MOBILE -->
+    <% events.each do |event| %>
+         <!-- presence days -->
+      <% if !event.is_a? Event %>
+        <div class="mobile_only">
+          <div class="d-flex justify-content-around calendar-user-presence-periods">
             <% event.users.each do |user| %>
-              <div class="sm-txt-avatar <%= user.color %>"><%= user.first_name[0] %></div>
+              <div class="vsm-txt-avatar <%= user.color %>"><%= user.first_name[0] %></div>
             <% end %>
           </div>
         </div>
+      <% else %>
+        <!-- events: sale, admin, dated_admin -->
+        <div class="dashboard-calendar-event bgcolor-<%= @event_colors[event.event_subcategory.to_sym] %> mobile_only">
+          <div class="d-flex">
+            <% event.users.each do |user| %>
+              <div class="m-1 text-white vsm-txt-avatar <%= user.color %>">
+                <%= user.first_name[0] %>
+              </div>
+            <% end %>
+          </div>
+          <div class="d-flex justify-content-between px-1" data-drawer-trigger aria-controls="drawer-event-<%= event.id %>" >
+            <div class="text-left"><p><%= event.description[0..8] %><%= event.description.length > 9 ? "..." : "" %></p></div>
+          </div>
+        </div>
+        <section class="drawer" id="drawer-event-<%= event.id %>" data-drawer-target>
+          <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+          <div class="drawer__wrapper">
+            <div class="drawer__header">
+              <div class="d-flex justify-content-between">
+                <div class="drawer__title">
+                  <div><h2><%= event.description %></h2></div>
+                  <div class="drawer-title-second-line"><%= l(event.start_time, format: '%A %e %B %Y') %></div>
+                  <div class="drawer-title-second-line"><%= l(event.start_time, format: 'de %Hh%M à %Hh%M') %></div>
+                </div>
+                <button class="drawer__close" data-drawer-close aria-label="Close Drawer"><i class="fas fa-times"></i></button>
+              </div>
+            </div>
+            <div class="drawer__content">
+              <% if event.users.any? %>
+                <h4 class="pt-3">Qui s'en charge ?</h4>
+                <p>
+                  <%= event.users.map{|user| user.first_name}.to_sentence(words_connector: ', ', last_word_connector: ' et ') %>
+                </p>
+              <% end %>
+              <h4 class="pt-3">Commentaire</h4>
+              <p>
+                <%= event.comment %>
+              </p>
+            </div>
+          </div>
+        </section>
       <% end %>
     <% end %>
   <% end %>

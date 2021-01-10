@@ -1,19 +1,18 @@
-  <div class="calendar-heading">
-    <%= link_to calendar.url_for_previous_view do %>
-      <i class="fas fa-chevron-left calendar-previous"></i>
-    <% end %>
-    <% if calendar.number_of_weeks == 1 %>
-      <span class="calendar-title">Semaine <%= calendar.week_number %></span>
-    <%else%>
-        <span class="calendar-title">Semaine <%= calendar.week_number %> - <%= calendar.end_week %></span>
-    <%end%>
-    <%= link_to calendar.url_for_next_view do %>
-      <i class="fas fa-chevron-right calendar-next"></i>
-    <% end %>
-  </div>
+<div class="calendar-heading">
+  <%= link_to calendar.url_for_previous_view do %>
+    <i class="fas fa-chevron-left calendar-previous"></i>
+  <% end %>
+  <% if calendar.number_of_weeks == 1 %>
+    <span class="calendar-title">Semaine <%= calendar.week_number %></span>
+  <%else%>
+      <span class="calendar-title">Semaine <%= calendar.week_number %> - <%= calendar.end_week %></span>
+  <%end%>
+  <%= link_to calendar.url_for_next_view do %>
+    <i class="fas fa-chevron-right calendar-next"></i>
+  <% end %>
+</div>
+
 <div class="simple-calendar">
-
-
   <table class="table table-striped">
     <thead>
       <tr>

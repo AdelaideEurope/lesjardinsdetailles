@@ -1,14 +1,14 @@
-<div class="simple-calendar">
-  <div class="calendar-heading">
-    <%= link_to calendar.url_for_previous_view do %>
-      <i class="fas fa-chevron-left calendar-previous"></i>
-    <% end %>
-    <span class="calendar-title"><%= t('date.month_names')[start_date.month] %> <%= start_date.year %></span>
-      <%= link_to calendar.url_for_next_view do %>
-        <i class="fas fa-chevron-right calendar-next"></i>
-      <% end %>
-    </div>
+<div class="calendar-heading">
+  <%= link_to calendar.url_for_previous_view do %>
+    <i class="fas fa-chevron-left calendar-previous"></i>
+  <% end %>
+  <span class="calendar-title"><%= t('date.month_names')[start_date.month] %> <%= start_date.year %></span>
+  <%= link_to calendar.url_for_next_view do %>
+    <i class="fas fa-chevron-right calendar-next"></i>
+  <% end %>
+</div>
 
+<div class="simple-calendar">
   <table class="table table-striped">
     <thead>
       <tr>

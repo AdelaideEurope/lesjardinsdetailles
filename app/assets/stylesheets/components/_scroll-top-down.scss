@@ -30,7 +30,7 @@ html {
   @supports (-moz-appearance: meterbar) {
     clip: rect(0, $size, auto, 0);
   }
-  #link-to-custom-container {
+  #link-to-calendar-heading {
     $offset: - ($size + $offsetBottom); // pull up + add a small bottom space
     position: fixed; // fallback
     position: sticky;

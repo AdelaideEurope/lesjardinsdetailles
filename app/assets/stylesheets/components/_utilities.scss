@@ -101,13 +101,18 @@ input {
   }
 }
 
+.mobile_only {
+  display: none;
+}
+
 .w-48-desktop {
   width: 48%
 }
 
-.mobile_only {
-  display: none;
+.pointer {
+  cursor: pointer;
 }
+
 
 @media screen and (max-width: 812px) {
   .mobile_only {

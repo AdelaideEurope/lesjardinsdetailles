@@ -15,15 +15,17 @@
           </div>
         </div>
       <% else %>
-    <!-- events: sale, admin, dated_admin -->
+        <!-- events: sale, admin, dated_admin -->
         <div class="bgcolor-<%= @event_colors[event.event_subcategory.to_sym] %> desktop_only">
-          <div class="d-flex justify-content-between pt-2 px-1">
-            <div class="text-left"><%= event.description %></div>
-            <% event.users.each do |user| %>
-            <div class="d-flex">
-              <div class="text-white sm-txt-avatar <%= user.color %>"><%= user.first_name[0] %></div>
+          <div class="d-flex justify-content-between pt-2 pl-1 pointer" data-drawer-trigger aria-controls="drawer-event-<%= event.id %>" aria-expanded="false">
+            <div class="text-left"><%= event.description[0..30] %><%= event.description.length > 31 ? "..." : "" %></div>
+            <div class="d-flex flex-wrap">
+              <% event.users.each do |user| %>
+              <div class="d-flex pr-1">
+                <div class="text-white sm-txt-avatar <%= user.color %>"><%= user.first_name[0] %></div>
+              </div>
+              <% end %>
             </div>
-            <% end %>
           </div>
         </div>
       <% end %>
@@ -41,17 +43,46 @@
           </div>
         </div>
       <% else %>
-    <!-- events: sale, admin, dated_admin -->
+        <!-- events: sale, admin, dated_admin -->
         <div class="dashboard-calendar-event bgcolor-<%= @event_colors[event.event_subcategory.to_sym] %> mobile_only">
           <div class="d-flex">
             <% event.users.each do |user| %>
-              <div class="m-1 text-white vsm-txt-avatar <%= user.color %>"><%= user.first_name[0] %></div>
+              <div class="m-1 text-white vsm-txt-avatar <%= user.color %>">
+                <%= user.first_name[0] %>
+              </div>
             <% end %>
           </div>
-          <div class="d-flex justify-content-between px-1">
-            <div class="text-left"><p><%= event.description[0..8] %>...</p></div>
+          <div class="d-flex justify-content-between px-1" data-drawer-trigger aria-controls="drawer-event-<%= event.id %>" >
+            <div class="text-left"><p><%= event.description[0..8] %><%= event.description.length > 9 ? "..." : "" %></p></div>
           </div>
         </div>
+        <section class="drawer" id="drawer-event-<%= event.id %>" data-drawer-target>
+          <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+          <div class="drawer__wrapper">
+            <div class="drawer__header">
+              <div class="d-flex justify-content-between">
+                <div class="drawer__title">
+                  <div><h2><%= event.description %></h2></div>
+                  <div class="drawer-title-second-line"><%= l(event.start_time, format: '%A %e %B %Y') %></div>
+                  <div class="drawer-title-second-line"><%= l(event.start_time, format: 'de %Hh%M à %Hh%M') %></div>
+                </div>
+                <button class="drawer__close" data-drawer-close aria-label="Close Drawer"><i class="fas fa-times"></i></button>
+              </div>
+            </div>
+            <div class="drawer__content">
+              <% if event.users.any? %>
+                <h4 class="pt-3">Qui s'en charge ?</h4>
+                <p>
+                  <%= event.users.map{|user| user.first_name}.to_sentence(words_connector: ', ', last_word_connector: ' et ') %>
+                </p>
+              <% end %>
+              <h4 class="pt-3">Commentaire</h4>
+              <p>
+                <%= event.comment %>
+              </p>
+            </div>
+          </div>
+        </section>
       <% end %>
     <% end %>
   <% end %>
@@ -77,7 +108,7 @@
               <div class="d-flex justify-content-between card-list-item-round-button-block">
                 <div><div class="round-button green mobile_only m-2"><i class="fas fa-check round-txt-button"></i></div></div>
                 <div class="d-flex">
-                  <div class="round-button lightgrey m-2" data-drawer-trigger aria-controls="drawer-name-poireau" aria-expanded="false"><i class="fas fa-comment round-txt-button"></i></i></div>
+                  <div class="round-button lightgrey m-2" data-drawer-trigger aria-controls="drawer-poireau" aria-expanded="false"><i class="fas fa-comment round-txt-button"></i></i></div>
                   <div class="round-button orange m-2"><i class="fas fa-redo-alt round-txt-button"></i></i></div>
                 </div>
                 <div>
@@ -85,16 +116,16 @@
                 </div>
               </div>
             </div>
-            <section class="drawer" id="drawer-name-poireau" data-drawer-target>
+            <section class="drawer" id="drawer-poireau" data-drawer-target>
                 <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
                 <div class="drawer__wrapper">
                   <div class="drawer__header">
                     <div class="d-flex justify-content-between">
                       <div class="drawer__title">
                         <div><h2>Poireau (plants)</h2></div>
-                        <div class="card-list-item-second-line">jardin 1 - 12 | 3 rangs x 10 cm</div>
+                        <div class="drawer-title-second-line">jardin 1 - 12 | 3 rangs x 10 cm</div>
                       </div>
-                      <button class="drawer__close" data-drawer-close aria-label="Close Drawer"></button>
+                      <button class="drawer__close" data-drawer-close aria-label="Close Drawer"><i class="fas fa-times"></i></button>
                     </div>
                   </div>
                   <div class="drawer__content">
@@ -117,23 +148,23 @@
               <div class="d-flex justify-content-between card-list-item-round-button-block">
                 <div><div class="round-button green mobile_only m-2"><i class="fas fa-check round-txt-button"></i></div></div>
                 <div class="d-flex">
-                  <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-name-tomate" aria-expanded="false"><i class="fas fa-comment round-txt-button"></i></i></div>
+                  <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-tomate" aria-expanded="false"><i class="fas fa-comment round-txt-button"></i></i></div>
                   <div class="round-button orange m-2"><i class="fas fa-redo-alt round-txt-button"></i></i></div>
                 </div>
                 <div>
                   <div class="txt-avatar <%= current_user.color %> m-2"><%= current_user.first_name[0] %></div>
                 </div>
               </div>
-              <section class="drawer" id="drawer-name-tomate" data-drawer-target>
+              <section class="drawer" id="drawer-tomate" data-drawer-target>
                 <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
                 <div class="drawer__wrapper">
                   <div class="drawer__header">
                     <div class="d-flex justify-content-between">
                       <div class="drawer__title">
                         <div><h2>Tomates (plants)</h2></div>
-                        <div class="card-list-item-second-line">jardin 2 - 14 | 2 rangs x 20 cm</div>
+                        <div class="drawer-title-second-line">jardin 2 - 14 | 2 rangs x 20 cm</div>
                       </div>
-                      <button class="drawer__close" data-drawer-close aria-label="Close Drawer"></button>
+                      <button class="drawer__close" data-drawer-close aria-label="Close Drawer"><i class="fas fa-times"></i></button>
                     </div>
                   </div>
                   <div class="drawer__content">
@@ -243,8 +274,8 @@
     </div>
   </div>
   <div class="scrolltop-wrap">
-    <div id="link-to-custom-container">
-      <%= link_to :anchor => "custom-container" do %>
+    <div id="link-to-calendar-heading">
+      <%= link_to "#" do %>
         <div class="round-button lightgrey m-1"><i class="fas fa-chevron-up white round-txt-button"></i>
             <path d="M14.83 30.83l9.17-9.17 9.17 9.17 2.83-2.83-12-12-12 12z"></path>
         </div>
