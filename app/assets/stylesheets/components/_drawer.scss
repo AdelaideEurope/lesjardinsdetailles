@@ -18,8 +18,8 @@
   border: none;
   background-color: transparent;
   cursor: pointer;
-  width: 15px;
-  height: 15px;
+  width: 30px;
+  height: 30px;
   color: $raisin;
 }
 
@@ -93,7 +93,7 @@
 .drawer-edit-bottom-buttons {
   display: flex;
   justify-content: space-around;
-  width: 320px;
+  width: 100%;
   margin: 0 auto;
 }
 
