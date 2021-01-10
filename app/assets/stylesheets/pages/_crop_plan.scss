@@ -7,7 +7,7 @@
   padding: 0 12px;
   text-align: center;
   border-right: 1px solid $lightgrey;
-  width:16%;
+  width: 16%;
 }
 
 .crop-plan-title-txt:last-child{
@@ -23,10 +23,6 @@
     line-height: 48px;
     border-bottom: 1px solid $lightgrey;
   }
-}
-
-.crop-plan-garden-name {
-  padding: 0 12px;
 }
 
 .crop-plan-bed-name {
@@ -59,4 +55,53 @@
 .vertical-line-today {
   height: 104%;
   border-left: 2px solid $green;
+}
+
+.crop-plan-line-planted {
+  position: relative;
+  display: flex;
+  padding: 0 4px;
+  height: 42px;
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.crop-plan-line-harvesting {
+  position: relative;
+  line-height: 64px;
+  display: flex;
+  justify-content: space-between;
+  opacity: 0.6;
+  padding: 0 8px;
+  height: 42px;
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media(max-width:568px) {
+  .crop-plan-left-column {
+    font-size: 10px
+  }
+
+  .crop-plan-title-txt {
+    padding: 0 2px;
+    font-size: 10px;
+  }
+
+  .crop-plan-line-planted, .crop-plan-line-harvesting {
+    font-size: 10px;
+  }
+}
+
+@media(max-width:812px) {
+  .crop-plan-title-txt {
+    padding: 0 2px;
+    font-size: 10px;
+  }
+
+  .crop-plan-line-planted, .crop-plan-line-harvesting {
+    font-size: 12px;
+  }
 }

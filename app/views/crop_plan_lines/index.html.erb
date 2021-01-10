@@ -1,7 +1,14 @@
 <div class="container mt-4 custom-container">
   <div class="d-flex crop-plan-months">
     <div class="crop-plan-title-txt text-left crop-plan-left-column">Planche</div>
-    <div class="d-flex justify-content-between crop-plan-right-column">
+    <div class="d-flex justify-content-between crop-plan-right-column mobile_only">
+      <% @short_abbr_month_names.each do |month| %>
+        <div class="crop-plan-title-txt">
+          <%= month.capitalize %>
+        </div>
+      <% end %>
+    </div>
+    <div class="d-flex justify-content-between crop-plan-right-column desktop_only">
       <% @abbr_month_names.each do |month| %>
         <div class="crop-plan-title-txt">
           <%= month.capitalize %>
@@ -14,7 +21,12 @@
       <% @gardens.each do |garden| %>
         <li>
           <div class="d-flex">
-            <div class="crop-plan-garden-name text-left crop-plan-left-column">
+            <div class="px-sm-4 text-left crop-plan-left-column mobile_only">
+              <a class="collapsable-garden-name collapsed" data-toggle="collapse" href="#collapse<%= garden.id %>" aria-expanded="false" aria-controls="collapse<%= garden.id %>">
+                <%= garden.name %></i>
+              </a>
+            </div>
+            <div class="px-sm-4 text-left crop-plan-left-column desktop_only">
               <a class="collapsable-garden-name collapsed" data-toggle="collapse" href="#collapse<%= garden.id %>" aria-expanded="false" aria-controls="collapse<%= garden.id %>">
                 <%= garden.name %> <i class="fa" aria-hidden="true"></i>
               </a>
@@ -37,29 +49,11 @@
                     <div class="vertical-line-today" style="margin-left: <%= @percentage_number_days_since_first_day_of_year %>%;">
                     </div>
                     <% bed.crop_plan_lines.each do |cpl| %>
-                      <div style="position: relative;
-                                  display: flex;
-                                  background: <%= cpl.product.color %>;
-                                  padding: 0 4px; height: 42px;
-                                  margin-top: 3px;
-                                  left: <%= get_elapsed_days_since_beginning_of_year(cpl.planting_date.strftime('%j').to_i) %>%;
-                                  width: <%= get_elapsed_days_since_beginning_of_year((cpl.harvest_start_date.strftime('%j').to_i - cpl.planting_date.strftime('%j').to_i)) %>%;
-                                  white-space: nowrap;
-                                  overflow: hidden;">
+                      <div class="crop-plan-line-planted" style="background: <%= cpl.product.color %>; left: <%= get_elapsed_days_since_beginning_of_year(cpl.planting_date.strftime('%j').to_i) %>%; width: <%= get_elapsed_days_since_beginning_of_year((cpl.harvest_start_date.strftime('%j').to_i - cpl.planting_date.strftime('%j').to_i)) %>%;">
                         <div style="line-height: 64px;"><%= cpl.planting_date.strftime('%U').to_i %></div>
-                        <div style="margin: 0 auto; cursor: pointer" data-drawer-trigger aria-controls="drawer-name<%= cpl.product.id %>"><%= cpl.product.name.capitalize[0..1] %></div>
+                        <div class="pointer margin-0-auto" data-drawer-trigger aria-controls="drawer-name<%= cpl.product.id %>"><%= cpl.product.name.capitalize[0..1] %></div>
                       </div>
-                      <div style="position: relative;
-                                  line-height: 64px;
-                                  display: flex;
-                                  justify-content: space-between;
-                                  background: <%= cpl.product.color %>;
-                                  opacity: 0.6; padding: 0 8px;
-                                  height: 42px; margin-top: 3px;
-                                  left: <%= get_elapsed_days_since_beginning_of_year(cpl.planting_date.strftime('%j').to_i) %>%;
-                                  width: <%= get_elapsed_days_since_beginning_of_year((cpl.harvest_end_date.strftime('%j').to_i - cpl.harvest_start_date.strftime('%j').to_i)) %>%;
-                                  white-space: nowrap;
-                                  overflow: hidden;">
+                      <div class="crop-plan-line-harvesting" style="background: <%= cpl.product.color %>; left: <%= get_elapsed_days_since_beginning_of_year(cpl.planting_date.strftime('%j').to_i) %>%; width: <%= get_elapsed_days_since_beginning_of_year((cpl.harvest_end_date.strftime('%j').to_i - cpl.harvest_start_date.strftime('%j').to_i)) %>%;">
                         <div><%= cpl.harvest_start_date.strftime('%U').to_i %></div>
                         <div><%= cpl.harvest_end_date.strftime('%U').to_i %></div>
                       </div>

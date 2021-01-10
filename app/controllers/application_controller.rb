@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :get_abbreviated_months
+  before_action :get_short_abbreviated_months
 
   include Pundit
 
@@ -12,6 +13,10 @@ class ApplicationController < ActionController::Base
 
   def get_abbreviated_months
     @abbr_month_names = I18n.t(:abbr_month_names).map {|k, v| v}
+  end
+
+  def get_short_abbreviated_months
+    @short_abbr_month_names = I18n.t(:abbr_month_names).map {|k, v| v[0]}
   end
 
   def after_sign_in_path_for(resource)
