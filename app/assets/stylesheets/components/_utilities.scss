@@ -94,10 +94,20 @@ input {
 }
 
 .small-infos {
-  font-size: 14px;
-  color: $olive;
-  &:hover {
+  &.olive {
+    font-size: 14px;
     color: $olive;
+    &:hover {
+      color: $olive;
+    }
+  }
+
+  &.lightgrey {
+    font-size: 14px;
+    color: $lightgrey;
+    &:hover {
+      color: $lightgrey;
+    }
   }
 }
 
@@ -191,10 +201,20 @@ input {
   }
 
   .small-infos {
-    font-size: 8px;
-    color: $olive;
-    &:hover {
+    &.olive {
+      font-size: 8px;
       color: $olive;
+      &:hover {
+        color: $olive;
+      }
+    }
+
+    &.lightgrey {
+      font-size: 8px;
+      color: $lightgrey;
+      &:hover {
+        color: $lightgrey;
+      }
     }
   }
 

@@ -90,6 +90,19 @@
   text-align: left;
 }
 
+.drawer-edit-bottom-buttons {
+  display: flex;
+  justify-content: space-around;
+  width: 320px;
+  margin: 0 auto;
+}
+
+.drawer-content-with-bottom-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 // VERSION MOBILE
 @media(max-width:812px) {
   .drawer-title-second-line {

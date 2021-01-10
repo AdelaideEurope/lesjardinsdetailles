@@ -13,6 +13,9 @@ class PagesController < ApplicationController
   def dashboard
     authorize :page
     @events = Event.all
+    @calendar_events = Event.where(event_category: "dated_admin")
+    @admin_events = Event.where(event_category: "admin")
+    @garden_events = Event.where(event_category: "garden")
     @presence_periods = PresencePeriod.all
     @event_colors = {"rdv": "teagreen", "vente": "greensheen"}
   end
