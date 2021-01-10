@@ -21,6 +21,13 @@
   flex-grow: 2;
   width: 40%;
 }
+
+.list-item-block {
+  padding: 8px 20px;
+  box-shadow: 1px 1px 4px 1px $lightgrey !important;
+}
+
+
 // VERSION MOBILE
 @media(max-width:812px) {
   .card-list-item-second-line {

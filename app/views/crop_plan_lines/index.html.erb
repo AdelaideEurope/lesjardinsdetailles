@@ -1,17 +1,13 @@
 <div class="container mt-4 custom-container">
   <div class="d-flex crop-plan-months">
     <div class="crop-plan-title-txt text-left crop-plan-left-column">Planche</div>
-    <div class="d-flex justify-content-between crop-plan-right-column mobile_only">
-      <% @short_abbr_month_names.each do |month| %>
-        <div class="crop-plan-title-txt">
+    <div class="d-flex justify-content-between crop-plan-right-column">
+      <% @abbr_month_names.each do |month| %>
+        <div class="crop-plan-title-txt desktop_only">
           <%= month.capitalize %>
         </div>
-      <% end %>
-    </div>
-    <div class="d-flex justify-content-between crop-plan-right-column desktop_only">
-      <% @abbr_month_names.each do |month| %>
-        <div class="crop-plan-title-txt">
-          <%= month.capitalize %>
+        <div class="crop-plan-title-txt mobile_only">
+          <%= month.capitalize[0] %>
         </div>
       <% end %>
     </div>
@@ -23,7 +19,7 @@
           <div class="d-flex">
             <div class="px-sm-4 text-left crop-plan-left-column mobile_only">
               <a class="collapsable-garden-name collapsed" data-toggle="collapse" href="#collapse<%= garden.id %>" aria-expanded="false" aria-controls="collapse<%= garden.id %>">
-                <%= garden.name %></i>
+                <%= garden.name.length > 9 ? garden.name.split.map(&:capitalize).join(' ')[0..7] + '.' : garden.name %></i>
               </a>
             </div>
             <div class="px-sm-4 text-left crop-plan-left-column desktop_only">
@@ -42,7 +38,7 @@
             <% garden.beds.each do |bed| %>
               <li>
                 <div class="d-flex">
-                  <div class="crop-plan-bed-name text-left crop-plan-left-column">
+                  <div class="pl-3 pl-sm-4 text-left crop-plan-left-column">
                     <%= bed.name %>
                   </div>
                   <div class="crop-plan-right-column d-flex">

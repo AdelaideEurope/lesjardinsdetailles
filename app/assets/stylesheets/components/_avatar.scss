@@ -1,10 +1,12 @@
 .avatar {
   width: 40px;
   border-radius: 50%;
+  box-shadow: 2px 2px 1px $lightgrey;
 }
 .avatar-large {
   width: 56px;
   border-radius: 50%;
+  box-shadow: 2px 2px 1px $lightgrey;
 }
 .avatar-bordered {
   width: 40px;
@@ -28,6 +30,7 @@
   color: white;
   text-align: center;
   padding-top: 3px;
+  box-shadow: 2px 2px 1px $lightgrey;
 
   &.raisin {
     background: $raisin;
@@ -48,6 +51,7 @@
   }
   &.lightgrey {
     background: $lightgrey;
+    color: $raisin;
   }
 }
 
@@ -58,6 +62,7 @@
   color: white;
   font-size: 14px;
   text-align: center;
+  box-shadow: 2px 2px 1px $lightgrey;
 
   &.raisin {
     background: $raisin;
@@ -89,6 +94,7 @@
   color: white;
   font-size: 10px;
   text-align: center;
+  box-shadow: 2px 2px 1px $lightgrey;
 
   &.raisin {
     background: $raisin;
