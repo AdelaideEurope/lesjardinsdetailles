@@ -40,6 +40,9 @@ $orangeyellow: #FED766;
 }
 .white {
   color: white;
+  &:hover {
+    color: white;
+  }
 }
 .greensheen {
   color: $greensheen;

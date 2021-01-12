@@ -38,10 +38,6 @@
   }
 }
 
-.sidebar-img-item {
-  height: 24px;
-}
-
 .sidebar-icon-item {
   color: white;
   font-size: 24px;
@@ -50,6 +46,10 @@
 .sidebar-item {
   text-align: center;
   padding: 12px 0;
+  img {
+    padding-bottom: 4px;
+    height: 28px;
+  }
 }
 
 .sidebar-items {
@@ -67,16 +67,20 @@
   padding: 0 12px;
   border-radius: 24px 24px 0 0;
   z-index: 100;
+  img {
+    height: 24px;
+  }
+  a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+  }
 }
 
 
-#bottom-navbar a {
-  float: left;
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-}
+#bottom-navbar
 
 // /* Change the color of links on hover */
 // #bottom-navbar a:hover {

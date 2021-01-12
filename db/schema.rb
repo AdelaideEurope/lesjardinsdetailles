@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_04_211549) do
+ActiveRecord::Schema.define(version: 2021_01_12_221751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,6 +104,41 @@ ActiveRecord::Schema.define(version: 2021_01_04_211549) do
     t.index ["farm_id"], name: "index_gardens_on_farm_id"
   end
 
+  create_table "outlet_groups", force: :cascade do |t|
+    t.string "name"
+    t.string "color"
+    t.integer "ht_turnover"
+    t.integer "ttc_turnover"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "outlets", force: :cascade do |t|
+    t.string "full_name"
+    t.string "shortened_name"
+    t.string "logo"
+    t.string "address"
+    t.string "zip_code"
+    t.string "city"
+    t.string "email"
+    t.string "phone_number"
+    t.integer "ht_turnover"
+    t.integer "ttc_turnover"
+    t.string "total_paid_amount"
+    t.boolean "has_customers"
+    t.bigint "outlet_group_id", null: false
+    t.bigint "farm_id", null: false
+    t.string "color"
+    t.string "preferred_payment_method"
+    t.string "comment"
+    t.string "invoicing"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "phone_number_owner"
+    t.index ["farm_id"], name: "index_outlets_on_farm_id"
+    t.index ["outlet_group_id"], name: "index_outlets_on_outlet_group_id"
+  end
+
   create_table "presence_periods", force: :cascade do |t|
     t.datetime "date"
     t.boolean "on_call_period"
@@ -148,6 +183,21 @@ ActiveRecord::Schema.define(version: 2021_01_04_211549) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["farm_id"], name: "index_products_on_farm_id"
     t.index ["product_group_id"], name: "index_products_on_product_group_id"
+  end
+
+  create_table "sales", force: :cascade do |t|
+    t.datetime "date"
+    t.bigint "outlet_id", null: false
+    t.integer "ht_total"
+    t.integer "ttc_total"
+    t.integer "rounded_ht_total"
+    t.integer "rounded_ttc_total"
+    t.boolean "recurrent"
+    t.string "frequency"
+    t.string "comment"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["outlet_id"], name: "index_sales_on_outlet_id"
   end
 
   create_table "user_events", force: :cascade do |t|
@@ -207,8 +257,11 @@ ActiveRecord::Schema.define(version: 2021_01_04_211549) do
   add_foreign_key "crop_plan_lines", "vegetable_variets"
   add_foreign_key "events", "farms"
   add_foreign_key "gardens", "farms"
+  add_foreign_key "outlets", "farms"
+  add_foreign_key "outlets", "outlet_groups"
   add_foreign_key "products", "farms"
   add_foreign_key "products", "product_groups"
+  add_foreign_key "sales", "outlets"
   add_foreign_key "user_events", "events"
   add_foreign_key "user_events", "users"
   add_foreign_key "user_presence_periods", "presence_periods"

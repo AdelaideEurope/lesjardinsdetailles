@@ -35,5 +35,33 @@
       </div>
     </div>
   <% end %>
+
+  <div class="w-48-desktop mt-4">
+    <div class="dashboard-crop-plan-line-card orange">
+      <div class="card-colored-top-part-fixed-color orange">
+        <div class="card-top-part-text">Les meilleurs points de vente</div>
+      </div>
+      <div class="card-bottom-part">
+        <div class="card-bottom-part-text">
+          <div class="mt-2">
+
+            <% @outlets.each do |outlet| %>
+              <%= link_to farm_pointsdevente_path(outlet) do %>
+                <%= outlet.full_name %>
+              <% end %>
+            <% end %>
+
+          </div>
+        </div>
+        <div class="d-flex justify-content-end card-bottom-section-with-icon">
+          <div class="card-bottom-right-triangle orange">
+            <%= link_to farm_pointsdevente_index_path(current_user.farm_id), class: 'white' do %>
+              <i class="fas fa-search-plus"></i>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 

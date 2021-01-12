@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     resources :calendrier, controller: 'events', only: [ :index ]
     resources :produits, controller: 'products', only: [ :index, :show ]
     resources :plandeculture, controller: 'crop_plan_lines', only: [ :index ]
+    resources :ventes, controller: 'sales', only: [ :index ]
+    resources :pointsdevente, controller: 'outlets', only: [ :index, :show ]
     get 'dashboard', to: 'pages#dashboard'
   end
 end
