@@ -135,6 +135,10 @@ input {
   margin: 0 auto;
 }
 
+.box-shadow-lightgrey {
+  box-shadow: 1px 1px 4px 1px $lightgrey !important;
+}
+
 
 @media screen and (max-width: 812px) {
   .mobile_only {

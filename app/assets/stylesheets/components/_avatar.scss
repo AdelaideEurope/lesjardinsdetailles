@@ -1,23 +1,23 @@
 .avatar {
   width: 40px;
   border-radius: 50%;
-  box-shadow: 2px 2px 1px $lightgrey;
+  box-shadow: 2px 2px 1px rgba(197,203,211, 0.4);
 }
 .avatar-large {
   width: 56px;
   border-radius: 50%;
-  box-shadow: 2px 2px 1px $lightgrey;
+  box-shadow: 2px 2px 1px rgba(197,203,211, 0.4);
 }
 .avatar-bordered {
   width: 40px;
   border-radius: 50%;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 2px rgba(197,203,211, 0.4);
   border: white 1px solid;
 }
 .avatar-square {
   width: 40px;
   border-radius: 0px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 2px rgba(197,203,211, 0.4);
   border: white 1px solid;
 }
 
@@ -30,7 +30,7 @@
   color: white;
   text-align: center;
   padding-top: 3px;
-  box-shadow: 2px 2px 1px $lightgrey;
+  box-shadow: 2px 2px 1px rgba(197,203,211, 0.4);
 
   &.raisin {
     background: $raisin;
@@ -62,7 +62,7 @@
   color: white;
   font-size: 14px;
   text-align: center;
-  box-shadow: 2px 2px 1px $lightgrey;
+  box-shadow: 2px 2px 1px rgba(197,203,211, 0.4);
 
   &.raisin {
     background: $raisin;
@@ -94,7 +94,7 @@
   color: white;
   font-size: 10px;
   text-align: center;
-  box-shadow: 2px 2px 1px $lightgrey;
+  box-shadow: 2px 2px 1px rgba(197,203,211, 0.4);
 
   &.raisin {
     background: $raisin;
@@ -116,5 +116,14 @@
   &.lightgrey {
     background: $lightgrey;
     color: $raisin;
+  }
+}
+
+@media(max-width:767px) {
+  .txt-avatar {
+    width: 20px;
+    height: 20px;
+    padding-top: 1px;
+    font-size: 12px;
   }
 }

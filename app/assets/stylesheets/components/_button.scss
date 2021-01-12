@@ -18,7 +18,7 @@
   padding: 8px 30px !important;
   color: $green !important;
   font-size: 14px !important;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0px 1px 4px rgba(197,203,211, 0.4) !important;
 }
 
 .txt-button-background {
@@ -27,7 +27,7 @@
   padding: 8px 30px !important;
   color: white !important;
   font-size: 14px !important;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0px 1px 4px rgba(197,203,211, 0.4) !important;
   &.red {
     background: $red;
   }
@@ -50,7 +50,7 @@
   color: white;
   text-align: center;
   font-size: 12px;
-  box-shadow: 2px 2px 1px $lightgrey;
+  box-shadow: 2px 2px 1px rgba(197,203,211, 0.4);
 
   &.raisin {
     background: $raisin;
@@ -85,7 +85,7 @@
   color: white;
   text-align: center;
   font-size: 12px;
-  box-shadow: 2px 2px 1px $lightgrey;
+  box-shadow: 2px 2px 1px rgba(197,203,211, 0.4);
 
   &.raisin {
     background: $raisin;
@@ -144,10 +144,23 @@
     padding: 8px 30px !important;
     color: $green !important;
     font-size: 12px !important;
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0px 1px 4px rgba(197,203,211, 0.4) !important;
   }
 
   .login-button, .logout-button {
     height: 30px;
+  }
+
+  .round-button  {
+    .round-img-button {
+      height: 10px;
+      margin-top: 2px;
+    }
+    .round-txt-button {
+      margin-top: 4px;
+    }
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
   }
 }
