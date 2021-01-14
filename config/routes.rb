@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :plandeculture, controller: 'crop_plan_lines', only: [ :index ]
     resources :ventes, controller: 'sales', only: [ :index ]
     resources :pointsdevente, controller: 'outlets', only: [ :index, :show ]
+    resources :thebest, controller: 'users', only: [ :show ]
     get 'dashboard', to: 'pages#dashboard'
   end
 end

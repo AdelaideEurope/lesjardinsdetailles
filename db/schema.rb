@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_12_221751) do
+ActiveRecord::Schema.define(version: 2021_01_14_214814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,17 @@ ActiveRecord::Schema.define(version: 2021_01_12_221751) do
     t.integer "estimated_ht_turnover", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
   create_table "gardens", force: :cascade do |t|
@@ -236,9 +247,12 @@ ActiveRecord::Schema.define(version: 2021_01_12_221751) do
     t.string "color"
     t.bigint "farm_id", null: false
     t.string "phone_number"
+    t.string "slug"
+    t.string "nickname"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["farm_id"], name: "index_users_on_farm_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["slug"], name: "index_users_on_slug", unique: true
   end
 
   create_table "vegetable_variets", force: :cascade do |t|

@@ -32,6 +32,9 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
 gem 'pundit'
 
+#friendy id
+gem 'friendly_id', '~> 5.4.0'
+
 # calendar
 gem "simple_calendar", "~> 2.0"
 

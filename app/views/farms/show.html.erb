@@ -27,11 +27,12 @@
   <% end %>
 
   <h2  class="mt-4">Travailleurs, travailleuses ⚒</h2>
-  <% @workers.each do |client| %>
+  <% @workers.each do |worker| %>
     <div>
       <div>
-        <%= client.first_name %>
-        <%= client.last_name %> <%= client.phone_number ? "-" : "" %> <%= client.phone_number %>
+        <%= link_to farm_thebest_path(@farm, worker) do  %>
+          <span class="green"><%= worker.first_name %> <%= worker.last_name %> <%= worker.phone_number ? "-" : "" %> <%= worker.phone_number %></span>
+        <% end %>
       </div>
     </div>
   <% end %>

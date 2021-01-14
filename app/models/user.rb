@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   belongs_to :farm
 
+  extend FriendlyId
+  friendly_id :nickname, use: :slugged
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
