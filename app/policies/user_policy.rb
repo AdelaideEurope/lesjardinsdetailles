@@ -6,7 +6,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    if user.manager
+    if user.manager || record.id == user.id
       true
     end
   end
