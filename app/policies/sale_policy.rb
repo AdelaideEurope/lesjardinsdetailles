@@ -10,4 +10,10 @@ class SalePolicy < ApplicationPolicy
       true
     end
   end
+
+  def show?
+    if user.manager
+      true
+    end
+  end
 end
