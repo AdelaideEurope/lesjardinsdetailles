@@ -1,5 +1,50 @@
 .banner {
-  width: 100%;
-  object-fit: cover;
+  background-size: cover;
+  background-position: center;
   height: 68vh;
+}
+
+
+.banner-content {
+  top: 30vh;
+  position: absolute;
+  width: 100%;
+  text-align-last: center;
+
+  h1 {
+    font-family: $main-header-font;
+    font-size: 50px;
+    color: $olive;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  }
+}
+
+.banner-subtitle {
+  width: 46%;
+  display: flex;
+  margin: 20px auto;
+  text-align: center;
+  color: #f5deb3;
+}
+
+.home-content {
+  top: 68vh;
+  position: relative;
+}
+
+.home-farm-info {
+  padding: 20px 20px 20px;
+  background: #a1bd7f4d;
+  text-align: center;
+  h2 {
+    text-align: center;
+  }
+}
+
+@media(max-width:767px) {
+  .banner-content {
+    h1 {
+      font-size: 24px;
+    }
+  }
 }

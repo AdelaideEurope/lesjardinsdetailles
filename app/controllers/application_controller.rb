@@ -21,6 +21,8 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     if resource.worker
       farm_dashboard_path(resource.farm_id)
+    else
+      farm_thebest_path(resource.farm_id, resource)
     end
   end
 

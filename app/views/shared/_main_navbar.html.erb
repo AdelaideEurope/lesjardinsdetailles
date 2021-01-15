@@ -2,45 +2,64 @@
   <div>
     <div>
       <%= link_to root_path do %>
-        <%= image_tag "logo-green-bg.png", class: "small-logo" %>
+        <%= image_tag "logo.png", class: "small-logo" %>
       <% end %>
     </div>
-
-    <ul class="list-unstyled sidebar-items">
-      <li class="active sidebar-item align-middle">
-        <%= link_to farm_dashboard_path(current_user.farm_id) do %><i class="fas fa-clipboard-list sidebar-icon-item"></i><% end %>
-      </li>
-      <li class="sidebar-item">
-        <%= link_to farm_path(current_user.farm_id) do %>
-          <%= image_tag "greenhouse.png" %>
-        <% end %>
-      </li>
-      <li class="sidebar-item">
-        <%= link_to farm_calendrier_index_path(current_user.farm_id) do %>
-          <i class="fas fa-calendar-alt sidebar-icon-item"></i>
-        <% end %>
-      </li>
-      <li class="sidebar-item">
-        <%= link_to farm_ventes_path(current_user.farm_id) do %>
-          <i class="fas fa-euro-sign sidebar-icon-item"></i>
-        <% end %>
-      </li>
-      <li class="sidebar-item">
-        <%= link_to farm_plandeculture_index_path(current_user.farm_id) do %>
-          <i class="fas fa-seedling sidebar-icon-item"></i>
-        <% end %>
-      </li>
-      <li class="sidebar-item">
-        <%= link_to farm_produits_path(current_user.farm_id) do %>
-          <%= image_tag "carrot.png" %>
-        <% end %>
-      </li>
-    </ul>
+    <% if current_user.worker %>
+      <ul class="list-unstyled sidebar-items">
+        <li class="active sidebar-item align-middle">
+          <%= link_to farm_dashboard_path(current_user.farm_id) do %><i class="fas fa-clipboard-list sidebar-icon-item"></i><% end %>
+        </li>
+        <li class="sidebar-item">
+          <%= link_to farm_path(current_user.farm_id) do %>
+            <%= image_tag "greenhouse.png" %>
+          <% end %>
+        </li>
+        <li class="sidebar-item">
+          <%= link_to farm_calendrier_index_path(current_user.farm_id) do %>
+            <i class="fas fa-calendar-alt sidebar-icon-item"></i>
+          <% end %>
+        </li>
+        <li class="sidebar-item">
+          <%= link_to farm_ventes_path(current_user.farm_id) do %>
+            <i class="fas fa-euro-sign sidebar-icon-item"></i>
+          <% end %>
+        </li>
+        <li class="sidebar-item">
+          <%= link_to farm_plandeculture_index_path(current_user.farm_id) do %>
+            <i class="fas fa-seedling sidebar-icon-item"></i>
+          <% end %>
+        </li>
+        <li class="sidebar-item">
+          <%= link_to farm_produits_path(current_user.farm_id) do %>
+            <%= image_tag "carrot.png" %>
+          <% end %>
+        </li>
+      </ul>
+    <% else %>
+      <ul class="list-unstyled sidebar-items">
+        <li class="active sidebar-item align-middle">
+          <%= link_to farm_thebest_path(current_user.farm_id, current_user) do %>
+          <i class="fas fa-user-circle sidebar-icon-item"></i>
+          <% end %>
+        </li>
+        <li class="sidebar-item">
+          <%= link_to farm_ventes_path(current_user.farm_id) do %>
+            <i class="fas fa-euro-sign sidebar-icon-item"></i>
+          <% end %>
+        </li>
+        <li class="sidebar-item">
+          <%= link_to farm_plandeculture_index_path(current_user.farm_id) do %>
+            <%= image_tag "shopping-cart.png" %>
+          <% end %>
+        </li>
+      </ul>
+    <% end %>
   </div>
 
   <div>
     <%= link_to destroy_user_session_path, method: :delete, class: "logout-button-link" do %>
-      <%= image_tag "deconnexion-green-bg.png", class: "logout-button" %>
+      <%= image_tag "deconnexion.png", class: "logout-button" %>
     <% end %>
   </div>
 </nav>

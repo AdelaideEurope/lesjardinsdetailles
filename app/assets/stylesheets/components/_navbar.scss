@@ -1,6 +1,13 @@
 .navbar {
   justify-content: space-between;
-  background: white;
+  position: absolute;
+  padding-top: 12px;
+  max-width: 61rem;
+  max-width: var(--container);
+  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
 }
 
 .navbar .navbar-collapse {
