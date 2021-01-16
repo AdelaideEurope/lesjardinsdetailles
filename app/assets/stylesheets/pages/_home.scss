@@ -33,7 +33,28 @@
   position: relative;
 }
 
-.home-farm-info {
+.home-img-row {
+  height: 36vh;
+  flex-gap: 4px;
+  gap: 36px;
+  justify-content: space-between;
+  margin-bottom: 36px;
+}
+
+.img-line-wide {
+  height: 36vh;
+  flex-grow: 1;
+}
+
+.img-cover {
+  object-fit: cover;
+}
+
+.img-line-narrow {
+  height: 36vh;
+}
+
+.home-farm-main-info {
   padding: 20px 20px 20px;
   background: #a1bd7f4d;
   text-align: center;
@@ -42,11 +63,50 @@
   }
 }
 
+.home-farm-info-title {
+  display: flex;
+  justify-content: center;
+  h2 {
+    line-height: 16vh;
+    margin: auto;
+  }
+}
+
+.home-img-row-shrink {
+  flex-shrink: 1.3;
+}
+
 @media(max-width:767px) {
   .banner-content {
     h1 {
       font-size: 36px;
       text-align: center;
     }
+  }
+
+  .home-farm-main-info {
+    h2 {
+      font-size: 20px;
+      padding: 0 44px;
+    }
+  }
+
+  .home-img-row {
+    margin-bottom: 15px;
+    gap: 15px;
+    height: 24vh;
+  }
+
+  .img-line-wide, .img-line-narrow {
+    height: 24vh;
+  }
+
+  .object-position-0 {
+    object-position: 0%;
+  }
+
+  .home-farm-info-title h2 {
+    line-height: 12vh;
+    margin-bottom: auto;
   }
 }
