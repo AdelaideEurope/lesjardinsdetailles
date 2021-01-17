@@ -10,7 +10,7 @@ module ApplicationHelper
   end
 
   def remove_trailing_zero(num)
-    if num.to_i - num == 0.to_f
+    if !num.nil? && num.to_i - num == 0.to_f
       num.to_i
     else num
     end

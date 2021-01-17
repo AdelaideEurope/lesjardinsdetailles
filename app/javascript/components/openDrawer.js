@@ -92,6 +92,10 @@ const drawerOpener = () => {
           closestParent.classList.remove(settings.activeClass);
         }, settings.speedClose);
 
+        // remove params when closing drawer
+        // à ajouter si on veut que le drawer soit ouvert quand on met à jour
+        // window.location.href = window.location.href.split('?')[0];
+
       };
 
       // Click Handler

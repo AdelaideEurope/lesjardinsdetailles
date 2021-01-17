@@ -78,6 +78,15 @@ input {
   }
 }
 
+textarea {
+  border: none !important;
+  border-bottom: $green solid 1px !important;
+  color: $raisin;
+  &:focus {
+    outline: none !important;
+  }
+}
+
 ::placeholder {
   color: $lightgrey;
 }

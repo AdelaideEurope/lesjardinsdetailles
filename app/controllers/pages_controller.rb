@@ -13,6 +13,7 @@ class PagesController < ApplicationController
   def dashboard
     authorize :page
     @events = Event.all
+    @farm = current_user.farm
     @calendar_events = Event.where("farm_id = ? AND event_category = ?", current_user.farm_id , "dated_admin")
     @admin_events = Event.where("farm_id = ? AND event_category = ?", current_user.farm_id , "admin")
     @garden_events = Event.where("farm_id = ? AND event_category = ?", current_user.farm_id , "garden")

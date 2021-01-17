@@ -28,8 +28,10 @@ import "bootstrap";
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
 import { drawerOpener } from '../components/openDrawer.js';
+import { clickToEdit } from '../components/clickToEdit.js';
 
 drawerOpener();
+clickToEdit();
 
 
 document.addEventListener('turbolinks:load', () => {

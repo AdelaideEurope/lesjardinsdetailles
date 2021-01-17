@@ -10,4 +10,16 @@ class EventPolicy < ApplicationPolicy
       true
     end
   end
+
+  def edit?
+    if user.worker
+      true
+    end
+  end
+
+  def update?
+    if user.worker
+      true
+    end
+  end
 end

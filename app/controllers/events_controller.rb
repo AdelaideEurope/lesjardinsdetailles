@@ -6,4 +6,24 @@ class EventsController < ApplicationController
     @event_colors = {"rdv": "teagreen", "vente": "greensheen"}
     authorize @events
   end
+
+  def edit
+    @event = Event.find(params[:id])
+  end
+
+  def update
+    @farm = Farm.find(params[:farm_id])
+    @event = Event.find(params[:id])
+    if @event.update(event_params)
+      redirect_to farm_dashboard_path(@farm)
+    else
+      redirect_to farm_dashboard_path(@farm)
+    end
+    authorize @event
+  end
+
+  private
+  def event_params
+    params.permit(:id, :farm_id, :date, :details, :description, :comment)
+  end
 end
