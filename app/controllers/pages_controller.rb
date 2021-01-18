@@ -19,5 +19,6 @@ class PagesController < ApplicationController
     @garden_events = Event.where("farm_id = ? AND event_category = ?", current_user.farm_id , "garden")
     @presence_periods = PresencePeriod.joins(:users).where(users: { farm_id: current_user.farm_id }).uniq
     @event_colors = {"rdv": "teagreen", "vente": "greensheen"}
+    @week_planting = CropPlanLine.where("planting_date = ?", params[:start_date])
   end
 end

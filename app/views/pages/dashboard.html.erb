@@ -98,8 +98,6 @@
       <% end %>
     <% end %>
   <% end %>
-
-
   <div class="d-sm-flex justify-content-between">
 
   <!--                  FROM THE PLAN DE CULTURE                 -->
@@ -110,124 +108,97 @@
       <div class="card-bottom-part">
         <div class="card-bottom-part-text">
           <div class="mt-3">
-            <h3>Plantation et semis directs</h3>
-            <!-- ici le each do -->
-            <div class="d-flex justify-content-between card-list-item-block">
-              <div class="card-list-item-left-block">
-                <div class="desktop_only">
-                  <div class="round-button green m-2">
-                    <i class="fas fa-check round-txt-button"></i>
-                  </div>
-                </div>
-                <div class="card-list-item-main-info-block">
-                  <div>
-                    <p>Poireau (plants)</p>
-                  </div>
-                  <div class="card-list-item-second-line">jardin 1 - 12 | 3 rangs x 10 cm</div>
-                </div>
-              </div>
-              <div class="d-flex justify-content-between card-list-item-round-button-block">
-                <div>
-                  <div class="round-button green mobile_only m-2">
-                    <i class="fas fa-check round-txt-button"></i>
-                  </div>
-                </div>
-                <div class="d-flex">
-                  <div class="round-button lightgrey m-2" data-drawer-trigger aria-controls="drawer-poireau" aria-expanded="false">
-                    <i class="fas fa-comment round-txt-button"></i>
-                  </div>
-                  <div class="round-button orange m-2">
-                    <i class="fas fa-redo-alt round-txt-button"></i>
-                  </div>
-                </div>
-                <div>
-                  <div class="txt-avatar <%= current_user.color %> m-2"><%= current_user.first_name[0] %></div>
-                </div>
-              </div>
-            </div>
-            <section class="drawer" id="drawer-poireau" data-drawer-target>
-                <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
-                <div class="drawer__wrapper">
-                  <div class="drawer__header">
-                    <div class="d-flex justify-content-between">
-                      <div class="drawer__title">
-                        <div>
-                          <h2>Poireau (plants)</h2>
-                        </div>
-                        <div class="drawer-title-second-line">jardin 1 - 12 | 3 rangs x 10 cm</div>
-                      </div>
-                      <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
-                        <i class="fas fa-times"></i>
-                      </button>
+            <% if !@week_planting.empty? %>
+              <h3>Plantation et semis directs</h3>
+            <% end %>
+            <% @week_planting.each do |planting| %>
+              <div class="d-flex justify-content-between card-list-item-block">
+                <div class="card-list-item-left-block">
+                  <div class="desktop_only">
+                    <div class="round-button green m-2">
+                      <i class="fas fa-check round-txt-button"></i>
                     </div>
                   </div>
-                  <div class="drawer__content">
-                    <h4 class="pt-3">Commentaire</h4>
-                    <p>
-                      Pas de commentaire
-                    </p>
+                  <div class="card-list-item-main-info-block">
+                    <div>
+                      <p><%= planting.product.name.capitalize %></p>
+                    </div>
+                    <div class="card-list-item-second-line"><%= planting.bed.garden.name %> - <%= planting.bed.name %></div>
                   </div>
                 </div>
-              </section>
-            <!-- ici le end -->
-
-            <div class="d-flex justify-content-between card-list-item-block">
-              <div class="card-list-item-left-block">
-                <div class="desktop_only">
-                  <div class="round-button green m-2">
-                    <i class="fas fa-check round-txt-button"></i>
-                  </div>
-                </div>
-                <div class="card-list-item-main-info-block">
+                <div class="d-flex justify-content-between card-list-item-round-button-block">
                   <div>
-                    <p>Tomates (plants)</p>
-                  </div>
-                  <div class="card-list-item-second-line">jardin 2 - 14 | 2 rangs x 20 cm</div>
-                </div>
-              </div>
-              <div class="d-flex justify-content-between card-list-item-round-button-block">
-                <div>
-                  <div class="round-button green mobile_only m-2">
-                    <i class="fas fa-check round-txt-button"></i>
-                  </div>
-                </div>
-                <div class="d-flex">
-                  <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-tomate" aria-expanded="false">
-                    <i class="fas fa-comment round-txt-button"></i>
-                  </div>
-                  <div class="round-button orange m-2">
-                    <i class="fas fa-redo-alt round-txt-button"></i>
-                  </div>
-                </div>
-                <div>
-                  <div class="txt-avatar <%= current_user.color %> m-2"><%= current_user.first_name[0] %></div>
-                </div>
-              </div>
-              <section class="drawer" id="drawer-tomate" data-drawer-target>
-                <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
-                <div class="drawer__wrapper">
-                  <div class="drawer__header">
-                    <div class="d-flex justify-content-between">
-                      <div class="drawer__title">
-                        <div>
-                          <h2>Tomates (plants)</h2>
-                        </div>
-                        <div class="drawer-title-second-line">jardin 2 - 14 | 2 rangs x 20 cm</div>
-                      </div>
-                      <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
-                        <i class="fas fa-times"></i>
-                      </button>
+                    <div class="round-button green mobile_only m-2">
+                      <i class="fas fa-check round-txt-button"></i>
                     </div>
                   </div>
-                  <div class="drawer__content">
-                    <h4 class="pt-3">Commentaire</h4>
-                    <p>
-                      Attention, il faudra bien penser à blablabla
-                    <p>
+                  <div class="d-flex">
+                    <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-info-<%= planting.id %>" aria-expanded="false">
+                      <i class="fas fa-search round-txt-button"></i>
+                    </div>
+                    <div class="round-button <%= planting.comment.nil? || planting.comment.empty? ? 'lightgrey' : 'green' %>  m-2" data-drawer-trigger aria-controls="drawer-<%= planting.id %>" aria-expanded="false">
+                      <i class="fas fa-comment round-txt-button"></i>
+                    </div>
+                    <div class="round-button orange m-2">
+                      <i class="fas fa-redo-alt round-txt-button"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="txt-avatar <%= current_user.color %> m-2"><%= current_user.first_name[0] %></div>
                   </div>
                 </div>
+              </div>
+              <!-- drawer commentaire -->
+              <section class="drawer" id="drawer-<%= planting.id %>" data-drawer-target>
+                  <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+                  <div class="drawer__wrapper">
+                    <div class="drawer__header">
+                      <div class="d-flex justify-content-between">
+                        <div class="drawer__title">
+                          <div>
+                            <h2><%= planting.product.name.capitalize %></h2>
+                          </div>
+                        </div>
+                        <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
+                          <i class="fas fa-times"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="drawer__content">
+                      <h4 class="pt-3">Commentaire</h4>
+                        <% if planting.comment.nil? || planting.comment.empty? %>
+                          <p>Pas de commentaire</p>
+                        <% else %>
+                          <p>
+                            <%= planting.comment&.capitalize %>
+                          <p>
+                        <% end %>
+                    </div>
+                  </div>
               </section>
-            </div>
+              <!-- drawer info -->
+              <section class="drawer" id="drawer-info-<%= planting.id %>" data-drawer-target>
+                  <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+                  <div class="drawer__wrapper">
+                    <div class="drawer__header">
+                      <div class="d-flex justify-content-between">
+                        <div class="drawer__title">
+                          <div>
+                            <h2><%= planting.product.name.capitalize %></h2>
+                          </div>
+                          <div class="drawer-title-second-line"><%= planting.bed.garden.name %> - <%= planting.bed.name %></div>
+                        </div>
+                        <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
+                          <i class="fas fa-times"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="drawer__content">
+                      <h4 class="pt-3">Comment planter</h4>
+                    </div>
+                  </div>
+              </section>
+            <% end %>
 
             <div class="mt-3">
               <h3>Semis en pépinière</h3>
@@ -538,9 +509,9 @@
                     <div class="drawer__content">
                       <h4 class="pt-3">Commentaire</h4>
                       <% if garden_event.comment.nil? || garden_event.comment.empty? %>
-                        <p id="to-edit">Pas de commentaire</p>
+                        <p>Pas de commentaire</p>
                       <% else %>
-                        <p id="to-edit">
+                        <p>
                           <%= garden_event.comment&.capitalize %>
                         <p>
                       <% end %>
