@@ -46,14 +46,14 @@
                     </div>
                     <% bed.crop_plan_lines.each do |cpl| %>
                       <div class="crop-plan-line-planted" style="background: <%= cpl.product.color %>; left: <%= get_elapsed_days_since_beginning_of_year(cpl.planting_date.strftime('%j').to_i) %>%; width: <%= get_elapsed_days_since_beginning_of_year((cpl.harvest_start_date.strftime('%j').to_i - cpl.planting_date.strftime('%j').to_i)) %>%;">
-                        <div style="line-height: 64px;"><%= cpl.planting_date.strftime('%U').to_i %></div>
-                        <div class="pointer margin-0-auto" data-drawer-trigger aria-controls="drawer-name<%= cpl.product.id %>"><%= cpl.product.name.capitalize[0..1] %></div>
+                        <!-- <div><%= cpl.planting_date.strftime('%U').to_i %></div> -->
+                        <div class="pointer margin-0-auto" data-drawer-trigger aria-controls="drawer-product-show<%= cpl.id %>"><%= cpl.product.name.capitalize %></div>
                       </div>
                       <div class="crop-plan-line-harvesting" style="background: <%= cpl.product.color %>; left: <%= get_elapsed_days_since_beginning_of_year(cpl.planting_date.strftime('%j').to_i) %>%; width: <%= get_elapsed_days_since_beginning_of_year((cpl.harvest_end_date.strftime('%j').to_i - cpl.harvest_start_date.strftime('%j').to_i)) %>%;">
-                        <div><%= cpl.harvest_start_date.strftime('%U').to_i %></div>
-                        <div><%= cpl.harvest_end_date.strftime('%U').to_i %></div>
+<!--                         <div><%= cpl.harvest_start_date.strftime('%U').to_i %></div>
+                        <div><%= cpl.harvest_end_date.strftime('%U').to_i %></div> -->
                       </div>
-                      <section class="drawer" id="drawer-name<%= cpl.product.id %>" data-drawer-target>
+                      <section class="drawer" id="drawer-product-show<%= cpl.id %>" data-drawer-target>
                         <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
                         <div class="drawer__wrapper">
                           <div class="drawer__header">
