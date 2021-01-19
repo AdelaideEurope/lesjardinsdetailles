@@ -10,4 +10,10 @@ class CropPlanLinePolicy < ApplicationPolicy
       true
     end
   end
+
+  def update?
+    if user.manager || user.worker
+      true
+    end
+  end
 end

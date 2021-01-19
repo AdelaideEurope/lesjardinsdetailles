@@ -139,9 +139,11 @@
                     <div class="round-button <%= planting.comment.nil? || planting.comment.empty? ? 'lightgrey' : 'green' %>  m-2" data-drawer-trigger aria-controls="drawer-<%= planting.id %>" aria-expanded="false">
                       <i class="fas fa-comment round-txt-button"></i>
                     </div>
-                    <div class="round-button orange m-2">
-                      <i class="fas fa-redo-alt round-txt-button"></i>
-                    </div>
+                    <%= link_to farm_plandeculture_path(@farm, planting), method: :put do %>
+                      <div class="round-button orange m-2">
+                        <i class="fas fa-redo-alt round-txt-button"></i>
+                      </div>
+                    <% end %>
                   </div>
                   <div>
                     <div class="txt-avatar <%= current_user.color %> m-2"><%= current_user.first_name[0] %></div>
