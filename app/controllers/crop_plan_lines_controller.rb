@@ -11,8 +11,11 @@ class CropPlanLinesController < ApplicationController
     @crop_plan_line = CropPlanLine.find(params[:id])
     authorize @crop_plan_line
     @farm = Farm.find(params[:farm_id])
-    @crop_plan_line.update(planting_date: @crop_plan_line.planting_date + 1.week)
-    redirect_to farm_dashboard_path(@farm)
+    date = @crop_plan_line.planting_date
+    if params[:postpone]
+      @crop_plan_line.update(planting_date: date + 1.week)
+    end
+    redirect_to farm_dashboard_path(@farm, start_date: date)
   end
 end
 

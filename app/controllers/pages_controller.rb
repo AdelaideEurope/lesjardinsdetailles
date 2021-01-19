@@ -20,6 +20,10 @@ class PagesController < ApplicationController
     @presence_periods = PresencePeriod.joins(:users).where(users: { farm_id: current_user.farm_id }).uniq
     @event_colors = {"rdv": "teagreen", "vente": "greensheen"}
 
-    @week_planting = params[:start_date].nil? ? CropPlanLine.where("planting_date BETWEEN ? AND ?", Date.today.beginning_of_week, Date.today.end_of_week) : CropPlanLine.where("planting_date BETWEEN ? AND ?", Date.parse(params[:start_date]).beginning_of_week, Date.parse(params[:start_date]).end_of_week).sort_by(&:id)
+    @week_planting = params[:start_date].nil? ? CropPlanLine.where("planting_date BETWEEN ? AND ?", Date.today.beginning_of_week, Date.today.end_of_week) : CropPlanLine.where("planting_date BETWEEN ? AND ?", Date.parse(params[:start_date]).beginning_of_week, Date.parse(params[:start_date]).end_of_week).includes(:product, bed: [:garden]).sort_by(&:id)
+    @week_harvesting = params[:start_date].nil? ? CropPlanLine.where("harvest_start_date < ? AND harvest_end_date > ?", Date.today.beginning_of_week, Date.today.end_of_week) : CropPlanLine.where("harvest_start_date < ? AND harvest_end_date > ?", Date.parse(params[:start_date]).beginning_of_week, Date.parse(params[:start_date]).end_of_week).includes(:product, bed: [:garden]).sort_by(&:product)
+
+    # À REVOIR +2 WEEK
+    @week_bed_preparation = params[:start_date].nil? ? CropPlanLine.where("planting_date BETWEEN ? AND ?", Date.today.beginning_of_week + 2.week, Date.today.end_of_week + 2.week) : CropPlanLine.where("planting_date BETWEEN ? AND ?", Date.parse(params[:start_date]).beginning_of_week + 2.week, Date.parse(params[:start_date]).end_of_week + 2.week).includes(:product, bed: [:garden]).sort_by(&:id)
   end
 end
