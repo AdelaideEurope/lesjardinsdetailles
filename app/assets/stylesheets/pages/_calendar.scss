@@ -16,6 +16,7 @@
 
 .simple-calendar table {
   margin-top: 90px;
+  margin-bottom: 30px;
 }
 
 .day {
@@ -95,8 +96,8 @@
     justify-content: flex-end;
     position: fixed;
     padding-right: 8%;
-    right: 0;
-    width: 100%;
+    right: -10px;
+    width: 104%;
     background: white;
     padding-bottom: 12px;
     padding-top: 16px;
@@ -122,6 +123,7 @@
 
   .simple-calendar table {
     margin-top: 64px;
+    margin-bottom: 1rem;
   }
 
   .simple-calendar .day {

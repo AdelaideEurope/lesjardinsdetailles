@@ -239,98 +239,200 @@
               </div>
             </div>
             <div class="mt-3">
-              <% if !@week_bed_preparation.empty? %>
+              <% if !@week_bed_preparation_2_weeks.empty? || !@week_bed_preparation_1_week.empty? %>
                 <h3>Préparation planche</h3>
               <% end %>
-              <% @week_bed_preparation.each do |preparing| %>
-                <div class="d-flex justify-content-between card-list-item-block">
-                  <div class="card-list-item-left-block">
-                    <div class="desktop_only">
-                      <div class="round-button green m-2">
-                        <i class="fas fa-check round-txt-button"></i>
+              <% if !@week_bed_preparation_1_week.empty? %>
+                <a class="collapsable-garden-name" data-toggle="collapse" href="#collapse-next-week-<%= params[:start_date] %>" aria-expanded="false" aria-controls="collapse-next-week-<%= params[:start_date] %>">
+                  <div class="d-flex"><h5>Pour plantation la semaine pro</h5><i class="fa" aria-hidden="true"></i></div>
+                </a>
+                <div class="collapse show" id="collapse-next-week-<%= params[:start_date] %>">
+                  <%@week_bed_preparation_1_week.each do |preparing| %>
+                    <div class="d-flex justify-content-between card-list-item-block">
+                      <div class="card-list-item-left-block">
+                        <div class="desktop_only">
+                          <div class="round-button green m-2">
+                            <i class="fas fa-check round-txt-button"></i>
+                          </div>
+                        </div>
+                        <div class="card-list-item-main-info-block">
+                          <div>
+                            <p><%= preparing.bed.garden.name %> - <%= preparing.bed.name %></p>
+                          </div>
+                          <div class="card-list-item-second-line"><%= preparing.product.name.capitalize %></div>
+                          <div class="card-list-item-second-line"><!-- 700g Patenkali - 2kg Bioguanor --></div>
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-between card-list-item-round-button-block">
+                        <div>
+                          <div class="round-button green mobile_only m-2">
+                            <i class="fas fa-check round-txt-button"></i>
+                          </div>
+                        </div>
+                        <div class="d-flex">
+                          <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-info-<%= preparing.id %>" aria-expanded="false">
+                            <i class="fas fa-search round-txt-button"></i>
+                          </div>
+                          <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-comment-<%= preparing.id %>" aria-expanded="false">
+                            <i class="fas fa-comment round-txt-button"></i>
+                          </div>
+                          <div class="round-button orange m-2">
+                            <i class="fas fa-redo-alt round-txt-button"></i>
+                          </div>
+                        </div>
+                        <div>
+                          <div class="txt-avatar orange m-2"><%= current_user.last_name[0] %></div>
+                        </div>
                       </div>
                     </div>
-                    <div class="card-list-item-main-info-block">
-                      <div>
-                        <p><%= preparing.bed.garden.name %> - <%= preparing.bed.name %></p>
-                      </div>
-                      <div class="card-list-item-second-line"><%= preparing.product.name.capitalize %></div>
-                      <div class="card-list-item-second-line"><!-- 700g Patenkali - 2kg Bioguanor --></div>
-                    </div>
-                  </div>
-                  <div class="d-flex justify-content-between card-list-item-round-button-block">
-                    <div>
-                      <div class="round-button green mobile_only m-2">
-                        <i class="fas fa-check round-txt-button"></i>
-                      </div>
-                    </div>
-                    <div class="d-flex">
-                      <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-info-<%= preparing.id %>" aria-expanded="false">
-                        <i class="fas fa-search round-txt-button"></i>
-                      </div>
-                      <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-comment-<%= preparing.id %>" aria-expanded="false">
-                        <i class="fas fa-comment round-txt-button"></i>
-                      </div>
-                      <div class="round-button orange m-2">
-                        <i class="fas fa-redo-alt round-txt-button"></i>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="txt-avatar orange m-2"><%= current_user.last_name[0] %></div>
-                    </div>
-                  </div>
+                    <!-- drawer commentaire -->
+                    <section class="drawer" id="drawer-comment-<%= preparing.id %>" data-drawer-target>
+                        <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+                        <div class="drawer__wrapper">
+                          <div class="drawer__header">
+                            <div class="d-flex justify-content-between">
+                              <div class="drawer__title">
+                                <div>
+                                  <h2><%= preparing.product.name.capitalize %></h2>
+                                </div>
+                              </div>
+                              <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
+                                <i class="fas fa-times"></i>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="drawer__content">
+                            <h4 class="pt-3">Commentaire</h4>
+                              <% if preparing.comment.nil? || preparing.comment.empty? %>
+                                <p>Pas de commentaire</p>
+                              <% else %>
+                                <p>
+                                  <%= preparing.comment&.capitalize %>
+                                <p>
+                              <% end %>
+                          </div>
+                        </div>
+                    </section>
+                    <!-- drawer info -->
+                    <section class="drawer" id="drawer-info-<%= preparing.id %>" data-drawer-target>
+                        <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+                        <div class="drawer__wrapper">
+                          <div class="drawer__header">
+                            <div class="d-flex justify-content-between">
+                              <div class="drawer__title">
+                                <div>
+                                  <h2><%= preparing.product.name.capitalize %></h2>
+                                </div>
+                                <div class="drawer-title-second-line"><%= preparing.bed.garden.name %> - <%= preparing.bed.name %></div>
+                              </div>
+                              <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
+                                <i class="fas fa-times"></i>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="drawer__content">
+                            <h4 class="pt-3">À préparer</h4>
+                          </div>
+                        </div>
+                    </section>
+                  <% end %>
                 </div>
-                <!-- drawer commentaire -->
-                <section class="drawer" id="drawer-comment-<%= preparing.id %>" data-drawer-target>
-                    <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
-                    <div class="drawer__wrapper">
-                      <div class="drawer__header">
-                        <div class="d-flex justify-content-between">
-                          <div class="drawer__title">
-                            <div>
-                              <h2><%= preparing.product.name.capitalize %></h2>
-                            </div>
-                          </div>
-                          <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
-                            <i class="fas fa-times"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="drawer__content">
-                        <h4 class="pt-3">Commentaire</h4>
-                          <% if preparing.comment.nil? || preparing.comment.empty? %>
-                            <p>Pas de commentaire</p>
-                          <% else %>
-                            <p>
-                              <%= preparing.comment&.capitalize %>
-                            <p>
-                          <% end %>
-                      </div>
-                    </div>
-                </section>
-                <!-- drawer info -->
-                <section class="drawer" id="drawer-info-<%= preparing.id %>" data-drawer-target>
-                    <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
-                    <div class="drawer__wrapper">
-                      <div class="drawer__header">
-                        <div class="d-flex justify-content-between">
-                          <div class="drawer__title">
-                            <div>
-                              <h2><%= preparing.product.name.capitalize %></h2>
-                            </div>
-                            <div class="drawer-title-second-line"><%= preparing.bed.garden.name %> - <%= preparing.bed.name %></div>
-                          </div>
-                          <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
-                            <i class="fas fa-times"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="drawer__content">
-                        <h4 class="pt-3">À préparer</h4>
-                      </div>
-                    </div>
-                </section>
               <% end %>
+
+              <a class="collapsable-garden-name collapsed" data-toggle="collapse" href="#collapse-two-weeks-<%= params[:start_date] %>" aria-expanded="false" aria-controls="collapse-two-weeks-<%= params[:start_date] %>">
+                <div class="d-flex mt-2"><h5>Pour plantation dans deux semaines</h5><i class="fa" aria-hidden="true"></i></div>
+              </a>
+              <div class="collapse" id="collapse-two-weeks-<%= params[:start_date] %>">
+                <% @week_bed_preparation_2_weeks.each do |preparing| %>
+                  <div class="d-flex justify-content-between card-list-item-block">
+                    <div class="card-list-item-left-block">
+                      <div class="desktop_only">
+                        <div class="round-button green m-2">
+                          <i class="fas fa-check round-txt-button"></i>
+                        </div>
+                      </div>
+                      <div class="card-list-item-main-info-block">
+                        <div>
+                          <p><%= preparing.bed.garden.name %> - <%= preparing.bed.name %></p>
+                        </div>
+                        <div class="card-list-item-second-line"><%= preparing.product.name.capitalize %></div>
+                        <div class="card-list-item-second-line"><!-- 700g Patenkali - 2kg Bioguanor --></div>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-between card-list-item-round-button-block">
+                      <div>
+                        <div class="round-button green mobile_only m-2">
+                          <i class="fas fa-check round-txt-button"></i>
+                        </div>
+                      </div>
+                      <div class="d-flex">
+                        <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-info-<%= preparing.id %>" aria-expanded="false">
+                          <i class="fas fa-search round-txt-button"></i>
+                        </div>
+                        <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-comment-<%= preparing.id %>" aria-expanded="false">
+                          <i class="fas fa-comment round-txt-button"></i>
+                        </div>
+                        <div class="round-button orange m-2">
+                          <i class="fas fa-redo-alt round-txt-button"></i>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="txt-avatar orange m-2"><%= current_user.last_name[0] %></div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- drawer commentaire -->
+                  <section class="drawer" id="drawer-comment-<%= preparing.id %>" data-drawer-target>
+                      <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+                      <div class="drawer__wrapper">
+                        <div class="drawer__header">
+                          <div class="d-flex justify-content-between">
+                            <div class="drawer__title">
+                              <div>
+                                <h2><%= preparing.product.name.capitalize %></h2>
+                              </div>
+                            </div>
+                            <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
+                              <i class="fas fa-times"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="drawer__content">
+                          <h4 class="pt-3">Commentaire</h4>
+                            <% if preparing.comment.nil? || preparing.comment.empty? %>
+                              <p>Pas de commentaire</p>
+                            <% else %>
+                              <p>
+                                <%= preparing.comment&.capitalize %>
+                              <p>
+                            <% end %>
+                        </div>
+                      </div>
+                  </section>
+                  <!-- drawer info -->
+                  <section class="drawer" id="drawer-info-<%= preparing.id %>" data-drawer-target>
+                      <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+                      <div class="drawer__wrapper">
+                        <div class="drawer__header">
+                          <div class="d-flex justify-content-between">
+                            <div class="drawer__title">
+                              <div>
+                                <h2><%= preparing.product.name.capitalize %></h2>
+                              </div>
+                              <div class="drawer-title-second-line"><%= preparing.bed.garden.name %> - <%= preparing.bed.name %></div>
+                            </div>
+                            <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
+                              <i class="fas fa-times"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="drawer__content">
+                          <h4 class="pt-3">À préparer</h4>
+                        </div>
+                      </div>
+                  </section>
+                <% end %>
+              </div>
             </div>
 
 

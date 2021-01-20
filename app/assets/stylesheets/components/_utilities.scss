@@ -50,6 +50,17 @@ h4 {
   color: $green;
 }
 
+h5 {
+  font-family: $headers-font;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: left;
+  color: $green;
+  font-size: 16px;
+  font-style: italic;
+  padding-left: 12px;
+}
+
 p {
   font-family: $headers-font;
   font-size: 16px;
@@ -120,6 +131,10 @@ input {
   }
 }
 
+.fs-36-24 {
+  font-size: 36px;
+}
+
 .fw-500 {
   font-weight: 500;
 }
@@ -148,18 +163,15 @@ input {
   box-shadow: 1px 1px 4px 1px $lightgrey !important;
 }
 
-
-@media screen and (max-width: 812px) {
+// VERSION MOBILE
+@media(max-width:812px) {
   .mobile_only {
     display: block;
   }
-   .desktop_only {
-     display: none !important;
-   }
-}
+  .desktop_only {
+   display: none !important;
+  }
 
-// VERSION MOBILE
-@media(max-width:812px) {
   h1 {
     font-size: 16px;
     font-style: normal;
@@ -198,6 +210,10 @@ input {
     line-height: 13px;
     text-align: left;
     color: $green;
+  }
+
+  h5 {
+    font-size: 12px;
   }
 
   p {
@@ -253,5 +269,9 @@ input {
   .w-48-desktop {
     width: 100%
   }
+
+  .fs-36-24 {
+  font-size: 24px;
+}
 }
 

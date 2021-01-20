@@ -16,6 +16,11 @@
           <% end %>
         </li>
         <li class="sidebar-item">
+          <%= link_to farm_thebest_path(current_user.farm_id, current_user) do %>
+          <i class="fas fa-user-circle sidebar-icon-item"></i>
+          <% end %>
+        </li>
+        <li class="sidebar-item">
           <%= link_to farm_calendrier_index_path(current_user.farm_id) do %>
             <i class="fas fa-calendar-alt sidebar-icon-item"></i>
           <% end %>

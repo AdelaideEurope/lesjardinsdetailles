@@ -1,64 +1,67 @@
 <div class="container mt-4 custom-container">
-  ICI ON AURA LE DASHBOARD FERME
-
-
-  <div class="mt-4">
-    <h2>Infos de la ferme</h2>
-    <div>
-      <%= @farm.full_name %>
-    </div>
-    <div>
-      <%= @farm.address %>
-    </div>
-    <div>
-      <%= @farm.zip_code %>
-      <%= @farm.city %>
-    </div>
+  <div class="page-header">
+    <h2>Dashboard ferme</h2>
   </div>
 
-  <h2 class="mt-4">Clients directs de la ferme</h2>
-  <% @clients.each do |client| %>
-    <div>
+  <div class="page-content">
+    <div class="mt-4">
+      <h3>Infos de la ferme</h3>
       <div>
-        <%= client.first_name %>
-        <%= client.last_name %> <%= client.phone_number ? "-" : "" %> <%= client.phone_number %>
+        <%= @farm.full_name %>
+      </div>
+      <div>
+        <%= @farm.address %>
+      </div>
+      <div>
+        <%= @farm.zip_code %>
+        <%= @farm.city %>
       </div>
     </div>
-  <% end %>
 
-  <h2  class="mt-4">Travailleurs, travailleuses ⚒</h2>
-  <% @workers.each do |worker| %>
-    <div>
+    <h3 class="mt-4">Clients directs de la ferme</h3>
+    <% @clients.each do |client| %>
       <div>
-        <%= link_to farm_thebest_path(@farm, worker) do  %>
-          <span class="green"><%= worker.first_name %> <%= worker.last_name %> <%= worker.phone_number ? "-" : "" %> <%= worker.phone_number %></span>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-
-  <div class="w-48-desktop mt-4">
-    <div class="dashboard-crop-plan-line-card orange">
-      <div class="card-colored-top-part-fixed-color orange">
-        <div class="card-top-part-text">Les meilleurs points de vente</div>
-      </div>
-      <div class="card-bottom-part">
-        <div class="card-bottom-part-text">
-          <div class="mt-2">
-
-            <% @outlets.each do |outlet| %>
-              <%= link_to farm_pointsdevente_path(outlet) do %>
-                <%= outlet.full_name %>
-              <% end %>
-            <% end %>
-
-          </div>
+        <div>
+          <%= client.first_name %>
+          <%= client.last_name %> <%= client.phone_number ? "-" : "" %> <%= client.phone_number %>
         </div>
-        <div class="d-flex justify-content-end card-bottom-section-with-icon">
-          <div class="card-bottom-right-triangle orange">
-            <%= link_to farm_pointsdevente_index_path(current_user.farm_id), class: 'white' do %>
-              <i class="fas fa-search-plus"></i>
-            <% end %>
+      </div>
+    <% end %>
+
+    <h3  class="mt-4">Travailleurs, travailleuses ⚒</h3>
+    <% @workers.each do |worker| %>
+      <div>
+        <div>
+          <%= link_to farm_thebest_path(@farm, worker) do  %>
+            <span class="green"><%= worker.first_name %> <%= worker.last_name %> <%= worker.phone_number ? "-" : "" %> <%= worker.phone_number %></span>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="w-48-desktop mt-4">
+      <div class="dashboard-crop-plan-line-card orange">
+        <div class="card-colored-top-part-fixed-color orange">
+          <div class="card-top-part-text">Les meilleurs points de vente</div>
+        </div>
+        <div class="card-bottom-part">
+          <div class="card-bottom-part-text">
+            <div class="mt-2">
+
+              <% @outlets.each do |outlet| %>
+                <%= link_to farm_pointsdevente_path(outlet) do %>
+                  <%= outlet.full_name %>
+                <% end %>
+              <% end %>
+
+            </div>
+          </div>
+          <div class="d-flex justify-content-end card-bottom-section-with-icon">
+            <div class="card-bottom-right-triangle orange">
+              <%= link_to farm_pointsdevente_index_path(current_user.farm_id), class: 'white' do %>
+                <i class="fas fa-search-plus"></i>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>

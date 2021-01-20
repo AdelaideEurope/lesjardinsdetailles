@@ -1,39 +1,76 @@
 <div class="container custom-container">
-  <div class="search-form">
-  <%= form_tag farm_produits_path(current_user.farm_id), method: :get, class: "search-input" do %>
-    <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Chercher un produit" %>
-    <button type="submit" class="btn search-button" id="submit">
-      <i class="fas fa-search"></i>
-    </button>
-  <% end %>
+  <div class="page-header">
+    <h2>Tous les légumes <span class="ml-2">🎶</span></h2>
   </div>
 
-  <table class="table mt-4">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @products.each do |product| %>
-      <tr>
-        <th scope="<%= product %>"><%= product.name.capitalize %></th>
-        <td><%= product.general_price_intermediary %></td>
-        <td>
-          <%= product.ttc_turnover || "-" %> €
-        </td>
-        <td>
-          coucou
-        </td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <div class="page-content">
+    <div class="search-form">
+    <%= form_tag farm_produits_path(current_user.farm_id), method: :get, class: "search-input" do %>
+      <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Chercher un produit" %>
+      <button type="submit" class="btn search-button" id="submit">
+        <i class="fas fa-search"></i>
+      </button>
+    <% end %>
+    </div>
 
+    <table class="table mt-4">
+      <thead>
+        <tr>
+          <th scope="col"><%= link_to "Légume", sort: "slug" %></th>
+          <th scope="col"><%= link_to "Famille", sort: "product_group" %></th>
+          <th scope="col"><%= link_to "CA", sort: "ttc_turnover" %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @products.each do |product| %>
+        <tr>
+          <th class="pointer" scope="<%= product %>" data-drawer-trigger aria-controls="drawer-product-index<%= product.id %>" aria-expanded="false"><%= product.name.capitalize %></th>
+          <td>
+            <%= product.product_group.name.capitalize %>
+          </td>
+          <td>
+            <%= product.ttc_turnover || "-" %> €
+          </td>
 
+        </tr>
+        <section class="drawer" id="drawer-product-index<%= product.id %>" data-drawer-target>
+          <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+          <div class="drawer__wrapper">
+            <div class="drawer__header">
+              <div class="d-flex justify-content-between">
+                <div class="drawer__title d-flex">
+                  <h1><%= product.name.capitalize %></h1>
+                  <% if product.photo.attached? %>
+                    <%= cl_image_tag product.photo.key, class: "drawer-product-img" %>
+                  <% end %>
+                </div>
+                <button class="drawer__close" data-drawer-close aria-label="Close Drawer"><i class="fas fa-times"></i></button>
+              </div>
+            <div style="margin-top: -8px;"><%= product.product_group.name.capitalize %></div>
+            </div>
+            <div class="drawer__content">
+              <div>Nombre de planches <%= Date.today.strftime('%Y') %> : <%= remove_trailing_zero(product.yearly_bed_count) %></div>
+              <h2 class="mt-4">Infos culture</h2>
+              <div>Rendement par mètre carré : <%= get_price_in_cents(product.yield_per_sqm) %></div>
+              <div>Chiffre d'affaires estimé : <%= get_price_in_cents(product.estimated_turnover) %></div>
+              <div>Espacement : <%= show_replace_nil_with_dash(product.spacing) %></div>
+              <div>Nombre de rangs : <%= product.row_count %></div>
+              <div>Perte : <%= product.loss_percentage %> %</div>
+              <div>Durée de croissance en semaines : <%= product.growth_duration_in_weeks %></div>
+              <div>Durée de récolte en semaines : <%= product.harvest_duration_in_weeks %></div>
+
+              <h2 class="mt-4">Money money money 💵</h2>
+              <div>Prix général : <%= get_price_in_cents(product.general_price_final_client) %>/<%= product.general_unit %></div>
+              <div>Prix général intermédiaire : <%= get_price_in_cents(product.general_price_intermediary) %>/<%= product.general_unit %></div>
+              <div>Chiffre d'affaires HT : <%= get_price_in_cents(product.ht_turnover) %></div>
+              <div>Chiffre d'affaires TTC : <%= get_price_in_cents(product.ttc_turnover) %></div>
+            </div>
+          </div>
+        </section>
+        <% end %>
+      </tbody>
+    </table>
+    <!--
   <div class="d-flex mx-auto flex-wrap justify-content-sm-between justify-content-center">
     <% @products.each do |product| %>
       <div class="mt-4 product-card" style="box-shadow: 0px 2px 4px 0px <%= product.color.nil? ? '#276259' : product.color %>;">
@@ -47,45 +84,13 @@
             <p class="mt-2">Ceci est un bloc de texte basique, blabla bla blabla</p>
           </div>
           <div class="d-flex justify-content-end">
-            <div class="card-bottom-right-triangle" style="background: linear-gradient(to bottom right, #fff 0%, #fff 50%, <%= product.color.nil? ? '#276259' : product.color %> 50%, <%= product.color.nil? ? '#276259' : product.color %> 100%)" data-drawer-trigger aria-controls="drawer-name<%= product.id %>" aria-expanded="false"><i class="fas fa-plus"></i></div>
+            <div class="card-bottom-right-triangle" style="background: linear-gradient(to bottom right, #fff 0%, #fff 50%, <%= product.color.nil? ? '#276259' : product.color %> 50%, <%= product.color.nil? ? '#276259' : product.color %> 100%)"><i class="fas fa-plus"></i></div>
           </div>
         </div>
-      <section class="drawer" id="drawer-name<%= product.id %>" data-drawer-target>
-        <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
-        <div class="drawer__wrapper">
-          <div class="drawer__header">
-            <div class="d-flex justify-content-between">
-              <div class="drawer__title d-flex">
-                <h1><%= product.name.capitalize %></h1>
-                <% if product.photo.attached? %>
-                  <%= cl_image_tag product.photo.key, class: "drawer-product-img" %>
-                <% end %>
-              </div>
-              <button class="drawer__close" data-drawer-close aria-label="Close Drawer"><i class="fas fa-times"></i></button>
-            </div>
-          <div style="margin-top: -8px;"><%= product.product_group.name.capitalize %></div>
-          </div>
-          <div class="drawer__content">
-            <div>Nombre de planches <%= Date.today.strftime('%Y') %> : <%= remove_trailing_zero(product.yearly_bed_count) %></div>
-            <h2 class="mt-4">Infos culture</h2>
-            <div>Rendement par mètre carré : <%= get_price_in_cents(product.yield_per_sqm) %></div>
-            <div>Chiffre d'affaires estimé : <%= get_price_in_cents(product.estimated_turnover) %></div>
-            <div>Espacement : <%= show_replace_nil_with_dash(product.spacing) %></div>
-            <div>Nombre de rangs : <%= product.row_count %></div>
-            <div>Perte : <%= product.loss_percentage %> %</div>
-            <div>Durée de croissance en semaines : <%= product.growth_duration_in_weeks %></div>
-            <div>Durée de récolte en semaines : <%= product.harvest_duration_in_weeks %></div>
 
-            <h2 class="mt-4">Money money money 💵</h2>
-            <div>Prix général : <%= get_price_in_cents(product.general_price_final_client) %>/<%= product.general_unit %></div>
-            <div>Prix général intermédiaire : <%= get_price_in_cents(product.general_price_intermediary) %>/<%= product.general_unit %></div>
-            <div>Chiffre d'affaires HT : <%= get_price_in_cents(product.ht_turnover) %></div>
-            <div>Chiffre d'affaires TTC : <%= get_price_in_cents(product.ttc_turnover) %></div>
-          </div>
-        </div>
-      </section>
       </div>
     <% end %>
+  </div> -->
   </div>
 </div>
 
