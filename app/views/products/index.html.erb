@@ -8,6 +8,32 @@
   <% end %>
   </div>
 
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+      <tr>
+        <th scope="<%= product %>"><%= product.name.capitalize %></th>
+        <td><%= product.general_price_intermediary %></td>
+        <td>
+          <%= product.ttc_turnover || "-" %> €
+        </td>
+        <td>
+          coucou
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+
   <div class="d-flex mx-auto flex-wrap justify-content-sm-between justify-content-center">
     <% @products.each do |product| %>
       <div class="mt-4 product-card" style="box-shadow: 0px 2px 4px 0px <%= product.color.nil? ? '#276259' : product.color %>;">
