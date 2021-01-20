@@ -6,13 +6,13 @@ class ProductPolicy < ApplicationPolicy
   end
 
   def index?
-    if user.manager
+    if user.manager || user.worker
       true
     end
   end
 
   def show?
-    if user.manager
+    if user.manager || user.worker
       true
     end
   end
