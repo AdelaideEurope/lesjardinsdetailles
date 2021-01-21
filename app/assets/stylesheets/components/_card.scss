@@ -1,3 +1,9 @@
+.simple-card {
+  padding: 9px 20px;
+  box-shadow: 1px 1px 4px 1px $lightgrey !important;
+  border-radius: 8px;
+}
+
 .product-card {
   display: flex;
   flex-direction: column;

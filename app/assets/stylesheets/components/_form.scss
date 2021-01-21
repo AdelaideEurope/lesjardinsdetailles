@@ -25,6 +25,25 @@
   }
 }
 
+#product_color {
+  border-bottom: none !important;
+  padding-top: 0;
+  padding-bottom: 12px;
+}
+
+.product_color {
+  display: flex;
+
+  input {
+    width: 76px;
+  }
+
+  .form-control.is-valid {
+    background-image: none;
+  }
+}
+
+
 @media(max-width:812px) {
   .search-form {
     .form-control {

@@ -16,4 +16,16 @@ class ProductPolicy < ApplicationPolicy
       true
     end
   end
+
+  def edit?
+    if user.manager
+      true
+    end
+  end
+
+  def update?
+    if user.manager
+      true
+    end
+  end
 end

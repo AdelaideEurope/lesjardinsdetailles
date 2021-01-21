@@ -10,12 +10,12 @@
   </div>
 
   <div class="page-content">
-    <% if @user.worker %>
-      <h3>Mes tâches de la semaine</h3>
-      <h3>Mes prochains jours d'astreinte</h3>
-      <h3>Mes prochains jours de vacances <span class="ml-2">🏝</span></h3>
-    <% else %>
-    hello
-    <% end %>
   </div>
+  <% if @user.worker %>
+    <h3>Mes tâches de la semaine</h3>
+    <h3>Mes prochains jours d'astreinte</h3>
+    <h3>Mes prochains jours de vacances <span class="ml-2">🏝</span></h3>
+  <% else %>
+    hello
+  <% end %>
 </div>
