@@ -4,7 +4,7 @@ class FarmsController < ApplicationController
   def show
     authorize @farm
     @clients = @farm.users.where.not(worker: true).map{ |client| client }
-    @workers = @farm.users.where(worker: true).map{ |client| client }
+    @workers = @farm.users.where(worker: true).map{ |worker| worker }
     @outlets = @farm.outlets
   end
 

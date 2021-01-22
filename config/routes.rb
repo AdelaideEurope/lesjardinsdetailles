@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :ventes, controller: 'sales', only: [ :index, :show ]
     resources :pointsdevente, controller: 'outlets', only: [ :index, :show ]
     resources :thebest, controller: 'users', only: [ :show ]
+    resources :user_events, only: [ :create, :update ]
     get 'dashboard', to: 'pages#dashboard'
   end
 end

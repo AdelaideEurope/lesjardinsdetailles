@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  before_action :set_event, only: [:edit, :update]
+
   def index
     @events = Event.where(farm_id: current_user.farm_id)
     @presence_periods = PresencePeriod.joins(:users).where(users: { farm_id: current_user.farm_id }).uniq
@@ -8,12 +10,10 @@ class EventsController < ApplicationController
   end
 
   def edit
-    @event = Event.find(params[:id])
   end
 
   def update
     @farm = Farm.find(params[:farm_id])
-    @event = Event.find(params[:id])
     if params[:event_done]
       if @event.update(date_done: Date.today)
         redirect_to farm_dashboard_path(@farm)
@@ -33,5 +33,9 @@ class EventsController < ApplicationController
   private
   def event_params
     params.permit(:id, :farm_id, :date, :details, :description, :comment)
+  end
+
+  def set_event
+    @event = @event = Event.find(params[:id])
   end
 end

@@ -623,7 +623,7 @@
                         <i class="fas fa-redo-alt round-txt-button"></i>
                       </div>
                     </div>
-                    <div>
+                    <div class="user-button-event">
                       <% if !garden_event.users.empty? %>
                         <% garden_event.users.each do |user| %>
                           <div class="d-flex pr-1">
@@ -631,31 +631,31 @@
                           </div>
                         <% end %>
                       <% else %>
-                        <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-add-users-<%= garden_event.id %>" aria-expanded="false"><i class="fas fa-user-plus round-txt-button"></i></div>
+                        <div class="dropleft">
+                          <div type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="round-button green m-2">
+                              <i class="fas fa-user-plus round-txt-button"></i>
+                            </div>
+                          </div>
+                          <div class="dropdown-menu">
+                            <div class="d-flex">
+                              <% @workers.each do |worker| %>
+                                <%= link_to farm_user_events_path(event: garden_event, worker: worker.id), :method => :post do %>
+                                  <div class="d-flex pr-1 pointer">
+                                    <div class="txt-avatar m-2 <%= worker.color %>">
+                                      <%= "🙏🏻" if worker.first_name == "Bras" %>
+                                      <%= worker.first_name[0] %>
+                                    </div>
+                                  </div>
+                                <% end %>
+                              <% end %>
+                            </div>
+                          </div>
+                        </div>
                       <% end %>
                     </div>
                   </div>
                 </div>
-                <!-- drawer add user -->
-                <section class="drawer" id="drawer-add-users-<%= garden_event.id %>" data-drawer-target>
-                  <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
-                  <div class="drawer__wrapper">
-                    <div class="drawer__header">
-                      <div class="d-flex justify-content-between">
-                        <div class="drawer__title">
-                          <div>
-                            <h2>Ajouter des 👨🏻‍🌾👩🏼‍🌾</h2>
-                          </div>
-                        </div>
-                        <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
-                          <i class="fas fa-times"></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div class="drawer__content">
-                    </div>
-                  </div>
-                </section>
 
                 <!-- drawer comment tour des jardins -->
                 <section class="drawer" id="drawer-tour-des-jardins-comment-<%= garden_event.id %>" data-drawer-target>

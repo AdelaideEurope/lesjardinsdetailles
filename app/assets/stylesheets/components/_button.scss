@@ -125,6 +125,15 @@
   display: flex;
 }
 
+.dropleft .dropdown-toggle::before {
+  content: none
+}
+
+.user-button-event {
+  .dropdown-menu.show {
+    top: -20px !important;
+  }
+}
 // VERSION MOBILE
 @media(max-width:767px) {
   .search-button {
