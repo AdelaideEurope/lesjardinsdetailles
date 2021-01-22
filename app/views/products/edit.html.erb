@@ -1,4 +1,4 @@
-<div class="container custom-container">
+<div class="container custom-container" style="    overflow: auto;">
   <div class="page-header d-block">
     <h2 class="mb-0"><%= @product.name.capitalize %></h2>
     <p class="lightgrey">Modifier</p>
@@ -23,8 +23,8 @@
           <h3 class="mt-4">Infos ventes</h3>
           <div class="simple-card">
             <%= f.input :general_unit, :label => "Unité générale", required: true %>
-            <%= f.input :general_price_final_client, :label => "Prix général client final" %>
-            <%= f.input :general_price_intermediary, :label => "Prix général intermédiaire" %>
+            <%= f.input :general_price_final_client, input_html: {value: @product.general_price_final_client.to_i.fdiv(100)}, :label => "Prix général client final" %>
+            <%= f.input :general_price_intermediary, input_html: {value: @product.general_price_intermediary.to_i.fdiv(100)}, :label => "Prix général intermédiaire" %>
           </div>
         </div>
 
@@ -33,7 +33,7 @@
           <div class="simple-card d-sm-flex justify-content-between">
             <div class="w-47-desktop">
               <%= f.input :yearly_bed_count, :label => "Nombre de planches dans l'année" %>
-              <%= f.input :yield_per_sqm, :label => "Rendement par mètre carré" %>
+              <%= f.input :yield_per_sqm, input_html: {value: @product.yield_per_sqm.to_i.fdiv(100)}, :label => "Rendement par mètre carré" %>
               <%= f.input :loss_percentage, :label => "Pourcentage de perte" %>
             </div>
             <div class="w-47-desktop">

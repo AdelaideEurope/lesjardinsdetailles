@@ -593,9 +593,11 @@
                 <div class="d-flex justify-content-between card-list-item-block">
                   <div class="card-list-item-left-block">
                     <div class="desktop_only">
-                      <div class="round-button green m-2">
-                        <i class="fas fa-check round-txt-button"></i>
-                      </div>
+                      <%= link_to farm_calendrier_path(@farm, garden_event, event_done: true), method: :patch do %>
+                        <div class="round-button <%= garden_event.date_done.nil? ? 'green' : 'olive' %> m-2">
+                          <i class="fas fa-check round-txt-button"></i>
+                        </div>
+                      <% end %>
                     </div>
                     <div class="card-list-item-main-info-block">
                       <div>
@@ -622,14 +624,39 @@
                       </div>
                     </div>
                     <div>
-                      <% garden_event.users.each do |user| %>
-                        <div class="d-flex pr-1">
-                          <div class="txt-avatar m-2 <%= user.color %>"><%= user.first_name[0] %></div>
-                        </div>
+                      <% if !garden_event.users.empty? %>
+                        <% garden_event.users.each do |user| %>
+                          <div class="d-flex pr-1">
+                            <div class="txt-avatar m-2 <%= user.color %>"><%= user.first_name[0] %></div>
+                          </div>
+                        <% end %>
+                      <% else %>
+                        <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-add-users-<%= garden_event.id %>" aria-expanded="false"><i class="fas fa-user-plus round-txt-button"></i></div>
                       <% end %>
                     </div>
                   </div>
                 </div>
+                <!-- drawer add user -->
+                <section class="drawer" id="drawer-add-users-<%= garden_event.id %>" data-drawer-target>
+                  <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+                  <div class="drawer__wrapper">
+                    <div class="drawer__header">
+                      <div class="d-flex justify-content-between">
+                        <div class="drawer__title">
+                          <div>
+                            <h2>Ajouter des 👨🏻‍🌾👩🏼‍🌾</h2>
+                          </div>
+                        </div>
+                        <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
+                          <i class="fas fa-times"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="drawer__content">
+                    </div>
+                  </div>
+                </section>
+
                 <!-- drawer comment tour des jardins -->
                 <section class="drawer" id="drawer-tour-des-jardins-comment-<%= garden_event.id %>" data-drawer-target>
                   <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
@@ -681,9 +708,8 @@
                     </div>
                     <div class="drawer__content drawer-content-with-bottom-buttons">
                       <div>
-                        <%= form_with model: @event, url: farm_calendrier_path(@farm, garden_event.id), method: :patch do |form| %>
-                        <h4 class="mt-4">Date</h4>
-                        <%= form.date_field :date, value: garden_event.date, class: "mt-2" %>
+                        <%= form_with model: @event, url: farm_calendrier_path(@farm, garden_event.id), method: :patch, local: true do |form| %>
+
                         <h4 class="mt-4">Description</h4>
                         <%= form.text_area :description, value: garden_event.description, class: "mt-2", rows: "1" %>
                         <h4 class="mt-4">Détails</h4>

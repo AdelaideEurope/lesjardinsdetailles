@@ -14,10 +14,18 @@ class EventsController < ApplicationController
   def update
     @farm = Farm.find(params[:farm_id])
     @event = Event.find(params[:id])
-    if @event.update(event_params)
-      redirect_to farm_dashboard_path(@farm)
+    if params[:event_done]
+      if @event.update(date_done: Date.today)
+        redirect_to farm_dashboard_path(@farm)
+      else
+        redirect_to farm_dashboard_path(@farm)
+      end
     else
-      redirect_to farm_dashboard_path(@farm)
+      if @event.update(event_params)
+        redirect_to farm_dashboard_path(@farm)
+      else
+        redirect_to farm_dashboard_path(@farm)
+      end
     end
     authorize @event
   end
