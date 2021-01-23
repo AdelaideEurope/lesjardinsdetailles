@@ -1,0 +1,13 @@
+<%= form_with model: event, url: farm_calendrier_index_path(farm, event, start_date: params[:start_date]), local: true do |form| %>
+  <div class="mb-4">
+    <h4 class="mt-2">Description</h4>
+    <%= form.text_area :description, class: "mt-2 w-100", rows: "1" %>
+    <h4 class="mt-4">Détails</h4>
+    <%= form.text_area :details, class: "mt-2 w-100", rows: "1" %>
+    <h4 class="mt-4">Commentaire</h4>
+    <%= form.text_area :comment, class: "mt-2 w-100", rows: "1" %>
+  </div>
+  <div class="drawer-edit-bottom-buttons px-sm-4">
+    <div><%= form.submit value: "Valider", class: "btn txt-button-background olive mt-2", 'data-disable-with': "..." %></div>
+  </div>
+<% end %>

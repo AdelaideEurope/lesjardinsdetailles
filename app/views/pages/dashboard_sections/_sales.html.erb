@@ -1,0 +1,95 @@
+<div class="my-4 desktop_only">
+  <!-- ici le each -->
+  <div class="d-flex justify-content-between list-item-block my-2">
+    <div class="card-list-item-left-block">
+      <div class="align-self-center pr-4">
+        <p>15/03/21</p>
+      </div>
+        <h4 class="mb-0 align-self-center fw-500">L'Épicerie</h4>
+    </div>
+    <div class="d-flex justify-content-between card-list-item-round-button-block">
+      <div class="d-flex desktop_only">
+        <div class="round-button olive m-2">
+          <%= image_tag "panier.png", alt: "panier", class: "round-img-button" %>
+        </div>
+        <div class="round-button green m-2">
+          <i class="fas fa-search-plus round-txt-button"></i>
+        </div>
+        <div class="round-button red m-2">
+          <i class="fas fa-euro-sign round-txt-button"></i>
+        </div>
+        <div class="round-button red m-2">
+          <i class="far fa-file-alt round-txt-button"></i>
+        </div>
+
+      </div>
+      <div class="align-self-center">
+        <h4 class="mb-0 align-self-center fw-500">123,40 €</h4>
+      </div>
+    </div>
+  </div>
+  <!-- ici le end -->
+</div>
+<div class="mobile_only">
+  <!-- ici le each -->
+  <div id="carouselExampleSlidesOnly" class="carousel-sales carousel slide" data-ride="carousel" data-interval="false">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="d-flex justify-content-between list-item-block my-4">
+          <div class="card-list-item-left-block">
+            <div class="align-self-center pr-4">
+              <p>15/03/21</p>
+            </div>
+              <h4 class="mb-0 align-self-center fw-500">L'Épicerie</h4>
+          </div>
+          <div class="d-flex justify-content-between card-list-item-round-button-block">
+            <div class="d-flex desktop_only">
+              <div class="round-button olive m-2">
+                <%= image_tag "panier.png", alt: "panier", class: "round-img-button" %>
+              </div>
+              <div class="round-button green m-2">
+                <i class="fas fa-search-plus round-txt-button"></i>
+              </div>
+              <div class="round-button red m-2">
+                <i class="fas fa-euro-sign round-txt-button"></i>
+              </div>
+              <div class="round-button red m-2">
+                <i class="far fa-file-alt round-txt-button"></i>
+              </div>
+            </div>
+            <div class="align-self-center">
+              <h4 class="mb-0 align-self-center fw-500">123,40 €</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="d-flex justify-content-between box-shadow-lightgrey my-4">
+          <div class="d-flex mobile_only w-100 justify-content-center">
+            <div class="px-2">
+              <div class="round-button olive m-2">
+                <%= image_tag "panier.png", alt: "panier", class: "round-img-button" %>
+              </div>
+            </div>
+            <div class="px-2">
+              <div class="round-button green m-2">
+                <i class="fas fa-search-plus round-txt-button"></i>
+              </div>
+            </div>
+            <div class="px-2">
+              <div class="round-button red m-2">
+                <i class="fas fa-euro-sign round-txt-button"></i>
+              </div>
+            </div>
+            <div class="px-2">
+              <div class="round-button red m-2">
+                <i class="far fa-file-alt round-txt-button"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ici le end -->
+</div>

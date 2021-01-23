@@ -1,18 +1,13 @@
 <div class="container mt-4 custom-container">
   <div class="page-header">
-    <% if @user.first_name == "Bras" %>
-      <h2><span class="fs-36-24 mr-2">🙏🏻</span> <%= @displayed_name.capitalize %></h2>
-    <% elsif @user.worker %>
-      <h2><span class="fs-36-24 mr-2"><%= @user.gender == "M" ? "👨🏻‍🌾" : "👩🏼‍🌾" %></span> <%= @displayed_name.capitalize %></h2>
-    <% else %>
-      <h2><%= @displayed_name.capitalize %></h2>
-    <% end %>
+    <h2><span class="fs-36-24 mr-2"><%= @user.emoji %></span> <%= @user.displayed_name.capitalize %></h2>
   </div>
 
   <div class="page-content">
   </div>
   <% if @user.worker %>
     <h3>Mes tâches de la semaine</h3>
+
     <h3>Mes prochains jours d'astreinte</h3>
     <h3>Mes prochains jours de vacances <span class="ml-2">🏝</span></h3>
   <% else %>

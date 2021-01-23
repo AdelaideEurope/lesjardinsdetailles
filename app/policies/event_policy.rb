@@ -22,4 +22,10 @@ class EventPolicy < ApplicationPolicy
       true
     end
   end
+
+  def create?
+    if user.worker
+      true
+    end
+  end
 end

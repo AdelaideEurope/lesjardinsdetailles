@@ -1,0 +1,110 @@
+<div class="dashboard-crop-plan-line-card orange">
+  <div class="card-colored-top-part-fixed-color orange">
+    <div class="card-top-part-text">Décharge mentale</div>
+  </div>
+  <div class="card-bottom-part">
+    <div class="card-bottom-part-text">
+      <div class="mt-2">
+
+        <!-- for each ici -->
+        <div class="d-flex justify-content-between card-list-item-block">
+          <div class="card-list-item-left-block">
+            <div class="desktop_only">
+              <div class="round-button green m-2">
+                <i class="fas fa-check round-txt-button"></i>
+              </div>
+            </div>
+            <div class="card-list-item-main-info-block">
+              <div>
+                <p>Commande nourriture poules</p>
+              </div>
+              <div class="card-list-item-second-line">Fournisseur blabla</div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between card-list-item-round-button-block">
+            <div>
+              <div class="round-button green mobile_only m-2">
+                <i class="fas fa-check round-txt-button"></i>
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-decharge-mentale-comment-1" aria-expanded="false">
+                <i class="fas fa-comment round-txt-button"></i>
+              </div>
+              <div class="round-button orange m-2" data-drawer-trigger aria-controls="drawer-decharge-mentale-edit-1" aria-expanded="false">
+                <i class="fas fa-pen round-txt-button"></i>
+              </div>
+              <div class="round-button orange m-2">
+                <i class="fas fa-redo-alt round-txt-button"></i>
+              </div>
+            </div>
+            <div>
+              <div class="txt-avatar <%= current_user.color %> m-2"><%= current_user.first_name[0] %></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- drawer comment decharge mentale -->
+        <section class="drawer" id="drawer-decharge-mentale-comment-1" data-drawer-target>
+          <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+          <div class="drawer__wrapper">
+            <div class="drawer__header">
+              <div class="d-flex justify-content-between">
+                <div class="drawer__title">
+                  <div>
+                    <h2>Commande nourriture poules</h2>
+                  </div>
+                  <div class="drawer-title-second-line">Fournisseur blabla</div>
+                </div>
+                <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="drawer__content">
+              <h4 class="pt-3">Commentaire</h4>
+              <p>
+                Attention, il faudra bien penser à blablabla
+              <p>
+            </div>
+          </div>
+        </section>
+
+        <!-- drawer edit decharge mentale -->
+        <section class="drawer" id="drawer-decharge-mentale-edit-1" data-drawer-target>
+          <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+          <div class="drawer__wrapper">
+            <div class="drawer__header">
+              <div class="d-flex justify-content-between">
+                <div class="drawer__title">
+                  <div>
+                    <h2>Modifier</h2>
+                  </div>
+                </div>
+                <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="drawer__content drawer-content-with-bottom-buttons">
+              <div>
+                <p>Ici on aura le formulaire de modification</p>
+              </div>
+              <div class="drawer-edit-bottom-buttons px-sm-4">
+                <div><%= link_to "Valider", about_path, class: "btn txt-button-background olive mt-2" %></div>
+                <div><%= link_to "Supprimer", about_path, class: "btn txt-button-background red mt-2" %></div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- end ici -->
+
+      </div>
+    </div>
+    <div id="tour-des-jardins-anchor" class="d-flex justify-content-end card-bottom-section-with-icon">
+      <div class="card-bottom-right-triangle orange">
+        <i class="fas fa-plus"></i>
+      </div>
+    </div>
+  </div>
+</div>

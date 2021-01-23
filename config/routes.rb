@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'about', to: 'pages#about'
 
   resources :farms, only: [ :show ] do
-    resources :calendrier, controller: 'events', only: [ :index, :edit, :update ]
+    resources :calendrier, controller: 'events', only: [ :index, :edit, :update, :new, :create ]
     resources :produits, controller: 'products', only: [ :index, :show, :edit, :update ]
     resources :plandeculture, controller: 'crop_plan_lines', only: [ :index, :update ]
     resources :ventes, controller: 'sales', only: [ :index, :show ]

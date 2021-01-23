@@ -1,0 +1,35 @@
+<section class="drawer" id="drawer-tour-des-jardins-edit-<%= garden_event_id %>" data-drawer-target>
+  <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+  <div class="drawer__wrapper">
+    <div class="drawer__header">
+      <div class="d-flex justify-content-between">
+        <div class="drawer__title">
+          <div>
+            <h2>Modifier</h2>
+          </div>
+        </div>
+        <button class="drawer__close" data-drawer-close aria-label="Fermer le drawer">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <div class="drawer__content drawer-content-with-bottom-buttons">
+      <div>
+        <%= form_with model: event, url: farm_calendrier_path(farm, garden_event_id), method: :patch, local: true do |form| %>
+
+        <h4 class="mt-4">Description</h4>
+        <%= form.text_area :description, value: garden_event_description, class: "mt-2", rows: "1" %>
+        <h4 class="mt-4">Détails</h4>
+        <%= form.text_area :details, value: garden_event_details, class: "mt-2", rows: "1" %>
+        <h4 class="mt-4">Commentaire</h4>
+        <%= form.text_area :comment, value: garden_event_comment, class: "mt-2", rows: "1" %>
+
+      </div>
+      <div class="drawer-edit-bottom-buttons px-sm-4">
+        <div><%= form.submit value: "Valider", class: "btn txt-button-background olive mt-2", 'data-disable-with': "..." %></div>
+        <div><%= link_to "Supprimer", about_path, class: "btn txt-button-background red mt-2" %></div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</section>
