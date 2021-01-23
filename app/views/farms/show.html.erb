@@ -23,9 +23,9 @@
       </div>
     </div>
     <div class="container">
-      <div class="farm-actions">
+      <!-- <div class="farm-actions">
           <div></div>
-      </div>
+      </div> -->
       <div class="mt-4">
         <h3>Infos de la ferme</h3>
         <div>
@@ -44,8 +44,9 @@
       <% @clients.each do |client| %>
         <div>
           <div>
-            <%= client.first_name %>
-            <%= client.last_name %> <%= client.phone_number ? "-" : "" %> <%= client.phone_number %>
+            <%= link_to farm_thebest_path(@farm, client) do  %>
+              <span class="raisin"><%= client.first_name %> <%= client.last_name %> <%= client.phone_number ? "-" : "" %> <%= client.phone_number %></span>
+            <% end %>
           </div>
         </div>
       <% end %>
@@ -55,7 +56,7 @@
         <div>
           <div>
             <%= link_to farm_thebest_path(@farm, worker) do  %>
-              <span class="green"><%= worker.first_name %> <%= worker.last_name %> <%= worker.phone_number ? "-" : "" %> <%= worker.phone_number %></span>
+              <span class="raisin"><%= worker.first_name %> <%= worker.last_name %> <%= worker.phone_number ? "-" : "" %> <%= worker.phone_number %></span>
             <% end %>
           </div>
         </div>

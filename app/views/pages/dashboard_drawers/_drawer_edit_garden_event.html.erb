@@ -15,7 +15,7 @@
     </div>
     <div class="drawer__content drawer-content-with-bottom-buttons">
       <div>
-        <%= form_with model: event, url: farm_calendrier_path(farm, garden_event_id), method: :patch, local: true do |form| %>
+        <%= form_with model: event, url: farm_calendrier_path(farm, garden_event_id, start_date: params[:start_date]), method: :patch, local: true do |form| %>
 
         <h4 class="mt-4">Description</h4>
         <%= form.text_area :description, value: garden_event_description, class: "mt-2", rows: "1" %>

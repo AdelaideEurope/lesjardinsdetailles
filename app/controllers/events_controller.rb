@@ -44,13 +44,14 @@ class EventsController < ApplicationController
         flash[:notice] = "Tâche de jardin décalée à la semaine #{new_date.strftime('%U').to_i}  !"
         redirect_to farm_dashboard_path(@farm, start_date: start_date)
       else
-        redirect_to farm_dashboard_path(@farm)
+        redirect_to farm_dashboard_path(@farm, start_date: start_date)
       end
     else
+      start_date = params[:start_date]
       if @event.update(description: params[:description], comment: params[:comment], details: params[:details])
-        redirect_to farm_dashboard_path(@farm)
+        redirect_to farm_dashboard_path(@farm, start_date: start_date)
       else
-        redirect_to farm_dashboard_path(@farm)
+        redirect_to farm_dashboard_path(@farm, start_date: start_date)
       end
     end
     authorize @event

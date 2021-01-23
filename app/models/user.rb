@@ -5,6 +5,8 @@ class User < ApplicationRecord
   has_one_attached :photo
   has_many :user_events
   has_many :user_presence_periods
+  has_many :events, through: :user_events
+  has_many :presence_periods, through: :user_presence_periods
 
   belongs_to :farm
 
@@ -19,9 +21,9 @@ class User < ApplicationRecord
     if self.first_name == "Bras"
       "Help"
     elsif self.nickname.nil?
-      self.first_name
+      self.first_name.capitalize
     else
-      self.nickname
+      self.nickname.capitalize
     end
   end
 
@@ -37,7 +39,19 @@ class User < ApplicationRecord
     end
   end
 
+  def initial
+    if self.first_name == "Bras"
+      "🙏🏻"
+    else
+      self.first_name[0].capitalize
+    end
+  end
+
   def is_client?
     !self.worker
+  end
+
+  def tasks_this_week
+    self.events.where("farm_id = ? AND (date BETWEEN ? AND ?)", 1, Date.today.beginning_of_week, Date.today.end_of_week)
   end
 end

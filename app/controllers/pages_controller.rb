@@ -26,7 +26,8 @@ class PagesController < ApplicationController
     @week_bed_preparation_2_weeks = params[:start_date].nil? ? CropPlanLine.where("planting_date BETWEEN ? AND ?", Date.today.beginning_of_week + 2.week, Date.today.end_of_week + 2.week) : CropPlanLine.where("planting_date BETWEEN ? AND ?", Date.parse(params[:start_date]).beginning_of_week + 2.week, Date.parse(params[:start_date]).end_of_week + 2.week).includes(:product, bed: [:garden]).sort_by(&:id)
     @week_bed_preparation_1_week = params[:start_date].nil? ? CropPlanLine.where("planting_date BETWEEN ? AND ?", Date.today.beginning_of_week + 1.week, Date.today.end_of_week + 1.week) : CropPlanLine.where("planting_date BETWEEN ? AND ?", Date.parse(params[:start_date]).beginning_of_week + 1.week, Date.parse(params[:start_date]).end_of_week + 1.week).includes(:product, bed: [:garden]).sort_by(&:id)
 
-    @workers = @farm.users.where(worker: true).order(:id).map{ |client| client }[1..-1]
+    @workers = @farm.workers
+    # @workers = @farm.users.where(worker: true).order(:id).map{ |client| client }[1..-1]
     @new_event = Event.new
   end
 end

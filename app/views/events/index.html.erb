@@ -9,7 +9,7 @@
         <div class="desktop_only">
           <div class="d-flex justify-content-around calendar-user-presence-periods">
             <% event.users.each do |user| %>
-              <div class="sm-txt-avatar <%= user.color %>"><%= user.first_name[0] %></div>
+              <div class="sm-txt-avatar <%= user.color %>"><%= user.initial %></div>
             <% end %>
           </div>
         </div>
@@ -21,7 +21,7 @@
             <div class="d-flex flex-wrap">
               <% event.users.each do |user| %>
               <div class="d-flex pr-1">
-                <div class="text-white sm-txt-avatar <%= user.color %>"><%= user.first_name[0] %></div>
+                <div class="text-white sm-txt-avatar <%= user.color %>"><%= user.initial %></div>
               </div>
               <% end %>
             </div>
@@ -37,7 +37,7 @@
         <div class="mobile_only">
           <div class="d-flex justify-content-around calendar-user-presence-periods">
             <% event.users.each do |user| %>
-              <div class="vsm-txt-avatar <%= user.color %>"><%= user.first_name[0] %></div>
+              <div class="vsm-txt-avatar <%= user.color %>"><%= user.initial %></div>
             <% end %>
           </div>
         </div>
@@ -47,7 +47,7 @@
           <div class="d-flex">
             <% event.users.each do |user| %>
               <div class="m-1 text-white vsm-txt-avatar <%= user.color %>">
-                <%= user.first_name[0] %>
+                <%= user.initial %>
               </div>
             <% end %>
           </div>

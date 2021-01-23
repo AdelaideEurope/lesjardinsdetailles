@@ -1,0 +1,101 @@
+<div class="mt-4 dashboard-crop-plan-line-card red">
+  <div class="card-colored-top-part-fixed-color red">
+    <div class="card-top-part-text">Tour des jardins  👀</div>
+  </div>
+  <div class="card-bottom-part">
+    <div class="card-bottom-part-text">
+      <div class="mt-2">
+        <% if garden_events.empty? %>
+        <p><%= "Pas de tâches de jardin cette semaine 😅"  %></p>
+        <% end %>
+        <% garden_events.each do |garden_event| %>
+          <div class="d-flex justify-content-between card-list-item-block">
+            <div class="card-list-item-left-block">
+              <div class="desktop_only">
+                <%= link_to farm_calendrier_path(farm, garden_event, event_done: true), method: :patch do %>
+                  <div class="round-button <%= garden_event.date_done.nil? ? 'green' : 'olive' %> m-2">
+                    <i class="fas fa-check round-txt-button"></i>
+                  </div>
+                <% end %>
+              </div>
+              <div class="card-list-item-main-info-block">
+                <div>
+                  <p><%= garden_event.description.capitalize %></p>
+                </div>
+                <div class="card-list-item-second-line"><%= garden_event.details.capitalize %></div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between card-list-item-round-button-block">
+              <div>
+                <div class="round-button green mobile_only m-2">
+                  <i class="fas fa-check round-txt-button"></i>
+                </div>
+              </div>
+              <div class="d-flex">
+                <div class="round-button <%= garden_event.comment.nil? || garden_event.comment.empty? ? 'lightgrey' : 'green' %> m-2" data-drawer-trigger aria-controls="drawer-tour-des-jardins-comment-<%= garden_event.id %>" aria-expanded="false">
+                  <i class="fas fa-comment round-txt-button"></i>
+                </div>
+                <div class="round-button orange m-2" data-drawer-trigger aria-controls="drawer-tour-des-jardins-edit-<%= garden_event.id %>" aria-expanded="false">
+                  <i class="fas fa-pen round-txt-button"></i>
+                </div>
+                <%= link_to farm_calendrier_path(farm, garden_event.id, postpone: true, start_date: params[:start_date]), method: :put do %>
+                  <div class="round-button orange m-2">
+                    <i class="fas fa-redo-alt round-txt-button"></i>
+                  </div>
+                <% end %>
+              </div>
+              <div class="user-button-event">
+                <% if !garden_event.users.empty? %>
+                  <% garden_event.users.each do |user| %>
+                    <div class="d-flex pr-1">
+                      <div class="txt-avatar m-2 <%= user.color %>"><%= user.initial %></div>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <div class="dropleft">
+                    <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <div class="round-button green m-2">
+                        <i class="fas fa-user-plus round-txt-button"></i>
+                      </div>
+                    </div>
+                    <div class="dropdown-menu">
+                      <div class="d-flex">
+                        <% workers.each do |worker| %>
+                          <%= link_to farm_user_events_path(event: garden_event, worker: worker.id), :method => :post do %>
+                            <div class="d-flex pr-1 pointer">
+                              <div class="txt-avatar m-2 <%= worker.color %>">
+                                <%= worker.initial %>
+                              </div>
+                            </div>
+                          <% end %>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <!-- drawer comment tour des jardins -->
+          <%= render "pages/dashboard_drawers/drawer_comment_garden_event", garden_event_id: garden_event.id, garden_event_description: garden_event.description, garden_event_details: garden_event.details, garden_event_comment: garden_event.comment %>
+
+
+          <!-- À AJOUTER À LA CLASSE DRAWER SI ON VEUT QUE LE DRAWER SOIT OUVERT QUAND ON A MIS À JOUR -->
+           <%#= params[:event].to_i == garden_event.id ? 'is-active is-visible' : '' %>
+
+          <!-- drawer edit tour des jardins -->
+          <%= render "pages/dashboard_drawers/drawer_edit_garden_event", garden_event_id: garden_event.id, garden_event_description: garden_event.description, garden_event_details: garden_event.details, garden_event_comment: garden_event.comment, farm: farm, event: event %>
+        <% end %>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end card-bottom-section-with-icon">
+      <a href="#" data-toggle="modal" data-target="#modal-new-garden-event">
+        <div class="card-bottom-right-triangle red">
+          <i class="fas fa-plus"></i>
+        </div>
+      </a>
+    </div>
+    <%= render "create_event_modal", farm: farm, event: @new_event %>
+  </div>
+</div>
