@@ -1,0 +1,28 @@
+<section class="drawer" id="drawer-tour-des-jardins-comment-<%= admin_event_id %>" data-drawer-target>
+  <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+  <div class="drawer__wrapper">
+    <div class="drawer__header">
+      <div class="d-flex justify-content-between">
+        <div class="drawer__title">
+          <div>
+            <h2><%= admin_event_description&.capitalize %></h2>
+          </div>
+          <div class="drawer-title-second-line"><%= admin_event_details&.capitalize %></div>
+        </div>
+        <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <div class="drawer__content">
+      <h4 class="pt-3">Commentaire</h4>
+      <% if admin_event_comment.nil? || admin_event_comment.empty? %>
+        <p>Pas de commentaire</p>
+      <% else %>
+        <p>
+          <%= admin_event_comment&.capitalize %>
+        <p>
+      <% end %>
+    </div>
+  </div>
+</section>

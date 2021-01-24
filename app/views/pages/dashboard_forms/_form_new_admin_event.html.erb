@@ -1,4 +1,4 @@
-<%= form_with model: event, url: farm_calendrier_index_path(farm, event, start_date: params[:start_date], event_category: "garden"), local: true do |form| %>
+<%= form_with model: event, url: farm_calendrier_index_path(farm, event, start_date: params[:start_date], event_category: "admin"), local: true do |form| %>
   <div class="mb-4">
     <h4 class="mt-2">Description</h4>
     <%= form.text_area :description, class: "mt-2 w-100", rows: "1" %>

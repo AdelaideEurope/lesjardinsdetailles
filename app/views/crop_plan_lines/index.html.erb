@@ -34,9 +34,9 @@
               </a>
             </div>
             <div class="crop-plan-right-column">
-              <div class="vertical-line-today" style="margin-left: <%= @percentage_number_days_since_first_day_of_year %>%">
-              </div>
+<!--             <div class="vertical-line-today" style="margin-left: <%= @percentage_number_days_since_first_day_of_year %>%">
             </div>
+ -->            </div>
           </div>
         </li>
         <div class="collapse" id="collapse<%= garden.id %>">
@@ -48,11 +48,11 @@
                     <%= bed.name %>
                   </div>
                   <div class="crop-plan-right-column d-flex">
-                    <div class="vertical-line-today" style="margin-left: <%= @percentage_number_days_since_first_day_of_year %>%;">
-                    </div>
+             <!--        <div class="vertical-line-today" style="margin-left: <%= @percentage_number_days_since_first_day_of_year %>%;">
+                    </div> -->
                     <% bed.crop_plan_lines.each do |cpl| %>
                       <div class="crop-plan-line-planted" style="background: <%= cpl.product.color %>; left: <%= get_elapsed_days_since_beginning_of_year(cpl.planting_date.strftime('%j').to_i) %>%; width: <%= get_elapsed_days_since_beginning_of_year((cpl.harvest_start_date.strftime('%j').to_i - cpl.planting_date.strftime('%j').to_i)) %>%;">
-                        <!-- <div><%= cpl.planting_date.strftime('%U').to_i %></div> -->
+                        <!-- <div><%= cpl.planting_date.strftime('%W').to_i %></div> -->
                         <div class="pointer margin-0-auto" data-drawer-trigger aria-controls="drawer-product-show<%= cpl.id %>"><%= cpl.product.name.capitalize %></div>
                       </div>
                       <div class="crop-plan-line-harvesting" style="background: <%= cpl.product.color %>; left: <%= get_elapsed_days_since_beginning_of_year(cpl.planting_date.strftime('%j').to_i) %>%; width: <%= get_elapsed_days_since_beginning_of_year((cpl.harvest_end_date.strftime('%j').to_i - cpl.harvest_start_date.strftime('%j').to_i)) %>%;">

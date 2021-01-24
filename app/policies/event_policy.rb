@@ -28,4 +28,10 @@ class EventPolicy < ApplicationPolicy
       true
     end
   end
+
+  def destroy?
+    if user.worker
+      true
+    end
+  end
 end

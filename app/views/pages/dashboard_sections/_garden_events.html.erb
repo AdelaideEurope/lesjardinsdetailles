@@ -1,4 +1,4 @@
-<div class="mt-4 dashboard-crop-plan-line-card red">
+<div class="mt-4 dashboard-crop-plan-line-card red" id="tour-des-jardins">
   <div class="card-colored-top-part-fixed-color red">
     <div class="card-top-part-text">Tour des jardins  👀</div>
   </div>
@@ -9,11 +9,11 @@
         <p><%= "Pas de tâches de jardin cette semaine 😅"  %></p>
         <% end %>
         <% garden_events.each do |garden_event| %>
-          <div class="d-flex justify-content-between card-list-item-block">
+          <div class="d-flex justify-content-between card-list-item-block" id="garden-event-<%= garden_event.id %>">
             <div class="card-list-item-left-block">
               <div class="desktop_only">
-                <%= link_to farm_calendrier_path(farm, garden_event, event_done: true), method: :patch do %>
-                  <div class="round-button <%= garden_event.date_done.nil? ? 'green' : 'olive' %> m-2">
+                <%= link_to farm_calendrier_path(farm, garden_event, event_done: true, start_date: params[:start_date]), method: :patch do %>
+                  <div class="round-button <%= garden_event.is_done? ? 'olive' : 'green' %> m-2">
                     <i class="fas fa-check round-txt-button"></i>
                   </div>
                 <% end %>
@@ -26,10 +26,12 @@
               </div>
             </div>
             <div class="d-flex justify-content-between card-list-item-round-button-block">
-              <div>
-                <div class="round-button green mobile_only m-2">
-                  <i class="fas fa-check round-txt-button"></i>
-                </div>
+              <div class="mobile_only">
+                <%= link_to farm_calendrier_path(farm, garden_event, event_done: true, start_date: params[:start_date]), method: :patch do %>
+                  <div class="round-button green <%= garden_event.is_done? ? 'olive' : 'green' %> m-2">
+                    <i class="fas fa-check round-txt-button"></i>
+                  </div>
+                <% end %>
               </div>
               <div class="d-flex">
                 <div class="round-button <%= garden_event.comment.nil? || garden_event.comment.empty? ? 'lightgrey' : 'green' %> m-2" data-drawer-trigger aria-controls="drawer-tour-des-jardins-comment-<%= garden_event.id %>" aria-expanded="false">
@@ -47,7 +49,7 @@
               <div class="user-button-event">
                 <% if !garden_event.users.empty? %>
                   <% garden_event.users.each do |user| %>
-                    <div class="d-flex pr-1">
+                    <div class="d-flex">
                       <div class="txt-avatar m-2 <%= user.color %>"><%= user.initial %></div>
                     </div>
                   <% end %>
@@ -61,7 +63,7 @@
                     <div class="dropdown-menu">
                       <div class="d-flex">
                         <% workers.each do |worker| %>
-                          <%= link_to farm_user_events_path(event: garden_event, worker: worker.id), :method => :post do %>
+                          <%= link_to farm_user_events_path(event: garden_event, worker: worker.id, start_date: params[:start_date]), :method => :post do %>
                             <div class="d-flex pr-1 pointer">
                               <div class="txt-avatar m-2 <%= worker.color %>">
                                 <%= worker.initial %>
@@ -89,13 +91,13 @@
         <% end %>
       </div>
     </div>
-    <div class="d-flex justify-content-end card-bottom-section-with-icon">
+    <div class="d-flex justify-content-end card-bottom-section-with-icon" id="new-garden-event">
       <a href="#" data-toggle="modal" data-target="#modal-new-garden-event">
         <div class="card-bottom-right-triangle red">
           <i class="fas fa-plus"></i>
         </div>
       </a>
     </div>
-    <%= render "create_event_modal", farm: farm, event: @new_event %>
+    <%= render "pages/dashboard/create_garden_event_modal", farm: farm, event: @new_event %>
   </div>
 </div>

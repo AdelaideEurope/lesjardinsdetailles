@@ -18,7 +18,7 @@
         </div>
       <% else %>
         <!-- events: sale, admin, dated_admin -->
-        <div class="bgcolor-<%= @event_colors[event.event_subcategory.to_sym] %> desktop_only">
+        <div class="bgcolor-<%= event.subcategory_color %> desktop_only">
           <div class="d-flex justify-content-between pt-2 pl-1 pointer" data-drawer-trigger aria-controls="drawer-event-<%= event.id %>" aria-expanded="false">
             <div class="text-left"><%= event.description[0..30] %><%= event.description.length > 31 ? "..." : "" %></div>
             <div class="d-flex flex-wrap">
@@ -46,7 +46,7 @@
         </div>
       <% else %>
         <!-- events: sale, admin, dated_admin -->
-        <div class="dashboard-calendar-event bgcolor-<%= @event_colors[event.event_subcategory.to_sym] %> mobile_only">
+        <div class="dashboard-calendar-event bgcolor-<%= event.subcategory_color %> mobile_only">
           <div class="d-flex">
             <% event.users.each do |user| %>
               <div class="m-1 text-white vsm-txt-avatar <%= user.color %>">
@@ -106,7 +106,7 @@
 
     <div class="w-48-desktop">
       <!--       décharge mentale DÉCHARGE MENTALE decharge mentale DECHARGE MENTALE                -->
-      <%= render "pages/dashboard_sections/admin_events" %>
+      <%= render "pages/dashboard_sections/admin_events", farm: @farm, admin_events: @admin_events, workers: @workers, event: @event %>
 
 
       <!--                  TOUR DES JARDINS                 -->
@@ -116,33 +116,11 @@
   </div>
 
   <!-- LES VENTES les ventes -->
-  <%= render "pages/dashboard_sections/sales" %>
+  <%#= render "pages/dashboard_sections/sales" %>
 
-  <div class="scrolltop-wrap">
-    <div id="link-to-calendar-heading">
-      <%= link_to "#" do %>
-        <div class="round-button lightgrey m-1">
-          <i class="fas fa-chevron-up white round-txt-button"></i>
-          <path d="M14.83 30.83l9.17-9.17 9.17 9.17 2.83-2.83-12-12-12 12z"></path>
-        </div>
-      <% end %>
-    </div>
-    <div id="link-to-decharge-mentale-anchor">
-      <%= link_to :anchor => "decharge-mentale-anchor" do %>
-        <div class="round-button orange m-1">
-          <%= image_tag "brain.png", class: "round-img-button" %>
-          <path d="M14.83 30.83l9.17-9.17 9.17 9.17 2.83-2.83-12-12-12 12z"></path>
-        </div>
-      <% end %>
-    </div>
-    <div id="link-to-tour-des-jardins-anchor">
-      <%= link_to :anchor => "tour-des-jardins-anchor" do %>
-        <div class="round-button red m-1">
-          <i class="fas fa-eye white round-txt-button"></i>
-          <path d="M14.83 30.83l9.17-9.17 9.17 9.17 2.83-2.83-12-12-12 12z"></path>
-        </div>
-      <% end %>
-    </div>
-  </div>
+  <!-- scroll top - désactivé pour le moment -->
+  <%#= render "pages/dashboard/mobile_scroll_top" %>
+
+
 </div>
 

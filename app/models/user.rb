@@ -47,6 +47,10 @@ class User < ApplicationRecord
     end
   end
 
+  def is_female?
+    self.gender == "F"
+  end
+
   def is_client?
     !self.worker
   end

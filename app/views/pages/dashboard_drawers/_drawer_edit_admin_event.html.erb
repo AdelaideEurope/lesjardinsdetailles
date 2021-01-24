@@ -1,4 +1,4 @@
-<section class="drawer" id="drawer-tour-des-jardins-edit-<%= garden_event_id %>" data-drawer-target>
+<section class="drawer" id="drawer-tour-des-jardins-edit-<%= admin_event_id %>" data-drawer-target>
   <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
   <div class="drawer__wrapper">
     <div class="drawer__header">
@@ -15,19 +15,19 @@
     </div>
     <div class="drawer__content drawer-content-with-bottom-buttons">
       <div>
-        <%= form_with model: event, url: farm_calendrier_path(farm, garden_event_id, start_date: params[:start_date]), method: :patch, local: true do |form| %>
+        <%= form_with model: event, url: farm_calendrier_path(farm, admin_event_id, start_date: params[:start_date]), method: :patch, local: true do |form| %>
 
         <h4 class="mt-4">Description</h4>
-        <%= form.text_area :description, value: garden_event_description, class: "mt-2 w-100", rows: "1" %>
+        <%= form.text_area :description, value: admin_event_description, class: "mt-2 w-100", rows: "1" %>
         <h4 class="mt-4">Détails</h4>
-        <%= form.text_area :details, value: garden_event_details, class: "mt-2 w-100", rows: "1" %>
+        <%= form.text_area :details, value: admin_event_details, class: "mt-2 w-100", rows: "1" %>
         <h4 class="mt-4">Commentaire</h4>
-        <%= form.text_area :comment, value: garden_event_comment, class: "mt-2 w-100", rows: "1" %>
+        <%= form.text_area :comment, value: admin_event_comment, class: "mt-2 w-100", rows: "1" %>
 
       </div>
       <div class="drawer-edit-bottom-buttons px-sm-4">
         <div><%= form.submit value: "Valider", class: "btn txt-button-background olive mt-2", 'data-disable-with': "..." %></div>
-        <div><%= link_to "Supprimer", farm_calendrier_path(farm, garden_event_id, start_date: params[:start_date]), method: :delete, class: "btn txt-button-background red mt-2" %></div>
+        <div><%= link_to "Supprimer", farm_calendrier_path(farm, admin_event_id, start_date: params[:start_date]), method: :delete, class: "btn txt-button-background red mt-2" %></div>
       </div>
       <% end %>
     </div>

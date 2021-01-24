@@ -15,7 +15,7 @@
         </div>
       <% else %>
         <!-- events: sale, admin, dated_admin -->
-        <div class="bgcolor-<%= @event_colors[event.event_subcategory.to_sym] %> desktop_only">
+        <div class="bgcolor-<%= event.subcategory_color %> desktop_only">
           <div class="d-flex justify-content-between pt-2 pl-1 pointer" data-drawer-trigger aria-controls="drawer-event-<%= event.id %>" aria-expanded="false">
             <div class="text-left"><%= event.description[0..30] %><%= event.description.length > 31 ? "..." : "" %></div>
             <div class="d-flex flex-wrap">
@@ -43,7 +43,7 @@
         </div>
       <% else %>
         <!-- events: sale, admin, dated_admin -->
-        <div class="dashboard-calendar-event bgcolor-<%= @event_colors[event.event_subcategory.to_sym] %> mobile_only">
+        <div class="dashboard-calendar-event bgcolor-<%= event.subcategory_color %> mobile_only">
           <div class="d-flex">
             <% event.users.each do |user| %>
               <div class="m-1 text-white vsm-txt-avatar <%= user.color %>">
