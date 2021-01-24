@@ -1,5 +1,4 @@
 .page-header {
-  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.2) !important;
   z-index: 2;
   color: #276259;
   display: flex;
@@ -12,6 +11,14 @@
   padding-top: 22px;
   margin-top: -24px;
   height: 72px;
+
+  &.scrolled-page-header {
+    box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  &.non-scrolled-page-header {
+    box-shadow: none !important;
+  }
 }
 
 .page-content {

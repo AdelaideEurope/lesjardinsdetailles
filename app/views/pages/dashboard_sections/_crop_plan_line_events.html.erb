@@ -33,9 +33,15 @@
                 <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-info-<%= planting.id %>" aria-expanded="false">
                   <i class="fas fa-search round-txt-button"></i>
                 </div>
-                <div class="round-button <%= planting.comment.nil? || planting.comment.empty? ? 'lightgrey' : 'green' %>  m-2" data-drawer-trigger aria-controls="drawer-<%= planting.id %>" aria-expanded="false">
-                  <i class="fas fa-comment round-txt-button"></i>
-                </div>
+                <% if planting.has_comment? %>
+                  <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-<%= planting.id %>" aria-expanded="false">
+                    <i class="fas fa-comment round-txt-button"></i>
+                  </div>
+                <% else %>
+                  <div class="round-button lightgrey m-2 no-pointer">
+                    <i class="fas fa-comment round-txt-button"></i>
+                  </div>
+                <% end %>
                 <%= link_to farm_plandeculture_path(farm, planting, postpone: true, start_date: params[:start_date]), method: :patch do %>
                   <div class="round-button orange m-2">
                     <i class="fas fa-redo-alt round-txt-button"></i>
@@ -66,7 +72,7 @@
                 <div class="drawer__content">
                   <h4 class="pt-3">Commentaire</h4>
                     <% if planting.comment.nil? || planting.comment.empty? %>
-                      <p>Pas de commentaire</p>
+                      <p>No comment...</p>
                     <% else %>
                       <p>
                         <%= planting.comment&.capitalize %>
@@ -170,9 +176,15 @@
                       <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-info-<%= preparing.id %>" aria-expanded="false">
                         <i class="fas fa-search round-txt-button"></i>
                       </div>
-                      <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-comment-<%= preparing.id %>" aria-expanded="false">
-                        <i class="fas fa-comment round-txt-button"></i>
-                      </div>
+                      <% if preparing.has_comment? %>
+                        <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-comment-<%= preparing.id %>" aria-expanded="false">
+                          <i class="fas fa-comment round-txt-button"></i>
+                        </div>
+                      <% else %>
+                        <div class="round-button lightgrey m-2 no-pointer">
+                          <i class="fas fa-comment round-txt-button"></i>
+                        </div>
+                      <% end %>
                       <div class="round-button orange m-2">
                         <i class="fas fa-redo-alt round-txt-button"></i>
                       </div>
@@ -200,13 +212,9 @@
                       </div>
                       <div class="drawer__content">
                         <h4 class="pt-3">Commentaire</h4>
-                          <% if preparing.comment.nil? || preparing.comment.empty? %>
-                            <p>Pas de commentaire</p>
-                          <% else %>
-                            <p>
-                              <%= preparing.comment&.capitalize %>
-                            <p>
-                          <% end %>
+                          <p>
+                            <%= preparing.comment&.capitalize %>
+                          <p>
                       </div>
                     </div>
                 </section>
@@ -296,13 +304,9 @@
                     </div>
                     <div class="drawer__content">
                       <h4 class="pt-3">Commentaire</h4>
-                        <% if preparing.comment.nil? || preparing.comment.empty? %>
-                          <p>Pas de commentaire</p>
-                        <% else %>
-                          <p>
-                            <%= preparing.comment&.capitalize %>
-                          <p>
-                        <% end %>
+                        <p>
+                          <%= preparing.comment&.capitalize %>
+                        <p>
                     </div>
                   </div>
               </section>

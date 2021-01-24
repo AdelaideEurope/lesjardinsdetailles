@@ -34,9 +34,15 @@
                 <% end %>
               </div>
               <div class="d-flex">
-                <div class="round-button <%= garden_event.comment.nil? || garden_event.comment.empty? ? 'lightgrey' : 'green' %> m-2" data-drawer-trigger aria-controls="drawer-tour-des-jardins-comment-<%= garden_event.id %>" aria-expanded="false">
-                  <i class="fas fa-comment round-txt-button"></i>
-                </div>
+                <% if garden_event.has_comment? %>
+                  <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-tour-des-jardins-comment-<%= garden_event.id %>" aria-expanded="false">
+                    <i class="fas fa-comment round-txt-button"></i>
+                  </div>
+                <% else %>
+                  <div class="round-button lightgrey m-2 no-pointer">
+                    <i class="fas fa-comment round-txt-button"></i>
+                  </div>
+                <% end %>
                 <div class="round-button orange m-2" data-drawer-trigger aria-controls="drawer-tour-des-jardins-edit-<%= garden_event.id %>" aria-expanded="false">
                   <i class="fas fa-pen round-txt-button"></i>
                 </div>

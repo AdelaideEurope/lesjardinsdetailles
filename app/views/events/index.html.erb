@@ -73,7 +73,7 @@
               </div>
             </div>
             <div class="drawer__content">
-              <% if event.users.any? %>
+              <% if event.has_users? %>
                 <h4 class="pt-3">Qui s'en charge ?</h4>
                 <p>
                   <%= event.users.map{|user| user.first_name}.to_sentence(words_connector: ', ', last_word_connector: ' et ') %>

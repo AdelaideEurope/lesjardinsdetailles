@@ -27,7 +27,7 @@
       </div>
       <div class="drawer-edit-bottom-buttons px-sm-4">
         <div><%= form.submit value: "Valider", class: "btn txt-button-background olive mt-2", 'data-disable-with': "..." %></div>
-        <div><%= link_to "Supprimer", farm_calendrier_path(farm, garden_event_id, start_date: params[:start_date]), method: :delete, class: "btn txt-button-background red mt-2" %></div>
+        <div><%= link_to "Supprimer", farm_calendrier_path(farm, garden_event_id, start_date: params[:start_date]), method: :delete, class: "btn txt-button-background red mt-2", data: { confirm: "T'es #{current_user.is_female? ? 'sûre' : 'sûr'} ? 🤨"} %></div>
       </div>
       <% end %>
     </div>

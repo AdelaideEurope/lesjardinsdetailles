@@ -15,6 +15,18 @@ class Event < ApplicationRecord
     end
   end
 
+  def has_comment?
+    !self.comment.nil? && !self.comment.empty?
+  end
+
+  def has_details?
+    !self.details.nil? && !self.details.empty?
+  end
+
+  def has_users?
+    !self.users.nil? && !self.users.empty?
+  end
+
   def self.garden_events(params)
     if params.nil?
       Event.where("farm_id = ? AND event_category = ? AND (date BETWEEN ? AND ?)", 1, "garden", Date.today.beginning_of_week, Date.today.end_of_week)

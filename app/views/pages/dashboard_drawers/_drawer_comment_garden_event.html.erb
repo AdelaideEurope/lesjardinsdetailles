@@ -16,13 +16,9 @@
     </div>
     <div class="drawer__content">
       <h4 class="pt-3">Commentaire</h4>
-      <% if garden_event_comment.nil? || garden_event_comment.empty? %>
-        <p>Pas de commentaire</p>
-      <% else %>
-        <p>
-          <%= garden_event_comment&.capitalize %>
-        <p>
-      <% end %>
+      <p>
+        <%= garden_event_comment&.capitalize %>
+      <p>
     </div>
   </div>
 </section>

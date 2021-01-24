@@ -29,9 +29,13 @@ import "bootstrap";
 // import { initSelect2 } from '../components/init_select2';
 import { drawerOpener } from '../components/openDrawer.js';
 import { clickToEdit } from '../components/clickToEdit.js';
+import { initUpdateNavbarOnScroll } from '../components/navbarScroll.js';
+import { dateForCalendarEvent } from '../components/dateForCalendarEvent.js';
 
 drawerOpener();
 clickToEdit();
+initUpdateNavbarOnScroll();
+dateForCalendarEvent();
 
 
 document.addEventListener('turbolinks:load', () => {

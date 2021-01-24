@@ -14,21 +14,36 @@ class EventsController < ApplicationController
   end
 
   def create
-    params_start_date = params[:start_date]
-    !params_start_date.nil? ? date = params[:start_date] : date = Date.today
-    @new_event = Event.new(date: date, description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details], event_category: params[:event_category], farm_id: current_user.farm_id)
-    authorize @new_event
-    if @new_event.save
-      if @new_event.event_category == "garden"
-        anchor = "garden-event-#{@new_event.id}"
-        flash[:notice] = "Tâche de jardin créée avec succès !"
-      elsif @new_event.event_category == "admin"
-        anchor = "admin-event-#{@new_event.id}"
-        flash[:notice] = "All good, on oublie 😎"
+    date = params[:event][:start_date]
+    start_hour = params[:event]["start_hour(4i)"]+":"+params[:event]["start_hour(5i)"]
+    end_hour = params[:event]["end_hour(4i)"]+":"+params[:event]["end_hour(5i)"]
+    start_date_with_hour = DateTime.parse(date+"T"+start_hour)
+    end_date_with_hour = DateTime.parse(date+"T"+end_hour)
+    if params[:event_category] == "dated_admin"
+        @new_event = Event.new(date: params[:start_date], description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details], event_subcategory: params[:event][:event_subcategory], event_category: params[:event_category], farm_id: current_user.farm_id, start_time: start_date_with_hour, end_time: end_date_with_hour)
+      authorize @new_event
+      if @new_event.save
+        redirect_to farm_dashboard_path(@farm, start_date: date)
+      else
+        redirect_to farm_dashboard_path(@farm, start_date: date)
       end
-      redirect_to farm_dashboard_path(@farm, start_date: params_start_date, anchor: anchor)
     else
-      redirect_to farm_dashboard_path(@farm, start_date: params_start_date)
+      params_start_date = params[:start_date]
+      !params_start_date.nil? ? date = params[:start_date] : date = Date.today
+      @new_event = Event.new(date: date, description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details], event_category: params[:event_category], farm_id: current_user.farm_id)
+      authorize @new_event
+      if @new_event.save
+        if @new_event.event_category == "garden"
+          anchor = "garden-event-#{@new_event.id}"
+          flash[:notice] = "Tâche de jardin créée avec succès !"
+        elsif @new_event.event_category == "admin"
+          anchor = "admin-event-#{@new_event.id}"
+          flash[:notice] = "All good, on oublie 😎"
+        end
+        redirect_to farm_dashboard_path(@farm, start_date: params_start_date, anchor: anchor)
+      else
+        redirect_to farm_dashboard_path(@farm, start_date: params_start_date)
+      end
     end
   end
 
@@ -56,6 +71,13 @@ class EventsController < ApplicationController
       else
         redirect_to farm_dashboard_path(@farm, start_date: start_date, anchor: "tour-des-jardins")
       end
+    elsif params[:event_category] == "dated_admin_event"
+      start_date = params[:start_date]
+      if @event.update(description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details])
+        redirect_to farm_dashboard_path(@farm, start_date: start_date)
+      else
+        redirect_to farm_dashboard_path(@farm, start_date: start_date)
+      end
     else
       start_date = params[:start_date]
       if @event.update(description: params[:description], comment: params[:comment], details: params[:details])
@@ -71,7 +93,13 @@ class EventsController < ApplicationController
     authorize @event
     start_date = params[:start_date]
     @event.destroy
-    flash[:notice] = "Tâche supprimée avec succès !"
+    if params[:event_subcategory] == "rdv"
+      flash[:notice] = "Rendez-vous supprimé avec succès !"
+    elsif params[:event_subcategory] == "vente"
+      flash[:notice] = "Vente supprimée avec succès !"
+    else
+      flash[:notice] = "Tâche supprimée avec succès !"
+    end
     redirect_to farm_dashboard_path(@farm, start_date: start_date)
   end
 

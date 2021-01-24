@@ -1,5 +1,5 @@
 html {
-  scroll-behavior: smooth;
+  // scroll-behavior: smooth;
   overflow: auto !important;
 }
 
@@ -158,6 +158,10 @@ input {
 
 .pointer {
   cursor: pointer;
+}
+
+.no-pointer {
+  cursor: auto;
 }
 
 .margin-0-auto {

@@ -43,7 +43,6 @@
 }
 
 .calendar-heading {
-  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.2) !important;
   z-index: 2;
   text-align: right;
   color: $green;
@@ -57,6 +56,14 @@
   padding-bottom: 16px;
   padding-top: 16px;
   margin-top: -24px;
+
+  &.scrolled-page-header {
+    box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  &.non-scrolled-page-header {
+    box-shadow: none !important;
+  }
 }
 
 .calendar-previous, .calendar-next {

@@ -1,5 +1,5 @@
-<div class="calendar-heading">
-  <%= link_to calendar.url_for_previous_view do %>
+<div class="calendar-heading non-scrolled-page-header scrollable-page-header">
+  <%= link_to calendar.url_for_previous_view, local: true do %>
     <i class="fas fa-chevron-left calendar-previous"></i>
   <% end %>
   <% if calendar.number_of_weeks == 1 %>
@@ -7,7 +7,7 @@
   <%else%>
       <span class="calendar-title">Semaine <%= calendar.week_number %> - <%= calendar.end_week %></span>
   <%end%>
-  <%= link_to calendar.url_for_next_view do %>
+  <%= link_to calendar.url_for_next_view, local: true do %>
     <i class="fas fa-chevron-right calendar-next"></i>
   <% end %>
 </div>
@@ -26,7 +26,7 @@
       <% date_range.each_slice(7) do |week| %>
         <tr>
           <% week.each do |day| %>
-            <%= content_tag :td, class: calendar.td_classes_for(day) do %>
+            <%= content_tag :td, start_date: params[:start_date], class: calendar.td_classes_for(day) do %>
               <% if defined?(Haml) && respond_to?(:block_is_haml?) && block_is_haml?(passed_block) %>
                 <% capture_haml(day, sorted_events.fetch(day, []), &passed_block) %>
               <% else %>
