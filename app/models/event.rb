@@ -27,6 +27,18 @@ class Event < ApplicationRecord
     !self.users.nil? && !self.users.empty?
   end
 
+  def has_multiple_users?
+    self.users&.length > 1
+  end
+
+  def is_user?(user)
+    self.users.include?(user)
+  end
+
+  def user_event(user_id)
+    UserEvent.where(user_id: user_id, event_id: self.id)[0]
+  end
+
   def self.garden_events(params)
     if params.nil?
       Event.where("farm_id = ? AND event_category = ? AND (date BETWEEN ? AND ?)", 1, "garden", Date.today.beginning_of_week, Date.today.end_of_week)

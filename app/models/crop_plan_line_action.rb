@@ -1,0 +1,2 @@
+class CropPlanLineAction < ApplicationRecord
+end

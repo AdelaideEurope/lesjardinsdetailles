@@ -53,12 +53,40 @@
                 <% end %>
               </div>
               <div class="user-button-event">
-                <% if !garden_event.users.empty? %>
-                  <% garden_event.users.each do |user| %>
-                    <div class="d-flex">
-                      <div class="txt-avatar m-2 <%= user.color %>"><%= user.initial %></div>
+                <% if garden_event.has_users? %>
+                  <div class="dropleft">
+                    <div class="dropdown-toggle <%= 'd-flex' if garden_event.has_multiple_users? %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <% garden_event.users.each do |user| %>
+                        <div class="d-flex <%= 'ml-minus-24' if garden_event.has_multiple_users? %>">
+                          <div class="txt-avatar m-2 pointer <%= user.color %>"><%= user.initial %></div>
+                        </div>
+                      <% end %>
                     </div>
-                  <% end %>
+                    <div class="dropdown-menu">
+                      <div class="d-flex">
+                        <% workers.each do |worker| %>
+                          <% if garden_event.is_user?(worker) %>
+                            <%= link_to farm_user_event_path(farm, garden_event.user_event(worker.id), start_date: params[:start_date]), :method => :delete do %>
+                              <div class="d-flex pr-1 pointer">
+                                <div class="txt-avatar m-2 <%= worker.color %>">
+                                  <%= worker.initial %>
+                                  <div class="delete-user">x</div>
+                                </div>
+                              </div>
+                            <% end %>
+                          <% else %>
+                            <%= link_to farm_user_events_path(event: garden_event, worker: worker.id, start_date: params[:start_date]), :method => :post do %>
+                              <div class="d-flex pr-1 pointer">
+                                <div class="txt-avatar m-2 <%= worker.color %>">
+                                  <%= worker.initial %>
+                                </div>
+                              </div>
+                            <% end %>
+                          <% end %>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
                 <% else %>
                   <div class="dropleft">
                     <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

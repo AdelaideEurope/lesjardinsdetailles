@@ -5,8 +5,10 @@ class User < ApplicationRecord
   has_one_attached :photo
   has_many :user_events
   has_many :user_presence_periods
+  has_many :crop_plan_line_user_event
   has_many :events, through: :user_events
   has_many :presence_periods, through: :user_presence_periods
+  has_many :crop_plan_line_events, through: :crop_plan_line_user_event
 
   belongs_to :farm
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_20_121817) do
+ActiveRecord::Schema.define(version: 2021_01_25_213734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,26 @@ ActiveRecord::Schema.define(version: 2021_01_20_121817) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["garden_id"], name: "index_beds_on_garden_id"
+  end
+
+  create_table "crop_plan_line_events", force: :cascade do |t|
+    t.bigint "crop_plan_line_id", null: false
+    t.boolean "different_from_original"
+    t.datetime "date_done"
+    t.datetime "date_planned"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["crop_plan_line_id"], name: "index_crop_plan_line_events_on_crop_plan_line_id"
+  end
+
+  create_table "crop_plan_line_user_events", force: :cascade do |t|
+    t.bigint "crop_plan_line_event_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["crop_plan_line_event_id"], name: "index_crop_plan_line_user_events_on_crop_plan_line_event_id"
+    t.index ["user_id"], name: "index_crop_plan_line_user_events_on_user_id"
   end
 
   create_table "crop_plan_lines", force: :cascade do |t|
@@ -268,6 +288,9 @@ ActiveRecord::Schema.define(version: 2021_01_20_121817) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "beds", "gardens"
+  add_foreign_key "crop_plan_line_events", "crop_plan_lines"
+  add_foreign_key "crop_plan_line_user_events", "crop_plan_line_events"
+  add_foreign_key "crop_plan_line_user_events", "users"
   add_foreign_key "crop_plan_lines", "beds"
   add_foreign_key "crop_plan_lines", "products"
   add_foreign_key "crop_plan_lines", "vegetable_variets"

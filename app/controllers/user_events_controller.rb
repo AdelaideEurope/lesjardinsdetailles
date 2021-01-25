@@ -1,10 +1,12 @@
 class UserEventsController < ApplicationController
+  before_action :set_user_event, only: [:destroy]
+  before_action :set_farm, only: [:create, :destroy]
+
   def create
     params_start_date = params[:start_date]
     @user_event = UserEvent.new(user_id: params[:worker], event_id: params[:event])
     worker = User.where(id: params[:worker])[0]
     authorize @user_event
-    @farm = Farm.find(params[:farm_id])
     if @user_event.save
       if @user_event.event.event_category == "garden"
         anchor = "garden-event-#{@user_event.event.id}"
@@ -20,5 +22,22 @@ class UserEventsController < ApplicationController
   end
 
   def update
+  end
+
+  def destroy
+    authorize @user_event
+    params_start_date = params[:start_date]
+    worker = @user_event.user
+    @user_event.destroy
+    flash[:notice] = "Finalement, #{worker.nickname.capitalize} pourra se la couler douce !"
+    redirect_to farm_dashboard_path(@farm, start_date: params_start_date)
+  end
+
+  def set_user_event
+    @user_event = UserEvent.find(params[:id])
+  end
+
+  def set_farm
+    @farm = Farm.find(params[:farm_id])
   end
 end

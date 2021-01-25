@@ -3,7 +3,6 @@ const dateForCalendarEvent = () => {
   if (days) {
     days.forEach((day) => {
       day.addEventListener('dblclick', (event) => {
-
         let date = event.currentTarget.dataset.date;
 
         let modal = day.parentElement.lastElementChild;
