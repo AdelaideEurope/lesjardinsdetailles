@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_25_213734) do
+ActiveRecord::Schema.define(version: 2021_01_25_221022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2021_01_25_213734) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "comment"
     t.index ["crop_plan_line_id"], name: "index_crop_plan_line_events_on_crop_plan_line_id"
   end
 
