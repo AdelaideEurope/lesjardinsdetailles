@@ -41,17 +41,17 @@ class Event < ApplicationRecord
 
   def self.garden_events(params)
     if params.nil?
-      Event.where("farm_id = ? AND event_category = ? AND (date BETWEEN ? AND ?)", 1, "garden", Date.today.beginning_of_week, Date.today.end_of_week)
+      self.where("farm_id = ? AND event_category = ? AND (date BETWEEN ? AND ?)", 1, "garden", Date.today.beginning_of_week, Date.today.end_of_week)
     else
-      Event.where("farm_id = ? AND event_category = ? AND (date BETWEEN ? AND ?)", 1, "garden", Date.parse(params).beginning_of_week, Date.parse(params).end_of_week)
+      self.where("farm_id = ? AND event_category = ? AND (date BETWEEN ? AND ?)", 1, "garden", Date.parse(params).beginning_of_week, Date.parse(params).end_of_week)
     end
   end
 
   def self.admin_events(params)
     if params.nil?
-      Event.where("farm_id = ? AND event_category = ? AND (date BETWEEN ? AND ?)", 1, "admin", Date.today.beginning_of_week, Date.today.end_of_week)
+      self.where("farm_id = ? AND event_category = ? AND (date BETWEEN ? AND ?)", 1, "admin", Date.today.beginning_of_week, Date.today.end_of_week)
     else
-      Event.where("farm_id = ? AND event_category = ? AND (date BETWEEN ? AND ?)", 1, "admin", Date.parse(params).beginning_of_week, Date.parse(params).end_of_week)
+      self.where("farm_id = ? AND event_category = ? AND (date BETWEEN ? AND ?)", 1, "admin", Date.parse(params).beginning_of_week, Date.parse(params).end_of_week)
     end
   end
 end
