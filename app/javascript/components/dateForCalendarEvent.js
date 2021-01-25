@@ -16,8 +16,8 @@ const dateForCalendarEvent = () => {
         let modalBtn = modal.firstElementChild.firstElementChild.firstElementChild.lastElementChild
         console.log(modalBtn)
         modalBtn.addEventListener('click', (event) => {
-          modal.classList.toggle("d-block");
-          modal.classList.toggle("show");
+          modal.classList.remove("d-block");
+          modal.classList.remove("show");
         })
         // modal.addEventListener('click', (event) => {
         //   modal.classList.toggle("d-block");

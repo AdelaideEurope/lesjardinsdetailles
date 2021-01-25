@@ -32,13 +32,13 @@ import { clickToEdit } from '../components/clickToEdit.js';
 import { initUpdateNavbarOnScroll } from '../components/navbarScroll.js';
 import { dateForCalendarEvent } from '../components/dateForCalendarEvent.js';
 
-drawerOpener();
-clickToEdit();
-initUpdateNavbarOnScroll();
-dateForCalendarEvent();
 
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
+  drawerOpener();
+  clickToEdit();
+  initUpdateNavbarOnScroll();
+  dateForCalendarEvent();
   // initSelect2();
 });
