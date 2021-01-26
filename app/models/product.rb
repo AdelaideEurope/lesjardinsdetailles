@@ -4,6 +4,7 @@ class Product < ApplicationRecord
 
   has_many :vegetable_variets
   has_many :crop_plan_lines
+  has_many :crop_plan_line_events
 
   extend FriendlyId
   friendly_id :name, use: :slugged

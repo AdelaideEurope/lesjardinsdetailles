@@ -8,33 +8,37 @@
         <% if !week_planting.empty? %>
           <h3>Plantation et semis directs</h3>
         <% end %>
-        <% week_planting.each do |planting| %>
+        <% week_planting.each do |planting_event| %>
           <div class="d-flex justify-content-between card-list-item-block">
             <div class="card-list-item-left-block">
               <div class="desktop_only">
-                <div class="round-button green m-2">
-                  <i class="fas fa-check round-txt-button"></i>
-                </div>
+                <%= link_to farm_crop_plan_line_event_path(farm, planting_event, event_done: true, start_date: params[:start_date]), method: :patch do %>
+                  <div class="round-button <%= planting_event.is_done? ? 'olive' : 'green' %> m-2">
+                    <i class="fas fa-check round-txt-button"></i>
+                  </div>
+                <% end %>
               </div>
               <div class="card-list-item-main-info-block">
                 <div>
-                  <p><%= planting.product.name.capitalize %></p>
+                  <p><%= planting_event.product.name.capitalize %></p>
                 </div>
-                <div class="card-list-item-second-line"><%= planting.bed.garden.name %> - <%= planting.bed.name %></div>
+                <div class="card-list-item-second-line"><%= planting_event.bed.garden.name %> - <%= planting_event.bed.name %></div>
               </div>
             </div>
             <div class="d-flex justify-content-between card-list-item-round-button-block">
               <div>
-                <div class="round-button green mobile_only m-2">
-                  <i class="fas fa-check round-txt-button"></i>
-                </div>
+                <%= link_to farm_crop_plan_line_event_path(farm, planting_event, event_done: true, start_date: params[:start_date]), method: :patch do %>
+                  <div class="round-button <%= planting_event.is_done? ? 'olive' : 'green' %> mobile_only m-2">
+                    <i class="fas fa-check round-txt-button"></i>
+                  </div>
+                <% end %>
               </div>
               <div class="d-flex">
-                <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-info-<%= planting.id %>" aria-expanded="false">
+                <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-info-<%= planting_event.id %>" aria-expanded="false">
                   <i class="fas fa-search round-txt-button"></i>
                 </div>
-                <% if planting.has_comment? %>
-                  <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-<%= planting.id %>" aria-expanded="false">
+                <% if planting_event.has_comment? %>
+                  <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-comment-cple-<%= planting_event.id %>" aria-expanded="false">
                     <i class="fas fa-comment round-txt-button"></i>
                   </div>
                 <% else %>
@@ -42,26 +46,86 @@
                     <i class="fas fa-comment round-txt-button"></i>
                   </div>
                 <% end %>
-                <%= link_to farm_plandeculture_path(farm, planting, postpone: true, start_date: params[:start_date]), method: :patch do %>
+                <%#= farm_crop_plan_line_event_path(farm, planting_event, postpone: true, start_date: params[:start_date]), method: :patch do %>
                   <div class="round-button orange m-2">
                     <i class="fas fa-redo-alt round-txt-button"></i>
                   </div>
+                <%# end %>
+              </div>
+
+
+              <div class="user-button-event">
+                <% if planting_event.has_users? %>
+                  <div class="dropleft">
+                    <div class="dropdown-toggle <%= 'd-flex' if planting_event.has_multiple_users? %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <% planting_event.users.each do |user| %>
+                        <div class="d-flex justify-content-end <%= 'ml-minus-24' if planting_event.has_multiple_users? %>">
+                          <div class="txt-avatar m-2 pointer <%= user.color %>"><%= user.initial %></div>
+                        </div>
+                      <% end %>
+                    </div>
+                    <div class="dropdown-menu">
+                      <div class="d-flex">
+                        <% workers.each do |worker| %>
+                          <% if planting_event.is_user?(worker) %>
+                            <%= link_to farm_crop_plan_line_user_event_path(farm, planting_event.user_event(worker.id), start_date: params[:start_date]), :method => :delete do %>
+                              <div class="d-flex pr-1 pointer">
+                                <div class="txt-avatar m-2 <%= worker.color %>">
+                                  <%= worker.initial %>
+                                  <div class="delete-user">x</div>
+                                </div>
+                              </div>
+                            <% end %>
+                          <% else %>
+                            <%= link_to farm_crop_plan_line_user_events_path(event: planting_event, worker: worker.id, start_date: params[:start_date]), :method => :post do %>
+                              <div class="d-flex pr-1 pointer">
+                                <div class="txt-avatar m-2 <%= worker.color %>">
+                                  <%= worker.initial %>
+                                </div>
+                              </div>
+                            <% end %>
+                          <% end %>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                <% else %>
+                  <div class="dropleft">
+                    <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <div class="d-flex justify-content-end">
+                        <div class="round-button green m-2">
+                          <i class="fas fa-user-plus round-txt-button"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="dropdown-menu">
+                      <div class="d-flex">
+                        <% workers.each do |worker| %>
+                          <%= link_to farm_crop_plan_line_user_events_path(event: planting_event, worker: worker.id, start_date: params[:start_date]), :method => :post do %>
+                            <div class="d-flex pr-1 pointer">
+                              <div class="txt-avatar m-2 <%= worker.color %>">
+                                <%= worker.initial %>
+                              </div>
+                            </div>
+                          <% end %>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
                 <% end %>
               </div>
-              <div>
-                <div class="txt-avatar <%= current_user.color %> m-2"><%= current_user.initial %></div>
-              </div>
+
             </div>
           </div>
           <!-- drawer commentaire -->
-          <section class="drawer" id="drawer-<%= planting.id %>" data-drawer-target>
+          <section class="drawer" id="drawer-comment-cple-<%= planting_event.id %>" data-drawer-target>
               <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
               <div class="drawer__wrapper">
                 <div class="drawer__header">
                   <div class="d-flex justify-content-between">
                     <div class="drawer__title">
                       <div>
-                        <h2><%= planting.product.name.capitalize %></h2>
+                        <h2><%= planting_event.product.name.capitalize %></h2>
                       </div>
                     </div>
                     <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
@@ -71,27 +135,23 @@
                 </div>
                 <div class="drawer__content">
                   <h4 class="pt-3">Commentaire</h4>
-                    <% if planting.comment.nil? || planting.comment.empty? %>
-                      <p>No comment...</p>
-                    <% else %>
-                      <p>
-                        <%= planting.comment&.capitalize %>
-                      <p>
-                    <% end %>
+                    <p>
+                      <%= planting_event.comment&.capitalize %>
+                    <p>
                 </div>
               </div>
           </section>
           <!-- drawer info -->
-          <section class="drawer" id="drawer-info-<%= planting.id %>" data-drawer-target>
+          <section class="drawer" id="drawer-info-cple-<%= planting_event.id %>" data-drawer-target>
             <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
             <div class="drawer__wrapper">
               <div class="drawer__header">
                 <div class="d-flex justify-content-between">
                   <div class="drawer__title">
                     <div>
-                      <h2><%= planting.product.name.capitalize %></h2>
+                      <h2><%= planting_event.product.name.capitalize %></h2>
                     </div>
-                    <div class="drawer-title-second-line"><%= planting.bed.garden.name %> - <%= planting.bed.name %></div>
+                    <div class="drawer-title-second-line"><%= planting_event.bed.garden.name %> - <%= planting_event.bed.name %></div>
                   </div>
                   <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
                     <i class="fas fa-times"></i>
@@ -150,34 +210,38 @@
               <div class="d-flex"><h5>Pour plantation la semaine pro</h5><i class="fa" aria-hidden="true"></i></div>
             </a>
             <div class="collapse show" id="collapse-next-week-<%= params[:start_date] %>">
-              <%week_bed_preparation_1_week.each do |preparing| %>
+              <% week_bed_preparation_1_week.each do |preparing_event| %>
                 <div class="d-flex justify-content-between card-list-item-block">
                   <div class="card-list-item-left-block">
                     <div class="desktop_only">
-                      <div class="round-button green m-2">
-                        <i class="fas fa-check round-txt-button"></i>
-                      </div>
+                      <%= link_to farm_crop_plan_line_event_path(farm, preparing_event, event_done: true, start_date: params[:start_date]), method: :patch do %>
+                        <div class="round-button green <%= preparing_event.is_done? ? 'olive' : 'green' %> m-2">
+                          <i class="fas fa-check round-txt-button"></i>
+                        </div>
+                      <% end %>
                     </div>
                     <div class="card-list-item-main-info-block">
                       <div>
-                        <p><%= preparing.bed.garden.name %> - <%= preparing.bed.name %></p>
+                        <p><%= preparing_event.bed.garden.name %> - <%= preparing_event.bed.name %></p>
                       </div>
-                      <div class="card-list-item-second-line"><%= preparing.product.name.capitalize %></div>
+                      <div class="card-list-item-second-line"><%= preparing_event.product.name.capitalize %></div>
                       <div class="card-list-item-second-line"><!-- 700g Patenkali - 2kg Bioguanor --></div>
                     </div>
                   </div>
                   <div class="d-flex justify-content-between card-list-item-round-button-block">
                     <div>
-                      <div class="round-button green mobile_only m-2">
-                        <i class="fas fa-check round-txt-button"></i>
-                      </div>
+                      <%= link_to farm_crop_plan_line_event_path(farm, preparing_event, event_done: true, start_date: params[:start_date]), method: :patch do %>
+                        <div class="round-button <%= preparing_event.is_done? ? 'olive' : 'green' %> mobile_only m-2">
+                          <i class="fas fa-check round-txt-button"></i>
+                        </div>
+                      <% end %>
                     </div>
                     <div class="d-flex">
-                      <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-info-<%= preparing.id %>" aria-expanded="false">
+                      <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-info-cple-<%= preparing_event.id %>" aria-expanded="false">
                         <i class="fas fa-search round-txt-button"></i>
                       </div>
-                      <% if preparing.has_comment? %>
-                        <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-comment-<%= preparing.id %>" aria-expanded="false">
+                      <% if preparing_event.has_comment? %>
+                        <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-comment-cple-<%= preparing_event.id %>" aria-expanded="false">
                           <i class="fas fa-comment round-txt-button"></i>
                         </div>
                       <% else %>
@@ -185,24 +249,82 @@
                           <i class="fas fa-comment round-txt-button"></i>
                         </div>
                       <% end %>
+                      <!-- POSTPONE postpone -->
                       <div class="round-button orange m-2">
                         <i class="fas fa-redo-alt round-txt-button"></i>
                       </div>
                     </div>
-                    <div>
-                      <div class="txt-avatar orange m-2"><%= current_user.last_name[0] %></div>
+                    <div class="user-button-event">
+                      <% if preparing_event.has_users? %>
+                        <div class="dropleft">
+                          <div class="dropdown-toggle <%= 'd-flex' if preparing_event.has_multiple_users? %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <% preparing_event.users.each do |user| %>
+                              <div class="d-flex justify-content-end <%= 'ml-minus-24' if preparing_event.has_multiple_users? %>">
+                                <div class="txt-avatar m-2 pointer <%= user.color %>"><%= user.initial %></div>
+                              </div>
+                            <% end %>
+                          </div>
+                          <div class="dropdown-menu">
+                            <div class="d-flex">
+                              <% workers.each do |worker| %>
+                                <% if preparing_event.is_user?(worker) %>
+                                  <%= link_to farm_crop_plan_line_user_event_path(farm, preparing_event.user_event(worker.id), start_date: params[:start_date]), :method => :delete do %>
+                                    <div class="d-flex pr-1 pointer">
+                                      <div class="txt-avatar m-2 <%= worker.color %>">
+                                        <%= worker.initial %>
+                                        <div class="delete-user">x</div>
+                                      </div>
+                                    </div>
+                                  <% end %>
+                                <% else %>
+                                  <%= link_to farm_crop_plan_line_user_events_path(event: preparing_event, worker: worker.id, start_date: params[:start_date]), :method => :post do %>
+                                    <div class="d-flex pr-1 pointer">
+                                      <div class="txt-avatar m-2 <%= worker.color %>">
+                                        <%= worker.initial %>
+                                      </div>
+                                    </div>
+                                  <% end %>
+                                <% end %>
+                              <% end %>
+                            </div>
+                          </div>
+                        </div>
+                      <% else %>
+                        <div class="dropleft">
+                          <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="d-flex justify-content-end">
+                              <div class="round-button green m-2">
+                                <i class="fas fa-user-plus round-txt-button"></i>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="dropdown-menu">
+                            <div class="d-flex">
+                              <% workers.each do |worker| %>
+                                <%= link_to farm_crop_plan_line_user_events_path(event: preparing_event, worker: worker.id, start_date: params[:start_date]), :method => :post do %>
+                                  <div class="d-flex pr-1 pointer">
+                                    <div class="txt-avatar m-2 <%= worker.color %>">
+                                      <%= worker.initial %>
+                                    </div>
+                                  </div>
+                                <% end %>
+                              <% end %>
+                            </div>
+                          </div>
+                        </div>
+                      <% end %>
                     </div>
                   </div>
                 </div>
                 <!-- drawer commentaire -->
-                <section class="drawer" id="drawer-comment-<%= preparing.id %>" data-drawer-target>
+                <section class="drawer" id="drawer-comment-cple-<%= preparing_event.id %>" data-drawer-target>
                     <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
                     <div class="drawer__wrapper">
                       <div class="drawer__header">
                         <div class="d-flex justify-content-between">
                           <div class="drawer__title">
                             <div>
-                              <h2><%= preparing.product.name.capitalize %></h2>
+                              <h2><%= preparing_event.product.name.capitalize %></h2>
                             </div>
                           </div>
                           <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
@@ -213,22 +335,22 @@
                       <div class="drawer__content">
                         <h4 class="pt-3">Commentaire</h4>
                           <p>
-                            <%= preparing.comment&.capitalize %>
+                            <%= preparing_event.comment&.capitalize %>
                           <p>
                       </div>
                     </div>
                 </section>
                 <!-- drawer info -->
-                <section class="drawer" id="drawer-info-<%= preparing.id %>" data-drawer-target>
+                <section class="drawer" id="drawer-info-cple-<%= preparing_event.id %>" data-drawer-target>
                     <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
                     <div class="drawer__wrapper">
                       <div class="drawer__header">
                         <div class="d-flex justify-content-between">
                           <div class="drawer__title">
                             <div>
-                              <h2><%= preparing.product.name.capitalize %></h2>
+                              <h2><%= preparing_event.product.name.capitalize %></h2>
                             </div>
-                            <div class="drawer-title-second-line"><%= preparing.bed.garden.name %> - <%= preparing.bed.name %></div>
+                            <div class="drawer-title-second-line"><%= preparing_event.bed.garden.name %> - <%= preparing_event.bed.name %></div>
                           </div>
                           <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
                             <i class="fas fa-times"></i>
@@ -249,53 +371,121 @@
               <div class="d-flex mt-2"><h5>Pour plantation dans deux semaines</h5><i class="fa" aria-hidden="true"></i></div>
             </a>
             <div class="collapse" id="collapse-two-weeks-<%= params[:start_date] %>">
-              <% week_bed_preparation_2_weeks.each do |preparing| %>
+              <% week_bed_preparation_2_weeks.each do |preparing_event| %>
                 <div class="d-flex justify-content-between card-list-item-block">
                   <div class="card-list-item-left-block">
                     <div class="desktop_only">
-                      <div class="round-button green m-2">
-                        <i class="fas fa-check round-txt-button"></i>
-                      </div>
+                      <%= link_to farm_crop_plan_line_event_path(farm, preparing_event, event_done: true, start_date: params[:start_date]), method: :patch do %>
+                        <div class="round-button green <%= preparing_event.is_done? ? 'olive' : 'green' %> m-2">
+                          <i class="fas fa-check round-txt-button"></i>
+                        </div>
+                      <% end %>
                     </div>
                     <div class="card-list-item-main-info-block">
                       <div>
-                        <p><%= preparing.bed.garden.name %> - <%= preparing.bed.name %></p>
+                        <p><%= preparing_event.bed.garden.name %> - <%= preparing_event.bed.name %></p>
                       </div>
-                      <div class="card-list-item-second-line"><%= preparing.product.name.capitalize %></div>
+                      <div class="card-list-item-second-line"><%= preparing_event.product.name.capitalize %></div>
                       <div class="card-list-item-second-line"><!-- 700g Patenkali - 2kg Bioguanor --></div>
                     </div>
                   </div>
                   <div class="d-flex justify-content-between card-list-item-round-button-block">
                     <div>
-                      <div class="round-button green mobile_only m-2">
-                        <i class="fas fa-check round-txt-button"></i>
-                      </div>
+                      <%= link_to farm_crop_plan_line_event_path(farm, preparing_event, event_done: true, start_date: params[:start_date]), method: :patch do %>
+                        <div class="round-button <%= preparing_event.is_done? ? 'olive' : 'green' %> mobile_only m-2">
+                          <i class="fas fa-check round-txt-button"></i>
+                        </div>
+                      <% end %>
                     </div>
                     <div class="d-flex">
-                      <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-info-<%= preparing.id %>" aria-expanded="false">
+                      <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-info-cple-<%= preparing_event.id %>" aria-expanded="false">
                         <i class="fas fa-search round-txt-button"></i>
                       </div>
-                      <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-comment-<%= preparing.id %>" aria-expanded="false">
-                        <i class="fas fa-comment round-txt-button"></i>
-                      </div>
+                      <% if preparing_event.has_comment? %>
+                        <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-comment-cple-<%= preparing_event.id %>" aria-expanded="false">
+                          <i class="fas fa-comment round-txt-button"></i>
+                        </div>
+                      <% else %>
+                        <div class="round-button lightgrey m-2 no-pointer">
+                          <i class="fas fa-comment round-txt-button"></i>
+                        </div>
+                      <% end %>
+                      <!-- POSTPONE postpone -->
                       <div class="round-button orange m-2">
                         <i class="fas fa-redo-alt round-txt-button"></i>
                       </div>
                     </div>
-                    <div>
-                      <div class="txt-avatar orange m-2"><%= current_user.last_name[0] %></div>
+                    <div class="user-button-event">
+                      <% if preparing_event.has_users? %>
+                        <div class="dropleft">
+                          <div class="dropdown-toggle <%= 'd-flex' if preparing_event.has_multiple_users? %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <% preparing_event.users.each do |user| %>
+                              <div class="d-flex justify-content-end <%= 'ml-minus-24' if preparing_event.has_multiple_users? %>">
+                                <div class="txt-avatar m-2 pointer <%= user.color %>"><%= user.initial %></div>
+                              </div>
+                            <% end %>
+                          </div>
+                          <div class="dropdown-menu">
+                            <div class="d-flex">
+                              <% workers.each do |worker| %>
+                                <% if preparing_event.is_user?(worker) %>
+                                  <%= link_to farm_crop_plan_line_user_event_path(farm, preparing_event.user_event(worker.id), start_date: params[:start_date]), :method => :delete do %>
+                                    <div class="d-flex pr-1 pointer">
+                                      <div class="txt-avatar m-2 <%= worker.color %>">
+                                        <%= worker.initial %>
+                                        <div class="delete-user">x</div>
+                                      </div>
+                                    </div>
+                                  <% end %>
+                                <% else %>
+                                  <%= link_to farm_crop_plan_line_user_events_path(event: preparing_event, worker: worker.id, start_date: params[:start_date]), :method => :post do %>
+                                    <div class="d-flex pr-1 pointer">
+                                      <div class="txt-avatar m-2 <%= worker.color %>">
+                                        <%= worker.initial %>
+                                      </div>
+                                    </div>
+                                  <% end %>
+                                <% end %>
+                              <% end %>
+                            </div>
+                          </div>
+                        </div>
+                      <% else %>
+                        <div class="dropleft">
+                          <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="d-flex justify-content-end">
+                              <div class="round-button green m-2">
+                                <i class="fas fa-user-plus round-txt-button"></i>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="dropdown-menu">
+                            <div class="d-flex">
+                              <% workers.each do |worker| %>
+                                <%= link_to farm_crop_plan_line_user_events_path(event: preparing_event, worker: worker.id, start_date: params[:start_date]), :method => :post do %>
+                                  <div class="d-flex pr-1 pointer">
+                                    <div class="txt-avatar m-2 <%= worker.color %>">
+                                      <%= worker.initial %>
+                                    </div>
+                                  </div>
+                                <% end %>
+                              <% end %>
+                            </div>
+                          </div>
+                        </div>
+                      <% end %>
                     </div>
                   </div>
                 </div>
                 <!-- drawer commentaire -->
-                <section class="drawer" id="drawer-comment-<%= preparing.id %>" data-drawer-target>
+                <section class="drawer" id="drawer-comment-cple-<%= preparing_event.id %>" data-drawer-target>
                     <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
                     <div class="drawer__wrapper">
                       <div class="drawer__header">
                         <div class="d-flex justify-content-between">
                           <div class="drawer__title">
                             <div>
-                              <h2><%= preparing.product.name.capitalize %></h2>
+                              <h2><%= preparing_event.product.name.capitalize %></h2>
                             </div>
                           </div>
                           <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
@@ -306,22 +496,22 @@
                       <div class="drawer__content">
                         <h4 class="pt-3">Commentaire</h4>
                           <p>
-                            <%= preparing.comment&.capitalize %>
+                            <%= preparing_event.comment&.capitalize %>
                           <p>
                       </div>
                     </div>
                 </section>
                 <!-- drawer info -->
-                <section class="drawer" id="drawer-info-<%= preparing.id %>" data-drawer-target>
+                <section class="drawer" id="drawer-info-cple-<%= preparing_event.id %>" data-drawer-target>
                     <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
                     <div class="drawer__wrapper">
                       <div class="drawer__header">
                         <div class="d-flex justify-content-between">
                           <div class="drawer__title">
                             <div>
-                              <h2><%= preparing.product.name.capitalize %></h2>
+                              <h2><%= preparing_event.product.name.capitalize %></h2>
                             </div>
-                            <div class="drawer-title-second-line"><%= preparing.bed.garden.name %> - <%= preparing.bed.name %></div>
+                            <div class="drawer-title-second-line"><%= preparing_event.bed.garden.name %> - <%= preparing_event.bed.name %></div>
                           </div>
                           <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
                             <i class="fas fa-times"></i>

@@ -57,7 +57,7 @@
                   <div class="dropleft">
                     <div class="dropdown-toggle <%= 'd-flex' if garden_event.has_multiple_users? %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <% garden_event.users.each do |user| %>
-                        <div class="d-flex <%= 'ml-minus-24' if garden_event.has_multiple_users? %>">
+                        <div class="d-flex justify-content-end <%= 'ml-minus-24' if garden_event.has_multiple_users? %>">
                           <div class="txt-avatar m-2 pointer <%= user.color %>"><%= user.initial %></div>
                         </div>
                       <% end %>
@@ -90,8 +90,10 @@
                 <% else %>
                   <div class="dropleft">
                     <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <div class="round-button green m-2">
-                        <i class="fas fa-user-plus round-txt-button"></i>
+                      <div class="d-flex justify-content-end">
+                        <div class="round-button green m-2">
+                          <i class="fas fa-user-plus round-txt-button"></i>
+                        </div>
                       </div>
                     </div>
                     <div class="dropdown-menu">

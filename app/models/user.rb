@@ -57,7 +57,11 @@ class User < ApplicationRecord
     !self.worker
   end
 
-  def tasks_this_week
-    self.events.where("farm_id = ? AND (date BETWEEN ? AND ?)", 1, Date.today.beginning_of_week, Date.today.end_of_week)
+  def events_this_week
+    self.events.where("farm_id = ? AND (date BETWEEN ? AND ?)", 1, Date.today.beginning_of_week, Date.today.end_of_week + 1.week)
+  end
+
+  def garden_tasks_this_week
+    self.crop_plan_line_events.includes(crop_plan_line: [{product: :photo_attachment}, :bed]).where("(date_planned BETWEEN ? AND ?)", Date.today.beginning_of_week, Date.today.end_of_week + 1.week)
   end
 end

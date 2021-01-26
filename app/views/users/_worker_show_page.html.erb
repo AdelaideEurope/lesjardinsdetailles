@@ -1,7 +1,11 @@
 <h3>Mes tâches de la semaine</h3>
-  <% worker.tasks_this_week.each do |t| %>
-    <%= t.description %> - <%= t.details %>
-  <% end %>
-
+  <ul>
+    <% worker.events_this_week.each do |t| %>
+      <li><%= t.description %> - <%= t.details %></li>
+    <% end %>
+    <% worker.garden_tasks_this_week.each do |t| %>
+      <li><%= t.crop_plan_line.product.name %></li>
+    <% end %>
+  </ul>
 <h3>Mes prochains jours d'astreinte</h3>
 <h3>Mes prochains jours de vacances <span class="ml-2">🏝</span></h3>
