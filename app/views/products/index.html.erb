@@ -115,11 +115,13 @@
                 <div>Chiffre d'affaires estimé : <%= get_price_in_cents(product.estimated_turnover) %></div>
               <% end %>
             </div>
-            <div>
-              Il manquerait pas quelques infos ?!
-              <br>
-              Allez hop, on va remplir tout ça <%= link_to edit_farm_produit_path(current_user.farm, product.slug) do %>par ici 🤓<% end %>
-            </div>
+            <% if current_user.manager %>
+              <div>
+                Il manquerait pas quelques infos ?!
+                <br>
+                Allez hop, on va remplir tout ça <%= link_to edit_farm_produit_path(current_user.farm, product.slug) do %>par ici 🤓<% end %>
+              </div>
+            <% end %>
           </div>
         </div>
       </section>
