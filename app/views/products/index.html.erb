@@ -1,6 +1,14 @@
 <div class="container custom-container">
-  <div class="page-header non-scrolled-page-header scrollable-page-header">
-    <h2>Tous les légumes, au clair de lune <span class="ml-2">🎶</span></h2>
+  <div class="page-header non-scrolled-page-header scrollable-page-header d-flex justify-content-between">
+    <h2>Tous les légumes, au clair de lune</h2>
+    <div class="pr-38 d-flex">
+      <%= link_to farm_produits_path(@farm.id, format: "xlsx") do %>
+        <div class="round-button green mr-2"><i class="fas fa-download round-txt-button"></i></div>
+      <% end %>
+      <%= link_to  new_farm_produit_path(@farm.id) do %>
+        <div class="round-button green"><i class="fas fa-plus round-txt-button"></i></div>
+      <% end %>
+    </div>
   </div>
 
   <div class="page-content">
@@ -13,7 +21,6 @@
     </button>
   <% end %>
   </div>
-
   <table class="table mt-4">
     <thead>
       <tr>

@@ -1,12 +1,11 @@
 <div class="container custom-container" style="overflow: auto;">
   <div class="page-header non-scrolled-page-header scrollable-page-header d-block">
-    <h2 class="mb-0"><%= @product.name.capitalize %></h2>
-    <p class="lightgrey">Modifier</p>
+    <h2 class="mb-0">Créer un produit</h2>
   </div>
 
   <div class="page-content">
   </div>
   <div class="container">
-    <%= render 'form', product: @product, farm: @farm, product_groups: @product_groups, url: farm_produit_path %>
+    <%= render 'form', farm: @farm, product: @product, product_groups: @product_groups, url: farm_produits_path(@farm.id) %>
   </div>
 </div>

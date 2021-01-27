@@ -38,6 +38,10 @@ gem 'friendly_id', '~> 5.4.0'
 # calendar
 gem "simple_calendar", "~> 2.0"
 
+# export excel
+gem 'caxlsx'
+gem 'caxlsx_rails'
+
 gem 'rails-i18n', '~> 6.0.0'
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'

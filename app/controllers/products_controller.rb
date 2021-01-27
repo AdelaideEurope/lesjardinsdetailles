@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:edit, :update]
+  before_action :set_farm, only: [:index, :edit, :update, :new, :create]
 
   def index
     if !params[:query] && !params[:sort]
@@ -13,21 +14,41 @@ class ProductsController < ApplicationController
       @products = Product.includes(:product_group, :photo_attachment).where(farm_id: current_user.farm_id).order("product_groups.name")
     end
     authorize @products
+    respond_to do |format|
+      format.html
+      format.xlsx
+    end
   end
 
   def edit
     authorize @product
-    @farm = @product.farm
-    @product_groups = ProductGroup.all.map { |group| group.name.capitalize }
+    @product_groups = ProductGroup.all.map { |group| [group.name.capitalize, group.id] }
   end
+
+  def new
+    @product = Product.new
+    authorize @product
+    @product_groups = ProductGroup.all.map { |group| [group.name.capitalize, group.id] }
+  end
+
+  def create
+    @product = Product.new(name: params[:product][:name], product_type: params[:product][:product_type], general_unit: params[:product][:general_unit], general_price_final_client: params[:product][:general_price_final_client], general_price_intermediary: params[:product][:general_price_intermediary], yearly_bed_count: params[:product][:yearly_bed_count], yield_per_sqm: params[:product][:yield_per_sqm], estimated_turnover: params[:product][:estimated_turnover], product_group_id: params[:product][:product_group_id], color: params[:product][:color], spacing: params[:product][:spacing], row_count: params[:product][:row_count], loss_percentage: params[:product][:loss_percentage], growth_duration_in_weeks: params[:product][:growth_duration_in_weeks], harvest_duration_in_weeks: params[:product][:harvest_duration_in_weeks], picture: params[:product][:picture], farm_id: params[:farm_id])
+    authorize @product
+    if @product.save
+      flash[:notice] = "Produit créé avec succès !"
+      redirect_to farm_produits_path(@farm)
+    else
+      render :new
+    end
+  end
+
 
   def update
     authorize @product
-
     convert_euro_params_to_cents(@product)
     if @product.update(product_params)
       flash[:notice] = "Produit modifié avec succès !"
-      redirect_to farm_produits_path(current_user.farm_id)
+      redirect_to farm_produits_path(@farm)
     else
       render :edit
     end
@@ -37,6 +58,11 @@ class ProductsController < ApplicationController
   def set_product
     @product = Product.includes(:product_group, :farm).friendly.find(params[:id])
   end
+
+  def set_farm
+    @farm = Farm.find(params[:farm_id])
+  end
+
 
   def product_params
     params.require(:product).permit(:name, :product_type, :general_unit, :general_price_final_client, :general_price_intermediary, :yearly_bed_count, :yield_per_sqm, :estimated_turnover, :product_group_id, :color, :spacing, :row_count, :loss_percentage, :growth_duration_in_weeks, :harvest_duration_in_weeks, :picture)

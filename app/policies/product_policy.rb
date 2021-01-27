@@ -28,4 +28,16 @@ class ProductPolicy < ApplicationPolicy
       true
     end
   end
+
+  def new?
+    if user.manager
+      true
+    end
+  end
+
+  def create?
+    if user.manager
+      true
+    end
+  end
 end

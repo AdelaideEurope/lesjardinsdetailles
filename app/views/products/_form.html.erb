@@ -1,0 +1,42 @@
+<%= simple_form_for [farm, product], url: url do |f| %>
+  <div class="flex-wrap d-flex justify-content-between">
+    <div class="w-48-desktop">
+      <h3 class="mt-4">Infos principales</h3>
+      <div class="simple-card">
+        <%= f.input :name, :label => "Nom", required: true %>
+        <%= f.input :product_type, :label => "Type de produit", placeholder: "ex : légume, œuf", required: true %>
+        <%= f.input :product_group_id, :label => "Famille du légume", collection: product_groups %>
+        <%= f.input :color, as: :color, :label => "Couleur" %>
+        <%= f.input :picture, as: :file %>
+      </div>
+    </div>
+    <div class="w-48-desktop">
+      <h3 class="mt-4">Infos ventes</h3>
+      <div class="simple-card">
+        <%= f.input :general_unit, :label => "Unité générale", required: true %>
+        <%= f.input :general_price_final_client, input_html: {value: product.general_price_final_client.to_i.fdiv(100)}, :label => "Prix général client final" %>
+        <%= f.input :general_price_intermediary, input_html: {value: product.general_price_intermediary.to_i.fdiv(100)}, :label => "Prix général intermédiaire" %>
+      </div>
+    </div>
+
+    <div class="w-100">
+      <h3 class="mt-4">Infos culture</h3>
+      <div class="simple-card d-sm-flex justify-content-between">
+        <div class="w-47-desktop">
+          <%= f.input :yearly_bed_count, :label => "Nombre de planches dans l'année" %>
+          <%= f.input :yield_per_sqm, input_html: {value: product.yield_per_sqm.to_i.fdiv(100)}, :label => "Rendement par mètre carré" %>
+          <%= f.input :loss_percentage, :label => "Pourcentage de perte" %>
+        </div>
+        <div class="w-47-desktop">
+          <%= f.input :spacing, :label => "Espacement" %>
+          <%= f.input :row_count, :label => "Nombre de rangs" %>
+          <%= f.input :growth_duration_in_weeks, :label => "Durée de croissance (en semaines)" %>
+          <%= f.input :harvest_duration_in_weeks, :label => "Durée de récolte (en semaines)" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex">
+    <%= f.submit "Valider", class: "btn txt-button mt-4 mx-auto" %>
+  </div>
+<% end %>
