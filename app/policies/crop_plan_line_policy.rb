@@ -6,13 +6,13 @@ class CropPlanLinePolicy < ApplicationPolicy
   end
 
   def index?
-    if user.manager
+    if user.worker
       true
     end
   end
 
   def update?
-    if user.manager || user.worker
+    if user.worker
       true
     end
   end

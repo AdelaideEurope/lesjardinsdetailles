@@ -6,7 +6,7 @@ class FarmPolicy < ApplicationPolicy
   end
 
   def show?
-    if user.farm.id == record.id && user.manager
+    if user.farm.id == record.id && user.worker
       true
     end
   end
