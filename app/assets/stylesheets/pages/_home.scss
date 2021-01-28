@@ -50,6 +50,10 @@
   object-fit: cover;
 }
 
+.home-container {
+  padding-bottom: 30px;
+}
+
 .img-line-narrow {
   height: 36vh;
 }
@@ -81,6 +85,10 @@
 }
 
 @media(max-width:767px) {
+  .home-container {
+    padding-bottom: 60px;
+  }
+
   .banner-content {
     h1 {
       font-size: 36px;
