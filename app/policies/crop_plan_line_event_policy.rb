@@ -6,7 +6,7 @@ class CropPlanLineEventPolicy < ApplicationPolicy
   end
 
   def update?
-    if user.manager || user.worker
+    if user.worker
       true
     end
   end

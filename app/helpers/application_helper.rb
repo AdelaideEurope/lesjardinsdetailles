@@ -22,8 +22,12 @@ module ApplicationHelper
     end
   end
 
-  def get_elapsed_days_since_beginning_of_year(date_to_number_days)
-    ((date_to_number_days * 100) / 365).to_i
+
+  def find_day_correspondence(num)
+    days = (1..365).to_a
+    day_correspondences = {}
+    days.each {|day| day_correspondences[day] = day*100.fdiv(365)}
+    day_correspondences[num]
   end
 
   # def percentage_number_days_between_two_dates(start, end)

@@ -2,6 +2,14 @@ class CropPlanLineEventsController < ApplicationController
   before_action :set_crop_plan_line_event, only: [:update]
   before_action :set_farm, only: [:update]
 
+  def index
+    # @crop_plan_line_events = CropPlanLineEvent.all
+    # authorize @crop_plan_line_events
+    # @gardens = Garden.includes(beds: [crop_plan_lines: [product: [:product_group, :photo_attachment]], :crop_plan_line_events]).where(farm_id: current_user.farm_id)
+    # number_days_since_first_day_of_year = Date.today.strftime("%j").to_i
+    # @percentage_number_days_since_first_day_of_year = helpers.get_elapsed_days_since_beginning_of_year(number_days_since_first_day_of_year)
+  end
+
   def update
     authorize @crop_plan_line_event
     if params[:event_done]

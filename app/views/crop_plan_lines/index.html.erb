@@ -47,17 +47,19 @@
                   <div class="pl-3 pl-sm-4 text-left crop-plan-left-column">
                     <%= bed.name %>
                   </div>
-                  <div class="crop-plan-right-column d-flex">
+                  <div class="crop-plan-right-column d-flex position-relative">
              <!--        <div class="vertical-line-today" style="margin-left: <%= @percentage_number_days_since_first_day_of_year %>%;">
                     </div> -->
                     <% bed.crop_plan_lines.each do |cpl| %>
-                      <div class="crop-plan-line-planted" style="background: <%= cpl.product.color %>; left: <%= get_elapsed_days_since_beginning_of_year(cpl.planting_date.strftime('%j').to_i) %>%; width: <%= get_elapsed_days_since_beginning_of_year((cpl.harvest_start_date.strftime('%j').to_i - cpl.planting_date.strftime('%j').to_i)) %>%;">
-                        <!-- <div><%= cpl.planting_date.strftime('%W').to_i %></div> -->
-                        <div class="pointer margin-0-auto" data-drawer-trigger aria-controls="drawer-product-show<%= cpl.id %>"><%= cpl.product.name.capitalize %></div>
+                      <div data-drawer-trigger aria-controls="drawer-cpl-show<%= cpl.id %>" class="pointer">
+                        <div class="crop-plan-line-planted position-absolute" style="background: <%= cpl.product.color %>; left: <%= find_day_correspondence(cpl.planting_date.strftime('%j').to_i) %>%; width: <%= find_day_correspondence((cpl.harvest_start_date.strftime('%j').to_i - cpl.planting_date.strftime('%j').to_i)) %>%;">
+                          <!-- <div><%= cpl.planting_date.strftime('%W').to_i %></div> -->
+                          <div class="margin-0-auto"><%= cpl.product.name.capitalize %></div>
+                        </div>
+                        <div class="crop-plan-line-harvesting position-absolute" style="background: <%= cpl.product.color %>; left: <%= find_day_correspondence(cpl.harvest_start_date.strftime('%j').to_i) %>%; width: <%= find_day_correspondence((cpl.harvest_end_date.strftime('%j').to_i - cpl.harvest_start_date.strftime('%j').to_i)) %>%;">
+                        </div>
                       </div>
-                      <div class="crop-plan-line-harvesting" style="background: <%= cpl.product.color %>; left: <%= get_elapsed_days_since_beginning_of_year(cpl.planting_date.strftime('%j').to_i) %>%; width: <%= get_elapsed_days_since_beginning_of_year((cpl.harvest_end_date.strftime('%j').to_i - cpl.harvest_start_date.strftime('%j').to_i)) %>%;">
-                      </div>
-                      <section class="drawer" id="drawer-product-show<%= cpl.id %>" data-drawer-target>
+                      <section class="drawer" id="drawer-cpl-show<%= cpl.id %>" data-drawer-target>
                         <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
                         <div class="drawer__wrapper">
                           <div class="drawer__header">
@@ -70,24 +72,25 @@
                               </div>
                               <button class="drawer__close" data-drawer-close aria-label="Close Drawer"><i class="fas fa-times"></i></button>
                             </div>
-                          <div style="margin-top: -8px;"><%= cpl.product.product_group.name.capitalize %></div>
                           </div>
                           <div class="drawer__content">
-                            <div>Nombre de planches <%= Date.today.strftime('%Y') %> : <%= remove_trailing_zero(cpl.product.yearly_bed_count) %></div>
-                            <h2 class="mt-4">Infos culture</h2>
-                            <div>Rendement par mètre carré : <%= get_price_in_cents(cpl.product.yield_per_sqm) %></div>
-                            <div>Chiffre d'affaires estimé : <%= get_price_in_cents(cpl.product.estimated_turnover) %></div>
+                            <h2 class="mt-4">Actions</h2>
+                            <ul>
+                              <% cpl.crop_plan_line_events.sort_by(&:order).each do |cple| %>
+                                <li><%= cple.date_planned.strftime('%d/%m')%> :
+                                <%= cple.name %>
+                                <%= cple.product.name %>
+                                <%= cple.bed %></li>
+                              <% end %>
+                            </ul>
+                            <h3>Infos utiles pour cette culture 💡</h3>
                             <div>Espacement : <%= show_replace_nil_with_dash(cpl.product.spacing) %></div>
                             <div>Nombre de rangs : <%= cpl.product.row_count %></div>
                             <div>Perte : <%= cpl.product.loss_percentage %> %</div>
-                            <div>Durée de croissance en semaines : <%= cpl.product.growth_duration_in_weeks %></div>
-                            <div>Durée de récolte en semaines : <%= cpl.product.harvest_duration_in_weeks %></div>
+                            <div>Durée de croissance : <%= cpl.product.growth_duration_in_weeks %> semaines</div>
+                            <div>Durée de récolte : <%= cpl.product.harvest_duration_in_weeks %> semaines</div>
 
-                            <h2 class="mt-4">Money money money 💵</h2>
-                            <div>Prix général : <%= get_price_in_cents(cpl.product.general_price_final_client) %>/<%= cpl.product.general_unit %></div>
-                            <div>Prix général intermédiaire : <%= get_price_in_cents(cpl.product.general_price_intermediary) %>/<%= cpl.product.general_unit %></div>
-                            <div>Chiffre d'affaires HT : <%= get_price_in_cents(cpl.product.ht_turnover) %></div>
-                            <div>Chiffre d'affaires TTC : <%= get_price_in_cents(cpl.product.ttc_turnover) %></div>
+                            <h3 class="mt-2">Vous prendrez bien un peu de ferti ?</h3>
                           </div>
                         </div>
                       </section>
