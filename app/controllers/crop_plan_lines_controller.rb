@@ -1,10 +1,14 @@
 class CropPlanLinesController < ApplicationController
   def index
-    @crop_plan_lines = CropPlanLine.all.where(farm_id: current_user.farm_id)
+    @farm = Farm.find(params[:farm_id])
+    @crop_plan_lines = CropPlanLine.all
     authorize @crop_plan_lines
     @gardens = Garden.includes(beds: [crop_plan_lines: [{product: :product_group}, crop_plan_line_events: [:product, :bed]]])
     number_days_since_first_day_of_year = Date.today.strftime("%j").to_i
-
+    respond_to do |format|
+      format.html
+      format.xlsx
+    end
   end
 
 # s.includes(crop_plan_line: [{product: :photo_attachment}, :bed])

@@ -1,0 +1,12 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Plan de culture") do |sheet|
+  sheet.add_row ['Produit', 'Jardin', 'Planche']
+  @crop_plan_lines.each do |cpl|
+    sheet.add_row [cpl.product.name, cpl.bed.garden.name, cpl.bed.name]
+    sheet.add_row []
+    cpl.crop_plan_line_events.each do |cple|
+      sheet.add_row [cple.date_planned.strftime('%U'), cple.name]
+    end
+    sheet.add_row []
+  end
+end
