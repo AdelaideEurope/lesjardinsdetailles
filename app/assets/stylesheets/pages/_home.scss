@@ -28,13 +28,13 @@
   color: #f5deb3;
 }
 
-.home-content {
-  top: 68vh;
-  position: relative;
-}
+// .home-content {
+//   top: 68vh;
+//   position: relative;
+// }
 
 .home-img-row {
-  height: 36vh;
+  // height: 36vh;
   flex-gap: 4px;
   gap: 36px;
   justify-content: space-between;
@@ -135,8 +135,12 @@
     object-position: 0%;
   }
 
-  .home-farm-info-title h2 {
-    line-height: 12vh;
-    margin-bottom: auto;
+
+  .home-farm-info-title  {
+    margin-bottom: -28px;
+    h2 {
+      line-height: 12vh;
+      margin-bottom: auto;
+    }
   }
 }
