@@ -1,5 +1,6 @@
 class NewsletterSubscribersController < ApplicationController
     before_action :set_farm, only: [:index, :new, :create]
+    skip_before_action :authenticate_user!, only: [ :create ]
 
     def index
       @newsletter_subscribers = NewsletterSubscriber.where(farm_id: @farm.id)
@@ -11,7 +12,7 @@ class NewsletterSubscribersController < ApplicationController
     end
 
     def create
-      @newsletter_subscriber = NewsletterSubscriber.new(farm_id: 1, first_name: params[:newsletter_subscriber][:first_name], email: params[:newsletter_subscriber][:email])
+      @newsletter_subscriber = NewsletterSubscriber.new(farm_id: 1, first_name: [:first_name], email: [:email])
       authorize @newsletter_subscriber
       if @newsletter_subscriber.save
       flash[:notice] = "C'est bon, vous êtes parmi les chanceux destinataires de notre lettre d'info !"

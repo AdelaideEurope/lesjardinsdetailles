@@ -125,7 +125,7 @@
   <h4 class="orange text-center">S'inscrire à notre lettre d'info</h4>
   <p class="text-center mb-4">Au programme : des infos de la ferme, des idées de recettes, de la bonne humeur et des petites photos. À ne surtout pas louper !</p>
   <div>
-    <%= form_with model: @newsletter_subscriber, url: farm_newsletter_subscribers_path(@farm.id, @newsletter_subscriber), class: "search-form d-flex justify-content-between", local: true do |form| %>
+    <%= form_with model: @newsletter_subscriber, url: farm_newsletter_subscribers_path(@farm.id, @newsletter_subscriber), class: "search-form d-flex justify-content-between", local: true, method: :post do |form| %>
       <%= form.text_field :first_name, placeholder: "Prénom", class: "search-input w-100 mr-2 mr-sm-4" %>
       <%= form.email_field :email, placeholder: "hello@monadresse.fr", class: "search-input w-100", required: true %>
       <%= form.submit value: "", class: "btn search-button fas fa-check", id: "newsletter", "data-disable-with": "" %>
