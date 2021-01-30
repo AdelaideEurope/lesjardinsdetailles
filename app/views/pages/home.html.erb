@@ -87,8 +87,8 @@
     </div>
   </div>
 </div>
-<div class="justify-content-between mobile_only">
-  <div class="d-flex flex-column mt-4">
+<div class="justify-content-between mobile_only map-container">
+  <div class="d-flex flex-column pt-4">
     <div class="text-center small">À l'AMAP de St Martin d'Hères <br>sur engagement <%= mail_to "amaplaplaine@gmail.com", "amaplaplaine@gmail.com" %></div>
     <div>
       <%= link_to "https://www.google.com/maps/place/8FQ75QC4%2B7H/@45.1709172,5.7546098,17z/data=!4m5!3m4!1s0x0:0x0!8m2!3d45.1706875!4d5.7564375", target: :_blank do %>
@@ -116,15 +116,30 @@
     </div>
   </div>
 </div>
+<div class="home-farm-info-title">
+  <h2 class="green desktop_only">Nous contacter & suivre nos aventures</h2>
+  <h2 class="green mobile_only">Suivre nos aventures</h2>
+</div>
 
-<div class="container footer-container">
-  <div class="footer justify-content-center justify-content-sm-between">
-    <div class="footer-links">
-      <a href="#" class="pl-0"><i class="fab fa-instagram ml-0"></i></a>
-      <a href="https://www.facebook.com/Les-Jardins-D%C3%A9taill%C3%A9s-779006172440428" target="_blank"><i class="fab fa-facebook"></i></a>
-    </div>
-    <div class="footer-copyright desktop_only">
-      Fait avec <i class="fas fa-heart"></i> by adé
-    </div>
+<div class="d-flex justify-content-center">
+  <div class="footer-links">
+    <a href="#" class="pl-0"><i class="fab fa-instagram ml-0"></i></a>
+    <a href="https://www.facebook.com/Les-Jardins-D%C3%A9taill%C3%A9s-779006172440428" target="_blank"><i class="fab fa-facebook"></i></a>
+    <%= mail_to "bonjour@lesjardinsdetailles.fr" do %><i class="fas fa-envelope"></i><% end %>
+  </div>
+  <!-- <div class="footer-links"> -->
+  <!-- <div class="footer-copyright desktop_only">
+    Fait avec <i class="fas fa-heart"></i> by adé
+  </div> -->
+</div>
+<div class="d-flex flex-column w-75 margin-0-auto">
+  <h4 class="mt-4 orange text-center">S'inscrire à notre newsletter</h4>
+  <p class="text-center mb-4">Au programme : des infos de la ferme, des idées de recettes, de la bonne humeur et des petites photos. À ne surtout pas louper !</p>
+  <div class="search-form d-flex">
+    <input type="text" class="search-input w-100" placeholder="hello@monadresse.fr">
+      <button type="submit" class="btn search-button" id="submit">
+        <i class="fas fa-search"></i>
+      </button>
   </div>
 </div>
+
