@@ -4,6 +4,9 @@
   height: 68vh;
 }
 
+#newsletter {
+  padding: 12px 12px 12px 10px;
+}
 
 .banner-content {
   top: 30vh;
@@ -85,8 +88,12 @@
 }
 
 @media(max-width:767px) {
+  #submit-newsletter-subscriber {
+    padding: 5px 12px 0px 8px;
+  }
+
   .home-container {
-    padding-bottom: 60px;
+    padding-bottom: 8px;
   }
 
   .banner-content {

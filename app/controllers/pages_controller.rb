@@ -3,6 +3,8 @@ class PagesController < ApplicationController
 
   def home
     authorize :page
+    @farm = Farm.find(1)
+    @newsletter_subscriber = NewsletterSubscriber.new
   end
 
   def about

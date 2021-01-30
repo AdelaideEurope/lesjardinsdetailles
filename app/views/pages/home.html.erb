@@ -20,7 +20,7 @@
   </div>
   <div class="home-farm-main-info mobile_only">
     <h2>Maraîchage diversifié en région grenobloise</h2>
-    <div>Les Jardins détaillés est une ferme située au cœur de l'Agglomération grenobloise, au sein du campus de St-Martin-d'Hères, sur les berges de l'Isère.
+    <div class="small">Les Jardins détaillés est une ferme située au cœur de l'Agglomération grenobloise, au sein du campus de St-Martin-d'Hères, sur les berges de l'Isère.
       Mickaël et Eléonore y cultivent des légumes diversifiés et y élèvent des poules pondeuses en Agriculture biologique.
       Toute la commercialisation se fait en circuits courts locaux (moins de 10 km du lieu de production).</div>
   </div>
@@ -61,9 +61,9 @@
 <div class="home-farm-info-title">
   <h2 class="red">Où trouver nos produits</h2>
 </div>
-<div class="d-flex justify-content-between desktop_only">
+<div class="d-flex justify-content-between desktop_only map-container">
   <div class="d-flex flex-column" style="width: 30%">
-    <div class="text-center small">À l'AMAP de St Martin d'Hères <br>sur engagement <%= mail_to "amaplaplaine@gmail.com", "amaplaplaine@gmail.com" %></div>
+    <div class="text-center small pb-2">À l'AMAP de St Martin d'Hères <br>sur engagement <%= mail_to "amaplaplaine@gmail.com", "amaplaplaine@gmail.com" %></div>
     <div>
       <%= link_to "https://www.google.com/maps/place/8FQ75QC4%2B7H/@45.1709172,5.7546098,17z/data=!4m5!3m4!1s0x0:0x0!8m2!3d45.1706875!4d5.7564375", target: :_blank do %>
         <%= image_tag "map-amap.png", class:"w-100" %>
@@ -71,7 +71,7 @@
     </div>
   </div>
   <div class="d-flex flex-column" style="width: 30%">
-    <div class="text-center small">Rue A. Polotti à St-Martin-d'Hères <br>le lundi soir d'avril à décembre - ouvert à tous
+    <div class="text-center small pb-2">Rue A. Polotti à St-Martin-d'Hères <br>le lundi soir d'avril à décembre - ouvert à tous
     </div>
     <div>
       <%= link_to "https://www.google.com/maps/place/Rue+Antoine+Polotti,+38400+Saint-Martin-d'H%C3%A8res/@45.1952678,5.7530986,17z/data=!4m13!1m7!3m6!1s0x478af5ab30dabd7f:0xe22b0c32955b9e6f!2sRue+Antoine+Polotti,+38400+Saint-Martin-d'H%C3%A8res!3b1!8m2!3d45.1952678!4d5.7552873!3m4!1s0x478af5ab30dabd7f:0xe22b0c32955b9e6f!8m2!3d45.1952678!4d5.7552873", target: :_blank do %>
@@ -80,7 +80,7 @@
     </div>
   </div>
   <div class="d-flex flex-column" style="width: 30%">
-    <div class="text-center small">Dans certaines épiceries et magasins bio <br>de l'agglo</div>
+    <div class="text-center small pb-2">Dans certaines épiceries et magasins bio <br>de l'agglo</div>
     <div><%= link_to "https://www.google.com/maps/dir/La+Bonne+Pioche,+Rue+Condillac,+Grenoble/Biocoop+Casabio+Chorier,+32+Rue+Nicolas+Chorier,+38000+Grenoble/Jeanette,+Rue+Genissieu,+Grenoble/@45.187091,5.7163021,16z/data=!3m1!4b1!4m20!4m19!1m5!1m1!1s0x478af48b898c0001:0x16034f780eca070a!2m2!1d5.7288807!2d45.1889032!1m5!1m1!1s0x478af482c36f4eaf:0xf49e027fba6f9138!2m2!1d5.7124271!2d45.1858565!1m5!1m1!1s0x478af57c45d70155:0xee0cad88f76a3dce!2m2!1d5.7226022!2d45.1863744!3e0", target: :_blank do %>
         <%= image_tag "epiceries.png", class:"w-100" %>
       <% end %>
@@ -89,7 +89,7 @@
 </div>
 <div class="justify-content-between mobile_only map-container">
   <div class="d-flex flex-column pt-4">
-    <div class="text-center small">À l'AMAP de St Martin d'Hères <br>sur engagement <%= mail_to "amaplaplaine@gmail.com", "amaplaplaine@gmail.com" %></div>
+    <div class="text-center small pb-2">À l'AMAP de St Martin d'Hères <br>sur engagement <%= mail_to "amaplaplaine@gmail.com", "amaplaplaine@gmail.com" %></div>
     <div>
       <%= link_to "https://www.google.com/maps/place/8FQ75QC4%2B7H/@45.1709172,5.7546098,17z/data=!4m5!3m4!1s0x0:0x0!8m2!3d45.1706875!4d5.7564375", target: :_blank do %>
         <%= image_tag "map-amap.png", class:"w-100", style: "height: 135px;
@@ -98,7 +98,7 @@
     </div>
   </div>
   <div class="d-flex flex-column mt-4">
-    <div class="text-center small">Rue A. Polotti à St-Martin-d'Hères <br>le lundi soir d'avril à décembre - ouvert à tous
+    <div class="text-center small pb-2">Rue A. Polotti à St-Martin-d'Hères <br>le lundi soir d'avril à décembre - ouvert à tous
     </div>
     <div>
       <%= link_to "https://www.google.com/maps/place/Rue+Antoine+Polotti,+38400+Saint-Martin-d'H%C3%A8res/@45.1952678,5.7530986,17z/data=!4m13!1m7!3m6!1s0x478af5ab30dabd7f:0xe22b0c32955b9e6f!2sRue+Antoine+Polotti,+38400+Saint-Martin-d'H%C3%A8res!3b1!8m2!3d45.1952678!4d5.7552873!3m4!1s0x478af5ab30dabd7f:0xe22b0c32955b9e6f!8m2!3d45.1952678!4d5.7552873", target: :_blank do %>
@@ -108,7 +108,7 @@
     </div>
   </div>
   <div class="d-flex flex-column mt-4">
-    <div class="text-center small">Dans certaines épiceries et magasins bio <br>de l'agglo</div>
+    <div class="text-center small pb-2">Dans certaines épiceries et magasins bio <br>de l'agglo</div>
     <div><%= link_to "https://www.google.com/maps/dir/La+Bonne+Pioche,+Rue+Condillac,+Grenoble/Biocoop+Casabio+Chorier,+32+Rue+Nicolas+Chorier,+38000+Grenoble/Jeanette,+Rue+Genissieu,+Grenoble/@45.187091,5.7163021,16z/data=!3m1!4b1!4m20!4m19!1m5!1m1!1s0x478af48b898c0001:0x16034f780eca070a!2m2!1d5.7288807!2d45.1889032!1m5!1m1!1s0x478af482c36f4eaf:0xf49e027fba6f9138!2m2!1d5.7124271!2d45.1858565!1m5!1m1!1s0x478af57c45d70155:0xee0cad88f76a3dce!2m2!1d5.7226022!2d45.1863744!3e0", target: :_blank do %>
         <%= image_tag "epiceries.png", class:"w-100", style: "height: 135px;
     object-fit: cover;" %>
@@ -121,7 +121,19 @@
   <h2 class="green mobile_only">Suivre nos aventures</h2>
 </div>
 
-<div class="d-flex justify-content-center">
+<div class="d-flex flex-column w-75 margin-0-auto">
+  <h4 class="orange text-center">S'inscrire à notre lettre d'info</h4>
+  <p class="text-center mb-4">Au programme : des infos de la ferme, des idées de recettes, de la bonne humeur et des petites photos. À ne surtout pas louper !</p>
+  <div>
+    <%= form_with model: @newsletter_subscriber, url: farm_newsletter_subscribers_path(@farm.id, @newsletter_subscriber), class: "search-form d-flex justify-content-between", local: true do |form| %>
+      <%= form.text_field :first_name, placeholder: "Prénom", class: "search-input w-100 mr-2 mr-sm-4" %>
+      <%= form.email_field :email, placeholder: "hello@monadresse.fr", class: "search-input w-100", required: true %>
+      <%= form.submit value: "", class: "btn search-button fas fa-check", id: "newsletter", "data-disable-with": "" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="mt-4 d-flex justify-content-center">
   <div class="footer-links">
     <a href="#" class="pl-0"><i class="fab fa-instagram ml-0"></i></a>
     <a href="https://www.facebook.com/Les-Jardins-D%C3%A9taill%C3%A9s-779006172440428" target="_blank"><i class="fab fa-facebook"></i></a>
@@ -132,14 +144,3 @@
     Fait avec <i class="fas fa-heart"></i> by adé
   </div> -->
 </div>
-<div class="d-flex flex-column w-75 margin-0-auto">
-  <h4 class="mt-4 orange text-center">S'inscrire à notre newsletter</h4>
-  <p class="text-center mb-4">Au programme : des infos de la ferme, des idées de recettes, de la bonne humeur et des petites photos. À ne surtout pas louper !</p>
-  <div class="search-form d-flex">
-    <input type="text" class="search-input w-100" placeholder="hello@monadresse.fr">
-      <button type="submit" class="btn search-button" id="submit">
-        <i class="fas fa-search"></i>
-      </button>
-  </div>
-</div>
-

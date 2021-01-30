@@ -15,7 +15,7 @@
     <% if controller_name != 'sessions' && controller_name != 'registrations' && controller_name == 'pages' && action_name != 'dashboard' %>
       <%= render 'shared/pages_navbar' %>
       <%= yield %>
-    <% elsif controller_name != 'sessions' && controller_name != 'registrations' %>
+    <% elsif controller_name != 'sessions' && controller_name != 'registrations' && controller_name != 'passwords' %>
       <div class="wrapper">
         <%= render 'shared/main_navbar' %>
         <%= yield %>

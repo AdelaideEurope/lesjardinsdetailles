@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :produits, controller: 'products', only: [ :index, :show, :edit, :update, :create, :new ]
     resources :plandeculture, controller: 'crop_plan_lines', only: [ :index, :update ]
     resources :crop_plan_line_events, only: [ :update ]
+    resources :newsletter_subscribers, only: [ :index, :new, :create ]
     resources :crop_plan_line_user_events, only: [ :create, :update, :destroy ]
     resources :ventes, controller: 'sales', only: [ :index, :show ]
     resources :pointsdevente, controller: 'outlets', only: [ :index, :show ]

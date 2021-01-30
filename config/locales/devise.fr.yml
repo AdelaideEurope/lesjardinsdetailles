@@ -33,13 +33,13 @@ fr:
       new_password: "Nouveau mot de passe"
       confirm_new_password: "Confirmer le nouveau mot de passe"
       change_my_password: "Changer mon mot de passe"
-      send_reset_password_instructions: "Envoyez moi les instructions de réinitialisation du mot de passe"
-      send_instructions: 'Vous allez recevoir contenant les instructions de réinitialisation de mot de passe dans quelques minutes'
-      updated: 'Votre mot de passe a été édité avec succès, vous êtes maintenant connectés'
+      send_reset_password_instructions: "Envoyez-moi les instructions de réinitialisation du mot de passe"
+      send_instructions: 'Vous allez recevoir un email avec les instructions de réinitialisation du mot de passe dans quelques instants. Jetez un œil à votre courrier indésirable 😅'
+      updated: 'Votre mot de passe a été modifié avec succès'
     confirmations:
-      resend_instructions: 'Ré-envoyer les instructions de confirmation'
-      send_instructions: 'Vous allez recevoir contenant les instructions nécessaires à la confirmation de votre compte dans quelques minutes'
-      confirmed: 'Votre compte a été confirmé avec succès, vous êtes maintenant connectés'
+      resend_instructions: 'Renvoyer les instructions de confirmation'
+      send_instructions: 'Vous allez recevoir un email avec les instructions nécessaires à la confirmation de votre compte dans quelques instants. Jetez un œil à votre courrier indésirable 😅'
+      confirmed: 'Votre compte a été confirmé avec succès'
     registrations:
       signed_up: 'Bienvenue, vous êtes connectés avec succès'
       edit: "Editer %{resourcename}"
@@ -48,14 +48,14 @@ fr:
       update: 'Modifier'
       unhappy: "Mécontent"
       cancel_my_account: "Annuler mon compte"
-      confirm: "Etes vous sur?"
+      confirm: "C'est sûr ?"
       back: "Retour"
-      inactive_signed_up: "Vous vous êtes connectés avec succès. Cependant, nous n'avons pas pu vous identifier car votre compte est %{reason}."
+      inactive_signed_up: "Vous vous êtes connecté avec succès. Cependant, nous n'avons pas pu vous identifier car votre compte est %{reason}."
       updated: 'Votre compte a été modifié avec succès.'
       destroyed: 'Au revoir! Votre compte a été annulé avec succès. Nous espérons vous revoir bientôt.'
     unlocks:
       resend_instructions: "Ré-envoyer les instructions de débloquage"
-      send_instructions: 'Vous allez recevoir contenant les instructions nécessaires au débloquage de votre compte dans quelques minutes'
+      send_instructions: 'Vous allez recevoir un email avec les instructions nécessaires au débloquage de votre compte dans quelques instants. Jetez un œil à votre courrier indésirable 😅'
       unlocked: 'Votre compte a été débloqué avec succès, vous êtes maintenant connectés.'
     omniauth_callbacks:
       success: 'Authorisé avec succès avec votre compte %{kind} .'
@@ -74,6 +74,6 @@ fr:
       confirmation_instructions:
         subject: "Instructions de confirmation"
       reset_password_instructions:
-        subject: "Instructions pour changer le mot de passe"
+        subject: "Les Jardins détaillés - Instructions pour changer le mot de passe"
       unlock_instructions:
-        subject: "Instructions pour déverrouiller le compte"
+        subject: "Les Jardins détaillés - Instructions pour déverrouiller le compte"
