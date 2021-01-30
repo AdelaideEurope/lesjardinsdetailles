@@ -12,7 +12,7 @@ class NewsletterSubscribersController < ApplicationController
     end
 
     def create
-      @newsletter_subscriber = NewsletterSubscriber.new(farm_id: 1, first_name: [:first_name], email: [:email])
+      @newsletter_subscriber = NewsletterSubscriber.new(farm_id: 1, first_name: params[:first_name], email: params[:email])
       authorize @newsletter_subscriber
       if @newsletter_subscriber.save
       flash[:notice] = "C'est bon, vous êtes parmi les chanceux destinataires de notre lettre d'info !"
