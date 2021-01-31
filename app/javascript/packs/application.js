@@ -31,6 +31,7 @@ import { drawerOpener } from '../components/openDrawer.js';
 import { clickToEdit } from '../components/clickToEdit.js';
 import { initUpdateNavbarOnScroll } from '../components/navbarScroll.js';
 import { dateForCalendarEvent } from '../components/dateForCalendarEvent.js';
+import { choseWorker } from '../components/choseWorker.js';
 
 
 
@@ -40,5 +41,6 @@ document.addEventListener('turbolinks:load', () => {
   clickToEdit();
   initUpdateNavbarOnScroll();
   dateForCalendarEvent();
+  choseWorker();
   // initSelect2();
 });

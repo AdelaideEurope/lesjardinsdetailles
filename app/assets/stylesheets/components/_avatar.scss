@@ -33,6 +33,13 @@
   font-size: 12px;
 }
 
+.selected {
+  &.green {
+    background-color: $green;
+    color: white;
+  }
+}
+
 .txt-avatar {
   font-weight: 500;
   width: 30px;

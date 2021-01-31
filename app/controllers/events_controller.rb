@@ -73,6 +73,17 @@ class EventsController < ApplicationController
       end
     elsif params[:event_category] == "dated_admin_event"
       start_date = params[:start_date]
+
+      workers = params[:event][:worker_list].split(",").map{|el| el.to_i}
+      @event.users.each {|w| workers.push(w.id)}
+      @event.user_events.each {|ue| ue.destroy}
+      counts = Hash.new(0)
+      workers.each { |id| counts[id] += 1 }
+      counts.delete_if {|key, value| value.even? }
+      counts.each do |user_id, _value|
+        UserEvent.create(user_id: user_id, event_id: @event.id)
+      end
+
       if @event.update(description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details])
         redirect_to farm_dashboard_path(@farm, start_date: start_date)
       else
