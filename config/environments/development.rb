@@ -5,7 +5,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
       address: "mail.privateemail.com",
       port: 587,
-      domain: "username@domain.com",
+      domain: "bonjour@lesjardinsdetailles.fr",
       authentication: "plain",
       enable_starttls_auto: true,
       user_name: ENV["MAIL_USERNAME"],
