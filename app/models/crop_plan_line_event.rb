@@ -38,27 +38,31 @@ class CropPlanLineEvent < ApplicationRecord
     end
   end
 
-  def self.week_harvesting(params)
-    if params.nil?
-      self.where("name = ? AND (date_planned BETWEEN ? AND ?)", "début récolte", Date.today.beginning_of_week, Date.today.end_of_week).includes(:product, bed: [:garden]).sort_by(&:id)
-    else
-      self.where("name = ? AND (date_planned BETWEEN ? AND ?)", "début récolte", Date.parse(params).beginning_of_week, Date.parse(params).end_of_week).includes(crop_plan_line: [product: [:product_group, :photo_attachment]]).sort_by(&:id)
-    end
-  end
+  # def self.week_harvesting(params)
+  #   if params.nil?
+  #     start_harvesting = self.where("name = ? AND (date_planned BETWEEN ? AND ?)", "début récolte", Date.today.beginning_of_week, Date.today.end_of_week).includes(:product, bed: [:garden]).sort_by(&:id)
+  #     crop_plan_lines = start_harvesting.map{|cple| cple.crop_plan_line_id}
+  #     self.where("name = ? AND crop_plan_line_id IN (?)", "fin récolte", crop_plan_lines).includes(:product, bed: [:garden]).sort_by(&:id)
+  #   else
+  #     start_harvesting = self.where("name = ? AND (date_planned BETWEEN ? AND ?)", "début récolte", Date.parse(params).beginning_of_week, Date.parse(params).end_of_week).includes(:product, bed: [:garden]).sort_by(&:id)
+  #     crop_plan_lines = start_harvesting.map{|cple| cple.crop_plan_line_id}
+  #     self.where("name = ? AND crop_plan_line_events.crop_plan_line_id IN (?)", "fin récolte", crop_plan_lines).includes(:product, bed: [:garden]).sort_by(&:id)
+  #   end
+  # end
 
   def self.week_bed_preparation_1_week(params)
     if params.nil?
-      self.where("name = ? AND (date_planned BETWEEN ? AND ?)", "plantation", Date.today.beginning_of_week + 1.week, Date.today.end_of_week + 1.week).includes(:product, bed: [:garden]).sort_by(&:id)
+      self.where("name = ? AND (date_planned BETWEEN ? AND ?)", "préparation planche", Date.today.beginning_of_week - 1.week, Date.today.end_of_week - 1.week).includes(:product, bed: [:garden]).sort_by(&:id)
     else
-      self.where("name = ? AND (date_planned BETWEEN ? AND ?)", "plantation", Date.parse(params).beginning_of_week + 1.week, Date.parse(params).end_of_week + 1.week).includes(crop_plan_line: [product: [:product_group, :photo_attachment]]).sort_by(&:id)
+      self.where("name = ? AND (date_planned BETWEEN ? AND ?)", "préparation planche", Date.parse(params).beginning_of_week - 1.week, Date.parse(params).end_of_week - 1.week).includes(crop_plan_line: [product: [:product_group, :photo_attachment]]).sort_by(&:id)
     end
   end
 
   def self.week_bed_preparation_2_weeks(params)
     if params.nil?
-      self.where("name = ? AND (date_planned BETWEEN ? AND ?)", "plantation", Date.today.beginning_of_week + 2.week, Date.today.end_of_week + 2.week).includes(:product, bed: [:garden]).sort_by(&:id)
+      self.where("name = ? AND (date_planned BETWEEN ? AND ?)", "préparation planche", Date.today.beginning_of_week, Date.today.end_of_week).includes(:product, bed: [:garden]).sort_by(&:id)
     else
-      self.where("name = ? AND (date_planned BETWEEN ? AND ?)", "plantation", Date.parse(params).beginning_of_week + 2.week, Date.parse(params).end_of_week + 2.week).includes(crop_plan_line: [product: [:product_group, :photo_attachment]]).sort_by(&:id)
+      self.where("name = ? AND (date_planned BETWEEN ? AND ?)", "préparation planche", Date.parse(params).beginning_of_week, Date.parse(params).end_of_week).includes(crop_plan_line: [product: [:product_group, :photo_attachment]]).sort_by(&:id)
     end
   end
 end

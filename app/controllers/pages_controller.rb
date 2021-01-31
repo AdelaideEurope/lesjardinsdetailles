@@ -20,7 +20,7 @@ class PagesController < ApplicationController
     @garden_events = Event.garden_events(params[:start_date], @farm.id)
     @presence_periods = PresencePeriod.joins(:users).where(users: { farm_id: current_user.farm_id }).uniq
 
-    @week_harvesting = CropPlanLineEvent.week_harvesting(params[:start_date])
+    @week_harvesting = CropPlanLine.week_harvesting(params[:start_date])
     @week_planting = CropPlanLineEvent.week_planting(params[:start_date])
     @week_bed_preparation_2_weeks = CropPlanLineEvent.week_bed_preparation_2_weeks(params[:start_date])
     @week_bed_preparation_1_week = CropPlanLineEvent.week_bed_preparation_1_week(params[:start_date])

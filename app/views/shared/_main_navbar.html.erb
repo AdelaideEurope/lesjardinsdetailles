@@ -73,11 +73,11 @@
   <div id="bottom-navbar" >
     <%= link_to farm_dashboard_path(current_user.farm_id) do %><i class="fas fa-clipboard-list sidebar-icon-item"></i><% end %>
     <%= link_to farm_path(current_user.farm_id) do %>
-      <%= image_tag "greenhouse.png", class: "bottom-navbar-img-item" %>
+      <i class="fas fa-home sidebar-icon-item"></i>
     <% end %>
     <%= link_to farm_ventes_path(current_user.farm_id) do %><i class="fas fa-euro-sign sidebar-icon-item"></i><% end %>
     <%= link_to farm_produits_path(current_user.farm_id) do %>
-      <%= image_tag "carrot.png" %>
+      <i class="fas fa-carrot sidebar-icon-item"></i>
     <% end %>
   </div>
 </div>

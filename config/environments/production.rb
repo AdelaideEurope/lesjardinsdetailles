@@ -5,7 +5,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: "mail.privateemail.com",
     port: 587,
-    domain: "bonjour@lesjardinsdetailles.fr",
+    domain: "username@domain.com",
     authentication: "plain",
     enable_starttls_auto: true,
     user_name: ENV["MAIL_USERNAME"],
@@ -13,7 +13,7 @@ Rails.application.configure do
   }
 
   # doesn't have to be Heroku, but you get the idea.
-  config.action_mailer.default_url_options = { host: "lesjardinsdetailles.herokuapp.com" }
+  config.action_mailer.default_url_options = { host: "lesjardinsdetailles.fr" }
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.

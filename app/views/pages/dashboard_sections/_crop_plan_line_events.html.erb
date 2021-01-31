@@ -34,7 +34,7 @@
                 <% end %>
               </div>
               <div class="d-flex">
-                <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-info-<%= planting_event.id %>" aria-expanded="false">
+                <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-info-cple-<%= planting_event.id %>" aria-expanded="false">
                   <i class="fas fa-search round-txt-button"></i>
                 </div>
                 <% if planting_event.has_comment? %>
@@ -46,11 +46,11 @@
                     <i class="fas fa-comment round-txt-button"></i>
                   </div>
                 <% end %>
-                <%#= farm_crop_plan_line_event_path(farm, planting_event, postpone: true, start_date: params[:start_date]), method: :patch do %>
+                <%= link_to farm_crop_plan_line_event_path(farm, planting_event, postpone: true, start_date: params[:start_date]), method: :patch do %>
                   <div class="round-button orange m-2">
                     <i class="fas fa-redo-alt round-txt-button"></i>
                   </div>
-                <%# end %>
+                <% end %>
               </div>
 
 
@@ -165,7 +165,7 @@
           </section>
         <% end %>
 
-        <div class="mt-3">
+        <!-- <div class="mt-3">
           <h3>Semis en pépinière</h3>
           <div class="d-flex justify-content-between card-list-item-block">
             <div class="card-list-item-left-block">
@@ -200,7 +200,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="mt-3">
           <% if !week_bed_preparation_2_weeks.empty? || !week_bed_preparation_1_week.empty? %>
             <h3>Préparation planche</h3>
@@ -237,7 +237,7 @@
                       <% end %>
                     </div>
                     <div class="d-flex">
-                      <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-info-cple-<%= preparing_event.id %>" aria-expanded="false">
+                      <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-info-preparing-cple-<%= preparing_event.id %>" aria-expanded="false">
                         <i class="fas fa-search round-txt-button"></i>
                       </div>
                       <% if preparing_event.has_comment? %>
@@ -250,9 +250,11 @@
                         </div>
                       <% end %>
                       <!-- POSTPONE postpone -->
-                      <div class="round-button orange m-2">
-                        <i class="fas fa-redo-alt round-txt-button"></i>
-                      </div>
+                       <%= link_to farm_crop_plan_line_event_path(farm, preparing_event, postpone: true, start_date: params[:start_date], preparing: true), method: :patch do %>
+                        <div class="round-button orange m-2">
+                          <i class="fas fa-redo-alt round-txt-button"></i>
+                        </div>
+                      <% end %>
                     </div>
                     <div class="user-button-event">
                       <% if preparing_event.has_users? %>
@@ -341,7 +343,7 @@
                     </div>
                 </section>
                 <!-- drawer info -->
-                <section class="drawer" id="drawer-info-cple-<%= preparing_event.id %>" data-drawer-target>
+                <section class="drawer" id="drawer-info-preparing-cple-<%= preparing_event.id %>" data-drawer-target>
                     <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
                     <div class="drawer__wrapper">
                       <div class="drawer__header">
@@ -411,9 +413,11 @@
                         </div>
                       <% end %>
                       <!-- POSTPONE postpone -->
-                      <div class="round-button orange m-2">
-                        <i class="fas fa-redo-alt round-txt-button"></i>
-                      </div>
+                      <%= link_to farm_crop_plan_line_event_path(farm, preparing_event, postpone: true, start_date: params[:start_date], preparing: true), method: :patch do %>
+                        <div class="round-button orange m-2">
+                          <i class="fas fa-redo-alt round-txt-button"></i>
+                        </div>
+                      <% end %>
                     </div>
                     <div class="user-button-event">
                       <% if preparing_event.has_users? %>
@@ -542,9 +546,13 @@
                 </div>
                 <div class="card-list-item-second-line align-self-center"> <%= harvesting.bed.garden.name %> - <%= harvesting.bed.name %></div>
               </div>
-              <div class="round-button orange m-sm-2 m-1">
-                <i class="fas fa-redo-alt round-txt-button"></i>
-              </div>
+              <% if week_harvesting[0].harvest_start_date.strftime("%W") == params[:start_date].to_date.strftime("%W") %>
+                <%= link_to farm_plandeculture_path(farm, harvesting, postpone: true, start_date: params[:start_date], harvesting: true), method: :patch do %>
+                  <div class="round-button orange m-sm-2 m-1">
+                    <i class="fas fa-redo-alt round-txt-button"></i>
+                  </div>
+                <% end %>
+              <% end %>
             </div>
             <% end %>
           </div>
