@@ -55,14 +55,14 @@ fr:
       destroyed: 'Au revoir! Votre compte a été annulé avec succès. Nous espérons vous revoir bientôt.'
     unlocks:
       resend_instructions: "Ré-envoyer les instructions de débloquage"
-      send_instructions: 'Vous allez recevoir un email avec les instructions nécessaires au débloquage de votre compte dans quelques instants. Jetez un œil à votre courrier indésirable 😅'
-      unlocked: 'Votre compte a été débloqué avec succès, vous êtes maintenant connectés.'
+      send_instructions: 'Vous allez recevoir un email avec les instructions nécessaires au déblocage de votre compte dans quelques instants. Jetez un œil à votre courrier indésirable 😅'
+      unlocked: 'Votre compte a été débloqué avec succès.'
     omniauth_callbacks:
-      success: 'Authorisé avec succès avec votre compte %{kind} .'
-      failure: "Nous n'avons pas pu vous authoriser à %{kind} pour la raison suivante: '%{reason}'."
+      success: 'Autorisé avec succès avec votre compte %{kind} .'
+      failure: "Nous n'avons pas pu vous autoriser à %{kind} pour la raison suivante : '%{reason}'."
     mailer:
-      hello: "Bienvenue %{email}!"
-      welcome: "Bienvenue %{email}!"
+      hello: "Bienvenue %{email} !"
+      welcome: "Bienvenue %{email} !"
       confirm: "Confirmer mon compte"
       change: 'Changer mon mot de passe'
       someone_requested: "Un changement de mot de passe a été demandé. Vous pouvez le faire en cliquant sur le lien ci-dessous."

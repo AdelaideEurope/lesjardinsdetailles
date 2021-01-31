@@ -13,7 +13,7 @@ Rails.application.configure do
   }
 
   # doesn't have to be Heroku, but you get the idea.
-  config.action_mailer.default_url_options = { host: "http://www.lesjardinsdetailles.fr" }
+  config.action_mailer.default_url_options = { host: "lesjardinsdetailles.herokuapp.com" }
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
