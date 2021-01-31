@@ -65,40 +65,7 @@
                         <div class="crop-plan-line-harvesting position-absolute" style="background: <%= cpl.product.color %>; left: <%= find_day_correspondence(cpl.harvest_start_date.strftime('%j').to_i) %>%; width: <%= find_day_correspondence((cpl.harvest_end_date.strftime('%j').to_i - cpl.harvest_start_date.strftime('%j').to_i)) %>%;">
                         </div>
                       </div>
-                      <section class="drawer" id="drawer-cpl-show<%= cpl.id %>" data-drawer-target>
-                        <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
-                        <div class="drawer__wrapper">
-                          <div class="drawer__header">
-                            <div class="d-flex justify-content-between">
-                              <div class="drawer__title">
-                                <div>
-                                  <h2><%= cpl.product.name.capitalize %></h2>
-                                </div>
-                                <div class="drawer-title-second-line"><%= cpl.bed.garden.name %> - <%= cpl.bed.name %></div>
-                              </div>
-                              <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
-                                <i class="fas fa-times"></i>
-                              </button>
-                            </div>
-                          </div>
-                          <div class="drawer__content drawer-content-cpl">
-                            <h2 class="mt-4">Actions</h2>
-                            <ul class="pl-2">
-                              <% cpl.crop_plan_line_events.sort_by(&:order).each do |cple| %>
-                                <li><i class="fas fa-ellipsis-h orange mr-2"></i> S<%= cple.date_planned.strftime('%U')%> : <%= cple.name %></li>
-                              <% end %>
-                            </ul>
-                            <h3 class="mt-4">Infos utiles pour cette culture 💡</h3>
-                            <div>Espacement : <%= show_replace_nil_with_dash(cpl.product.spacing) %></div>
-                            <div>Nombre de rangs : <%= cpl.product.row_count %></div>
-                            <div>Perte : <%= cpl.product.loss_percentage %> %</div>
-                            <div>Durée de croissance : <%= cpl.product.growth_duration_in_weeks %> semaines</div>
-                            <div>Durée de récolte : <%= cpl.product.harvest_duration_in_weeks %> semaines</div>
-
-                            <h3 class="mt-4">Vous prendrez bien un peu de ferti ?</h3>
-                          </div>
-                        </div>
-                      </section>
+                      <%= render "drawer_info_cpl", cpl: cpl %>
                     <% end %>
                   </div>
                 </div>

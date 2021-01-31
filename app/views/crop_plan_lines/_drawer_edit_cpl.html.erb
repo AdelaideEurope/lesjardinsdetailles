@@ -1,0 +1,47 @@
+<section class="drawer" id="drawer-cpl-edit<%= cpl.id %>" data-drawer-target>
+  <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+  <div class="drawer__wrapper">
+    <div class="drawer__header">
+      <div class="d-flex justify-content-between">
+        <div class="drawer__title">
+          <div>
+            <h2>Modifier</h2>
+          </div>
+        </div>
+        <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="drawer__content drawer-content-cpl drawer-content-with-bottom-buttons">
+      <div class="pb-4">
+        <%= form_with model: cpl, url: farm_plandeculture_path(farm, cpl.id, update_cpl: true), local: true, method: :patch do |form| %>
+          <h3 class="mt-2">Les dates</h3>
+          <h5 class="mb-0 mt-4">Date de plantation</h5>
+          <%= form.date_field :planting_date, value: cpl.planting_date, class: "w-75" %>
+          <h5 class="mb-0 mt-4">Date de début de récolte</h5>
+          <%= form.date_field :harvest_start_date, value: cpl.harvest_start_date, class: "w-75" %>
+          <h5 class="mb-0 mt-4">Date de fin de récolte</h5>
+          <%= form.date_field :harvest_end_date, value: cpl.harvest_end_date, class: "w-75" %>
+          <h3 class="mt-4">Le légume</h3>
+          <%= form.select :product, @products, selected: cpl.product.name %>
+          <h3 class="mt-4">Le jardin & la planche</h3>
+          <div class="d-flex">
+            <%= form.select :garden, @gardens.pluck(:name), selected: cpl.bed.garden.name %>
+            <%= form.select :bed, (1..10).to_a, selected: cpl.bed.name %>
+          </div>
+          <h3 class="mt-4">Commentaire</h3>
+            <%= form.text_area :comment, rows: "3" %>
+        </div>
+        <div class="drawer-edit-bottom-buttons px-sm-4">
+          <div><%= form.submit value: "Valider", class: "btn txt-button-background olive mt-2", 'data-disable-with': "..." %></div>
+          <div id="delete-btn"><%= link_to "Supprimer", farm_plandeculture_path(farm, cpl.id), method: :delete, class: "btn txt-button-background text-white red mt-2", data: { confirm: "Sérieux ?? 😱" } %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+

@@ -1,0 +1,47 @@
+<section class="drawer" id="drawer-cpl-show<%= cpl.id %>" data-drawer-target>
+  <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+  <div class="drawer__wrapper">
+    <div class="drawer__header">
+      <div class="d-flex justify-content-between">
+        <div class="drawer__title">
+          <div>
+            <h2><%= cpl.product.name.capitalize %></h2>
+          </div>
+          <div class="drawer-title-second-line"><%= cpl.bed.garden.name %> - <%= cpl.bed.name %></div>
+        </div>
+        <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <div class="drawer__content drawer-content-cpl drawer-content-with-bottom-buttons">
+      <div class="pb-4">
+        <h3 class="mt-2">Actions</h3>
+        <ul class="pl-2">
+          <% cpl.crop_plan_line_events.sort_by(&:order).each do |cple| %>
+            <li><i class="fas fa-ellipsis-h orange mr-2"></i> S<%= cple.date_planned.strftime('%U')%> : <%= cple.name %></li>
+          <% end %>
+        </ul>
+        <h3 class="mt-4">Infos utiles pour cette culture 💡</h3>
+        <div>Espacement : <%= show_replace_nil_with_dash(cpl.product.spacing) %></div>
+        <div>Nombre de rangs : <%= show_replace_nil_with_dash(cpl.product.row_count) %></div>
+        <div>Perte : <%= cpl.product.loss_percentage %> %</div>
+        <div>Durée de croissance (en semaines) : <%= show_replace_nil_with_dash(cpl.product.growth_duration_in_weeks) %></div>
+        <div>Durée de récolte (en semaines) : <%= show_replace_nil_with_dash(cpl.product.harvest_duration_in_weeks) %></div>
+
+        <h3 class="mt-4">Commentaire</h3>
+        <%= cpl.has_comment? ? cpl.comment : "Sans commentaire 🤐" %>
+        <h3 class="mt-4">Pour finir, un peu de ferti ?</h3>
+        <% if cpl.product.has_ferti? %>
+          <%= cpl.product.fertilization_needs %>
+        <% else %>
+          À renseigner <%= link_to edit_farm_produit_path(@farm, cpl.product.slug), target: '_blank' do %><span class="orange">par là !</span><% end %>
+        <% end %>
+      </div>
+      <div class="drawer-edit-bottom-buttons px-sm-4">
+        <div class="btn txt-button-background orange mt-2" data-drawer-trigger aria-controls="drawer-cpl-edit<%= cpl.id %>">Modifier</div>
+      </div>
+    </div>
+  </div>
+</section>
+<%= render "drawer_edit_cpl", cpl: cpl, farm: @farm %>

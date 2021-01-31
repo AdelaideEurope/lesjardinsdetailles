@@ -12,7 +12,21 @@ class CropPlanLineEventsController < ApplicationController
 
   def update
     authorize @crop_plan_line_event
-    if params[:event_done]
+    if params[:delete_comment]
+      start_date = params[:start_date]
+      if @crop_plan_line_event.update(comment: nil)
+        redirect_to farm_dashboard_path(@farm, start_date: start_date)
+      else
+        redirect_to farm_dashboard_path(@farm, start_date: start_date)
+      end
+    elsif params[:add_comment] || params[:edit_comment]
+      start_date = params[:start_date]
+      if @crop_plan_line_event.update(comment: params[:crop_plan_line_event][:comment])
+        redirect_to farm_dashboard_path(@farm, start_date: start_date)
+      else
+        redirect_to farm_dashboard_path(@farm, start_date: start_date)
+      end
+    elsif params[:event_done]
       start_date = params[:start_date]
       different_from_original = Date.today.strftime("%W") != @crop_plan_line_event.date_planned.strftime("%W")
       if @crop_plan_line_event.update(date_done: Date.today, different_from_original: different_from_original)
@@ -27,7 +41,7 @@ class CropPlanLineEventsController < ApplicationController
       crop_plan_line_event_to_update = crop_plan_line.crop_plan_line_events.where(order: 1)
       new_date = crop_plan_line_event_to_update[0].date_planned + 1.week
       if crop_plan_line_event_to_update.update(date_planned: new_date)
-        flash[:notice] = "Préparation de la planche décalée à la semaine #{new_date.strftime('%W').to_i}  !"
+        flash[:notice] = "Préparation de la planche décalée à la semaine #{new_date.strftime('%W').to_i} !"
         redirect_to farm_dashboard_path(@farm, start_date: start_date)
       end
 
@@ -47,7 +61,7 @@ class CropPlanLineEventsController < ApplicationController
       all_posterior_events_of_cpl = @crop_plan_line_event.crop_plan_line.crop_plan_line_events.select {|cple| cple.order > @crop_plan_line_event.order}
         all_posterior_events_of_cpl.each {|postcple| postcple.update(date_planned: postcple.date_planned + 1.week)}
       if @crop_plan_line_event.update(date_planned: new_date)
-        flash[:notice] = "Tâche décalée à la semaine #{new_date.strftime('%W').to_i}  !"
+        flash[:notice] = "Tâche décalée à la semaine #{new_date.strftime('%W').to_i} !"
         redirect_to farm_dashboard_path(@farm, start_date: start_date)
       else
         redirect_to farm_dashboard_path(@farm, start_date: start_date)

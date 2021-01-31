@@ -37,12 +37,12 @@
                 <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-info-cple-<%= planting_event.id %>" aria-expanded="false">
                   <i class="fas fa-search round-txt-button"></i>
                 </div>
-                <% if planting_event.has_comment? %>
+                <% if planting_event.has_comment? || planting_event.crop_plan_line.has_comment? %>
                   <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-comment-cple-<%= planting_event.id %>" aria-expanded="false">
                     <i class="fas fa-comment round-txt-button"></i>
                   </div>
                 <% else %>
-                  <div class="round-button lightgrey m-2 no-pointer">
+                  <div class="round-button lightgrey m-2" data-drawer-trigger aria-controls="drawer-comment-cple-<%= planting_event.id %>" aria-expanded="false">
                     <i class="fas fa-comment round-txt-button"></i>
                   </div>
                 <% end %>
@@ -124,8 +124,11 @@
                 <div class="drawer__header">
                   <div class="d-flex justify-content-between">
                     <div class="drawer__title">
-                      <div>
-                        <h2><%= planting_event.product.name.capitalize %></h2>
+                      <div class="drawer__title">
+                        <div>
+                          <h2><%= planting_event.product.name.capitalize %></h2>
+                        </div>
+                        <div class="drawer-title-second-line"><%= planting_event.bed.garden.name %> - <%= planting_event.bed.name %></div>
                       </div>
                     </div>
                     <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
@@ -133,14 +136,41 @@
                     </button>
                   </div>
                 </div>
-                <div class="drawer__content">
-                  <h4 class="pt-3">Commentaire</h4>
-                    <p>
-                      <%= planting_event.comment&.capitalize %>
-                    <p>
+                <div class="drawer__content drawer-content-with-bottom-buttons">
+                  <div>
+                    <h3 class="pt-3">Commentaire</h3>
+                    <% if !planting_event.crop_plan_line.has_comment? && !planting_event.has_comment? %>
+                      <p>Pas de commentaire. Si tu as des choses à dire, clique <span class="pointer orange"><span class="pointer orange"  data-drawer-trigger aria-controls="drawer-cple-add-comment-<%= planting_event.id %>" aria-expanded="false">LÀ !</span></p>
+                    <% end %>
+                    <% if planting_event.crop_plan_line.has_comment? %>
+                      <h5>Sur la ligne de plan de culture</h5>
+                      <p class="pl-4">
+                        <%= planting_event.crop_plan_line.comment.capitalize %>
+                      <p>
+                      <i class="fas fa-times"></i>
+                    <% end %>
+                    <% if planting_event.has_comment? %>
+                      <h5 class="<%= 'pt-4' if planting_event.crop_plan_line.has_comment? %>">Sur l'activité</h5>
+                      <div class="d-flex justify-content-between">
+                        <p class="pl-4">
+                          <%= planting_event.comment.capitalize %>
+                        <p>
+                        <%= link_to farm_crop_plan_line_event_path(farm, planting_event, delete_comment: true, start_date: params[:start_date]), class: "text-white-important", method: :patch do%><div class="round-button red mx-2 mt-0 pt-6"><i class="fas fa-trash round-txt-button"></i></div><% end %>
+                      </div>
+                    <% end %>
+                  </div>
+                <div class="drawer-edit-bottom-buttons px-sm-4">
+                  <div <%= 'hidden' if !planting_event.has_comment? %> class="txt-button-background orange btn mt-2"  data-drawer-trigger aria-controls="drawer-cple-edit-comment-<%= planting_event.id %>" aria-expanded="false">Modifier</div>
                 </div>
               </div>
+            </div>
           </section>
+
+          <!-- drawer edit comment -->
+          <%= render "pages/dashboard_drawers/drawer_edit_comment_crop_plan_line", cple: planting_event, farm: @farm %>
+
+          <!-- drawer new comment -->
+          <%= render "pages/dashboard_drawers/drawer_add_comment_crop_plan_line", cple: planting_event, farm: @farm %>
           <!-- drawer info -->
           <section class="drawer" id="drawer-info-cple-<%= planting_event.id %>" data-drawer-target>
             <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
@@ -240,12 +270,12 @@
                       <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-info-preparing-cple-<%= preparing_event.id %>" aria-expanded="false">
                         <i class="fas fa-search round-txt-button"></i>
                       </div>
-                      <% if preparing_event.has_comment? %>
+                      <% if preparing_event.has_comment? || preparing_event.crop_plan_line.has_comment? %>
                         <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-comment-cple-<%= preparing_event.id %>" aria-expanded="false">
                           <i class="fas fa-comment round-txt-button"></i>
                         </div>
                       <% else %>
-                        <div class="round-button lightgrey m-2 no-pointer">
+                        <div class="round-button lightgrey m-2"  data-drawer-trigger aria-controls="drawer-comment-cple-<%= preparing_event.id %>" aria-expanded="false">
                           <i class="fas fa-comment round-txt-button"></i>
                         </div>
                       <% end %>
@@ -320,49 +350,78 @@
                 </div>
                 <!-- drawer commentaire -->
                 <section class="drawer" id="drawer-comment-cple-<%= preparing_event.id %>" data-drawer-target>
-                    <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
-                    <div class="drawer__wrapper">
-                      <div class="drawer__header">
-                        <div class="d-flex justify-content-between">
-                          <div class="drawer__title">
-                            <div>
-                              <h2><%= preparing_event.product.name.capitalize %></h2>
-                            </div>
+                  <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+                  <div class="drawer__wrapper">
+                    <div class="drawer__header">
+                      <div class="d-flex justify-content-between">
+                        <div class="drawer__title">
+                          <div>
+                            <h2><%= preparing_event.bed.garden.name %> - <%= preparing_event.bed.name %></h2>
                           </div>
-                          <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
-                            <i class="fas fa-times"></i>
-                          </button>
+                          <div class="drawer-title-second-line"><%= preparing_event.product.name.capitalize %></div>
                         </div>
-                      </div>
-                      <div class="drawer__content">
-                        <h4 class="pt-3">Commentaire</h4>
-                          <p>
-                            <%= preparing_event.comment&.capitalize %>
-                          <p>
+                        <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
+                          <i class="fas fa-times"></i>
+                        </button>
                       </div>
                     </div>
+                    <div class="drawer__content drawer-content-with-bottom-buttons">
+                      <div>
+                        <h3 class="pt-3">Commentaire</h3>
+                        <% if !preparing_event.crop_plan_line.has_comment? && !preparing_event.has_comment? %>
+                          <p>Pas de commentaire. Si tu as des choses à dire, clique <span class="pointer orange"><span class="pointer orange"  data-drawer-trigger aria-controls="drawer-cple-add-comment-<%= preparing_event.id %>" aria-expanded="false">LÀ !</span></p>
+                        <% end %>
+                        <% if preparing_event.crop_plan_line.has_comment? %>
+                          <h5>Sur la ligne de plan de culture</h5>
+                          <p class="pl-4">
+                            <%= preparing_event.crop_plan_line.comment.capitalize %>
+                          <p>
+                        <% end %>
+                        <% if preparing_event.has_comment? %>
+                          <h5 class="<%= 'pt-4' if preparing_event.crop_plan_line.has_comment? %>">Sur l'activité</h5>
+                          <div class="d-flex justify-content-between">
+                            <p class="pl-4">
+                              <%= preparing_event.comment.capitalize %>
+                            <p>
+                            <%= link_to farm_crop_plan_line_event_path(farm, preparing_event, delete_comment: true, start_date: params[:start_date]), class: "text-white-important", method: :patch do%><div class="round-button red mx-2 mt-0 pt-6"><i class="fas fa-trash round-txt-button"></i></div><% end %>
+                          </div>
+                        <% end %>
+                      </div>
+                      <div class="drawer-edit-bottom-buttons px-sm-4">
+                        <div <%= 'hidden' if !preparing_event.has_comment? %> class="txt-button-background orange btn mt-2" data-drawer-trigger aria-controls="drawer-cple-edit-comment-<%= preparing_event.id %>" aria-expanded="false">Modifier</div>
+                      </div>
+                    </div>
+                  </div>
                 </section>
+
+                <!-- drawer edit comment -->
+                <%= render "pages/dashboard_drawers/drawer_edit_comment_crop_plan_line", cple: preparing_event, farm: @farm %>
+
+
+                <!-- drawer new comment -->
+                <%= render "pages/dashboard_drawers/drawer_add_comment_crop_plan_line", cple: preparing_event, farm: @farm %>
+
                 <!-- drawer info -->
                 <section class="drawer" id="drawer-info-preparing-cple-<%= preparing_event.id %>" data-drawer-target>
-                    <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
-                    <div class="drawer__wrapper">
-                      <div class="drawer__header">
-                        <div class="d-flex justify-content-between">
-                          <div class="drawer__title">
-                            <div>
-                              <h2><%= preparing_event.product.name.capitalize %></h2>
-                            </div>
-                            <div class="drawer-title-second-line"><%= preparing_event.bed.garden.name %> - <%= preparing_event.bed.name %></div>
+                  <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+                  <div class="drawer__wrapper">
+                    <div class="drawer__header">
+                      <div class="d-flex justify-content-between">
+                        <div class="drawer__title">
+                          <div>
+                            <h2><%= preparing_event.product.name.capitalize %></h2>
                           </div>
-                          <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
-                            <i class="fas fa-times"></i>
-                          </button>
+                          <div class="drawer-title-second-line"><%= preparing_event.bed.garden.name %> - <%= preparing_event.bed.name %></div>
                         </div>
-                      </div>
-                      <div class="drawer__content">
-                        <h4 class="pt-3">À préparer</h4>
+                        <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
+                          <i class="fas fa-times"></i>
+                        </button>
                       </div>
                     </div>
+                    <div class="drawer__content">
+                      <h4 class="pt-3">À préparer</h4>
+                    </div>
+                  </div>
                 </section>
               <% end %>
             </div>
@@ -403,12 +462,12 @@
                       <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-info-cple-<%= preparing_event.id %>" aria-expanded="false">
                         <i class="fas fa-search round-txt-button"></i>
                       </div>
-                      <% if preparing_event.has_comment? %>
+                      <% if preparing_event.has_comment? || preparing_event.crop_plan_line.has_comment?  %>
                         <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-comment-cple-<%= preparing_event.id %>" aria-expanded="false">
                           <i class="fas fa-comment round-txt-button"></i>
                         </div>
                       <% else %>
-                        <div class="round-button lightgrey m-2 no-pointer">
+                        <div class="round-button lightgrey m-2" data-drawer-trigger aria-controls="drawer-comment-cple-<%= preparing_event.id %>" aria-expanded="false">
                           <i class="fas fa-comment round-txt-button"></i>
                         </div>
                       <% end %>
@@ -483,49 +542,75 @@
                 </div>
                 <!-- drawer commentaire -->
                 <section class="drawer" id="drawer-comment-cple-<%= preparing_event.id %>" data-drawer-target>
-                    <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
-                    <div class="drawer__wrapper">
-                      <div class="drawer__header">
-                        <div class="d-flex justify-content-between">
-                          <div class="drawer__title">
-                            <div>
-                              <h2><%= preparing_event.product.name.capitalize %></h2>
-                            </div>
+                  <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+                  <div class="drawer__wrapper">
+                    <div class="drawer__header">
+                      <div class="d-flex justify-content-between">
+                        <div class="drawer__title">
+                          <div>
+                            <h2><%= preparing_event.bed.garden.name %> - <%= preparing_event.bed.name %></h2>
                           </div>
-                          <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
-                            <i class="fas fa-times"></i>
-                          </button>
+                          <div class="drawer-title-second-line"><%= preparing_event.product.name.capitalize %></div>
                         </div>
-                      </div>
-                      <div class="drawer__content">
-                        <h4 class="pt-3">Commentaire</h4>
-                          <p>
-                            <%= preparing_event.comment&.capitalize %>
-                          <p>
+                        <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
+                          <i class="fas fa-times"></i>
+                        </button>
                       </div>
                     </div>
-                </section>
+                    <div class="drawer__content drawer-content-with-bottom-buttons">
+                      <div>
+                        <h3 class="pt-3">Commentaire</h3>
+                        <% if !preparing_event.crop_plan_line.has_comment? && !preparing_event.has_comment? %>
+                          <p>Pas de commentaire. Si tu as des choses à dire, clique <span class="pointer orange"  data-drawer-trigger aria-controls="drawer-cple-add-comment-<%= preparing_event.id %>" aria-expanded="false">LÀ !</span></p>
+                        <% end %>
+                        <% if preparing_event.crop_plan_line.has_comment? %>
+                          <h5>Sur la ligne de plan de culture</h5>
+                          <p class="pl-4">
+                            <%= preparing_event.crop_plan_line.comment.capitalize %>
+                          <p>
+                        <% end %>
+                        <% if preparing_event.has_comment? %>
+                          <h5 class="<%= 'pt-4' if preparing_event.crop_plan_line.has_comment? %>">Sur l'activité</h5>
+                          <div class="d-flex justify-content-between">
+                            <p class="pl-4">
+                              <%= preparing_event.comment.capitalize %>
+                            <p>
+                            <%= link_to farm_crop_plan_line_event_path(farm, preparing_event, delete_comment: true, start_date: params[:start_date]), class: "text-white-important", method: :patch do%><div class="round-button red mx-2 mt-0 pt-6"><i class="fas fa-trash round-txt-button"></i></div><% end %>
+                          </div>
+                        <% end %>
+                      </div>
+                    <div class="drawer-edit-bottom-buttons px-sm-4">
+                      <div <%= 'hidden' if !preparing_event.has_comment? %> class="txt-button-background orange btn mt-2" data-drawer-trigger aria-controls="drawer-cple-edit-comment-<%= preparing_event.id %>" aria-expanded="false">Modifier</div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <!-- drawer edit comment -->
+              <%= render "pages/dashboard_drawers/drawer_edit_comment_crop_plan_line", cple: preparing_event, farm: @farm %>
+
+                <!-- drawer new comment -->
+                <%= render "pages/dashboard_drawers/drawer_add_comment_crop_plan_line", cple: preparing_event, farm: @farm %>
                 <!-- drawer info -->
                 <section class="drawer" id="drawer-info-cple-<%= preparing_event.id %>" data-drawer-target>
-                    <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
-                    <div class="drawer__wrapper">
-                      <div class="drawer__header">
-                        <div class="d-flex justify-content-between">
-                          <div class="drawer__title">
-                            <div>
-                              <h2><%= preparing_event.product.name.capitalize %></h2>
-                            </div>
-                            <div class="drawer-title-second-line"><%= preparing_event.bed.garden.name %> - <%= preparing_event.bed.name %></div>
+                  <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+                  <div class="drawer__wrapper">
+                    <div class="drawer__header">
+                      <div class="d-flex justify-content-between">
+                        <div class="drawer__title">
+                          <div>
+                            <h2><%= preparing_event.product.name.capitalize %></h2>
                           </div>
-                          <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
-                            <i class="fas fa-times"></i>
-                          </button>
+                          <div class="drawer-title-second-line"><%= preparing_event.bed.garden.name %> - <%= preparing_event.bed.name %></div>
                         </div>
-                      </div>
-                      <div class="drawer__content">
-                        <h4 class="pt-3">À préparer</h4>
+                        <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
+                          <i class="fas fa-times"></i>
+                        </button>
                       </div>
                     </div>
+                    <div class="drawer__content">
+                      <h4 class="pt-3">À préparer</h4>
+                    </div>
+                  </div>
                 </section>
               <% end %>
             </div>

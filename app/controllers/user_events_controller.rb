@@ -7,7 +7,10 @@ class UserEventsController < ApplicationController
     @user_event = UserEvent.new(user_id: params[:worker], event_id: params[:event])
     worker = User.where(id: params[:worker])[0]
     authorize @user_event
-    if @user_event.save
+    if UserEvent.where(user_id: params[:worker], event_id: params[:event]).length > 0
+      flash[:alert] = "#{worker.nickname.capitalize} est déjà sur cette tâche !"
+      redirect_to farm_dashboard_path(@farm, start_date: params_start_date)
+    elsif @user_event.save
       if @user_event.event.event_category == "garden"
         anchor = "garden-event-#{@user_event.event.id}"
       elsif @user_event.event.event_category == "admin"

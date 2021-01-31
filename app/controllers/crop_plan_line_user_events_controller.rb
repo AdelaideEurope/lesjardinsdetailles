@@ -4,10 +4,15 @@ class CropPlanLineUserEventsController < ApplicationController
 
   def create
     params_start_date = params[:start_date]
-    @crop_plan_line_user_event = CropPlanLineUserEvent.new(user_id: params[:worker], crop_plan_line_event_id: params[:event])
     worker = User.where(id: params[:worker])[0]
+
+
+    @crop_plan_line_user_event = CropPlanLineUserEvent.new(user_id: params[:worker], crop_plan_line_event_id: params[:event])
     authorize @crop_plan_line_user_event
-    if @crop_plan_line_user_event.save
+    if CropPlanLineUserEvent.where(user_id: params[:worker], crop_plan_line_event_id: params[:event]).length > 0
+      flash[:alert] = "#{worker.nickname.capitalize} est déjà sur cette tâche !"
+      redirect_to farm_dashboard_path(@farm, start_date: params_start_date)
+    elsif @crop_plan_line_user_event.save
       flash[:notice] = "#{worker.nickname.capitalize} #{worker.is_female? ? "ajoutée" : "ajouté"} avec succès !"
       redirect_to farm_dashboard_path(@farm, start_date: params_start_date)
     else
