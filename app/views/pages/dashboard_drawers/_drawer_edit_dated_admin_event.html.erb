@@ -15,7 +15,7 @@
     </div>
     <div class="drawer__content drawer-content-with-bottom-buttons">
       <div>
-        <%= form_with model: event, url: farm_calendrier_path(farm, dated_admin_event.id, start_date: params[:start_date], event_category: "dated_admin_event"), local: true, method: :patch do |form| %>
+        <%= form_with model: event, url: farm_calendrier_path(farm, dated_admin_event.id, start_date: params[:start_date], event_category: "dated_admin_event", to_calendar: to_calendar), local: true, method: :patch do |form| %>
           <h4 class="mt-4">Description</h4>
           <%= form.text_area :description, value: dated_admin_event.description, class: "mt-2 w-100", rows: "1" %>
           <h4 class="mt-4">Détails</h4>
@@ -34,7 +34,7 @@
               <% end %>
             </div>
           </div>
-          <%= form.hidden_field :worker_list, input_html: { readonly: true, value: "", 'data-workers': dated_admin_event.users.map(&:id).join(",") } %>
+          <%= form.text_area :worker_list, input_html: { readonly: true, value: "", 'data-workers': dated_admin_event.users.map(&:id).join(",") }, class: "event_worker_list" %>
         </div>
         <div class="drawer-edit-bottom-buttons px-sm-4">
           <div><%= form.submit value: "Valider", class: "btn txt-button-background olive mt-2", 'data-disable-with': "..." %></div>

@@ -5,7 +5,7 @@
     <div data-target="#modal-new-dated-admin-event" class="pointer">
       <div class="event-day" data-date="<%= date %>"><%= date.day %></div>
 
-       <%= render "pages/dashboard/create_dated_admin_event_modal", farm: @farm, event: @new_event %>
+       <%= render "pages/dashboard/create_dated_admin_event_modal", farm: @farm, event: @new_event, to_calendar: false %>
     </div>
       <!-- DESKTOP -->
     <% events.each do |event| %>
@@ -92,7 +92,7 @@
                 <% if event.has_users? %>
                   <h4 class="pt-3">Qui s'en charge ?</h4>
                   <p>
-                    <%= event.users.map{|user| user.first_name}.to_sentence(words_connector: ', ', last_word_connector: ' et ') %>
+                    <%= event.users.map{|user| user.displayed_name}.to_sentence(words_connector: ', ', last_word_connector: ' et ') %>
                   </p>
                 <% end %>
                 <% if event.has_comment? %>
@@ -109,7 +109,7 @@
           </div>
         </section>
 
-        <%= render "pages/dashboard_drawers/drawer_edit_dated_admin_event", dated_admin_event: event, farm: @farm, event: event, workers: @workers %>
+        <%= render "pages/dashboard_drawers/drawer_edit_dated_admin_event", dated_admin_event: event, farm: @farm, event: event, workers: @workers, to_calendar: false %>
       <% end %>
     <% end %>
 

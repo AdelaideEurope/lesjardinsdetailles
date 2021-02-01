@@ -4,9 +4,11 @@ class EventsController < ApplicationController
 
   def index
     @events = Event.where(farm_id: current_user.farm_id)
+    @new_event = Event.new
     @presence_periods = PresencePeriod.joins(:users).where(users: { farm_id: current_user.farm_id }).uniq
     @calendar_events = Event.where("farm_id = ? AND event_category = ?", @farm, "dated_admin")
     authorize @events
+    @workers = @farm.workers
   end
 
   def new
@@ -23,9 +25,17 @@ class EventsController < ApplicationController
         @new_event = Event.new(date: params[:start_date], description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details], event_subcategory: params[:event][:event_subcategory], event_category: params[:event_category], farm_id: current_user.farm_id, start_time: start_date_with_hour, end_time: end_date_with_hour)
       authorize @new_event
       if @new_event.save
-        redirect_to farm_dashboard_path(@farm, start_date: date)
+        if params[:to_calendar] == "true"
+          redirect_to farm_calendrier_index_path(@farm, start_date: date)
+        else
+          redirect_to farm_dashboard_path(@farm, start_date: date)
+        end
       else
-        redirect_to farm_dashboard_path(@farm, start_date: date)
+        if params[:to_calendar] == "true"
+          redirect_to farm_calendrier_index_path(@farm, start_date: date)
+        else
+          redirect_to farm_dashboard_path(@farm, start_date: date)
+        end
       end
     else
       params_start_date = params[:start_date]
@@ -85,9 +95,17 @@ class EventsController < ApplicationController
       end
 
       if @event.update(description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details])
-        redirect_to farm_dashboard_path(@farm, start_date: start_date)
+        if params[:to_calendar] == "true"
+          redirect_to farm_calendrier_index_path(@farm, start_date: start_date)
+        else
+          redirect_to farm_dashboard_path(@farm, start_date: start_date)
+        end
       else
-        redirect_to farm_dashboard_path(@farm, start_date: start_date)
+        if params[:to_calendar] == "true"
+          redirect_to farm_calendrier_index_path(@farm, start_date: start_date)
+        else
+          redirect_to farm_dashboard_path(@farm, start_date: start_date)
+        end
       end
     else
       start_date = params[:start_date]

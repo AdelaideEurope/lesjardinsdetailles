@@ -1,12 +1,15 @@
 <div class="container mt-4 custom-container">
   <%= month_calendar(events: @presence_periods+@calendar_events) do |date, events| %>
-    <%= date.day %>
-
+    <div data-target="#modal-new-dated-admin-event" class="pointer">
+      <div class="event-day" data-date="<%= date %>"><%= date.day %></div>
+        <%= render "pages/dashboard/create_dated_admin_event_modal", farm: @farm, event: @new_event, to_calendar: true %>
+      </div>
     <!-- DESKTOP -->
+      <!-- DESKTOP -->
     <% events.each do |event| %>
         <!-- presence days -->
       <% if !event.is_a? Event %>
-        <div class="desktop_only">
+        <div class="desktop_only" >
           <div class="d-flex justify-content-around calendar-user-presence-periods">
             <% event.users.each do |user| %>
               <div class="sm-txt-avatar <%= user.color %>"><%= user.initial %></div>
@@ -20,7 +23,7 @@
             <div class="text-left"><%= event.description[0..30] %><%= event.description.length > 31 ? "..." : "" %></div>
             <div class="d-flex flex-wrap">
               <% event.users.each do |user| %>
-              <div class="d-flex pr-1">
+              <div class="d-flex <%= 'ml-minus-8' if event.has_multiple_users? %>">
                 <div class="text-white sm-txt-avatar <%= user.color %>"><%= user.initial %></div>
               </div>
               <% end %>
@@ -52,7 +55,9 @@
             <% end %>
           </div>
           <div class="d-flex justify-content-between px-1" data-drawer-trigger aria-controls="drawer-event-<%= event.id %>" >
-            <div class="text-left"><p><%= event.description[0..8] %><%= event.description.length > 9 ? "..." : "" %></p></div>
+            <div class="text-left">
+              <p><%= event.description[0..8] %><%= event.description.length > 9 ? "…" : "" %></p>
+            </div>
           </div>
         </div>
         <section class="drawer" id="drawer-event-<%= event.id %>" data-drawer-target>
@@ -69,23 +74,40 @@
                     <div class="drawer-title-second-line">À <%= l(event.start_time, format: '%Hh%M') %></div>
                   <% end %>
                 </div>
-                <button class="drawer__close" data-drawer-close aria-label="Close Drawer"><i class="fas fa-times"></i></button>
+                <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
+                  <i class="fas fa-times"></i>
+                </button>
               </div>
             </div>
-            <div class="drawer__content">
-              <% if event.has_users? %>
-                <h4 class="pt-3">Qui s'en charge ?</h4>
-                <p>
-                  <%= event.users.map{|user| user.first_name}.to_sentence(words_connector: ', ', last_word_connector: ' et ') %>
-                </p>
-              <% end %>
-              <h4 class="pt-3">Commentaire</h4>
-              <p>
-                <%= event.comment %>
-              </p>
+            <div class="drawer__content drawer-content-with-bottom-buttons">
+              <div>
+                <% if event.has_details? %>
+                  <h4 class="pt-3">Un peu de détails</h4>
+                  <p>
+                    <%= event.details %>
+                  </p>
+                <% end %>
+                <% if event.has_users? %>
+                  <h4 class="pt-3">Qui s'en charge ?</h4>
+                  <p>
+                    <%= event.users.map{|user| user.displayed_name}.to_sentence(words_connector: ', ', last_word_connector: ' et ') %>
+                  </p>
+                <% end %>
+                <% if event.has_comment? %>
+                  <h4 class="pt-3">Commentaire</h4>
+                  <p>
+                    <%= event.comment %>
+                  </p>
+                <% end %>
+              </div>
+              <div class="drawer-edit-bottom-buttons px-sm-4">
+                <div class="btn txt-button-background orange mt-2" data-drawer-trigger aria-controls="drawer-edit-event-<%= event.id %>">Modifier</div>
+              </div>
             </div>
           </div>
         </section>
+
+        <%= render "pages/dashboard_drawers/drawer_edit_dated_admin_event", dated_admin_event: event, farm: @farm, event: event, workers: @workers, to_calendar: true %>
       <% end %>
     <% end %>
   <% end %>

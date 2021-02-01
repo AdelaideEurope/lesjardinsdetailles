@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <%= form_with model: event, url: farm_calendrier_index_path(farm, event, event_category: "dated_admin"), local: true do |form| %>
+        <%= form_with model: event, url: farm_calendrier_index_path(farm, event, event_category: "dated_admin", to_calendar: to_calendar), local: true do |form| %>
           <div class="mb-4">
             <h4 class="mt-2">Date</h4>
             <%= form.date_field :start_date, class: "mt-2 w-100 start-time", rows: "1" %>
