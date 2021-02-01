@@ -6,7 +6,7 @@
   <div class="page-content justify-content-end">
     <div class="d-flex">
       <div></div>
-      <div class="progress" data-percentage="20">
+      <div class="progress" data-percentage="0">
           <span class="progress-left">
             <span class="progress-bar"></span>
           </span>
@@ -15,7 +15,7 @@
           </span>
           <div class="progress-value">
             <div>
-              20 %<br>
+              0 %<br>
               <span>du prévi</span>
             </div>
           </div>
@@ -61,48 +61,6 @@
           </div>
         </div>
       <% end %>
-      <h3 class="mt-4">Clients directs de la ferme</h3>
-      <% @clients.each do |client| %>
-        <div>
-          <div>
-            <%= link_to farm_thebest_path(@farm, client) do  %>
-              <span class="raisin"><%= client.first_name %> <%= client.last_name %> <%= client.phone_number ? "-" : "" %> <%= client.phone_number %></span>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-
-      <h3  class="mt-4">Travailleurs, travailleuses ⚒</h3>
-      <% @workers.each do |worker| %>
-        <div>
-          <div>
-            <%= link_to farm_thebest_path(@farm, worker) do  %>
-              <span class="raisin"><%= worker.first_name %> <%= worker.last_name %> <%= worker.phone_number ? "-" : "" %> <%= worker.phone_number %></span>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-      <h3 class="mt-4">Clients directs de la ferme</h3>
-      <% @clients.each do |client| %>
-        <div>
-          <div>
-            <%= link_to farm_thebest_path(@farm, client) do  %>
-              <span class="raisin"><%= client.first_name %> <%= client.last_name %> <%= client.phone_number ? "-" : "" %> <%= client.phone_number %></span>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-
-      <h3  class="mt-4">Travailleurs, travailleuses ⚒</h3>
-      <% @workers.each do |worker| %>
-        <div>
-          <div>
-            <%= link_to farm_thebest_path(@farm, worker) do  %>
-              <span class="raisin"><%= worker.first_name %> <%= worker.last_name %> <%= worker.phone_number ? "-" : "" %> <%= worker.phone_number %></span>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
 
       <div class="w-48-desktop mt-4">
         <div class="dashboard-crop-plan-line-card orange">
@@ -111,7 +69,7 @@
           </div>
           <div class="card-bottom-part">
             <div class="card-bottom-part-text">
-              <div class="mt-2">
+              <div class="mt-2 pointer">
 
                 <% @outlets.each do |outlet| %>
                   <%= link_to farm_pointsdevente_path(outlet) do %>
