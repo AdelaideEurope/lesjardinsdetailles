@@ -5,8 +5,9 @@ class CropPlanLinesController < ApplicationController
   def index
     @crop_plan_lines = CropPlanLine.all
     authorize @crop_plan_lines
-    @products = @farm.products.pluck(:name)
-    @gardens = Garden.includes(beds: [crop_plan_lines: [{product: :product_group}, crop_plan_line_events: [:product, :bed]]])
+    @products = @farm.products.pluck(:name).sort
+    @variets = @farm.products.joins(:vegetable_variets).pluck("vegetable_variets.name").push("").sort
+    @gardens = Garden.includes(beds: [crop_plan_lines: [{product: [:product_group, :fertilization_needs]}, crop_plan_line_events: [:product, :bed]]])
     number_days_since_first_day_of_year = Date.today.strftime("%j").to_i
     respond_to do |format|
       format.html
@@ -21,12 +22,12 @@ class CropPlanLinesController < ApplicationController
   def update
     authorize @crop_plan_line
     if params[:update_cpl]
-      {"planting_date"=>"2021-02-08", "harvest_start_date"=>"2021-03-08", "harvest_end_date"=>"2021-04-26", "product"=>"mesclun", "garden"=>"Serre A", "bed"=>"2"}
       product_id = @farm.products.where(name: params[:crop_plan_line][:product])[0].id
+      variet_id = params[:crop_plan_line][:variet] == "" ? nil : VegetableVariet.where(name: params[:crop_plan_line][:variet])[0].id
       garden_id = Garden.where(name: params[:crop_plan_line][:garden])[0].id
       bed_id = Bed.where(garden_id: garden_id, name: params[:crop_plan_line][:bed])[0].id
 
-      if @crop_plan_line.update(planting_date: params[:crop_plan_line][:planting_date], harvest_start_date: params[:crop_plan_line][:harvest_start_date], harvest_end_date: params[:crop_plan_line][:harvest_end_date], product_id: product_id, bed_id: bed_id, comment: params[:crop_plan_line][:comment])
+      if @crop_plan_line.update(planting_date: params[:crop_plan_line][:planting_date], harvest_start_date: params[:crop_plan_line][:harvest_start_date], harvest_end_date: params[:crop_plan_line][:harvest_end_date], product_id: product_id, vegetable_variet_id: variet_id, bed_id: bed_id, comment: params[:crop_plan_line][:comment])
 
         @crop_plan_line.crop_plan_line_events.where(order: 1).update(date_planned: params[:crop_plan_line][:planting_date].to_date - 2.week)
         @crop_plan_line.crop_plan_line_events.where(order: 2).update(date_planned: params[:crop_plan_line][:planting_date])

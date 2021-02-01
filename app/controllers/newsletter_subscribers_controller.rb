@@ -15,7 +15,7 @@ class NewsletterSubscribersController < ApplicationController
       @newsletter_subscriber = NewsletterSubscriber.new(farm_id: 1, first_name: params[:first_name], email: params[:email])
       authorize @newsletter_subscriber
       if @newsletter_subscriber.save
-      flash[:notice] = "C'est bon, vous êtes parmi les chanceux destinataires de notre lettre d'info ! ☀️"
+      flash[:notice] = "C'est bon #{params[:first_name]}, vous êtes parmi les formidables destinataires de notre lettre d'info ! ☀️"
       redirect_to root_path(anchor: "newsletter")
     else
       redirect_to root_path

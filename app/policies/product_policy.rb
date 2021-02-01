@@ -40,4 +40,16 @@ class ProductPolicy < ApplicationPolicy
       true
     end
   end
+
+  def product_variets_multiple_new?
+    if user.manager
+      true
+    end
+  end
+
+  def product_variets_multiple_create?
+    if user.manager
+      true
+    end
+  end
 end

@@ -1,7 +1,16 @@
 wb = xlsx_package.workbook
+s = wb.styles
+
+product_style = s.add_style bg_color: 'FFDFDEDF'
+variet_style = s.add_style alignment: { indent: 1 }
+
 wb.add_worksheet(name: "Produits") do |sheet|
-  sheet.add_row ['Type', 'Légume', 'Famille']
+  sheet.add_row ['Légume', 'Famille']
   @products.each do |product|
-    sheet.add_row [product.product_type, product.name, product.product_group.name]
+    sheet.add_row [product.name.capitalize, product.product_group.name], style: product_style
+    product.vegetable_variets.each do |vegetable_variet|
+      sheet.add_row [vegetable_variet.name.capitalize], style: variet_style
+    end
+    sheet.add_row
   end
 end

@@ -1,0 +1,122 @@
+<% week_bed_preparation_weeks.each do |preparing_event| %>
+  <div class="d-flex justify-content-between card-list-item-block">
+    <div class="card-list-item-left-block">
+      <div class="desktop_only">
+        <%= link_to farm_crop_plan_line_event_path(farm, preparing_event, event_done: true, start_date: params[:start_date]), method: :patch do %>
+          <div class="round-button green <%= preparing_event.is_done? ? 'olive' : 'green' %> m-2">
+            <i class="fas fa-check round-txt-button"></i>
+          </div>
+        <% end %>
+      </div>
+      <div class="card-list-item-main-info-block">
+        <div>
+          <p><%= preparing_event.bed.garden.name %> - <%= preparing_event.bed.name %></p>
+        </div>
+        <div class="card-list-item-second-line"><%= preparing_event.product.name.capitalize %></div>
+        <div class="card-list-item-second-line"><!-- 700g Patenkali - 2kg Bioguanor --></div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-between card-list-item-round-button-block">
+      <div>
+        <%= link_to farm_crop_plan_line_event_path(farm, preparing_event, event_done: true, start_date: params[:start_date]), method: :patch do %>
+          <div class="round-button <%= preparing_event.is_done? ? 'olive' : 'green' %> mobile_only m-2">
+            <i class="fas fa-check round-txt-button"></i>
+          </div>
+        <% end %>
+      </div>
+      <div class="d-flex">
+        <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-info-cple-<%= preparing_event.id %>" aria-expanded="false">
+          <i class="fas fa-search round-txt-button"></i>
+        </div>
+        <% if preparing_event.has_comment? || preparing_event.crop_plan_line.has_comment?  %>
+          <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-comment-cple-<%= preparing_event.id %>" aria-expanded="false">
+            <i class="fas fa-comment round-txt-button"></i>
+          </div>
+        <% else %>
+          <div class="round-button lightgrey m-2" data-drawer-trigger aria-controls="drawer-comment-cple-<%= preparing_event.id %>" aria-expanded="false">
+            <i class="fas fa-comment round-txt-button"></i>
+          </div>
+        <% end %>
+        <!-- POSTPONE postpone -->
+        <%= link_to farm_crop_plan_line_event_path(farm, preparing_event, postpone: true, start_date: params[:start_date], preparing: true), method: :patch do %>
+          <div class="round-button orange m-2">
+            <i class="fas fa-redo-alt round-txt-button"></i>
+          </div>
+        <% end %>
+      </div>
+      <div class="user-button-event">
+        <% if preparing_event.has_users? %>
+          <div class="dropleft">
+            <div class="dropdown-toggle <%= 'd-flex' if preparing_event.has_multiple_users? %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <% preparing_event.users.each do |user| %>
+                <div class="d-flex justify-content-end <%= 'ml-minus-24' if preparing_event.has_multiple_users? %>">
+                  <div class="txt-avatar m-2 pointer <%= user.color %>"><%= user.initial %></div>
+                </div>
+              <% end %>
+            </div>
+            <div class="dropdown-menu">
+              <div class="d-flex">
+                <% workers.each do |worker| %>
+                  <% if preparing_event.is_user?(worker) %>
+                    <%= link_to farm_crop_plan_line_user_event_path(farm, preparing_event.user_event(worker.id), start_date: params[:start_date]), :method => :delete do %>
+                      <div class="d-flex pr-1 pointer">
+                        <div class="txt-avatar m-2 <%= worker.color %>">
+                          <%= worker.initial %>
+                          <div class="delete-user">x</div>
+                        </div>
+                      </div>
+                    <% end %>
+                  <% else %>
+                    <%= link_to farm_crop_plan_line_user_events_path(event: preparing_event, worker: worker.id, start_date: params[:start_date]), :method => :post do %>
+                      <div class="d-flex pr-1 pointer">
+                        <div class="txt-avatar m-2 <%= worker.color %>">
+                          <%= worker.initial %>
+                        </div>
+                      </div>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% else %>
+          <div class="dropleft">
+            <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <div class="d-flex justify-content-end">
+                <div class="round-button green m-2">
+                  <i class="fas fa-user-plus round-txt-button"></i>
+                </div>
+              </div>
+            </div>
+            <div class="dropdown-menu">
+              <div class="d-flex">
+                <% workers.each do |worker| %>
+                  <%= link_to farm_crop_plan_line_user_events_path(event: preparing_event, worker: worker.id, start_date: params[:start_date]), :method => :post do %>
+                    <div class="d-flex pr-1 pointer">
+                      <div class="txt-avatar m-2 <%= worker.color %>">
+                        <%= worker.initial %>
+                      </div>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <!-- drawer commentaire -->
+
+  <%= render "pages/dashboard_drawers/drawer_comment_crop_plan_line_event", cple: preparing_event, farm: farm %>
+<!-- drawer edit comment -->
+<%= render "pages/dashboard_drawers/drawer_edit_comment_crop_plan_line", cple: preparing_event, farm: farm %>
+
+  <!-- drawer new comment -->
+  <%= render "pages/dashboard_drawers/drawer_add_comment_crop_plan_line", cple: preparing_event, farm: farm %>
+  <!-- drawer info -->
+  <%= render "pages/dashboard_drawers/drawer_info_crop_plan_line", cple: preparing_event, farm: farm %>
+
+<% end %>
+
+

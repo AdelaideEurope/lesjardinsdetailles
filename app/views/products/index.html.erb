@@ -21,134 +21,56 @@
     </button>
   <% end %>
   </div>
+
   <table class="table mt-4">
     <thead>
       <tr>
-        <th scope="col"><%= link_to "Légume", sort: "slug" %></th>
-        <th scope="col"><%= link_to "Famille", sort: "product_group" %></th>
-        <th scope="col"><%= link_to "CA", sort: "ttc_turnover" %></th>
+        <th scope="col w-50"><%= link_to "Légume", sort: "slug" %></th>
+        <th scope="col w-50"></th>
+        <th scope="col w-50"><%= link_to "Famille", sort: "product_group" %></th>
+        <th scope="col w-50"><%= link_to "CA", sort: "ttc_turnover" %></th>
       </tr>
     </thead>
     <tbody>
       <% @products.each do |product| %>
-      <tr>
-        <th class="pointer" scope="<%= product %>" data-drawer-trigger aria-controls="drawer-product-index<%= product.id %>" aria-expanded="false"><%= product.name.capitalize %></th>
-        <td>
-          <%= product.product_group.name.capitalize %>
-        </td>
-        <td>
-          <%= product.ttc_turnover || "-" %> €
-        </td>
-
-      </tr>
-      <section class="drawer" id="drawer-product-index<%= product.id %>" data-drawer-target>
-        <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
-        <div class="drawer__wrapper">
-          <div class="drawer__header">
-            <div class="d-flex justify-content-between">
-              <div class="drawer__title d-flex">
-                <h1><%= product.name.capitalize %></h1>
-                <% if product.photo.attached? %>
-                  <%= cl_image_tag product.photo.key, class: "drawer-product-img" %>
-                <% end %>
+        <tr>
+          <th scope="<%= product %>">
+            <div class="<%= product.has_variets? ? 'pointer' : '' %>" data-toggle="collapse" data-target="#product<%= product.id %>" class="accordion-toggle ml-4"><%= product.name.capitalize %></div>
+          </th>
+          <td>
+            <div data-drawer-trigger aria-controls="drawer-product-index<%= product.id %>" aria-expanded="false"><div class="round-button green ml-4"><i class="fas fa-search-plus round-txt-button"></i></div></div>
+          </td>
+          <td>
+            <%= product.product_group.name.capitalize %>
+          </td>
+          <td>
+            <%= product.ttc_turnover || "-" %> €
+          </td>
+        </tr>
+        <tr>
+          <% product.vegetable_variets.each do |vegetable_variet| %>
+            <td colspan="12" class="hiddenRow">
+              <div class="accordian-body collapse" id="product<%= product.id %>">
+                <table class="table table-striped">
+                    <tr><td class="pl-2 vegetable_variet-detail pointer"><%= vegetable_variet.name.capitalize %></td></tr>
+                </table>
               </div>
-              <button class="drawer__close" data-drawer-close aria-label="Close Drawer"><i class="fas fa-times"></i></button>
-            </div>
-          <div style="margin-top: -8px;"><%= product.product_group.name.capitalize %></div>
-          </div>
-          <div class="drawer__content d-flex justify-content-between flex-column">
-            <div>
-              <h2>Infos culture</h2>
-              <% if !product.yearly_bed_count && !product.yield_per_sqm && !product.spacing && !product.loss_percentage && !product.row_count && !product.growth_duration_in_weeks && !product.harvest_duration_in_weeks %>
-                Pas mal d'infos à renseigner 😅
-              <% end %>
-              <% if product.yearly_bed_count %>
-                <div>Nombre de planches <%= Date.today.strftime('%Y') %> : <%= remove_trailing_zero(product.yearly_bed_count) %></div>
-              <% end %>
-
-              <% if product.yield_per_sqm %>
-                <div>Rendement par mètre carré : <%= get_price_in_cents(product.yield_per_sqm) %></div>
-              <% end %>
-
-              <% if product.spacing %>
-                <div>Espacement : <%= show_replace_nil_with_dash(product.spacing) %></div>
-              <% end %>
-
-              <% if product.loss_percentage %>
-                <div>Perte : <%= product.loss_percentage %> %</div>
-              <% end %>
-
-              <% if product.row_count %>
-                <div>Nombre de rangs : <%= product.row_count %></div>
-              <% end %>
-
-              <% if product.growth_duration_in_weeks %>
-                <div>Durée de croissance en semaines : <%= product.growth_duration_in_weeks %></div>
-              <% end %>
-
-              <% if product.harvest_duration_in_weeks %>
-                <div>Durée de récolte en semaines : <%= product.harvest_duration_in_weeks %></div>
-              <% end %>
-
-              <h2 class="mt-4">Money money money</h2>
-              <% if !product.general_price_final_client && !product.general_price_final_client && !product.estimated_turnover %>
-
-              <% end %>
-
-              <% if product.general_unit %>
-                <div>Unité générale : <%= product.general_unit %></div>
-              <% end %>
-
-              <% if product.general_price_final_client %>
-                <div>Prix général : <%= get_price_in_cents(product.general_price_final_client) %>/<%= product.general_unit %></div>
-              <% end %>
-
-              <% if product.general_price_final_client && product.general_unit %>
-                <div>Prix général intermédiaire : <%= get_price_in_cents(product.general_price_intermediary) %>/<%= product.general_unit %></div>
-              <% end %>
-
-              <div>Chiffre d'affaires HT : <%= get_price_in_cents(product.ht_turnover) %></div>
-
-              <div>Chiffre d'affaires TTC : <%= get_price_in_cents(product.ttc_turnover) %></div>
-
-              <% if product.estimated_turnover %>
-                <div>Chiffre d'affaires estimé : <%= get_price_in_cents(product.estimated_turnover) %></div>
-              <% end %>
-            </div>
-            <% if current_user.manager %>
-              <div>
-                Il manquerait pas quelques infos ?!
-                <br>
-                Allez hop, on va remplir tout ça <%= link_to edit_farm_produit_path(current_user.farm, product.slug) do %>par ici 🤓<% end %>
-              </div>
-            <% end %>
-          </div>
-        </div>
-      </section>
+            </td>
+          <% end %>
+        </tr>
+        <%= render 'product_drawer', product: product %>
       <% end %>
     </tbody>
   </table>
-    <!--
-  <div class="d-flex mx-auto flex-wrap justify-content-sm-between justify-content-center">
-    <% @products.each do |product| %>
-      <div class="mt-4 product-card" style="box-shadow: 0px 2px 4px 0px <%= product.color.nil? ? '#276259' : product.color %>;">
-        <div class="card-colored-top-part" style="background: <%= product.color.nil? ? '#276259' : product.color %>">
-          <div class="card-top-part-text"><%= product.name.capitalize %></div>
-        </div>
-        <%#= cl_image_tag @products[0].photo.key, class: "card-product-img" %>
-        <div class="card-bottom-part">
-          <div class="card-bottom-part-text">
-            <div class="card-main-info-top-right">122 €</div>
-            <p class="mt-2">Ceci est un bloc de texte basique, blabla bla blabla</p>
-          </div>
-          <div class="d-flex justify-content-end">
-            <div class="card-bottom-right-triangle" style="background: linear-gradient(to bottom right, #fff 0%, #fff 50%, <%= product.color.nil? ? '#276259' : product.color %> 50%, <%= product.color.nil? ? '#276259' : product.color %> 100%)"><i class="fas fa-plus"></i></div>
-          </div>
-        </div>
-
-      </div>
-    <% end %>
-  </div> -->
-
 </div>
+<style type="text/css">
+  .table th, .table thead th {
+    border-bottom: 0px solid #dee2e6;
+  }
+
+  tr .vegetable_variet-detail:first-of-type {
+    border-top: 0;
+    padding-top: 0;
+  }
+</style>
 

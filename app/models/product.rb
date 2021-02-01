@@ -15,4 +15,8 @@ class Product < ApplicationRecord
   def has_ferti?
     !self.fertilization_needs.empty?
   end
+
+  def has_variets?
+    self.vegetable_variets.any?
+  end
 end

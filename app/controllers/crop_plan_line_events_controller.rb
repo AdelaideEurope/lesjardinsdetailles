@@ -41,7 +41,7 @@ class CropPlanLineEventsController < ApplicationController
       crop_plan_line_event_to_update = crop_plan_line.crop_plan_line_events.where(order: 1)
       new_date = crop_plan_line_event_to_update[0].date_planned + 1.week
       if crop_plan_line_event_to_update.update(date_planned: new_date)
-        flash[:notice] = "Préparation de la planche décalée à la semaine #{new_date.strftime('%W').to_i} !"
+        flash[:notice] = "Préparation de la planche décalée d'une semaine !"
         redirect_to farm_dashboard_path(@farm, start_date: start_date)
       end
 

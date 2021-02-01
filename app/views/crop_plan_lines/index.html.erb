@@ -60,7 +60,7 @@
                       <div data-drawer-trigger aria-controls="drawer-cpl-show<%= cpl.id %>" class="pointer">
                         <div class="crop-plan-line-planted position-absolute" style="background: <%= cpl.product.color %>; left: <%= find_day_correspondence(cpl.planting_date.strftime('%j').to_i) %>%; width: <%= find_day_correspondence((cpl.harvest_start_date.strftime('%j').to_i - cpl.planting_date.strftime('%j').to_i)) %>%;">
                           <!-- <div><%= cpl.planting_date.strftime('%W').to_i %></div> -->
-                          <div class="margin-0-auto"><%= cpl.product.name.capitalize %></div>
+                          <div class="margin-0-auto"><%= cpl.has_variet? ? cpl.vegetable_variet.name.capitalize : cpl.product.name.capitalize %></div>
                         </div>
                         <div class="crop-plan-line-harvesting position-absolute" style="background: <%= cpl.product.color %>; left: <%= find_day_correspondence(cpl.harvest_start_date.strftime('%j').to_i) %>%; width: <%= find_day_correspondence((cpl.harvest_end_date.strftime('%j').to_i - cpl.harvest_start_date.strftime('%j').to_i)) %>%;">
                         </div>
@@ -78,4 +78,3 @@
   </div>
 
 </div>
-

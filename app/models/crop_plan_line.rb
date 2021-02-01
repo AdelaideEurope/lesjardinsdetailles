@@ -8,6 +8,10 @@ class CropPlanLine < ApplicationRecord
     !self.comment.nil? && !self.comment.empty?
   end
 
+  def has_variet?
+    !self.vegetable_variet_id.nil?
+  end
+
   def self.week_harvesting(params)
     if params.nil?
       self.where("harvest_start_date <= ? AND harvest_end_date >= ?", Date.today.beginning_of_week, Date.today.end_of_week - 1.week).includes(:product, :crop_plan_line_events, bed: [:garden]).where(crop_plan_line_events: {order: 3}).sort_by(&:id)

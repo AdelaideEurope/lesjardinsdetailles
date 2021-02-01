@@ -28,7 +28,6 @@ import "bootstrap";
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
 import { drawerOpener } from '../components/openDrawer.js';
-import { clickToEdit } from '../components/clickToEdit.js';
 import { initUpdateNavbarOnScroll } from '../components/navbarScroll.js';
 import { dateForCalendarEvent } from '../components/dateForCalendarEvent.js';
 import { choseWorker } from '../components/choseWorker.js';
@@ -38,7 +37,6 @@ import { choseWorker } from '../components/choseWorker.js';
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   drawerOpener();
-  clickToEdit();
   initUpdateNavbarOnScroll();
   dateForCalendarEvent();
   choseWorker();

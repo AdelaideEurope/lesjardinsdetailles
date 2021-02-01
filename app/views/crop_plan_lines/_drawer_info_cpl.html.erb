@@ -5,7 +5,7 @@
       <div class="d-flex justify-content-between">
         <div class="drawer__title">
           <div>
-            <h2><%= cpl.product.name.capitalize %></h2>
+            <h2><%= cpl.has_variet? ? cpl.vegetable_variet.name : cpl.product.name.capitalize %></h2>
           </div>
           <div class="drawer-title-second-line"><%= cpl.bed.garden.name %> - <%= cpl.bed.name %></div>
         </div>

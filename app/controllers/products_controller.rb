@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:edit, :update]
-  before_action :set_farm, only: [:index, :edit, :update, :new, :create]
+  before_action :set_farm, only: [:index, :edit, :update, :new, :create, :product_variets_multiple_new, :product_variets_multiple_create]
 
   def index
     if !params[:query] && !params[:sort]
@@ -36,7 +36,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(name: params[:product][:name], product_type: params[:product][:product_type], general_unit: params[:product][:general_unit], general_price_final_client: params[:product][:general_price_final_client], general_price_intermediary: params[:product][:general_price_intermediary], yearly_bed_count: params[:product][:yearly_bed_count], yield_per_sqm: params[:product][:yield_per_sqm], estimated_turnover: params[:product][:estimated_turnover], product_group_id: params[:product][:product_group_id], color: params[:product][:color], spacing: params[:product][:spacing], row_count: params[:product][:row_count], loss_percentage: params[:product][:loss_percentage], growth_duration_in_weeks: params[:product][:growth_duration_in_weeks], harvest_duration_in_weeks: params[:product][:harvest_duration_in_weeks], picture: params[:product][:picture], farm_id: params[:farm_id])
+    @product = Product.new(name: params[:product][:name].downcase, product_type: params[:product][:product_type], general_unit: params[:product][:general_unit], general_price_final_client: params[:product][:general_price_final_client], general_price_intermediary: params[:product][:general_price_intermediary], yearly_bed_count: params[:product][:yearly_bed_count], yield_per_sqm: params[:product][:yield_per_sqm], estimated_turnover: params[:product][:estimated_turnover], product_group_id: params[:product][:product_group_id], color: params[:product][:color], spacing: params[:product][:spacing], row_count: params[:product][:row_count], loss_percentage: params[:product][:loss_percentage], growth_duration_in_weeks: params[:product][:growth_duration_in_weeks], harvest_duration_in_weeks: params[:product][:harvest_duration_in_weeks], picture: params[:product][:picture], farm_id: params[:farm_id])
     authorize @product
     if @product.save
       flash[:notice] = "Produit créé avec succès !"
@@ -56,6 +56,28 @@ class ProductsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def product_variets_multiple_new
+    @products = Product.all
+    authorize @products
+  end
+
+  def product_variets_multiple_create
+    @products = Product.all
+    authorize @products
+    slices = params[:string].split(";").map {|sub| sub.split("/")}
+    created = 0
+    slices.each do |variet|
+      product_id = Product.where(name: variet[3], farm_id: variet[0])[0]&.id
+      if !product_id.nil?
+        if VegetableVariet.create!(product_id: product_id, name: variet[1], details: variet[2])
+          created += 1
+        end
+      end
+    end
+    redirect_to farm_product_variets_multiple_new_path
+    flash[:notice] = "#{created} #{created > 1 ? "variétés ajoutées" : "variété ajoutée"}... Boom !"
   end
 
   private

@@ -2,7 +2,7 @@
 
   <!--                        CALENDRIER                            -->
   <%= week_calendar(number_of_weeks: 1, events: @presence_periods+@calendar_events) do |date, events| %>
-    <div  data-target="#modal-new-dated-admin-event" class="pointer">
+    <div data-target="#modal-new-dated-admin-event" class="pointer">
       <div class="event-day" data-date="<%= date %>"><%= date.day %></div>
 
        <%= render "pages/dashboard/create_dated_admin_event_modal", farm: @farm, event: @new_event %>

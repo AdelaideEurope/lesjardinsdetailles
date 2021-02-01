@@ -1,0 +1,53 @@
+<section class="drawer" id="drawer-comment-cple-<%= cple.id %>" data-drawer-target>
+  <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+    <div class="drawer__wrapper">
+      <div class="drawer__header">
+        <div class="d-flex justify-content-between">
+          <% if cple.name == 'plantation' %>
+            <div class="drawer__title">
+              <div>
+                <h2><%= cple.product.name.capitalize %></h2>
+              </div>
+              <div class="drawer-title-second-line"><%= cple.bed.garden.name %> - <%= cple.bed.name %></div>
+            </div>
+          <% elsif cple.name == 'préparation planche' %>
+            <div class="drawer__title">
+              <div>
+                <h2><%= cple.bed.garden.name %> - <%= cple.bed.name %></h2>
+              </div>
+              <div class="drawer-title-second-line"><%= cple.product.name.capitalize %></div>
+            </div>
+          <% end %>
+          <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="drawer__content drawer-content-with-bottom-buttons">
+        <div>
+          <h3 class="pt-3">Commentaire</h3>
+          <% if !cple.crop_plan_line.has_comment? && !cple.has_comment? %>
+            <p>Pas de commentaire. Si tu as des choses à dire, clique <span class="pointer orange"  data-drawer-trigger aria-controls="drawer-cple-add-comment-<%= cple.id %>" aria-expanded="false">LÀ !</span></p>
+          <% end %>
+          <% if cple.crop_plan_line.has_comment? %>
+            <h5>Sur la ligne de plan de culture</h5>
+            <p class="pl-4">
+              <%= cple.crop_plan_line.comment.capitalize %>
+            <p>
+          <% end %>
+          <% if cple.has_comment? %>
+            <h5 class="<%= 'pt-4' if cple.crop_plan_line.has_comment? %>">Sur l'activité</h5>
+            <div class="d-flex justify-content-between">
+              <p class="pl-4">
+                <%= cple.comment.capitalize %>
+              <p>
+              <%= link_to farm_crop_plan_line_event_path(farm, cple, delete_comment: true, start_date: params[:start_date]), class: "text-white-important", method: :patch do%><div class="round-button red mx-2 mt-0 pt-6"><i class="fas fa-trash round-txt-button"></i></div><% end %>
+            </div>
+          <% end %>
+        </div>
+      <div class="drawer-edit-bottom-buttons px-sm-4">
+        <div <%= 'hidden' if !cple.has_comment? %> class="txt-button-background orange btn mt-2" data-drawer-trigger aria-controls="drawer-cple-edit-comment-<%= cple.id %>" aria-expanded="false">Modifier</div>
+      </div>
+    </div>
+  </div>
+</section>
