@@ -1,12 +1,9 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "Plan de culture") do |sheet|
-  sheet.add_row ['Produit', 'Jardin', 'Planche']
   @crop_plan_lines.each do |cpl|
-    sheet.add_row [cpl.product.name, cpl.bed.garden.name, cpl.bed.name]
-    sheet.add_row []
-    cpl.crop_plan_line_events.each do |cple|
-      sheet.add_row [cple.date_planned.strftime('%U'), cple.name]
-    end
+    sheet.add_row [cpl.product.name.capitalize, cpl.bed.garden.name, cpl.bed.name]
+    cple = cpl.crop_plan_line_events.sort_by(&:order)
+    sheet.add_row [cple[0].name.capitalize, cple[0].date_planned.strftime('%U'), cple[1].name.capitalize, cple[1].date_planned.strftime('%U'), cple[2].name.capitalize, cple[2].date_planned.strftime('%U'), cple[3].name.capitalize, cple[3].date_planned.strftime('%U'),]
     sheet.add_row []
   end
 end

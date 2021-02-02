@@ -28,7 +28,7 @@ class CropPlanLineEventsController < ApplicationController
       end
     elsif params[:event_done]
       start_date = params[:start_date]
-      if @crop_plan_line_event.update(date_done: Date.today, different_from_original: different_from_original)
+      if @crop_plan_line_event.update(date_done: Date.today)
         redirect_to farm_dashboard_path(@farm, start_date: start_date)
       else
         redirect_to farm_dashboard_path(@farm, start_date: start_date)

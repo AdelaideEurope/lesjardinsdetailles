@@ -6,8 +6,6 @@
         <%= f.input :name, :label => "Nom", required: true %>
         <%= f.input :product_type, :label => "Type de produit", placeholder: "ex : légume, œuf", required: true %>
         <%= f.input :product_group_id, :label => "Famille du légume", collection: product_groups %>
-        <%= f.input :color, as: :color, :label => "Couleur" %>
-        <%= f.input :picture, as: :file %>
       </div>
     </div>
     <div class="w-48-desktop">
@@ -16,6 +14,13 @@
         <%= f.input :general_unit, :label => "Unité générale", required: true %>
         <%= f.input :general_price_final_client, input_html: {value: product.general_price_final_client.to_i.fdiv(100)}, :label => "Prix général client final" %>
         <%= f.input :general_price_intermediary, input_html: {value: product.general_price_intermediary.to_i.fdiv(100)}, :label => "Prix général intermédiaire" %>
+      </div>
+    </div>
+    <div class="w-100 mt-4">
+      <h3 class="mt-4">Et si on pimpait un peu ce produit</h3>
+      <div class="simple-card d-flex">
+        <%= f.input :color, as: :color, :label => "Couleur" %>
+        <%= f.input :picture, as: :file, :label => "Photo" %>
       </div>
     </div>
 
@@ -28,8 +33,10 @@
           <%= f.input :loss_percentage, :label => "Pourcentage de perte" %>
         </div>
         <div class="w-47-desktop">
-          <%= f.input :spacing, :label => "Espacement" %>
-          <%= f.input :row_count, :label => "Nombre de rangs" %>
+          <div class="d-flex">
+            <div><%= f.input :spacing, :label => "Espacement" %></div>
+            <div class="ml-4"><%= f.input :row_count, :label => "Nombre de rangs" %></div>
+          </div>
           <%= f.input :growth_duration_in_weeks, :label => "Durée de croissance (en semaines)" %>
           <%= f.input :harvest_duration_in_weeks, :label => "Durée de récolte (en semaines)" %>
         </div>
