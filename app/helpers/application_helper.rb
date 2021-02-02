@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def show_replace_nil_with_dash(value)
-    if value.nil?
+    if value.nil? || value.zero?
       return "-"
     end
   end

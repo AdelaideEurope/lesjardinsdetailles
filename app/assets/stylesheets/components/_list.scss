@@ -27,6 +27,12 @@
   box-shadow: 1px 1px 4px 1px $lightgrey !important;
 }
 
+.drawer__content {
+  li {
+    list-style: none;
+  }
+}
+
 
 // VERSION MOBILE
 @media(max-width:812px) {

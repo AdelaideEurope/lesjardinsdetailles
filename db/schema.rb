@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_30_192346) do
+ActiveRecord::Schema.define(version: 2021_02_02_221512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2021_01_30_192346) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "comment"
     t.integer "order"
+    t.datetime "initial_date_planned"
     t.index ["crop_plan_line_id"], name: "index_crop_plan_line_events_on_crop_plan_line_id"
   end
 
@@ -124,6 +125,7 @@ ActiveRecord::Schema.define(version: 2021_01_30_192346) do
     t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "unit"
     t.index ["product_id"], name: "index_fertilization_needs_on_product_id"
   end
 

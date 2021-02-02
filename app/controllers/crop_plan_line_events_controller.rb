@@ -28,7 +28,6 @@ class CropPlanLineEventsController < ApplicationController
       end
     elsif params[:event_done]
       start_date = params[:start_date]
-      different_from_original = Date.today.strftime("%W") != @crop_plan_line_event.date_planned.strftime("%W")
       if @crop_plan_line_event.update(date_done: Date.today, different_from_original: different_from_original)
         redirect_to farm_dashboard_path(@farm, start_date: start_date)
       else
@@ -64,8 +63,34 @@ class CropPlanLineEventsController < ApplicationController
         flash[:notice] = "Tâche décalée à la semaine #{new_date.strftime('%W').to_i} !"
         redirect_to farm_dashboard_path(@farm, start_date: start_date)
       else
+        flash[:alert] = "Une erreur s'est produite 😬"
         redirect_to farm_dashboard_path(@farm, start_date: start_date)
       end
+    elsif params[:update_cple]
+      start_date = params[:start_date]
+      date_planned = params[:crop_plan_line_event][:date_planned]
+      date_done = params[:crop_plan_line_event][:date_done]
+      garden_id = Garden.where(name: params[:crop_plan_line_event][:garden])[0].id
+      bed_id = Bed.where(garden_id: garden_id, name: params[:crop_plan_line_event][:bed])[0].id
+      planting_date = @crop_plan_line_event.name == "plantation" ? params[:crop_plan_line_event][:date_planned] : @crop_plan_line_event.planting_date
+      if params[:crop_plan_line_event][:cancel_done] == "1"
+        if @crop_plan_line_event.update(date_done: nil, date_planned: date_planned) && @crop_plan_line_event.crop_plan_line.update(planting_date: planting_date, bed_id: bed_id)
+          flash[:notice] = "Activité mise à jour !"
+          redirect_to farm_dashboard_path(@farm, start_date: start_date)
+        else
+          flash[:alert] = "Une erreur s'est produite 😬"
+          redirect_to farm_dashboard_path(@farm, start_date: start_date)
+        end
+      elsif params[:crop_plan_line_event][:cancel_done] == "0" || !params[:crop_plan_line_event][:cancel_done]
+        if @crop_plan_line_event.update(date_done: params[:crop_plan_line_event][:date_done], date_planned: date_planned) && @crop_plan_line_event.crop_plan_line.update(planting_date: planting_date, bed_id: bed_id)
+          flash[:notice] = "Activité mise à jour !"
+          redirect_to farm_dashboard_path(@farm, start_date: start_date)
+        else
+          flash[:alert] = "Une erreur s'est produite 😬"
+          redirect_to farm_dashboard_path(@farm, start_date: start_date)
+        end
+      end
+
     end
   end
 
