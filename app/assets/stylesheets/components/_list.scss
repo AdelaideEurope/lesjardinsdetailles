@@ -3,6 +3,12 @@
   font-size: 14px;
 }
 
+.no-list-style {
+  li {
+    list-style: none;
+  }
+}
+
 .card-list-item-block {
   padding: 8px 0;
   border-bottom: 1px solid $lightgrey;
@@ -33,6 +39,9 @@
   }
 }
 
+.fa-li {
+  bottom: 2px;
+}
 
 // VERSION MOBILE
 @media(max-width:812px) {

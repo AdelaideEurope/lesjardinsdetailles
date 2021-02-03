@@ -28,6 +28,6 @@ class PagesController < ApplicationController
     @workers = @farm.workers
     @new_event = Event.new
 
-    @gardens = Garden.includes(beds: [crop_plan_lines: [{product: [:product_group, :fertilization_needs]}, crop_plan_line_events: [:product, :bed]]])
+    @gardens = Garden.includes(beds: [crop_plan_lines: [{product: [:product_group, :fertilization_need]}, crop_plan_line_events: [:product, :bed]]])
   end
 end

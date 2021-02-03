@@ -1,0 +1,14 @@
+.border-columns {
+  border-left: 1px solid $olive;
+}
+
+.dotted-separator {
+  margin-bottom: 20px;
+}
+
+@media(max-width:767px) {
+  .border-columns {
+    border-left: none;
+  }
+
+}

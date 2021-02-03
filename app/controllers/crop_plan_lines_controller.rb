@@ -7,7 +7,7 @@ class CropPlanLinesController < ApplicationController
     authorize @crop_plan_lines
     @products = @farm.products.pluck(:name).sort
     @variets = @farm.products.joins(:vegetable_variets).pluck("vegetable_variets.name").push("").sort
-    @gardens = Garden.includes(beds: [crop_plan_lines: [{product: [:product_group, :fertilization_needs]}, crop_plan_line_events: [:product, :bed]]])
+    @gardens = Garden.includes(beds: [crop_plan_lines: [{product: [:product_group, :fertilization_need]}, crop_plan_line_events: [:product, :bed]]])
     number_days_since_first_day_of_year = Date.today.strftime("%j").to_i
     respond_to do |format|
       format.html

@@ -57,11 +57,35 @@ class User < ApplicationRecord
     !self.worker
   end
 
-  def events_this_week
-    self.events.where("farm_id = ? AND (date BETWEEN ? AND ?)", 1, Date.today.beginning_of_week, Date.today.end_of_week + 1.week)
+  def events_this_week(date_params)
+    if date_params.nil?
+      self.events.where("((date BETWEEN ? AND ?) OR (start_time BETWEEN ? AND ?)) AND event_category != ?", Date.today.beginning_of_week, Date.today.end_of_week + 1.week, Date.today.beginning_of_week, Date.today.end_of_week + 1.week, 'garden')
+    else
+      self.events.where("((date BETWEEN ? AND ?) OR (start_time BETWEEN ? AND ?)) AND event_category != ?", Date.parse(date_params).beginning_of_week, Date.parse(date_params).end_of_week + 1.week, Date.parse(date_params).beginning_of_week, Date.parse(date_params).end_of_week + 1.week, 'garden')
+    end
   end
 
-  def garden_tasks_this_week
-    self.crop_plan_line_events.includes(crop_plan_line: [{product: :photo_attachment}, :bed]).where("(date_planned BETWEEN ? AND ?)", Date.today.beginning_of_week, Date.today.end_of_week + 1.week)
+  def garden_tasks_this_week(date_params)
+    if date_params.nil?
+      self.crop_plan_line_events.includes(crop_plan_line: [:product, :bed]).where("(date_planned BETWEEN ? AND ?)", Date.today.beginning_of_week, Date.today.end_of_week + 1.week)
+    else
+      self.crop_plan_line_events.includes(crop_plan_line: [:product, :bed]).where("(date_planned BETWEEN ? AND ?)", Date.parse(date_params).beginning_of_week, Date.parse(date_params).end_of_week + 1.week)
+    end
+  end
+
+  def garden_events_this_week(date_params)
+    if date_params.nil?
+      self.events.where("((date BETWEEN ? AND ?) OR (start_time BETWEEN ? AND ?)) AND event_category = ?", Date.today.beginning_of_week, Date.today.end_of_week + 1.week, Date.today.beginning_of_week, Date.today.end_of_week + 1.week, 'garden')
+    else
+      self.events.where("((date BETWEEN ? AND ?) OR (start_time BETWEEN ? AND ?)) AND event_category = ?", Date.parse(date_params).beginning_of_week, Date.parse(date_params).end_of_week + 1.week, Date.parse(date_params).beginning_of_week, Date.parse(date_params).end_of_week + 1.week, 'garden')
+    end
+  end
+
+  def late_garden_tasks(date_params)
+    if date_params.nil?
+      self.crop_plan_line_events.includes(crop_plan_line: [:product, :bed]).where("date_planned < ? AND date_done IS NULL", Date.today.beginning_of_week)
+    else
+      self.crop_plan_line_events.includes(crop_plan_line: [:product, :bed]).where("date_planned < ? AND date_done IS NULL", Date.parse(date_params).beginning_of_week)
+    end
   end
 end

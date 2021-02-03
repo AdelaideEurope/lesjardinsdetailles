@@ -69,11 +69,15 @@
               <div class="d-flex justify-content-between">
                 <div class="drawer__title">
                   <div><h2><%= event.description %></h2></div>
-                  <div class="drawer-title-second-line"><%= l(event.start_time, format: '%A %e %B %Y') %></div>
-                  <% if event.end_time %>
-                    <div class="drawer-title-second-line">De <%= l(event.start_time, format: '%Hh%M') %> à <%= l(event.end_time, format: '%Hh%M') %></div>
+                  <% if !event.is_all_day %>
+                    <div class="drawer-title-second-line"><%= l(event.start_time, format: '%A %e %B %Y') %></div>
+                    <% if event.end_time %>
+                      <div class="drawer-title-second-line">De <%= l(event.start_time, format: '%Hh%M') %> à <%= l(event.end_time, format: '%Hh%M') %></div>
+                    <% else %>
+                      <div class="drawer-title-second-line">À <%= l(event.start_time, format: '%Hh%M') %></div>
+                    <% end %>
                   <% else %>
-                    <div class="drawer-title-second-line">À <%= l(event.start_time, format: '%Hh%M') %></div>
+                    <div class="drawer-title-second-line"><%= l(event.start_time, format: '%A %e %B %Y') %></div>
                   <% end %>
                 </div>
                 <button class="drawer__close" data-drawer-close aria-label="Close Drawer">

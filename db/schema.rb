@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_02_221512) do
+ActiveRecord::Schema.define(version: 2021_02_03_210053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(version: 2021_02_02_221512) do
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "start_time"
     t.datetime "end_time"
+    t.boolean "is_all_day"
     t.index ["farm_id"], name: "index_events_on_farm_id"
   end
 
@@ -121,7 +122,7 @@ ActiveRecord::Schema.define(version: 2021_02_02_221512) do
 
   create_table "fertilization_needs", force: :cascade do |t|
     t.bigint "product_id", null: false
-    t.string "type"
+    t.string "fertilization_type"
     t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

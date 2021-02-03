@@ -15,44 +15,13 @@
     </div>
     <div class="drawer__content d-flex justify-content-between flex-column">
       <div>
-        <h2>Infos culture</h2>
+
         <% if !product.yearly_bed_count && !product.yield_per_sqm && !product.spacing && !product.loss_percentage && !product.row_count && !product.growth_duration_in_weeks && !product.harvest_duration_in_weeks %>
-          Pas mal d'infos à renseigner 😅
-        <% end %>
-        <% if product.yearly_bed_count %>
-          <div>Nombre de planches <%= Date.today.strftime('%Y') %> : <%= remove_trailing_zero(product.yearly_bed_count) %></div>
+          <div class="mb-4">Pas mal d'infos à renseigner 😅</div>
         <% end %>
 
-        <% if product.yield_per_sqm %>
-          <div>Rendement par mètre carré : <%= get_price_in_cents(product.yield_per_sqm) %></div>
-        <% end %>
-
-        <% if product.spacing %>
-          <div>Espacement : <%= show_replace_nil_with_dash(product.spacing) %></div>
-        <% end %>
-
-        <% if product.loss_percentage %>
-          <div>Perte : <%= product.loss_percentage %> %</div>
-        <% end %>
-
-        <% if product.row_count %>
-          <div>Nombre de rangs : <%= product.row_count %></div>
-        <% end %>
-
-        <% if product.growth_duration_in_weeks %>
-          <div>Durée de croissance en semaines : <%= product.growth_duration_in_weeks %></div>
-        <% end %>
-
-        <% if product.harvest_duration_in_weeks %>
-          <div>Durée de récolte en semaines : <%= product.harvest_duration_in_weeks %></div>
-        <% end %>
-
-        <h2 class="mt-4">Money money money</h2>
-        <% if !product.general_price_final_client && !product.general_price_final_client && !product.estimated_turnover %>
-
-        <% end %>
-
-        <% if product.general_unit %>
+        <h2>Money money money</h2>
+        <% if (product.general_unit && product.general_price_final_client) || (product.general_unit && product.general_price_intermediary) %>
           <div>Unité générale : <%= product.general_unit %></div>
         <% end %>
 
@@ -71,6 +40,44 @@
         <% if product.estimated_turnover %>
           <div>Chiffre d'affaires estimé : <%= get_price_in_cents(product.estimated_turnover) %></div>
         <% end %>
+
+        <% if product.has_info_culture? %>
+          <h2 class="mt-4">Infos culture</h2>
+        <% end %>
+        <% if product.yearly_bed_count %>
+          <div>Nombre de planches <%= Date.today.strftime('%Y') %> : <%= remove_trailing_zero(product.yearly_bed_count) %></div>
+        <% end %>
+
+        <% if product.yield_per_sqm %>
+          <div>Rendement par mètre carré : <%= get_price_in_cents(product.yield_per_sqm) %></div>
+        <% end %>
+
+        <% if product.loss_percentage %>
+          <div>Perte : <%= product.loss_percentage %> %</div>
+        <% end %>
+
+        <% if product.spacing %>
+          <div>Espacement : <%= show_replace_nil_with_dash(product.spacing) %></div>
+        <% end %>
+
+        <% if product.row_count %>
+          <div>Nombre de rangs : <%= product.row_count %></div>
+        <% end %>
+
+        <% if product.growth_duration_in_weeks %>
+          <div>Durée de croissance en semaines : <%= product.growth_duration_in_weeks %></div>
+        <% end %>
+
+        <% if product.harvest_duration_in_weeks %>
+          <div>Durée de récolte en semaines : <%= product.harvest_duration_in_weeks %></div>
+        <% end %>
+
+        <% if product.has_ferti_indicated? %>
+          <h2>La ferti</h2>
+          <div>Type : <%= product.fertilization_need.fertilization_type %></div>
+          <div>Quantité : <%= product.fertilization_need.quantity %> / <%= product.fertilization_need.unit %></div>
+        <% end %>
+
       </div>
       <% if current_user.manager %>
         <div>

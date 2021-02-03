@@ -1,11 +1,33 @@
-<h3>Mes tâches de la semaine</h3>
-  <ul>
-    <% worker.events_this_week.each do |t| %>
-      <li><%= t.description %> - <%= t.details %></li>
+<div class="d-sm-flex justify-content-between">
+  <div class="w-50-desktop pr-4">
+  <h3 class="text-center">Mes tâches de la semaine</h3>
+    <% if worker.events_this_week(params[:start_date]).empty? && worker.garden_tasks_this_week(params[:start_date]) && worker.late_garden_tasks(params[:start_date]) && worker.garden_events_this_week(params[:start_date]) %>
+      <p>Aucune tâche ne t'a été attribuée pour le moment</p>
+    <% else %>
+      <ul class="fa-ul">
+        <h5 class="pl-0 mt-4">Admin & Cie</h5>
+
+        <% worker.events_this_week(params[:start_date]).each do |event| %>
+          <li><span class="fa-li"><i class="fas fa-circle fs-8 <%= event.done_not_done_color(params[:start_date]) %>"></i></span></i><%= event.formatted_date(event.start_time) if event.start_time %> <%= ' :' if event.start_time %> <%= event.description %><%= ' - ' if event.has_details? %><%= event.details %></li>
+        <% end %>
+        <h5 class="mt-4 pl-0">Au jardin</h5>
+        <% worker.garden_tasks_this_week(params[:start_date]).each do |activity| %>
+          <li><span class="fa-li"><i class="fas fa-circle fs-8 <%= activity.done_not_done_color(params[:start_date]) %>"></i></span></i><%= activity.name.capitalize %> | <%= activity.crop_plan_line.product.name.capitalize %> | <%= activity.crop_plan_line.bed.garden.name %> - <%= activity.crop_plan_line.bed.name %></li>
+        <% end %>
+        <% worker.late_garden_tasks(params[:start_date]).each do |activity| %>
+          <li><span class="fa-li"><i class="fas fa-circle fs-8 red"></i></span></i><%= activity.name.capitalize %> | <%= activity.crop_plan_line.product.name.capitalize %> | <%= activity.crop_plan_line.bed.garden.name %> - <%= activity.crop_plan_line.bed.name %></li>
+        <% end %>
+        <div class="dotted-separator"></div>
+        <% worker.garden_events_this_week(params[:start_date]).each do |event| %>
+          <li><span class="fa-li"><i class="fas fa-circle fs-8 <%= event.done_not_done_color(params[:start_date]) %>"></i></span></i><%= event.formatted_date(event.start_time) if event.start_time %> <%= ' :' if event.start_time %> <%= event.description %><%= ' | ' if event.has_details? %><%= event.details %></li>
+        <% end %>
+      </ul>
     <% end %>
-    <% worker.garden_tasks_this_week.each do |t| %>
-      <li><%= t.crop_plan_line.product.name %></li>
-    <% end %>
-  </ul>
-<h3>Mes prochains jours d'astreinte</h3>
-<h3>Mes prochains jours de vacances <span class="ml-2">🏝</span></h3>
+  </div>
+  <div class="w-50-desktop pl-4 border-columns">
+    <h3 class="text-center">Mes prochains jours d'astreinte</h3>
+    <p class="pb-4">Pas encore renseigné !</p>
+    <h3 class="text-center">Mes prochains jours de vacances <span class="ml-2">🏝</span></h3>
+    <p>La saison vient pas de commencer ? Bon, en vrai, c'est surtout pas encore prêt 😄</p>
+  </div>
+</div>

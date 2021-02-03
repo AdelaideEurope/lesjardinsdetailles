@@ -7,6 +7,14 @@ class Event < ApplicationRecord
     (self.event_category == "garden" || self.event_category == "admin") && !self.date_done.nil?
   end
 
+  def done_not_done_color(date_params)
+    if (self.event_category == "garden" || self.event_category == "admin") && !self.date_done.nil?
+      'olive'
+    else
+      'green'
+    end
+  end
+
   def subcategory_color
     if self.event_subcategory == "rdv"
       "teagreen"
@@ -25,6 +33,14 @@ class Event < ApplicationRecord
 
   def has_users?
     !self.users.nil? && !self.users.empty?
+  end
+
+  def formatted_date(date)
+    if self.is_all_day
+      date.strftime('%d/%m')
+    else
+      date.strftime('%d/%m à %Hh%M')
+    end
   end
 
   def has_multiple_users?

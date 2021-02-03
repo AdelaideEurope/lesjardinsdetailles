@@ -34,7 +34,7 @@
               <% end %>
             </div>
           </div>
-          <%= form.text_area :worker_list, input_html: { readonly: true, value: "", 'data-workers': dated_admin_event.users.map(&:id).join(",") }, class: "event_worker_list" %>
+          <%= form.hidden_field :worker_list, input_html: { readonly: true, value: "", 'data-workers': dated_admin_event.users.map(&:id).join(",") }, class: "event_worker_list hidden" %>
         </div>
         <div class="drawer-edit-bottom-buttons px-sm-4">
           <div><%= form.submit value: "Valider", class: "btn txt-button-background olive mt-2", 'data-disable-with': "..." %></div>

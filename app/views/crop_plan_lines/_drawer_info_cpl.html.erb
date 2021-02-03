@@ -32,10 +32,8 @@
         <h3 class="mt-4">Commentaire</h3>
         <%= cpl.has_comment? ? cpl.comment : "Sans commentaire 🤐" %>
         <h3 class="mt-4">Pour finir, un peu de ferti ?</h3>
-        <% if cpl.product.has_ferti? %>
-          <% cpl.product.fertilization_needs.each do |ferti| %>
-            <div><%= ferti.type %> : <%= ferti.quantity %><%= ferti.unit %></div>
-          <% end %>
+        <% if cpl.product.has_ferti_indicated? %>
+          <div><%= cpl.product.fertilization_need.fertilization_type %> : <%= cpl.product.fertilization_need.quantity %> <%= cpl.product.fertilization_need.unit %></div>
         <% else %>
           À renseigner <%= link_to edit_farm_produit_path(@farm, cpl.product.slug), target: '_blank' do %><span class="orange">par là !</span><% end %>
         <% end %>

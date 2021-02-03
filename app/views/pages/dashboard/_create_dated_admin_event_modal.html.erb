@@ -13,16 +13,18 @@
           <div class="mb-4">
             <h4 class="mt-2">Date</h4>
             <%= form.date_field :start_date, class: "mt-2 w-100 start-time", rows: "1" %>
-            <div class="d-flex mt-2 justify-content-between w-sm-75">
+            <div class="d-flex mt-2 w-sm-75">
               <div>
                 <h4 class="mt-2">Heure début</h4>
                 <%= form.time_select :start_hour, class: "mt-2", rows: "1" %>
               </div>
-              <div>
+              <div class="ml-4">
                 <h4 class="mt-2">Heure fin</h4>
                 <%= form.time_select :end_hour, class: "mt-2", rows: "1" %>
               </div>
             </div>
+            <div class="d-flex mt-2"><span><%= form.check_box :is_all_day, {checked: true} %><span class="ml-2">Pas d'heure spécifique ?</span></span></div>
+
             <div>
               <h4 class="mt-4">Type d'événement</h4>
               <div class="d-flex"><%= form.select :event_subcategory, ["vente", "rdv"], class: "mt-2", rows: "1" %></div>

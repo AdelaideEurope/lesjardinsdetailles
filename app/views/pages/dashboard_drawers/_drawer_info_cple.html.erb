@@ -39,9 +39,7 @@
           <div>Espacement : <%= show_replace_nil_with_dash(cple.product.spacing) %></div>
           <div>Nombre de rangs : <%= show_replace_nil_with_dash(cple.product.row_count) %></div>
           <% if cple.product.has_ferti? %>
-            <% cple.product.fertilization_needs.each do |ferti| %>
-              <div><%= ferti.type %> : <%= ferti.quantity %><%= ferti.unit %></div>
-            <% end %>
+            <div><%= cple.product.fertilization_needs.type %> : <%= cple.product.fertilization_needs.quantity %><%= cple.product.fertilization_needs.unit %></div>
           <% end %>
         </div>
       </div>

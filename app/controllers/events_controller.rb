@@ -18,11 +18,12 @@ class EventsController < ApplicationController
   def create
     date = params[:event][:start_date]
     if params[:event_category] == "dated_admin"
-        start_hour = params[:event]["start_hour(4i)"]+":"+params[:event]["start_hour(5i)"]
-        end_hour = params[:event]["end_hour(4i)"]+":"+params[:event]["end_hour(5i)"]
-        start_date_with_hour = DateTime.parse(date+"T"+start_hour)
-        end_date_with_hour = DateTime.parse(date+"T"+end_hour)
-        @new_event = Event.new(date: params[:start_date], description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details], event_subcategory: params[:event][:event_subcategory], event_category: params[:event_category], farm_id: current_user.farm_id, start_time: start_date_with_hour, end_time: end_date_with_hour)
+      is_all_day = params[:event][:is_all_day] == '1'
+      start_hour = params[:event]["start_hour(4i)"]+":"+params[:event]["start_hour(5i)"]
+      end_hour = params[:event]["end_hour(4i)"]+":"+params[:event]["end_hour(5i)"]
+      start_date_with_hour = DateTime.parse(date+"T"+start_hour)
+      end_date_with_hour = DateTime.parse(date+"T"+end_hour)
+      @new_event = Event.new(date: params[:start_date], description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details], event_subcategory: params[:event][:event_subcategory], event_category: params[:event_category], farm_id: current_user.farm_id, start_time: start_date_with_hour, end_time: end_date_with_hour, is_all_day: is_all_day)
       authorize @new_event
       if @new_event.save
         if params[:to_calendar] == "true"

@@ -9,6 +9,14 @@ class CropPlanLineEvent < ApplicationRecord
     !self.date_done.nil?
   end
 
+  def done_not_done_color(date_params)
+    if !self.date_done.nil?
+      'olive'
+    else
+      'green'
+    end
+  end
+
   def has_comment?
     !self.comment.nil? && !self.comment.empty?
   end

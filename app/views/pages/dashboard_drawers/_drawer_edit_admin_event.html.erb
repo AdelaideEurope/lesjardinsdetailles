@@ -23,6 +23,7 @@
         <%= form.text_area :details, value: admin_event_details, class: "mt-2 w-100", rows: "1" %>
         <h4 class="mt-4">Commentaire</h4>
         <%= form.text_area :comment, value: admin_event_comment, class: "mt-2 w-100", rows: "1" %>
+        <%= form.check_box :cancel_done %><span class="raisin small ml-2">Si tu as marqué l'activité comme effectuée par erreur, coche cette case </span>
 
       </div>
       <div class="drawer-edit-bottom-buttons px-sm-4">

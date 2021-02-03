@@ -42,6 +42,22 @@
         </div>
       </div>
     </div>
+    <div class="w-100">
+      <h3 class="mt-4">La ferti</h3>
+      <div class="simple-card d-sm-flex justify-content-between">
+        <%= simple_fields_for :ferti do |o| %>
+          <div class="w-47-desktop">
+            <%= o.input :type, :label => "Type", input_html: {value: product.fertilization_need&.fertilization_type}, required: false %>
+          </div>
+          <div class="w-47-desktop">
+            <div class="d-flex">
+              <div><%= o.input :quantity, :label => "Quantité", input_html: {value: product.fertilization_need&.quantity}, required: false %></div>
+              <div class="ml-4"><%= o.input :unit, :label => "Unité", input_html: {value: product.fertilization_need&.unit}, required: false %></div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
   <div class="d-flex">
     <%= f.submit "Valider", class: "btn txt-button mt-4 mx-auto" %>
