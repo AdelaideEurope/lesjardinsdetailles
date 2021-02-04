@@ -48,6 +48,8 @@
   .card-list-item-second-line {
     color: $olive;
     font-size: 10px;
+    padding-top: 2px;
+    padding-left: 8px;
   }
 
   .card-list-item-left-block {
@@ -62,4 +64,7 @@
     padding: 8px 0 0 0;
   }
 
+  .card-list-item-main-info-block {
+    display: flex;
+  }
 }
