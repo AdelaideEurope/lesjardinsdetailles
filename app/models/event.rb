@@ -20,6 +20,8 @@ class Event < ApplicationRecord
       "teagreen"
     elsif self.event_subcategory == "vente"
       "greensheen"
+    elsif self.event_subcategory == "mission"
+      "celadon"
     end
   end
 

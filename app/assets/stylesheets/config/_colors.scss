@@ -10,6 +10,7 @@ $lightgrey: #C5CBD3;
 $greensheen: #89B6A5;
 $teagreen: #CAE7B9;
 $orangeyellow: #FED766;
+$celadon: #98CCC9;
 
 
 // $red: #FD1015;
@@ -44,6 +45,9 @@ $orangeyellow: #FED766;
     color: white;
   }
 }
+.celadon {
+  color: $celadon;
+}
 .greensheen {
   color: $greensheen;
 }
@@ -71,6 +75,9 @@ $orangeyellow: #FED766;
 }
 .bgcolor-lightgrey {
   background-color: $lightgrey;
+}
+.bgcolor-celadon {
+  background-color: $celadon;
 }
 .bgcolor-white {
   background-color: white;

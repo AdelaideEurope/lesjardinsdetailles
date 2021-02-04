@@ -27,11 +27,19 @@
       <div class="pb-4">
         <h3>Infos sur l'activité</h3>
         <ul class="pl-3">
-          <li><i class="fas fa-ellipsis-h orange mr-2"></i><span class="raisin">Prévue en semaine <%= cple.date_planned.strftime('%-W') %></span></li>
-          <% if cple.is_done? %>
-            <li><i class="fas fa-ellipsis-h orange mr-2"></i><span class="raisin">Effectuée le <%= cple.date_done.strftime('%-d') %> <%= I18n.t(:abbr_month_names)[cple.date_done.strftime('%b').to_sym] %> (= en S<%= cple.date_done.strftime('%-W') %>) <%= cple.date_planned.strftime('%-W') == cple.date_done.strftime('%-W') ? "🎉" : "🙃" %> </span></li>
+          <% if cple.name == 'plantation' %>
+            <li><i class="fas fa-ellipsis-h orange mr-2"></i><span class="raisin">Prévue en semaine <%= cple.date_planned.strftime('%-W') %></span></li>
+            <% if cple.is_done? %>
+              <li><i class="fas fa-ellipsis-h orange mr-2"></i><span class="raisin">Effectuée le <%= cple.date_done.strftime('%-d') %> <%= I18n.t(:abbr_month_names)[cple.date_done.strftime('%b').to_sym] %> (= en S<%= cple.date_done.strftime('%-W') %>) <%= cple.date_planned.strftime('%-W') == cple.date_done.strftime('%-W') ? "🎉" : "🙃" %> </span></li>
+            <% else %>
+              <li><i class="fas fa-ellipsis-h orange mr-2"></i><span class="raisin">Pas encore effectuée</span></li>
+            <% end %>
           <% else %>
-            <li><i class="fas fa-ellipsis-h orange mr-2"></i><span class="raisin">Pas encore effectuée</span></li>
+            <% if cple.is_done? %>
+              <li><i class="fas fa-ellipsis-h orange mr-2"></i><span class="raisin">Effectuée le <%= cple.date_done.strftime('%-d') %> <%= I18n.t(:abbr_month_names)[cple.date_done.strftime('%b').to_sym] %></span></li>
+            <% else %>
+              <li><i class="fas fa-ellipsis-h orange mr-2"></i><span class="raisin">Pas encore effectuée</span></li>
+            <% end %>
           <% end %>
         </ul>
         <h3 class="mt-4">Bon à savoir pour cette culture 💡</h3>
