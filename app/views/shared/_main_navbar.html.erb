@@ -11,23 +11,23 @@
           <%= link_to farm_dashboard_path(current_user.farm_id) do %><i class="fas fa-clipboard-list sidebar-icon-item"></i><% end %>
         </li>
         <li class="sidebar-item">
-          <%= link_to farm_path(current_user.farm_id) do %>
-            <%= image_tag "greenhouse.png" %>
-          <% end %>
-        </li>
-        <li class="sidebar-item">
           <%= link_to farm_thebest_path(current_user.farm_id, current_user) do %>
           <i class="fas fa-user-circle sidebar-icon-item"></i>
           <% end %>
         </li>
         <li class="sidebar-item">
-          <%= link_to farm_calendrier_index_path(current_user.farm_id) do %>
-            <i class="fas fa-calendar-alt sidebar-icon-item"></i>
+          <%= link_to farm_path(current_user.farm_id) do %>
+            <%= image_tag "greenhouse.png" %>
           <% end %>
         </li>
         <li class="sidebar-item">
           <%= link_to farm_ventes_path(current_user.farm_id) do %>
             <i class="fas fa-euro-sign sidebar-icon-item"></i>
+          <% end %>
+        </li>
+        <li class="sidebar-item">
+          <%= link_to farm_calendrier_index_path(current_user.farm_id) do %>
+            <i class="fas fa-calendar-alt sidebar-icon-item"></i>
           <% end %>
         </li>
         <li class="sidebar-item">
@@ -71,11 +71,18 @@
 
 <div class="mobile_only">
   <div id="bottom-navbar" >
-    <%= link_to farm_dashboard_path(current_user.farm_id) do %><i class="fas fa-clipboard-list sidebar-icon-item"></i><% end %>
+    <%= link_to farm_dashboard_path(current_user.farm_id) do %>
+      <i class="fas fa-clipboard-list sidebar-icon-item"></i>
+    <% end %>
+    <%= link_to farm_thebest_path(current_user.farm_id, current_user) do %>
+      <i class="fas fa-user-circle sidebar-icon-item"></i>
+    <% end %>
     <%= link_to farm_path(current_user.farm_id) do %>
       <i class="fas fa-home sidebar-icon-item"></i>
     <% end %>
-    <%= link_to farm_ventes_path(current_user.farm_id) do %><i class="fas fa-euro-sign sidebar-icon-item"></i><% end %>
+    <%= link_to farm_ventes_path(current_user.farm_id) do %>
+      <i class="fas fa-euro-sign sidebar-icon-item"></i>
+    <% end %>
     <%= link_to farm_produits_path(current_user.farm_id) do %>
       <i class="fas fa-carrot sidebar-icon-item"></i>
     <% end %>
