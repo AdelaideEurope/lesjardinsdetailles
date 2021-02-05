@@ -18,7 +18,7 @@ class UserEventsController < ApplicationController
       end
 
       flash[:notice] = "#{worker.nickname.capitalize} #{worker.is_female? ? "ajoutée" : "ajouté"} avec succès !"
-      redirect_to farm_dashboard_path(@farm, start_date: params_start_date, anchor: anchor)
+      redirect_to farm_dashboard_path(@farm, start_date: params_start_date)
     else
       redirect_to farm_dashboard_path(@farm, start_date: params_start_date)
     end

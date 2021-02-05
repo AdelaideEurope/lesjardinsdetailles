@@ -43,6 +43,14 @@
   }
 }
 
+.event-type-select {
+  height: fit-content;
+  display: flex;
+  place-self: flex-end;
+  margin-bottom: 8px;
+  margin-left: 8px;
+}
+
 
 @media(max-width:812px) {
   .search-form {

@@ -26,6 +26,15 @@ class EventsController < ApplicationController
       @new_event = Event.new(date: params[:start_date], description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details], event_subcategory: params[:event][:event_subcategory], event_category: params[:event_category], farm_id: current_user.farm_id, start_time: start_date_with_hour, end_time: end_date_with_hour, is_all_day: is_all_day)
       authorize @new_event
       if @new_event.save
+
+        workers = params[:event][:worker_list].split(",").map{|el| el.to_i}
+        counts = Hash.new(0)
+        workers.each { |id| counts[id] += 1 }
+        counts.delete_if {|key, value| value.even? }
+        counts.each do |user_id, _value|
+          UserEvent.create(user_id: user_id, event_id: @new_event.id)
+        end
+
         if params[:to_calendar] == "true"
           redirect_to farm_calendrier_index_path(@farm, start_date: date)
         else
@@ -44,14 +53,23 @@ class EventsController < ApplicationController
       @new_event = Event.new(date: date, description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details], event_category: params[:event_category], farm_id: current_user.farm_id)
       authorize @new_event
       if @new_event.save
+
+        workers = params[:event][:worker_list].split(",").map{|el| el.to_i}
+        counts = Hash.new(0)
+        workers.each { |id| counts[id] += 1 }
+        counts.delete_if {|key, value| value.even? }
+        counts.each do |user_id, _value|
+          UserEvent.create(user_id: user_id, event_id: @new_event.id)
+        end
+
         if @new_event.event_category == "garden"
-          anchor = "garden-event-#{@new_event.id}"
+          # anchor = "garden-event-#{@new_event.id}"
           flash[:notice] = "Tâche de jardin créée avec succès !"
         elsif @new_event.event_category == "admin"
-          anchor = "admin-event-#{@new_event.id}"
+          # anchor = "admin-event-#{@new_event.id}"
           flash[:notice] = "All good, on oublie 😎"
         end
-        redirect_to farm_dashboard_path(@farm, start_date: params_start_date, anchor: anchor)
+        redirect_to farm_dashboard_path(@farm, start_date: params_start_date)
       else
         redirect_to farm_dashboard_path(@farm, start_date: params_start_date)
       end
@@ -75,12 +93,12 @@ class EventsController < ApplicationController
       if @event.update(date: new_date)
         flash[:notice] = "Tâche décalée à la semaine #{new_date.strftime('%W').to_i}  !"
         if @event.event_category == "garden"
-          redirect_to farm_dashboard_path(@farm, start_date: start_date, anchor: "tour-des-jardins")
+          redirect_to farm_dashboard_path(@farm, start_date: start_date)
         elsif @event.event_category == "admin"
-          redirect_to farm_dashboard_path(@farm, start_date: start_date, anchor: "decharge-mentale")
+          redirect_to farm_dashboard_path(@farm, start_date: start_date)
         end
       else
-        redirect_to farm_dashboard_path(@farm, start_date: start_date, anchor: "tour-des-jardins")
+        redirect_to farm_dashboard_path(@farm, start_date: start_date)
       end
     elsif params[:event_category] == "dated_admin_event"
       start_date = params[:start_date]
@@ -111,9 +129,11 @@ class EventsController < ApplicationController
     else
       start_date = params[:start_date]
       if @event.update(description: params[:description], comment: params[:comment], details: params[:details])
-        redirect_to farm_dashboard_path(@farm, start_date: start_date, anchor: "garden-event-#{@event.id}")
+        # , anchor: "garden-event-#{@event.id}"
+        redirect_to farm_dashboard_path(@farm, start_date: start_date)
       else
-        redirect_to farm_dashboard_path(@farm, start_date: start_date, anchor: "garden-event-#{@event.id}")
+        # , anchor: "garden-event-#{@event.id}"
+        redirect_to farm_dashboard_path(@farm, start_date: start_date)
       end
     end
     authorize @event

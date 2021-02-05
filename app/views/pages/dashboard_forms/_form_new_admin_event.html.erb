@@ -6,6 +6,25 @@
     <%= form.text_area :details, class: "mt-2 w-100", rows: "1" %>
     <h4 class="mt-4">Commentaire</h4>
     <%= form.text_area :comment, class: "mt-2 w-100", rows: "1" %>
+    <div class="d-flex">
+      <div>
+        <h4 class="mt-4">C'est pour qui ?</h4>
+        <%= form.hidden_field :worker_list, input_html: { readonly: true, value: "" }, class: "event_worker_list hidden" %>
+      </div>
+      <div>
+        <div class="user-button-event mt-3">
+          <div class="d-flex">
+            <% @workers.each do |worker| %>
+              <div class="d-flex pr-1 pointer">
+                <div class="chose-worker txt-avatar m-2 lightgrey" data-worker="<%= worker.id %>" data-worker-color="<%= worker.color %>">
+                  <%= worker.initial %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="drawer-edit-bottom-buttons px-sm-4">
     <div><%= form.submit value: "Valider", class: "btn txt-button-background olive mt-2", 'data-disable-with': "..." %></div>
