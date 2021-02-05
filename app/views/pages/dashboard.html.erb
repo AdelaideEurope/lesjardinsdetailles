@@ -62,57 +62,8 @@
             </div>
           </div>
         </div>
-        <section class="drawer" id="drawer-event-<%= event.id %>" data-drawer-target>
-          <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
-          <div class="drawer__wrapper">
-            <div class="drawer__header">
-              <div class="d-flex justify-content-between">
-                <div class="drawer__title">
-                  <div><h2><%= event.description %></h2></div>
-                  <% if !event.is_all_day %>
-                    <div class="drawer-title-second-line"><%= l(event.start_time, format: '%A %e %B %Y') %></div>
-                    <% if event.end_time %>
-                      <div class="drawer-title-second-line">De <%= l(event.start_time, format: '%Hh%M') %> à <%= l(event.end_time, format: '%Hh%M') %></div>
-                    <% else %>
-                      <div class="drawer-title-second-line">À <%= l(event.start_time, format: '%Hh%M') %></div>
-                    <% end %>
-                  <% else %>
-                    <div class="drawer-title-second-line"><%= l(event.start_time, format: '%A %e %B %Y') %></div>
-                  <% end %>
-                </div>
-                <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-            </div>
-            <div class="drawer__content drawer-content-with-bottom-buttons">
-              <div>
-                <% if event.has_details? %>
-                  <h4 class="pt-3">Un peu de détails</h4>
-                  <p>
-                    <%= event.details %>
-                  </p>
-                <% end %>
-                <% if event.has_users? %>
-                  <h4 class="pt-3">Qui s'en charge ?</h4>
-                  <p>
-                    <%= event.users.map{|user| user.displayed_name}.to_sentence(words_connector: ', ', last_word_connector: ' et ') %>
-                  </p>
-                <% end %>
-                <% if event.has_comment? %>
-                  <h4 class="pt-3">Commentaire</h4>
-                  <p>
-                    <%= event.comment %>
-                  </p>
-                <% end %>
-              </div>
-              <div class="drawer-edit-bottom-buttons px-sm-4">
-                <div class="btn txt-button-background orange mt-2" data-drawer-trigger aria-controls="drawer-edit-event-<%= event.id %>">Modifier</div>
-              </div>
-            </div>
-          </div>
-        </section>
 
+        <%= render "pages/dashboard_drawers/drawer_show_dated_admin_event", dated_admin_event: event, farm: @farm, event: event, workers: @workers, to_calendar: false %>
         <%= render "pages/dashboard_drawers/drawer_edit_dated_admin_event", dated_admin_event: event, farm: @farm, event: event, workers: @workers, to_calendar: false %>
       <% end %>
     <% end %>
