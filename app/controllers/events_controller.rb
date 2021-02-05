@@ -95,7 +95,7 @@ class EventsController < ApplicationController
         UserEvent.create(user_id: user_id, event_id: @event.id)
       end
 
-      if @event.update(description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details])
+      if @event.update(description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details], event_subcategory: params[:event][:event_subcategory])
         if params[:to_calendar] == "true"
           redirect_to farm_calendrier_index_path(@farm, start_date: start_date)
         else

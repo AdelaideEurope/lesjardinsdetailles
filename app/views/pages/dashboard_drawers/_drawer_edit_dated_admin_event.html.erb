@@ -21,8 +21,9 @@
           <h4 class="mt-4">Détails</h4>
           <%= form.text_area :details, value: dated_admin_event.details, class: "mt-2 w-100", rows: "1" %>
           <h4 class="mt-4">Commentaire</h4>
-          <%= form.text_area :comment, value: dated_admin_event.comment, class: "mt-2 w-100", rows: "1" %>
-
+          <%= form.text_area :comment, value: dated_admin_event.comment, class: "mt-2 w-100", rows: "1" %><h4 class="mt-4">Commentaire</h4>
+          <h4 class="mt-4">Type d'événement</h4>
+          <div class="d-flex"><%= form.select :event_subcategory, ["vente", "rdv", "mission"], selected: dated_admin_event.event_subcategory,class: "mt-2", rows: "1" %></div>
           <div class="user-button-event mt-4">
             <div class="d-flex">
               <% workers.each do |worker| %>
