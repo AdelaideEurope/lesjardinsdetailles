@@ -23,7 +23,9 @@
         <%= form.text_area :details, value: garden_event_details, class: "mt-2 w-100", rows: "1" %>
         <h4 class="mt-4">Commentaire</h4>
         <%= form.text_area :comment, value: garden_event_comment, class: "mt-2 w-100", rows: "1" %>
-
+        <% if garden_event_done %>
+          <%= form.check_box :cancel_done %><span class="raisin small ml-2">Si tu as marqué l'activité comme effectuée par erreur, coche cette case </span>
+        <% end %>
       </div>
       <div class="drawer-edit-bottom-buttons px-sm-4">
         <div><%= form.submit value: "Valider", class: "btn txt-button-background olive mt-2", 'data-disable-with': "..." %></div>

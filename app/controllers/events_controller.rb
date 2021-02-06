@@ -126,6 +126,13 @@ class EventsController < ApplicationController
           redirect_to farm_dashboard_path(@farm, start_date: start_date)
         end
       end
+    elsif params[:cancel_done] == "1"
+      start_date = params[:start_date]
+      if @event.update(date_done: nil, description: params[:description], comment: params[:comment], details: params[:details])
+        redirect_to farm_dashboard_path(@farm, start_date: start_date)
+      else
+        redirect_to farm_dashboard_path(@farm, start_date: start_date)
+      end
     else
       start_date = params[:start_date]
       if @event.update(description: params[:description], comment: params[:comment], details: params[:details])
@@ -138,6 +145,7 @@ class EventsController < ApplicationController
     end
     authorize @event
   end
+
 
   def destroy
     authorize @event

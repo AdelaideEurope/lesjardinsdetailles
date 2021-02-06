@@ -123,7 +123,7 @@
            <%#= params[:event].to_i == garden_event.id ? 'is-active is-visible' : '' %>
 
           <!-- drawer edit tour des jardins -->
-          <%= render "pages/dashboard_drawers/drawer_edit_garden_event", garden_event_id: garden_event.id, garden_event_description: garden_event.description, garden_event_details: garden_event.details, garden_event_comment: garden_event.comment, farm: farm, event: event %>
+          <%= render "pages/dashboard_drawers/drawer_edit_garden_event", garden_event_id: garden_event.id, garden_event_description: garden_event.description, garden_event_details: garden_event.details, garden_event_comment: garden_event.comment, farm: farm, event: event, garden_event_done: garden_event.is_done? %>
         <% end %>
       </div>
     </div>
