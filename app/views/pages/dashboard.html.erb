@@ -21,8 +21,8 @@
       <% else %>
         <!-- events: sale, admin, dated_admin -->
         <div class="bgcolor-<%= event.subcategory_color %> desktop_only">
-          <div class="d-flex justify-content-between pt-2 pl-1 pointer" data-drawer-trigger aria-controls="drawer-event-<%= event.id %>" aria-expanded="false">
-            <div class="text-left"><%= event.description[0..30] %><%= event.description.length > 31 ? "..." : "" %></div>
+          <div class="d-flex justify-content-between pt-2 pl-1 pointer d-flex justify-content-between pt-2 pl-1 pointer border-top-lightgrey" data-drawer-trigger aria-controls="drawer-event-<%= event.id %>" aria-expanded="false">
+            <div class="text-left"><%= event.description[0..10] %><%= event.description.length > 11 ? "..." : "" %></div>
             <div class="d-flex flex-wrap">
               <% event.users.each do |user| %>
               <div class="d-flex <%= 'ml-minus-8' if event.has_multiple_users? %>">

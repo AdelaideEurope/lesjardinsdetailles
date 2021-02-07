@@ -4,17 +4,7 @@
     <div class="drawer__header">
       <div class="d-flex justify-content-between">
         <div class="drawer__title">
-          <div><h2><%= event.description %></h2></div>
-          <% if !event.is_all_day %>
-            <div class="drawer-title-second-line"><%= l(event.start_time, format: '%A %e %B %Y') %></div>
-            <% if event.end_time %>
-              <div class="drawer-title-second-line">De <%= l(event.start_time, format: '%Hh%M') %> à <%= l(event.end_time, format: '%Hh%M') %></div>
-            <% else %>
-              <div class="drawer-title-second-line">À <%= l(event.start_time, format: '%Hh%M') %></div>
-            <% end %>
-          <% else %>
-            <div class="drawer-title-second-line"><%= l(event.start_time, format: '%A %e %B %Y') %></div>
-          <% end %>
+          <h2><%= event.event_subcategory&.capitalize %></h2>
         </div>
         <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
           <i class="fas fa-times"></i>
@@ -23,8 +13,20 @@
     </div>
     <div class="drawer__content drawer-content-with-bottom-buttons">
       <div>
+        <% if !event.is_all_day %>
+          <div class="drawer-dated-admin-date"><%= l(event.start_time, format: '%A %e %B %Y') %></div>
+          <% if event.end_time %>
+            <div class="drawer-dated-admin-date">De <%= l(event.start_time, format: '%Hh%M') %> à <%= l(event.end_time, format: '%Hh%M') %></div>
+          <% else %>
+            <div class="drawer-dated-admin-date">À <%= l(event.start_time, format: '%Hh%M') %></div>
+          <% end %>
+        <% else %>
+          <div class="drawer-dated-admin-date"><%= l(event.start_time, format: '%A %e %B %Y') %></div>
+        <% end %>
+        <h4 class="mt-4">Titre</h4>
+        <p><%= event.description %></p>
         <% if event.has_details? %>
-          <h4 class="pt-3">Un peu de détails</h4>
+          <h4 class="pt-3">Description</h4>
           <p>
             <%= event.details %>
           </p>
