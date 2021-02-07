@@ -118,7 +118,7 @@
            <%#= params[:event].to_i == admin_event.id ? 'is-active is-visible' : '' %>
 
           <!-- drawer edit tour des jardins -->
-          <%= render "pages/dashboard_drawers/drawer_edit_admin_event", admin_event_id: admin_event.id, admin_event_description: admin_event.description, admin_event_details: admin_event.details, admin_event_comment: admin_event.comment, farm: farm, event: event, admin_event_done: admin_event.is_done? %>
+          <%= render "pages/dashboard_drawers/drawer_edit_admin_event", admin_event: admin_event, farm: farm %>
         <% end %>
       </div>
     </div>

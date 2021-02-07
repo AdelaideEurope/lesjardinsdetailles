@@ -83,9 +83,11 @@ class EventsController < ApplicationController
     if params[:event_done]
       start_date = params[:start_date]
       if @event.update(date_done: Date.today)
-        redirect_to farm_dashboard_path(@farm, start_date: start_date, anchor: "garden-event-#{@event.id}")
+        # , anchor: "garden-event-#{@event.id}"
+        redirect_to farm_dashboard_path(@farm, start_date: start_date)
       else
-        redirect_to farm_dashboard_path(@farm, start_date: start_date, anchor: "garden-event-#{@event.id}")
+        # , anchor: "garden-event-#{@event.id}"
+        redirect_to farm_dashboard_path(@farm, start_date: start_date)
       end
     elsif params[:postpone]
       start_date = params[:start_date]
@@ -126,16 +128,17 @@ class EventsController < ApplicationController
           redirect_to farm_dashboard_path(@farm, start_date: start_date)
         end
       end
-    elsif params[:cancel_done] == "1"
+    elsif params[:event][:cancel_done] == "1"
       start_date = params[:start_date]
-      if @event.update(date_done: nil, description: params[:description], comment: params[:comment], details: params[:details])
+      if @event.update(date_done: nil, description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details])
         redirect_to farm_dashboard_path(@farm, start_date: start_date)
       else
         redirect_to farm_dashboard_path(@farm, start_date: start_date)
       end
     else
+      date = Date.commercial(Date.today.year, params[:event][:planned_week].to_i)
       start_date = params[:start_date]
-      if @event.update(description: params[:description], comment: params[:comment], details: params[:details])
+      if @event.update(description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details], date_done: params[:event][:date_done], date: date)
         # , anchor: "garden-event-#{@event.id}"
         redirect_to farm_dashboard_path(@farm, start_date: start_date)
       else

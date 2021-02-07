@@ -1,4 +1,4 @@
-<section class="drawer" id="drawer-tour-des-jardins-edit-<%= admin_event_id %>" data-drawer-target>
+<section class="drawer" id="drawer-tour-des-jardins-edit-<%= admin_event.id %>" data-drawer-target>
   <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
   <div class="drawer__wrapper">
     <div class="drawer__header">
@@ -15,21 +15,29 @@
     </div>
     <div class="drawer__content drawer-content-with-bottom-buttons">
       <div>
-        <%= form_with model: event, url: farm_calendrier_path(farm, admin_event_id, start_date: params[:start_date]), method: :patch, local: true do |form| %>
+        <%= form_with model: admin_event, url: farm_calendrier_path(farm, admin_event.id, start_date: params[:start_date]), method: :patch, local: true do |form| %>
 
         <h4 class="mt-4">Description</h4>
-        <%= form.text_area :description, value: admin_event_description, class: "mt-2 w-100", rows: "1" %>
+        <%= form.text_area :description, value: admin_event&.description, class: "mt-2 w-100", rows: "1" %>
         <h4 class="mt-4">Détails</h4>
-        <%= form.text_area :details, value: admin_event_details, class: "mt-2 w-100", rows: "1" %>
+        <%= form.text_area :details, value: admin_event&.details, class: "mt-2 w-100", rows: "1" %>
         <h4 class="mt-4">Commentaire</h4>
-        <%= form.text_area :comment, value: admin_event_comment, class: "mt-2 w-100", rows: "1" %>
-        <% if admin_event_done %>
-          <%= form.check_box :cancel_done %><span class="raisin small ml-2">Si tu as marqué l'activité comme effectuée par erreur, coche cette case </span>
+        <%= form.text_area :comment, value: admin_event&.comment, class: "mt-2 w-100", rows: "1" %>
+        <% if !admin_event.is_done? %>
+          <h4 class="mt-4">Prévu pour la semaine</h4>
+          <%= form.number_field :planned_week, in: 1..52, value: admin_event.date.strftime("%W") %>
+        <% end %>
+        <% if admin_event.is_done? %>
+          <h4 class="mt-4">Activité effectuée le...</h4>
+          <%= form.date_field :date_done, value: admin_event.date_done&.to_date, class: "w-75" %>
+          <div>
+            <%= form.check_box :cancel_done %><span class="raisin small ml-2">Si tu as marqué l'activité comme effectuée par erreur, coche cette case </span>
+          </div>
         <% end %>
       </div>
       <div class="drawer-edit-bottom-buttons px-sm-4">
         <div><%= form.submit value: "Valider", class: "btn txt-button-background olive mt-2", 'data-disable-with': "..." %></div>
-        <div><%= link_to "Supprimer", farm_calendrier_path(farm, admin_event_id, start_date: params[:start_date]), method: :delete, class: "btn txt-button-background red mt-2", data: { confirm: "T'es #{current_user.is_female? ? 'sûre' : 'sûr'} ? 🤨"} %></div>
+        <div><%= link_to "Supprimer", farm_calendrier_path(farm, admin_event.id, start_date: params[:start_date]), method: :delete, class: "btn txt-button-background red mt-2", data: { confirm: "T'es #{current_user.is_female? ? 'sûre' : 'sûr'} ? 🤨"} %></div>
       </div>
       <% end %>
     </div>
