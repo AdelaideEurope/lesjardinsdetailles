@@ -8,7 +8,7 @@
     <% if current_user.worker %>
       <ul class="list-unstyled sidebar-items">
         <li class="active sidebar-item align-middle">
-          <%= link_to farm_dashboard_path(current_user.farm_id) do %><i class="fas fa-clipboard-list sidebar-icon-item"></i><% end %>
+          <%= link_to farm_dashboard_path(current_user.farm_id, start_date: Date.today.beginning_of_week) do %><i class="fas fa-clipboard-list sidebar-icon-item"></i><% end %>
         </li>
         <li class="sidebar-item">
           <%= link_to farm_thebest_path(current_user.farm_id, current_user) do %>
@@ -71,7 +71,7 @@
 
 <div class="mobile_only">
   <div id="bottom-navbar" >
-    <%= link_to farm_dashboard_path(current_user.farm_id) do %>
+    <%= link_to farm_dashboard_path(current_user.farm_id, start_date: Date.today.beginning_of_week) do %>
       <i class="fas fa-clipboard-list sidebar-icon-item"></i>
     <% end %>
     <%= link_to farm_thebest_path(current_user.farm_id, current_user) do %>
