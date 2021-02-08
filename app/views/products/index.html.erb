@@ -35,7 +35,7 @@
       <% @products.each do |product| %>
         <tr>
           <th scope="<%= product %>">
-            <div class="<%= product.has_variets? ? 'pointer' : '' %>" data-toggle="collapse" data-target="#product<%= product.id %>" class="accordion-toggle ml-4"><%= product.name.capitalize %></div>
+            <div class="<%= product.has_variets? ? 'pointer' : '' %>" data-toggle="<%= 'collapse' if product.has_variets? %>" data-target="#product<%= product.id %>" class="accordion-toggle ml-4"><%= product.name.capitalize %></div>
           </th>
           <td>
             <div data-drawer-trigger aria-controls="drawer-product-index<%= product.id %>" aria-expanded="false"><div class="round-button green"><i class="fas fa-search-plus round-txt-button"></i></div></div>
@@ -48,15 +48,15 @@
           </td>
         </tr>
         <tr>
-            <td colspan="12" class="hiddenRow">
-              <div class="accordian-body collapse" id="product<%= product.id %>">
-                <table class="table table-striped">
-                  <% product.vegetable_variets.each do |vegetable_variet| %>
-                    <tr><td class="pl-2 vegetable_variet-detail"><%= vegetable_variet.name.capitalize %></td></tr>
-                  <% end %>
-                </table>
-              </div>
-            </td>
+          <td colspan="12" class="hiddenRow">
+            <div class="accordian-body collapse" id="product<%= product.id %>">
+              <table class="table table-striped">
+                <% product.vegetable_variets.each do |vegetable_variet| %>
+                  <tr><td class="pl-2 vegetable_variet-detail"><%= vegetable_variet.name.capitalize %></td></tr>
+                <% end %>
+              </table>
+            </div>
+          </td>
         </tr>
         <%= render 'product_drawer', product: product %>
       <% end %>
