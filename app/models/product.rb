@@ -13,7 +13,7 @@ class Product < ApplicationRecord
   has_one_attached :photo
 
   def has_ferti?
-    !self.fertilization_need.nil?
+    !self.fertilization_need.nil? && self.fertilization_need&.fertilization_type != ""
   end
 
   def has_ferti_indicated?

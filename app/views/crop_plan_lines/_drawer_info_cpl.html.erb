@@ -23,8 +23,8 @@
           <% end %>
         </ul>
         <h3 class="mt-4">Infos utiles pour cette culture 💡</h3>
-        <div>Espacement : <%= show_replace_nil_with_dash(cpl.product.spacing) %></div>
-        <div>Nombre de rangs : <%= show_replace_nil_with_dash(cpl.product.row_count) %></div>
+        <div>Espacement : <%= cpl.product.spacing %></div>
+        <div>Nombre de rangs : <%= cpl.product.row_count %></div>
         <div>Perte : <%= cpl.product.loss_percentage %> %</div>
         <div>Durée de croissance (en semaines) : <%= show_replace_nil_with_dash(cpl.product.growth_duration_in_weeks) %></div>
         <div>Durée de récolte (en semaines) : <%= show_replace_nil_with_dash(cpl.product.harvest_duration_in_weeks) %></div>

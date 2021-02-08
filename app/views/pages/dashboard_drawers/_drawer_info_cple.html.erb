@@ -44,8 +44,9 @@
         </ul>
         <h3 class="mt-4">Bon à savoir pour cette culture 💡</h3>
         <div class="raisin">
-          <div>Espacement : <%= show_replace_nil_with_dash(cple.product.spacing) %></div>
-          <div>Nombre de rangs : <%= show_replace_nil_with_dash(cple.product.row_count) %></div>
+          <div>Espacement : <%= cple.product.spacing %></div>
+          <div>Nombre de rangs : <%= cple.product.row_count %></div>
+          <%= cple.product.fertilization_need&.quantity %>
           <% if cple.product.has_ferti? %>
             <div><%= cple.product.fertilization_need.fertilization_type %> : <%= cple.product.fertilization_need.quantity %><%= cple.product.fertilization_need.unit %></div>
           <% end %>
