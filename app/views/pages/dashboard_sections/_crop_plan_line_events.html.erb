@@ -206,7 +206,7 @@
                 </div>
                 <div class="card-list-item-second-line align-self-center"> <%= harvesting.bed.garden.name %> - <%= harvesting.bed.name %></div>
               </div>
-              <% if week_harvesting[0].harvest_start_date.strftime("%W") == params[:start_date].to_date.strftime("%W") %>
+              <% if week_harvesting[0].harvest_start_date.strftime("%W") == params[:start_date]&.to_date.strftime("%W") %>
                 <%= link_to farm_plandeculture_path(farm, harvesting, postpone: true, start_date: params[:start_date], harvesting: true), method: :patch do %>
                   <div class="round-button orange m-sm-2 m-1">
                     <i class="fas fa-redo-alt round-txt-button"></i>
