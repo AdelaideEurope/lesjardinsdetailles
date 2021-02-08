@@ -37,6 +37,15 @@ class CropPlanLineEvent < ApplicationRecord
     CropPlanLineUserEvent.where(user_id: user_id, crop_plan_line_event_id: self.id)[0]
   end
 
+  def seedling_surface
+    if self.crop_plan_line.meter_count == 30 || self.crop_plan_line.meter_count.nil?
+      ""
+    elsif self.crop_plan_line.meter_count == 15
+      "⚠️ 1/2 planche"
+    else
+      "#{(self.crop_plan_line.meter_count*100)/30} %"
+    end
+  end
 
   def self.week_planting(params)
     if params.nil?
