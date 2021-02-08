@@ -48,15 +48,15 @@
           </td>
         </tr>
         <tr>
-          <% product.vegetable_variets.each do |vegetable_variet| %>
             <td colspan="12" class="hiddenRow">
               <div class="accordian-body collapse" id="product<%= product.id %>">
                 <table class="table table-striped">
+                  <% product.vegetable_variets.each do |vegetable_variet| %>
                     <tr><td class="pl-2 vegetable_variet-detail"><%= vegetable_variet.name.capitalize %></td></tr>
+                  <% end %>
                 </table>
               </div>
             </td>
-          <% end %>
         </tr>
         <%= render 'product_drawer', product: product %>
       <% end %>
