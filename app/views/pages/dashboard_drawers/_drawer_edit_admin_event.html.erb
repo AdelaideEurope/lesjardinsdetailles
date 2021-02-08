@@ -25,7 +25,7 @@
         <%= form.text_area :comment, value: admin_event&.comment, class: "mt-2 w-100", rows: "1" %>
         <% if !admin_event.is_done? %>
           <h4 class="mt-4">Prévu pour la semaine</h4>
-          <%= form.number_field :planned_week, in: 1..52, value: admin_event.date.strftime("%W") %>
+          <%= form.number_field :planned_week, in: 1..52, value: params[:start_date].to_date.strftime("%W") %>
         <% end %>
         <% if admin_event.is_done? %>
           <h4 class="mt-4">Activité effectuée le...</h4>

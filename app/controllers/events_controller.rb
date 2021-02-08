@@ -135,10 +135,19 @@ class EventsController < ApplicationController
       else
         redirect_to farm_dashboard_path(@farm, start_date: start_date)
       end
-    else
+    elsif params[:event][:planned_week]
       date = Date.commercial(Date.today.year, params[:event][:planned_week].to_i)
       start_date = params[:start_date]
       if @event.update(description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details], date_done: params[:event][:date_done], date: date)
+        # , anchor: "garden-event-#{@event.id}"
+        redirect_to farm_dashboard_path(@farm, start_date: start_date)
+      else
+        # , anchor: "garden-event-#{@event.id}"
+        redirect_to farm_dashboard_path(@farm, start_date: start_date)
+      end
+    else
+      start_date = params[:start_date]
+      if @event.update(description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details], date_done: params[:event][:date_done])
         # , anchor: "garden-event-#{@event.id}"
         redirect_to farm_dashboard_path(@farm, start_date: start_date)
       else
