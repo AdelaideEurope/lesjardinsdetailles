@@ -13,7 +13,7 @@
         </li>
       <% elsif user_signed_in? %>
         <li class="nav-item">
-          <%= link_to farm_thebest_path(current_user.farm_id, current_user, start_date: Date.today.beginning_of_week)), class: "nav-link" do %><%= image_tag "connexion.png", alt: "connexion", class: "login-button" %><% end %>
+          <%= link_to farm_thebest_path(current_user.farm_id, current_user, start_date: Date.today.beginning_of_week), class: "nav-link" do %><%= image_tag "connexion.png", alt: "connexion", class: "login-button" %><% end %>
         </li>
       <% else %>
         <li class="nav-item">
