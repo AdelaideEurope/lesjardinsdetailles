@@ -15,10 +15,14 @@
     </div>
     <div class="drawer__content drawer-content-cpl drawer-content-with-bottom-buttons">
       <div>
-        <h4 class="mt-4">Détails</h4>
-          <p><%= admin_event.details %></p>
-        <h4 class="mt-4">Commentaire</h4>
-          <p><%= admin_event.comment %></p>
+        <% if admin_event.has_details? %>
+          <h4 class="mt-4">Détails</h4>
+            <p><%= admin_event.details %></p>
+        <% end %>
+        <% if admin_event.has_comment? %>
+          <h4 class="mt-4">Commentaire</h4>
+            <p><%= admin_event.comment %></p>
+        <% end %>
         <h4 class="mt-4">Prévu pour la semaine</h4>
           <p><%= admin_event.date.strftime("%W") %></p>
         <% if admin_event.is_done? %>
