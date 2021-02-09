@@ -23,9 +23,9 @@
         <div class="bgcolor-<%= event.subcategory_color %> desktop_only">
           <div class="d-flex justify-content-between pt-2 pl-1 pointer d-flex justify-content-between pt-2 pl-1 pointer border-top-lightgrey" data-drawer-trigger aria-controls="drawer-event-<%= event.id %>" aria-expanded="false">
             <div class="text-left"><%= event.description[0..10] %><%= event.description.length > 11 ? "..." : "" %></div>
-            <div class="d-flex flex-wrap">
+            <div class="d-flex flex-wrap pl-1">
               <% event.users.each do |user| %>
-              <div class="d-flex <%= 'ml-minus-8' if event.has_multiple_users? %>">
+              <div class="d-flex mt-1 <%= 'ml-minus-4' if event.has_multiple_users? %>">
                 <div class="text-white sm-txt-avatar <%= user.color %>"><%= user.initial %></div>
               </div>
               <% end %>
@@ -48,17 +48,19 @@
         </div>
       <% else %>
         <!-- events: sale, admin, dated_admin -->
-        <div class="dashboard-calendar-event bgcolor-<%= event.subcategory_color %> mobile_only">
-          <div class="d-flex">
+        <div class="dashboard-calendar-event bgcolor-<%= event.subcategory_color %> mobile_only border-top-lightgrey">
+          <div class="d-flex flex-wrap pl-1">
             <% event.users.each do |user| %>
-              <div class="m-1 text-white vsm-txt-avatar <%= user.color %>">
-                <%= user.initial %>
+              <div class="d-flex mt-1 <%= 'ml-minus-4' if event.has_multiple_users? %>">
+                <div class="vsm-txt-avatar <%= user.color %>">
+                  <%= user.initial %>
+                </div>
               </div>
             <% end %>
           </div>
           <div class="d-flex justify-content-between px-1" data-drawer-trigger aria-controls="drawer-event-<%= event.id %>" >
             <div class="text-left">
-              <p><%= event.description[0..8] %><%= event.description.length > 9 ? "…" : "" %></p>
+              <p><%= event.description[0..6] %><%= event.description.length > 7 ? "…" : "" %></p>
             </div>
           </div>
         </div>

@@ -109,6 +109,10 @@
 
 // MOBILE
 @media(max-width:812px) {
+  .border-top-lightgrey {
+    border-top: 1px solid $lightgrey;
+  }
+
   .calendar-heading {
     z-index: 2;
     text-align: right;
