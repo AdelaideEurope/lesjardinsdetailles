@@ -16,6 +16,7 @@
 
 .card-list-item-main-info-block {
   margin: auto 0 auto 8px;
+  overflow: hidden;
 }
 
 .card-list-item-round-button-block {
@@ -66,5 +67,6 @@
 
   .card-list-item-main-info-block {
     display: flex;
+    overflow: hidden;
   }
 }

@@ -1,0 +1,40 @@
+<section class="drawer" id="drawer-info-garden-event-<%= garden_event.id %>" data-drawer-target>
+  <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+  <div class="drawer__wrapper">
+    <div class="drawer__header">
+      <div class="d-flex justify-content-between">
+
+          <div class="drawer__title">
+            <h2><%= garden_event.description %></h2>
+          </div>
+
+        <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <div class="drawer__content drawer-content-cpl drawer-content-with-bottom-buttons">
+      <div>
+        <% if garden_event.has_details? %>
+          <h4 class="mt-4">Détails</h4>
+            <p><%= garden_event.details %></p>
+        <% end %>
+        <% if garden_event.has_comment? %>
+          <h4 class="mt-4">Commentaire</h4>
+            <p><%= garden_event.comment %></p>
+        <% end %>
+        <h4 class="mt-4">Prévu pour la semaine</h4>
+          <p><%= garden_event.date.strftime("%W") %></p>
+        <% if garden_event.is_done? %>
+          <h4 class="mt-4">Activité effectuée le...</h4>
+            <p><%= garden_event.date_done.strftime('%-d') %> <%= I18n.t(:abbr_month_names)[garden_event.date_done.strftime('%b').to_sym] %></p>
+        <% end %>
+      </div>
+      <div class="drawer-edit-bottom-buttons px-sm-4">
+        <div class="btn txt-button-background orange mt-2" data-drawer-trigger aria-controls="drawer-garden-event-edit<%= garden_event.id %>">Modifier</div>
+      </div>
+    </div>
+  </div>
+</section>
+<%= render "pages/dashboard_drawers/drawer_edit_garden_event", garden_event: garden_event, farm: @farm %>
+
