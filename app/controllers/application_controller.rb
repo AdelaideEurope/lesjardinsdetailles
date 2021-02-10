@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if resource.worker
-      farm_dashboard_path(resource.farm_id)
+      farm_dashboard_path(resource.farm_id, start_date: Date.today.beginning_of_week)
     else
       farm_thebest_path(resource.farm_id, resource)
     end
