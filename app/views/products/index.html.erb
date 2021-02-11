@@ -52,7 +52,10 @@
             <div class="accordian-body collapse" id="product<%= product.id %>">
               <table class="table table-striped">
                 <% product.vegetable_variets.each do |vegetable_variet| %>
-                  <tr><td class="pl-2 vegetable_variet-detail"><%= vegetable_variet.name.capitalize %></td></tr>
+                  <tr>
+                    <td class="pl-2" style="width: 40%"><%= vegetable_variet.name.capitalize %></td>
+                    <td class="pl-2"><%= vegetable_variet.details.capitalize %></td>
+                  </tr>
                 <% end %>
               </table>
             </div>
