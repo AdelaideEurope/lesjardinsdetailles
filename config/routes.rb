@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :farms, only: [ :show ] do
     resources :calendrier, controller: 'events', only: [ :index, :edit, :update, :new, :create, :destroy ]
     resources :produits, controller: 'products', only: [ :index, :show, :edit, :update, :create, :new ]
+    resources :variets, controller: 'vegetable_variets', only: [ :edit, :update, :create, :new ]
     get "product_variets_multiple_new", to: 'products#product_variets_multiple_new'
     post "product_variets_multiple_create", to: 'products#product_variets_multiple_create'
     resources :plandeculture, controller: 'crop_plan_lines', only: [ :index, :update, :edit ]

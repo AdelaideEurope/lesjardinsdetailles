@@ -1,0 +1,12 @@
+<div class="container custom-container" style="overflow: auto;">
+  <div class="page-header non-scrolled-page-header scrollable-page-header d-block">
+    <h2 class="mb-0"><%= @vegetable_variet.name.capitalize %></h2>
+    <p class="lightgrey">Modifier</p>
+  </div>
+
+  <div class="page-content">
+  </div>
+  <div class="container">
+    <%= render 'form', vegetable_variet: @vegetable_variet, farm: @farm, url: farm_variet_path %>
+  </div>
+</div>

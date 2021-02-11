@@ -1,0 +1,11 @@
+<div class="container custom-container" style="overflow: auto;">
+  <div class="page-header non-scrolled-page-header scrollable-page-header d-block">
+    <h2 class="mb-0">Créer une variété pour le légume <%= Product.where(slug: params[:produit])[0].name %></h2>
+  </div>
+
+  <div class="page-content">
+  </div>
+  <div class="container">
+    <%= render 'form', vegetable_variet: @vegetable_variet, farm: @farm, url: farm_variets_path %>
+  </div>
+</div>

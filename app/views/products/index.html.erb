@@ -35,7 +35,7 @@
       <% @products.each do |product| %>
         <tr>
           <th scope="<%= product %>">
-            <div class="<%= product.has_variets? ? 'pointer' : '' %>" data-toggle="<%= 'collapse' if product.has_variets? %>" data-target="#product<%= product.id %>" class="accordion-toggle ml-4"><%= product.name.capitalize %></div>
+            <div class="pointer" data-toggle="collapse" data-target="#product<%= product.id %>" class="accordion-toggle ml-4"><%= product.name.capitalize %></div>
           </th>
           <td>
             <div data-drawer-trigger aria-controls="drawer-product-index<%= product.id %>" aria-expanded="false"><div class="round-button green"><i class="fas fa-search-plus round-txt-button"></i></div></div>
@@ -52,11 +52,21 @@
             <div class="accordian-body collapse" id="product<%= product.id %>">
               <table class="table table-striped">
                 <% product.vegetable_variets.each do |vegetable_variet| %>
-                  <tr>
+                  <tr class="d-flex">
                     <td class="pl-2" style="width: 40%"><%= vegetable_variet.name.capitalize %></td>
-                    <td class="pl-2"><%= vegetable_variet.details.capitalize %></td>
+                    <td class="pl-2" style="width: 50%"><%= vegetable_variet.details.capitalize %></td>
+                    <td class="pl-2 d-flex justify-content-end" style="width: 10%"><%= link_to edit_farm_variet_path(@farm.id, vegetable_variet) do %><div class="round-button orange"><i class="fas fa-pen round-txt-button"></i></div><% end %></td>
                   </tr>
                 <% end %>
+                <tr class="d-flex">
+                  <td class="pl-2 green fw-600" style="width: 40%">
+                    <%= link_to new_farm_variet_path(@farm.id, produit: product) do %>
+                      <div class="round-button green"><i class="fas fa-plus round-txt-button"></i></div>
+                    <% end %>
+                  </td>
+                  <td class="pl-2" style="width: 50%"></td>
+                  <td class="pl-2 d-flex justify-content-end" style="width: 10%"></td>
+                </tr>
               </table>
             </div>
           </td>
