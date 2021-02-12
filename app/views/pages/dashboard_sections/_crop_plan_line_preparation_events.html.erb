@@ -47,7 +47,7 @@
       <div class="user-button-event">
         <% if preparing_event.has_users? %>
           <div class="dropleft">
-            <div class="dropdown-toggle <%= 'd-flex' if preparing_event.has_multiple_users? %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="dropdown-toggle <%= 'd-flex justify-content-end' if preparing_event.has_multiple_users? %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <% preparing_event.users.each do |user| %>
                 <div class="d-flex justify-content-end <%= 'ml-minus-24' if preparing_event.has_multiple_users? %>">
                   <div class="txt-avatar m-2 pointer <%= user.color %>"><%= user.initial %></div>
