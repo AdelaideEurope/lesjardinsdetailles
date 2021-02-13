@@ -40,7 +40,7 @@
                 <div class="round-button <%= garden_event.has_comment? ? 'green' : 'lightgrey' %> m-2" data-drawer-trigger aria-controls="drawer-tour-des-jardins-comment-<%= garden_event.id %>" aria-expanded="false">
                   <i class="fas fa-comment round-txt-button"></i>
                 </div>
-                <!--            <div class="round-button orange m-2" data-drawer-trigger aria-controls="drawer-tour-des-jardins-edit-<%= garden_event.id %>" aria-expanded="false">
+                <!-- <div class="round-button orange m-2" data-drawer-trigger aria-controls="drawer-tour-des-jardins-edit-<%= garden_event.id %>" aria-expanded="false">
                   <i class="fas fa-pen round-txt-button"></i>
                 </div> -->
                 <%= link_to farm_calendrier_path(farm, garden_event.id, postpone: true, start_date: params[:start_date]), method: :put do %>
