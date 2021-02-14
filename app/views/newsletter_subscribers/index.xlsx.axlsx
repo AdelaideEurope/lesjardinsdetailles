@@ -1,0 +1,9 @@
+wb = xlsx_package.workbook
+s = wb.styles
+
+wb.add_worksheet(name: "Inscrits à la lettre d'info") do |sheet|
+  sheet.add_row ['Prénom', 'Email']
+  @newsletter_subscribers.each do |subscriber|
+    sheet.add_row [subscriber.first_name.capitalize, subscriber.email]
+  end
+end

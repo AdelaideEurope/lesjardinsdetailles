@@ -1,0 +1,22 @@
+<div class="container custom-container">
+  <div class="page-header non-scrolled-page-header scrollable-page-header d-flex justify-content-between">
+    <h2>Le fan club</h2>
+    <div class="pr-38 d-flex">
+      <%= link_to farm_newsletter_subscribers_path(@farm.id, format: "xlsx") do %>
+        <div class="round-button green mr-4"><i class="fas fa-download round-txt-button"></i></div>
+      <% end %>
+    </div>
+  </div>
+  <div class="page-content">
+    <div class="d-flex">
+      <div></div>
+      <ul>
+        <% @newsletter_subscribers.each do |subscriber| %>
+          <li><%= subscriber.first_name %> - <%= subscriber.email %></li>
+        <% end %>
+      </ul>
+    </div>
+
+  </div>
+</div>
+

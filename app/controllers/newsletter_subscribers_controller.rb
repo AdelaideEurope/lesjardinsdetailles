@@ -5,6 +5,10 @@ class NewsletterSubscribersController < ApplicationController
     def index
       @newsletter_subscribers = NewsletterSubscriber.where(farm_id: @farm.id)
       authorize @newsletter_subscribers
+      respond_to do |format|
+        format.html
+        format.xlsx
+      end
     end
 
     def new

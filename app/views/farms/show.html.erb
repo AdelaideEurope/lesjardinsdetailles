@@ -51,7 +51,7 @@
         </div>
       <% end %>
 
-      <h3  class="mt-4">Travailleurs, travailleuses ⚒</h3>
+      <h3 class="mt-4">Travailleurs, travailleuses ⚒</h3>
       <% @workers.each do |worker| %>
         <div>
           <div>
@@ -61,6 +61,16 @@
           </div>
         </div>
       <% end %>
+
+      <h3 class="mt-4">Quelques groupies</h3>
+      <% @subscribers.each do |subscriber| %>
+        <div>
+          <div>
+            <span class="raisin"><%= subscriber.first_name %> <%= subscriber.email %></span>
+          </div>
+        </div>
+      <% end %>
+      <div><%= link_to farm_newsletter_subscribers_path(@farm) do %>Voir tout le fan club<% end %></div>
 
       <div class="w-48-desktop mt-4">
         <div class="dashboard-crop-plan-line-card orange">

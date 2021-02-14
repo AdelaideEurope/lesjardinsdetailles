@@ -6,6 +6,7 @@ class FarmsController < ApplicationController
     @clients = @farm.clients
     @workers = @farm.workers
     @outlets = @farm.outlets
+    @subscribers = NewsletterSubscriber.all.sample(5)
   end
 
   def set_farm
