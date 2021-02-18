@@ -105,6 +105,13 @@ class EventsController < ApplicationController
     elsif params[:event_category] == "dated_admin_event"
       start_date = params[:start_date]
 
+      date = params[:event][:start_date]
+      is_all_day = params[:event][:is_all_day] == '1'
+      start_hour = params[:event]["start_hour(4i)"]+":"+params[:event]["start_hour(5i)"]
+      end_hour = params[:event]["end_hour(4i)"]+":"+params[:event]["end_hour(5i)"]
+      start_date_with_hour = DateTime.parse(date+"T"+start_hour)
+      end_date_with_hour = DateTime.parse(date+"T"+end_hour)
+
       workers = params[:event][:worker_list].split(",").map{|el| el.to_i}
       @event.users.each {|w| workers.push(w.id)}
       @event.user_events.each {|ue| ue.destroy}
@@ -115,7 +122,7 @@ class EventsController < ApplicationController
         UserEvent.create(user_id: user_id, event_id: @event.id)
       end
 
-      if @event.update(description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details], event_subcategory: params[:event][:event_subcategory])
+      if @event.update(description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details], event_subcategory: params[:event][:event_subcategory], start_time: start_date_with_hour, end_time: end_date_with_hour, is_all_day: is_all_day)
         if params[:to_calendar] == "true"
           redirect_to farm_calendrier_index_path(@farm, start_date: start_date)
         else
