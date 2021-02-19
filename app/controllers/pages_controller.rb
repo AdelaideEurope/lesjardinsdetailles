@@ -15,7 +15,7 @@ class PagesController < ApplicationController
     authorize :page
     @events = Event.all
     @farm = current_user.farm
-    @calendar_events = Event.dated_admin_events(params[:start_date], @farm.id)
+    @calendar_events = Event.dated_admin_events(@farm.id)
     @admin_events = Event.admin_events(params[:start_date], @farm.id)
     @garden_events = Event.garden_events(params[:start_date], @farm.id)
     @presence_periods = PresencePeriod.joins(:users).where(users: { farm_id: current_user.farm_id }).uniq
