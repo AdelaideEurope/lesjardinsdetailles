@@ -16,108 +16,30 @@
     <div class="drawer__content drawer-content-with-bottom-buttons">
       <div>
         <%= form_with model: event, url: farm_calendrier_path(farm, dated_admin_event.id, start_date: params[:start_date], event_category: "dated_admin_event", to_calendar: to_calendar), local: true, method: :patch do |form| %>
-
-          <div class="desktop_only">
+          <h4 class="mt-4">Titre</h4>
+          <%= form.text_area :description, value: dated_admin_event.description, class: "mt-2 w-100", rows: "1" %>
+          <h4 class="mt-4">Description</h4>
+          <%= form.text_area :details, value: dated_admin_event.details, class: "mt-2 w-100", rows: "1" %>
+          <h4 class="mt-4">Commentaire</h4>
+          <%= form.text_area :comment, value: dated_admin_event.comment, class: "mt-2 w-100", rows: "1" %>
+          <h4 class="mt-4">Type d'événement</h4>
+          <div class="d-flex"><%= form.select :event_subcategory, ["vente", "rdv", "mission"], selected: dated_admin_event.event_subcategory,class: "mt-2", rows: "1" %></div>
+          <div class="user-button-event mt-4">
             <div class="d-flex">
-              <div>
-                <h4 class="mt-2">Date</h4>
-                  <%= form.date_field :start_date, value: dated_admin_event.start_time.to_date, class: "mt-2 w-100 start-time", rows: "1" %>
-              </div>
-              <!-- <div class="d-flex mt-2 w-sm-75"> -->
-              <div class="ml-4">
-                <div class="d-flex">
-                  <div>
-                    <h4 class="mt-2">Heure début</h4>
-                    <%= form.time_select :start_hour, class: "mt-2", rows: "1" %>
-                  </div>
-                  <div class="ml-4">
-                    <h4 class="mt-2">Heure fin</h4>
-                    <%= form.time_select :end_hour, class: "mt-2", rows: "1" %>
+              <% workers.each do |worker| %>
+                <div class="d-flex pr-1 pointer">
+                  <div class="chose-worker txt-avatar m-2 <%= dated_admin_event.is_user?(worker) ? worker.color : 'lightgrey' %> <%= dated_admin_event.is_user?(worker) ? "selected" : '' %>" data-worker="<%= worker.id %>" data-worker-color="<%= worker.color %>">
+                    <%= worker.initial %>
                   </div>
                 </div>
-                <div class="d-flex mt-2"><span><%= form.check_box :is_all_day, value: dated_admin_event.is_all_day ? 1 : 0 %><span class="ml-2">Pas d'heure spécifique ?</span></span></div>
-              </div>
-            </div>
-
-            <h4 class="mt-4">Type d'événement</h4>
-            <div class="d-flex"><%= form.select :event_subcategory, ["vente", "rdv", "mission"], selected: dated_admin_event.event_subcategory,class: "mt-2", rows: "1" %></div>
-            <h4 class="mt-4">Titre</h4>
-            <%= form.text_area :description, value: dated_admin_event.description, class: "mt-2 w-100", rows: "1" %>
-            <h4 class="mt-4">Description</h4>
-            <%= form.text_area :details, value: dated_admin_event.details, class: "mt-2 w-100", rows: "1" %>
-            <h4 class="mt-4">Commentaire</h4>
-            <%= form.text_area :comment, value: dated_admin_event.comment, class: "mt-2 w-100", rows: "1" %>
-            <div class="user-button-event mt-4">
-              <div class="d-flex">
-                <% workers.each do |worker| %>
-                  <div class="d-flex pr-1 pointer">
-                    <div class="chose-worker txt-avatar m-2 <%= dated_admin_event.is_user?(worker) ? worker.color : 'lightgrey' %> <%= dated_admin_event.is_user?(worker) ? "selected" : '' %>" data-worker="<%= worker.id %>" data-worker-color="<%= worker.color %>">
-                      <%= worker.initial %>
-                    </div>
-                  </div>
-                <% end %>
-              </div>
+              <% end %>
             </div>
           </div>
-
-
-          <div class="mobile_only">
-            <div>
-              <div>
-                <h4 class="mb-0">Date</h4>
-                <div class="d-flex"><%= form.date_field :start_date, value: dated_admin_event.start_time.to_date, class: "mt-2 w-100 start-time", rows: "1" %></div>
-              </div>
-              <!-- <div class="d-flex mt-2 w-sm-75"> -->
-              <div>
-                <div class="d-flex">
-                  <div>
-                    <h4 class="mt-2">Heure début</h4>
-                    <div class="d-flex mb-1"><%= form.time_select :start_hour, class: "mt-2", rows: "1" %></div>
-                  </div>
-                  <div class="ml-4">
-                    <h4 class="mt-2">Heure fin</h4>
-                    <div class="d-flex mb-1"><%= form.time_select :end_hour, class: "mt-2", rows: "1" %></div>
-                  </div>
-                </div>
-                <div class="d-flex mb-2"><span class="fs-12"><%= form.check_box :is_all_day, value: dated_admin_event.is_all_day ? 1 : 0 %>Pas d'heure spécifique ?</span></div>
-              </div>
-            </div>
-
-            <div class="d-flex">
-              <h4>Type d'événement</h4>
-              <div class="d-flex event-type-select"><%= form.select :event_subcategory, ["vente", "rdv", "mission"], selected: dated_admin_event.event_subcategory,class: "mt-2", rows: "1" %></div>
-            </div>
-            <h4 class="mb-0">Titre</h4>
-            <%= form.text_area :description, value: dated_admin_event.description, class: "w-100", rows: "1" %>
-            <h4 class="mb-0">Description</h4>
-            <%= form.text_area :details, value: dated_admin_event.details, class: "w-100", rows: "1" %>
-            <h4 class="mb-0">Commentaire</h4>
-            <%= form.text_area :comment, value: dated_admin_event.comment, class: "w-100", rows: "1" %>
-            <div class="d-flex">
-              <div>
-                <h4 class="mt-sm-4">C'est pour qui ?</h4>
-              </div>
-              <div>
-                <div class="user-button-event">
-                  <div class="d-flex">
-                    <% workers.each do |worker| %>
-                      <div class="d-flex pr-1 pointer">
-                        <div class="chose-worker txt-avatar m-2 <%= dated_admin_event.is_user?(worker) ? worker.color : 'lightgrey' %> <%= dated_admin_event.is_user?(worker) ? "selected" : '' %>" data-worker="<%= worker.id %>" data-worker-color="<%= worker.color %>">
-                          <%= worker.initial %>
-                        </div>
-                      </div>
-                    <% end %>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
           <%= form.hidden_field :worker_list, input_html: { readonly: true, value: "", 'data-workers': dated_admin_event.users.map(&:id).join(",") }, class: "event_worker_list hidden" %>
         </div>
         <div class="drawer-edit-bottom-buttons px-sm-4">
           <div><%= form.submit value: "Valider", class: "btn txt-button-background olive mt-2", 'data-disable-with': "..." %></div>
-          <div><%= link_to "Supprimer", farm_calendrier_path(farm, dated_admin_event.id, start_date: params[:start_date], event_subcategory: dated_admin_event.event_subcategory), method: :delete, class: "btn txt-button-background red mt-2", data: { confirm: "T'es #{current_user.is_female? ? 'sûre' : 'sûr'} ? 🤨"} %></div>
+          <div><%= link_to "Supprimer", farm_calendrier_path(farm, dated_admin_event.id, start_date: params[:start_date], event_subcategory: dated_admin_event.event_subcategory), method: :delete, class: "btn txt-button-background red mt-2", data: { confirm: "T'es #{current_user.is_female? ? 'sûre' : 'sûr'} ? 🤨"} %></div>
         </div>
       <% end %>
     </div>

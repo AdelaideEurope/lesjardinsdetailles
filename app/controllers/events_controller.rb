@@ -64,7 +64,7 @@ class EventsController < ApplicationController
 
         if @new_event.event_category == "garden"
           # anchor = "garden-event-#{@new_event.id}"
-          flash[:notice] = "Tâche de jardin créée avec succès !"
+          flash[:notice] = "Tâche de jardin créée avec succès !"
         elsif @new_event.event_category == "admin"
           # anchor = "admin-event-#{@new_event.id}"
           flash[:notice] = "All good, on oublie 😎"
@@ -93,7 +93,7 @@ class EventsController < ApplicationController
       start_date = params[:start_date]
       new_date = @event.date + 1.week
       if @event.update(date: new_date)
-        flash[:notice] = "Tâche décalée à la semaine #{new_date.strftime('%W').to_i}  !"
+        flash[:notice] = "Tâche décalée à la semaine #{new_date.strftime('%W').to_i}  !"
         if @event.event_category == "garden"
           redirect_to farm_dashboard_path(@farm, start_date: start_date)
         elsif @event.event_category == "admin"
@@ -105,13 +105,6 @@ class EventsController < ApplicationController
     elsif params[:event_category] == "dated_admin_event"
       start_date = params[:start_date]
 
-      date = params[:event][:start_date]
-      is_all_day = params[:event][:is_all_day] == '1'
-      start_hour = params[:event]["start_hour(4i)"]+":"+params[:event]["start_hour(5i)"]
-      end_hour = params[:event]["end_hour(4i)"]+":"+params[:event]["end_hour(5i)"]
-      start_date_with_hour = DateTime.parse(date+"T"+start_hour)
-      end_date_with_hour = DateTime.parse(date+"T"+end_hour)
-
       workers = params[:event][:worker_list].split(",").map{|el| el.to_i}
       @event.users.each {|w| workers.push(w.id)}
       @event.user_events.each {|ue| ue.destroy}
@@ -122,7 +115,7 @@ class EventsController < ApplicationController
         UserEvent.create(user_id: user_id, event_id: @event.id)
       end
 
-      if @event.update(description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details], event_subcategory: params[:event][:event_subcategory], start_time: start_date_with_hour, end_time: end_date_with_hour, is_all_day: is_all_day)
+      if @event.update(description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details], event_subcategory: params[:event][:event_subcategory])
         if params[:to_calendar] == "true"
           redirect_to farm_calendrier_index_path(@farm, start_date: start_date)
         else
@@ -171,11 +164,11 @@ class EventsController < ApplicationController
     start_date = params[:start_date]
     @event.destroy
     if params[:event_subcategory] == "rdv"
-      flash[:notice] = "Rendez-vous supprimé avec succès !"
+      flash[:notice] = "Rendez-vous supprimé avec succès !"
     elsif params[:event_subcategory] == "vente"
-      flash[:notice] = "Vente supprimée avec succès !"
+      flash[:notice] = "Vente supprimée avec succès !"
     else
-      flash[:notice] = "Tâche supprimée avec succès !"
+      flash[:notice] = "Tâche supprimée avec succès !"
     end
     redirect_to farm_dashboard_path(@farm, start_date: start_date)
   end
@@ -189,3 +182,4 @@ class EventsController < ApplicationController
     @farm = Farm.find(params[:farm_id])
   end
 end
+
