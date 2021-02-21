@@ -5,6 +5,21 @@
 
   <div class="page-content">
   </div>
+    <% if @user.worker %>
+      <div class="d-flex justify-content-end mb-4">
+        <div class="d-flex">
+          <% @workers.each do |worker| %>
+            <%= link_to farm_thebest_path(@farm, worker) do  %>
+              <div class="d-flex pr-1 pointer">
+                <div class="txt-avatar ml-2 <%= worker.color %>">
+                  <%= worker.initial %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   <% if @user.worker %>
     <%= render "worker_show_page", worker: @user %>
 

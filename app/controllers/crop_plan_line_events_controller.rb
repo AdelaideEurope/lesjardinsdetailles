@@ -94,6 +94,8 @@ class CropPlanLineEventsController < ApplicationController
     end
   end
 
+  private
+
   def set_crop_plan_line_event
     @crop_plan_line_event = CropPlanLineEvent.find(params[:id])
   end
