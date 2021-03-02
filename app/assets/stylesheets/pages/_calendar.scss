@@ -63,13 +63,14 @@
   display: flex;
   justify-content: flex-end;
   position: fixed;
-  padding-right: 16px;
+  padding-right: 40px;
   right: 0;
   width: 100%;
   background: white;
   padding-bottom: 16px;
   padding-top: 16px;
   margin-top: -24px;
+  margin-right: revert;
 
   &.scrolled-page-header {
     box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.2) !important;
