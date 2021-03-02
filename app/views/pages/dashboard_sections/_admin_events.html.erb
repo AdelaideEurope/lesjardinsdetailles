@@ -1,4 +1,4 @@
-<div class="dashboard-crop-plan-line-card orange" id="decharge-mentale">
+<div class="dashboard-crop-plan-line-card dashboard-admin-event-card orange" id="decharge-mentale">
   <div class="card-colored-top-part-fixed-color orange">
     <div class="card-top-part-text">Décharge mentale</div>
   </div>
@@ -8,118 +8,17 @@
         <% if admin_events.empty? %>
         <p><%= "Non, rien de rien..."  %></p>
         <% end %>
-        <% admin_events.each do |admin_event| %>
-          <div class="d-flex justify-content-between card-list-item-block" id="admin-event-<%= admin_event.id %>">
-            <div class="card-list-item-left-block">
-              <div class="desktop_only">
-                <%= link_to farm_calendrier_path(farm, admin_event, event_done: true, start_date: params[:start_date]), method: :patch do %>
-                  <div class="round-button <%= admin_event.is_done? ? 'olive' : 'green' %> m-2">
-                    <i class="fas fa-check round-txt-button"></i>
-                  </div>
-                <% end %>
-              </div>
-              <div class="card-list-item-main-info-block">
-                <p><%= admin_event.description %></p>
-              </div>
-            </div>
-            <div class="d-flex justify-content-between card-list-item-round-button-block">
-              <div class="mobile_only">
-                <%= link_to farm_calendrier_path(farm, admin_event, event_done: true, start_date: params[:start_date]), method: :patch do %>
-                  <div class="round-button green <%= admin_event.is_done? ? 'olive' : 'green' %> m-2">
-                    <i class="fas fa-check round-txt-button"></i>
-                  </div>
-                <% end %>
-              </div>
-              <div class="d-flex">
-                <div class="round-button green m-2" data-drawer-trigger aria-controls="drawer-info-admin-event-<%= admin_event.id %>" aria-expanded="false">
-                  <i class="fas fa-search round-txt-button"></i>
-                </div>
-                <div class="round-button <%= admin_event.has_comment? ? 'green' : 'lightgrey' %> m-2" data-drawer-trigger aria-controls="drawer-tour-des-jardins-comment-<%= admin_event.id %>" aria-expanded="false">
-                  <i class="fas fa-comment round-txt-button"></i>
-                </div>
-                <!--            <div class="round-button orange m-2" data-drawer-trigger aria-controls="drawer-tour-des-jardins-edit-<%= admin_event.id %>" aria-expanded="false">
-                  <i class="fas fa-pen round-txt-button"></i>
-                </div> -->
-                <%= link_to farm_calendrier_path(farm, admin_event.id, postpone: true, start_date: params[:start_date]), method: :put do %>
-                  <div class="round-button orange m-2">
-                    <i class="fas fa-redo-alt round-txt-button"></i>
-                  </div>
-                <% end %>
-              </div>
-              <div class="user-button-event">
-                <% if admin_event.has_users? %>
-                  <div class="dropleft">
-                    <div class="dropdown-toggle <%= 'd-flex justify-content-end' if admin_event.has_multiple_users? %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <% admin_event.users.each do |user| %>
-                        <div class="d-flex justify-content-end <%= 'ml-minus-24' if admin_event.has_multiple_users? %>">
-                          <div class="txt-avatar m-2 pointer <%= user.color %>"><%= user.initial %></div>
-                        </div>
-                      <% end %>
-                    </div>
-                    <div class="dropdown-menu">
-                      <div class="d-flex">
-                        <% workers.each do |worker| %>
-                          <% if admin_event.is_user?(worker) %>
-                            <%= link_to farm_user_event_path(farm, admin_event.user_event(worker.id), start_date: params[:start_date]), :method => :delete do %>
-                              <div class="d-flex pr-1 pointer">
-                                <div class="txt-avatar m-2 <%= worker.color %>">
-                                  <%= worker.initial %>
-                                  <div class="delete-user">x</div>
-                                </div>
-                              </div>
-                            <% end %>
-                          <% else %>
-                            <%= link_to farm_user_events_path(event: admin_event, worker: worker.id, start_date: params[:start_date]), :method => :post do %>
-                              <div class="d-flex pr-1 pointer">
-                                <div class="txt-avatar m-2 <%= worker.color %>">
-                                  <%= worker.initial %>
-                                </div>
-                              </div>
-                            <% end %>
-                          <% end %>
-                        <% end %>
-                      </div>
-                    </div>
-                  </div>
-                <% else %>
-                  <div class="dropleft">
-                    <div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <div class="d-flex justify-content-end">
-                        <div class="round-button green m-2">
-                          <i class="fas fa-user-plus round-txt-button"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="dropdown-menu">
-                      <div class="d-flex">
-                        <% workers.each do |worker| %>
-                          <%= link_to farm_user_events_path(event: admin_event, worker: worker.id, start_date: params[:start_date]), :method => :post do %>
-                            <div class="d-flex pr-1 pointer">
-                              <div class="txt-avatar m-2 <%= worker.color %>">
-                                <%= worker.initial %>
-                              </div>
-                            </div>
-                          <% end %>
-                        <% end %>
-                      </div>
-                    </div>
-                  </div>
-                <% end %>
-              </div>
-            </div>
+        <%= render "pages/dashboard_sections/done_todo_admin_events", farm: farm, admin_events: todo_admin_events, workers: workers, event: event %>
+
+        <% if !done_admin_events.empty? %>
+          <a class="collapsed" data-toggle="collapse" href="#collapse-done-admin-<%= params[:start_date] %>" aria-expanded="false" aria-controls="collapse-done-admin-<%= params[:start_date] %>">
+            <div class="d-flex"><h5><p class="mt-4">Déjà fait ! 💪🏻</p></h5><i class="fa" aria-hidden="true"></i></div>
+          </a>
+          <div class="collapse" id="collapse-done-admin-<%= params[:start_date] %>">
+            <%= render "pages/dashboard_sections/done_todo_admin_events", farm: farm, admin_events: done_admin_events, workers: workers, event: event %>
           </div>
-
-
-          <!-- drawer comment admin event -->
-          <%= render "pages/dashboard_drawers/drawer_comment_admin_event", admin_event_id: admin_event.id, admin_event_description: admin_event.description, admin_event_details: admin_event.details, admin_event_comment: admin_event.comment %>
-
-
-          <!-- À AJOUTER À LA CLASSE DRAWER SI ON VEUT QUE LE DRAWER SOIT OUVERT QUAND ON A MIS À JOUR -->
-           <%#= params[:event].to_i == admin_event.id ? 'is-active is-visible' : '' %>
-
-          <!-- drawer info admin event -->
-          <%= render "pages/dashboard_drawers/drawer_info_admin_event", admin_event: admin_event, farm: farm %>
         <% end %>
+
       </div>
     </div>
     <div class="d-flex justify-content-end card-bottom-section-with-icon" id="new-admin-event">

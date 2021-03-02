@@ -60,6 +60,19 @@
   }
 }
 
+.dashboard-admin-event-card {
+  [data-toggle="collapse"] .fa:before {
+    content: "\f078";
+    font-size: 12px;
+    padding-left: 12px;
+    padding-top: 2px;
+    color: $green;
+  }
+  [data-toggle="collapse"] .fa {
+    line-height: 4.35;
+  }
+}
+
 [data-toggle="collapse"].collapsed .fa:before {
   content: "\f054";
   font-size: 12px;
@@ -78,6 +91,19 @@
   }
   [data-toggle="collapse"].collapsed .fa {
     line-height: 1.35;
+  }
+}
+
+.dashboard-admin-event-card {
+  [data-toggle="collapse"].collapsed .fa:before {
+    content: "\f054";
+    font-size: 12px;
+    padding-left: 12px;
+    padding-top: 2px;
+    color: $green;
+  }
+  [data-toggle="collapse"].collapsed .fa {
+    line-height: 4.35;
   }
 }
 
