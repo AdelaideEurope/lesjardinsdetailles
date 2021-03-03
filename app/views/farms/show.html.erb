@@ -3,8 +3,9 @@
     <h2>Les Jardins détaillés <span class="ml-2">✨</span></h2>
   </div>
 
-  <div class="page-content justify-content-end">
-    <div class="d-flex">
+  <div class="page-content">
+  </div>
+<!--     <div class="d-flex">
       <div></div>
       <div class="progress" data-percentage="0">
           <span class="progress-left">
@@ -21,81 +22,83 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="container">
-      <!-- <div class="farm-actions">
-          <div></div>
-      </div> -->
-      <div class="mt-4">
-        <h3>Infos de la ferme</h3>
-        <div>
-          <%= @farm.full_name %>
-        </div>
-        <div>
-          <%= @farm.address %>
-        </div>
-        <div>
-          <%= @farm.zip_code %>
-          <%= @farm.city %>
-        </div>
-      </div>
-
-      <h3 class="mt-4">Clients directs de la ferme</h3>
-      <% @clients.each do |client| %>
-        <div>
-          <div>
-            <%= link_to farm_thebest_path(@farm, client) do  %>
-              <span class="raisin"><%= client.first_name %> <%= client.last_name %> <%= client.phone_number ? "-" : "" %> <%= client.phone_number %></span>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-
-      <h3 class="mt-4">Travailleurs, travailleuses ⚒</h3>
+    </div> -->
+  <div class="d-flex justify-content-end mb-4">
+    <div class="d-flex">
       <% @workers.each do |worker| %>
-        <div>
-          <div>
-            <%= link_to farm_thebest_path(@farm, worker) do  %>
-              <span class="raisin"><%= worker.first_name %> <%= worker.last_name %> <%= worker.phone_number ? "-" : "" %> <%= worker.phone_number %></span>
+        <%= link_to farm_thebest_path(@farm, worker) do  %>
+          <div class="d-flex pr-1 pointer">
+            <div class="txt-avatar ml-2 <%= worker.color %>">
+              <%= worker.initial %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <!-- <div class="farm-actions">
+      <div></div>
+  </div> -->
+  <!-- <div class="mt-4">
+    <h3>Infos de la ferme</h3>
+    <div>
+      <%= @farm.full_name %>
+    </div>
+    <div>
+      <%= @farm.address %>
+    </div>
+    <div>
+      <%= @farm.zip_code %>
+      <%= @farm.city %>
+    </div>
+  </div> -->
+
+  <!-- <h3 class="mt-4">Clients directs de la ferme</h3>
+  <% @clients.each do |client| %>
+    <div>
+      <div>
+        <%= link_to farm_thebest_path(@farm, client) do  %>
+          <span class="raisin"><%= client.first_name %> <%= client.last_name %> <%= client.phone_number ? "-" : "" %> <%= client.phone_number %></span>
+        <% end %>
+      </div>
+    </div>
+  <% end %> -->
+
+
+  <h3 class="mt-4">Quelques groupies</h3>
+  <% @subscribers.each do |subscriber| %>
+    <div>
+      <div>
+        <span class="raisin"><%= subscriber.first_name %> <%= subscriber.email %></span>
+      </div>
+    </div>
+  <% end %>
+  <div><%= link_to farm_newsletter_subscribers_path(@farm) do %>Voir tout le fan club<% end %></div>
+
+  <div class="w-48-desktop mt-4">
+    <div class="dashboard-crop-plan-line-card orange">
+      <div class="card-colored-top-part-fixed-color orange">
+        <div class="card-top-part-text">Les points de vente</div>
+      </div>
+      <div class="card-bottom-part">
+        <div class="card-bottom-part-text">
+          <div class="mt-2 pointer">
+            <ul>
+              <% @outlets.each do |outlet| %>
+              <li>
+                <%= link_to farm_pointsdevente_path(@farm, outlet.id) do %>
+                  <%= outlet.full_name %>
+                <% end %>
+              </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end card-bottom-section-with-icon">
+          <div class="card-bottom-right-triangle orange">
+            <%= link_to new_farm_pointsdevente_path(current_user.farm_id), class: 'white' do %>
+              <i class="fas fa-plus"></i>
             <% end %>
-          </div>
-        </div>
-      <% end %>
-
-      <h3 class="mt-4">Quelques groupies</h3>
-      <% @subscribers.each do |subscriber| %>
-        <div>
-          <div>
-            <span class="raisin"><%= subscriber.first_name %> <%= subscriber.email %></span>
-          </div>
-        </div>
-      <% end %>
-      <div><%= link_to farm_newsletter_subscribers_path(@farm) do %>Voir tout le fan club<% end %></div>
-
-      <div class="w-48-desktop mt-4">
-        <div class="dashboard-crop-plan-line-card orange">
-          <div class="card-colored-top-part-fixed-color orange">
-            <div class="card-top-part-text">Les meilleurs points de vente</div>
-          </div>
-          <div class="card-bottom-part">
-            <div class="card-bottom-part-text">
-              <div class="mt-2 pointer">
-
-                <% @outlets.each do |outlet| %>
-                  <%= link_to farm_pointsdevente_path(outlet) do %>
-                    <%= outlet.full_name %>
-                  <% end %>
-                <% end %>
-
-              </div>
-            </div>
-            <div class="d-flex justify-content-end card-bottom-section-with-icon">
-              <div class="card-bottom-right-triangle orange">
-                <%= link_to farm_pointsdevente_index_path(current_user.farm_id), class: 'white' do %>
-                  <i class="fas fa-search-plus"></i>
-                <% end %>
-              </div>
-            </div>
           </div>
         </div>
       </div>

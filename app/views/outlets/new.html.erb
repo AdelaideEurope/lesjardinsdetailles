@@ -1,0 +1,11 @@
+<div class="container custom-container">
+  <div class="page-header non-scrolled-page-header scrollable-page-header d-flex justify-content-between">
+    <h2>Créer un nouveau point de vente</h2>
+  </div>
+  <div class="page-content">
+  </div>
+  <div class="container">
+    <%= render 'form', farm: @farm, outlet: @outlet, url: farm_pointsdevente_index_path(@farm.id) %>
+  </div>
+</div>
+

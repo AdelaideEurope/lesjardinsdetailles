@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :newsletter_subscribers, only: [ :index, :new, :create ]
     resources :crop_plan_line_user_events, only: [ :create, :update, :destroy ]
     resources :ventes, controller: 'sales', only: [ :index, :show ]
-    resources :pointsdevente, controller: 'outlets', only: [ :index, :show ]
+    resources :pointsdevente, controller: 'outlets', only: [ :index, :show, :new, :create ]
     resources :thebest, controller: 'users', only: [ :show ]
     resources :user_events, only: [ :create, :update, :destroy ]
     get 'dashboard', to: 'pages#dashboard'

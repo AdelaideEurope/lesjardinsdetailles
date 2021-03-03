@@ -8,8 +8,9 @@
     </div>
   </div>
   <div class="page-content">
-    <div class="d-flex">
-      <div></div>
+    <div>
+      <h3><%= @newsletter_subscribers.length %> abonné·e·s</h3>
+
       <ul>
         <% @newsletter_subscribers.each do |subscriber| %>
           <li><%= subscriber.first_name %> - <%= subscriber.email %></li>

@@ -1,0 +1,77 @@
+<%= simple_form_for [farm, outlet], url: url do |f| %>
+  <div class="flex-wrap d-flex justify-content-between">
+    <div class="w-48-desktop">
+      <h3 class="mt-4">Infos principales</h3>
+      <div class="simple-card">
+        <div class=" d-sm-flex justify-content-between">
+          <div class="w-47-desktop">
+            <%= f.input :full_name, :label => "Nom complet", required: true %>
+            <%= f.input :outlet_group_id, :label => "Catégorie de point de vente", required: true %>
+            <div class="d-flex">
+              <%= f.input :picture, as: :file, :label => "Logo" %>
+              <%= f.input :color, as: :color, :label => "Couleur" %>
+            </div>
+          </div>
+          <div class="w-47-desktop">
+            <%= f.input :shortened_name, :label => "Nom raccourci", required: true %>
+
+          </div>
+        </div>
+            <%= f.input :comment, :label => "Commentaire" %>
+
+      </div>
+    </div>
+    <div class="w-48-desktop">
+      <h3 class="mt-4">Coordonnées</h3>
+      <div class="simple-card justify-content-between">
+        <div>
+          <%= f.input :address, :label => "Adresse", required: true %>
+        </div>
+        <div>
+          <div class="d-flex">
+            <div class="mr-4">
+              <%= f.input :zip_code, :label => "Code postal", required: true %>
+            </div>
+            <div class="flex-grow-1">
+              <%= f.input :city, :label => "Ville", required: true %>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="d-flex">
+            <div class="mr-4 flex-grow-1">
+              <%= f.input :email, :label => "Email", required: true %>
+            </div>
+            <div>
+              <%= f.input :phone_number, :label => "Numéro de téléphone", required: true %>
+            </div>
+          </div>
+        </div>
+        <div><%= f.input :phone_number_owner, :label => "Contact principal", required: true %></div>
+
+      </div>
+    </div>
+    <div class="w-100">
+      <h3 class="mt-4">C'est bien beau tout ça, mais le paiement ça s'passe comment ?</h3>
+      <div class="simple-card d-sm-flex justify-content-between">
+        <%= f.input :has_customers, :label => "A des clients ?" %>
+        <%= f.input :preferred_payment_method, :label => "Mode de paiement préféré" %>
+        <%= f.input :invoicing, :label => "Facture ?" %>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex">
+    <%= f.submit "Valider", class: "btn txt-button mt-4 mx-auto" %>
+  </div>
+<% end %>
+
+<!--
+
+ color: nil,
+ preferred_payment_method: nil,
+ comment: nil,
+ invoicing: nil,
+ created_at: nil,
+ updated_at: nil,
+ phone_number_owner: nil>
+ -->
