@@ -64,6 +64,11 @@
     }
   }
 
+  .start-time {
+    width: fit-content;
+    display: flex;
+  }
+
   #modal-new-dated-admin-event {
     .modal-body {
       padding: 4px !important;
