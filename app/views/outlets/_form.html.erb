@@ -55,7 +55,7 @@
       <h3 class="mt-4">C'est bien beau tout ça, mais le paiement ça s'passe comment ?</h3>
       <div class="simple-card d-sm-flex justify-content-between">
         <%= f.input :has_customers, :label => "A des clients ?" %>
-        <%= f.input :preferred_payment_method, :label => "Mode de paiement préféré", collection: ["Chèque", "Espèces"] %>
+        <%= f.input :preferred_payment_method, :label => "Mode de paiement préféré", collection: ["Chèque", "Espèces", "Virement"] %>
         <%= f.input :invoicing, :label => "Facture ?" %>
       </div>
     </div>

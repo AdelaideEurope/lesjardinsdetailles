@@ -9,7 +9,7 @@
   margin-left:0; margin-right: 0;
 }
 
-.dropdown-menu .test {
+.dropdown-menu .dropdown-farm-create {
   position: relative;
 }
 .nav-item .submenu{
@@ -21,7 +21,7 @@
   right:100%; left:auto;
 }
 
-.dropdown-menu > .test:hover{ background-color: #f1f1f1 }
-.dropdown-menu > .test:hover > .submenu{
+.dropdown-menu > .dropdown-farm-create:hover{ background-color: #f1f1f1 }
+.dropdown-menu > .dropdown-farm-create:hover > .submenu{
   display: block;
 }
