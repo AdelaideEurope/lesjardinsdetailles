@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_03_210053) do
+ActiveRecord::Schema.define(version: 2021_03_07_141355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -176,9 +176,9 @@ ActiveRecord::Schema.define(version: 2021_02_03_210053) do
     t.string "city"
     t.string "email"
     t.string "phone_number"
-    t.integer "ht_turnover"
-    t.integer "ttc_turnover"
-    t.string "total_paid_amount"
+    t.integer "ht_turnover", default: 0
+    t.integer "ttc_turnover", default: 0
+    t.string "total_paid_amount", default: "0"
     t.boolean "has_customers"
     t.bigint "outlet_group_id", null: false
     t.bigint "farm_id", null: false
@@ -189,6 +189,7 @@ ActiveRecord::Schema.define(version: 2021_02_03_210053) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "phone_number_owner"
+    t.decimal "total_paid", default: "0.0"
     t.index ["farm_id"], name: "index_outlets_on_farm_id"
     t.index ["outlet_group_id"], name: "index_outlets_on_outlet_group_id"
   end
