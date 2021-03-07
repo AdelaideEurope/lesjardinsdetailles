@@ -3,6 +3,14 @@ html {
   overflow: auto !important;
 }
 
+
+.green-hover {
+  color: $green;
+  &:hover {
+    color: $green;
+  }
+}
+
 .custom-container {
   margin-top: 24px;
   margin-bottom: 24px;

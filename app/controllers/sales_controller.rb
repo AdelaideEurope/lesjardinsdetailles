@@ -1,10 +1,10 @@
 class SalesController < ApplicationController
-  before_action :set_farm, only: [:new, :create, :index]
+  before_action :set_farm, only: [:new, :create, :index, :update]
   before_action :set_outlet, only: [:new, :create]
-  before_action :set_sale, only: [:show]
+  before_action :set_sale, only: [:show, :update]
 
   def index
-    @sales = Sale.all
+    @sales = Sale.all.order("date DESC")
     authorize @sales
     @outlets = Outlet.all
   end
@@ -69,7 +69,16 @@ class SalesController < ApplicationController
       flash[:notice] = "#{sales_added} ventes créées avec succès !"
     end
     authorize @sale
+  end
 
+  def update
+    if params[:add_comment]
+      if @sale.update(comment: params[:sale][:comment])
+        redirect_to farm_ventes_path(@farm)
+        flash[:notice] = "Commentaire ajouté avec succès !"
+      end
+    end
+    authorize @sale
   end
 
 
