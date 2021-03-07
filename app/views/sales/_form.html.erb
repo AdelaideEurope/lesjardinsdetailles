@@ -1,0 +1,42 @@
+<%= form_with model: sale, url: url, method: :post, local: true do |f| %>
+  <div class="flex-wrap d-flex justify-content-between">
+    <div class="w-48-desktop">
+      <h3 class="mt-4">Vente unique ?</h3>
+      <div class="simple-card">
+        <h4>Date de la vente</h4>
+        <%= f.date_field :date, :label => "Date" %>
+        <div class="mt-4">
+          <h4>Commentaire</h4>
+          <%= f.text_area :comment, rows: "4", class: "w-100" %>
+        </div>
+      </div>
+    </div>
+    <div  class="w-48-desktop">
+      <h3 class="mt-4">Ou vente récurrente ?</h3>
+      <div class="simple-card">
+        <div class="d-sm-flex justify-content-between">
+          <div>
+            <h4>Date de la première vente</h4>
+            <%= f.date_field :first_date, :label => "Date" %>
+          </div>
+          <div>
+          <h4 class="pt-4 pt-sm-0">Date de la dernière vente</h4>
+            <%= f.date_field :last_date, :label => "Date" %>
+          </div>
+        </div>
+        <div class="mt-4">
+          <h4>Fréquence</h4>
+          <%= f.select :frequency, ["", "Toutes les semaines", "Une semaine sur deux"], class: "w-100" %>
+        </div>
+        <div class="mt-4">
+          <h4>Commentaire</h4>
+          <h5><i class="fas fa-info-circle"></i> Ce commentaire sera présent sur toutes les ventes de la période</h5>
+          <%= f.text_area :recurrent_comment, rows: "4", class: "w-100" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex">
+    <%= f.submit "Valider", class: "btn txt-button mt-4 mx-auto" %>
+  </div>
+<% end %>

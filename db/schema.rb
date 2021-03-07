@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_07_141355) do
+ActiveRecord::Schema.define(version: 2021_03_07_170235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -189,7 +189,8 @@ ActiveRecord::Schema.define(version: 2021_03_07_141355) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "phone_number_owner"
-    t.decimal "total_paid", default: "0.0"
+    t.integer "total_paid", default: 0
+    t.boolean "has_invoice", default: false
     t.index ["farm_id"], name: "index_outlets_on_farm_id"
     t.index ["outlet_group_id"], name: "index_outlets_on_outlet_group_id"
   end
@@ -245,10 +246,10 @@ ActiveRecord::Schema.define(version: 2021_03_07_141355) do
   create_table "sales", force: :cascade do |t|
     t.datetime "date"
     t.bigint "outlet_id", null: false
-    t.integer "ht_total"
-    t.integer "ttc_total"
-    t.integer "rounded_ht_total"
-    t.integer "rounded_ttc_total"
+    t.integer "ht_total", default: 0
+    t.integer "ttc_total", default: 0
+    t.integer "rounded_ht_total", default: 0
+    t.integer "rounded_ttc_total", default: 0
     t.boolean "recurrent"
     t.string "frequency"
     t.string "comment"

@@ -6,7 +6,7 @@
         <div class=" d-sm-flex justify-content-between">
           <div class="w-47-desktop">
             <%= f.input :full_name, :label => "Nom complet", required: true %>
-            <%= f.input :outlet_group_id, :label => "Catégorie de point de vente", required: true %>
+            <%= f.input :outlet_group_id, :label => "Catégorie de point de vente", required: true, collection: @outlet_groups %>
             <div class="d-flex">
               <%= f.input :picture, as: :file, :label => "Logo" %>
               <%= f.input :color, as: :color, :label => "Couleur" %>
@@ -55,7 +55,7 @@
       <h3 class="mt-4">C'est bien beau tout ça, mais le paiement ça s'passe comment ?</h3>
       <div class="simple-card d-sm-flex justify-content-between">
         <%= f.input :has_customers, :label => "A des clients ?" %>
-        <%= f.input :preferred_payment_method, :label => "Mode de paiement préféré" %>
+        <%= f.input :preferred_payment_method, :label => "Mode de paiement préféré", collection: ["Chèque", "Espèces"] %>
         <%= f.input :invoicing, :label => "Facture ?" %>
       </div>
     </div>

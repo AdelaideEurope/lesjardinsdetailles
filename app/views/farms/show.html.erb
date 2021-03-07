@@ -1,6 +1,26 @@
 <div class="container mt-4 custom-container">
-  <div class="page-header non-scrolled-page-header scrollable-page-header">
+  <div class="page-header non-scrolled-page-header scrollable-page-header d-flex justify-content-between">
     <h2>Les Jardins détaillés <span class="ml-2">✨</span></h2>
+    <div class="pr-38 d-flex">
+      <div class="dropdown show">
+        <div class="round-button green" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-plus round-txt-button"></i></div>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <%= link_to new_farm_pointsdevente_path(current_user.farm_id), class: 'white dropdown-item' do %>
+            Créer un point de vente
+          <% end %>
+          <div class="test dropleft"><a class="dropdown-item dropdown-toggle" href="#">Créer une vente</a>
+            <% @outlets.each do |outlet| %>
+              <ul class="submenu dropdown-menu">
+                <li><%= link_to new_farm_pointsdevente_sale_path(@farm, outlet), class: 'white dropdown-item' do %><%= outlet.full_name %><% end %></li>
+              </ul>
+            <% end %>
+          </div>
+          <%= link_to new_farm_pointsdevente_path(current_user.farm_id), class: 'white dropdown-item' do %>
+            Créer une facture
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="page-content">
@@ -86,6 +106,9 @@
             <ul>
               <% @outlets.each do |outlet| %>
               <li>
+                <% if outlet.photo.attached? %>
+                <%= cl_image_tag outlet.photo.key %>
+                <% end %>
                 <%= link_to farm_pointsdevente_path(@farm, outlet.id) do %>
                   <%= outlet.full_name %>
                 <% end %>

@@ -16,4 +16,28 @@ class SalePolicy < ApplicationPolicy
       true
     end
   end
+
+  def new?
+    if user.manager
+      true
+    end
+  end
+
+  def create?
+    if user.manager
+      true
+    end
+  end
+
+  def edit?
+    if user.manager
+      true
+    end
+  end
+
+  def update?
+    if user.manager
+      true
+    end
+  end
 end
