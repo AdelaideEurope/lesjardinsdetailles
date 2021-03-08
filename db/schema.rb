@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_07_170235) do
+ActiveRecord::Schema.define(version: 2021_03_08_193755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -258,6 +258,22 @@ ActiveRecord::Schema.define(version: 2021_03_07_170235) do
     t.index ["outlet_id"], name: "index_sales_on_outlet_id"
   end
 
+  create_table "sales_lines", force: :cascade do |t|
+    t.date "date"
+    t.bigint "bed_id"
+    t.bigint "product_id", null: false
+    t.integer "ht_unit_price", default: 0
+    t.integer "ttc_unit_price", default: 0
+    t.integer "ht_total", default: 0
+    t.integer "ttc_total", default: 0
+    t.bigint "sale_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["bed_id"], name: "index_sales_lines_on_bed_id"
+    t.index ["product_id"], name: "index_sales_lines_on_product_id"
+    t.index ["sale_id"], name: "index_sales_lines_on_sale_id"
+  end
+
   create_table "user_events", force: :cascade do |t|
     t.bigint "event_id", null: false
     t.bigint "user_id", null: false
@@ -328,6 +344,9 @@ ActiveRecord::Schema.define(version: 2021_03_07_170235) do
   add_foreign_key "products", "farms"
   add_foreign_key "products", "product_groups"
   add_foreign_key "sales", "outlets"
+  add_foreign_key "sales_lines", "beds"
+  add_foreign_key "sales_lines", "products"
+  add_foreign_key "sales_lines", "sales"
   add_foreign_key "user_events", "events"
   add_foreign_key "user_events", "users"
   add_foreign_key "user_presence_periods", "presence_periods"

@@ -1,3 +1,26 @@
-<div class="container mt-4 custom-container">
-  <h2>Vente <%= @sale.outlet.full_name %> du <%= @sale.date.to_date.strftime('%-d') %> <%= I18n.t(:month_names)[@sale.date.to_date.strftime('%b').to_sym] %></h2>
+<div class="container custom-container">
+  <div class="page-header non-scrolled-page-header scrollable-page-header d-flex justify-content-between">
+    <h2>Vente <%= @sale.outlet.full_name %> du <%= @sale.date.to_date.strftime('%-d') %> <%= I18n.t(:month_names)[@sale.date.to_date.strftime('%b').to_sym] %></h2>
+  </div>
+
+  <div class="page-content">
+  </div>
+  <%= form_with model: @new_sale_line, url: farm_sales_lines_path(@farm) do |form| %>
+    <table class="table mt-4">
+      <thead>
+        <tr>
+          <th scope="col w-50">Légume</th>
+          <th scope="col w-50">Planche</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= form.select :product, @products.pluck(:name), class: "w-75" %></td>
+          <td><%= form.select :bed, @beds.pluck(:name), class: "w-75" %></td>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
 </div>
+

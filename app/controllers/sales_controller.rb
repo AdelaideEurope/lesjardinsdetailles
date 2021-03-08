@@ -1,5 +1,5 @@
 class SalesController < ApplicationController
-  before_action :set_farm, only: [:new, :create, :index, :update]
+  before_action :set_farm, only: [:new, :create, :index, :update, :show]
   before_action :set_outlet, only: [:new, :create]
   before_action :set_sale, only: [:show, :update]
 
@@ -12,6 +12,10 @@ class SalesController < ApplicationController
   def show
     @sale = Sale.find(params[:id])
     authorize @sale
+    @new_sale_line = SalesLine.new
+    @products = Product.where(farm_id: @farm.id).order(:slug)
+    @beds = Bed.all
+
   end
 
   def new
