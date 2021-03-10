@@ -46,6 +46,9 @@ gem 'caxlsx_rails'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
+#form - select2
+gem "select2-rails"
+
 gem 'rails-i18n', '~> 6.0.0'
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'

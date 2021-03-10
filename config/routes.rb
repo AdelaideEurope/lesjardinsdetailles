@@ -18,7 +18,7 @@ Rails.application.routes.draw do
       resources :sales, only: [ :index, :show, :new, :create, :update, :destroy ]
     end
     resources :thebest, controller: 'users', only: [ :show ]
-    resources :sales_lines, only: [ :create ]
+    resources :sales_lines, only: [ :index, :show, :new, :create, :destroy ]
     resources :user_events, only: [ :create, :update, :destroy ]
     get 'dashboard', to: 'pages#dashboard'
   end

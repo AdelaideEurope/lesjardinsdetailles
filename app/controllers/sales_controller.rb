@@ -12,10 +12,10 @@ class SalesController < ApplicationController
   def show
     @sale = Sale.find(params[:id])
     authorize @sale
-    @new_sale_line = SalesLine.new
-    @products = Product.where(farm_id: @farm.id).order(:slug)
-    @beds = Bed.all
-
+    @new_sales_line = SalesLine.new
+    @sales_lines = @sale.sales_lines
+    @beds = Bed.all.map { |bed| [bed.full_name, bed.id] }
+    @products = Product.where(farm_id: @farm.id).order(:slug).map { |product| [product.name.capitalize, product.id] }
   end
 
   def new

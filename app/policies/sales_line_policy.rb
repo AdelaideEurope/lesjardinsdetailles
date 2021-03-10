@@ -10,4 +10,10 @@ class SalesLinePolicy < ApplicationPolicy
       true
     end
   end
+
+  def destroy?
+    if user.manager
+      true
+    end
+  end
 end

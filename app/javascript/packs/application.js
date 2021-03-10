@@ -24,6 +24,7 @@ require("channels")
 
 // External imports
 import "bootstrap";
+import 'select2/dist/css/select2.css';
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
@@ -31,6 +32,7 @@ import { drawerOpener } from '../components/openDrawer.js';
 import { initUpdateNavbarOnScroll } from '../components/navbarScroll.js';
 import { dateForCalendarEvent } from '../components/dateForCalendarEvent.js';
 import { choseWorker } from '../components/choseWorker.js';
+import { initSelect2 } from '../plugins/init_select2';
 
 
 
@@ -40,5 +42,5 @@ document.addEventListener('turbolinks:load', () => {
   initUpdateNavbarOnScroll();
   dateForCalendarEvent();
   choseWorker();
-  // initSelect2();
+  initSelect2();
 });

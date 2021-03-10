@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_08_193755) do
+ActiveRecord::Schema.define(version: 2021_03_10_212220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2021_03_08_193755) do
     t.boolean "greenhouse"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "full_name"
     t.index ["garden_id"], name: "index_beds_on_garden_id"
   end
 
@@ -269,6 +270,8 @@ ActiveRecord::Schema.define(version: 2021_03_08_193755) do
     t.bigint "sale_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "quantity", default: 0
+    t.string "unit"
     t.index ["bed_id"], name: "index_sales_lines_on_bed_id"
     t.index ["product_id"], name: "index_sales_lines_on_product_id"
     t.index ["sale_id"], name: "index_sales_lines_on_sale_id"
