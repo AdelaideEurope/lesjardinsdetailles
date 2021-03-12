@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_10_212220) do
+ActiveRecord::Schema.define(version: 2021_03_12_203549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -179,7 +179,6 @@ ActiveRecord::Schema.define(version: 2021_03_10_212220) do
     t.string "phone_number"
     t.integer "ht_turnover", default: 0
     t.integer "ttc_turnover", default: 0
-    t.string "total_paid_amount", default: "0"
     t.boolean "has_customers"
     t.bigint "outlet_group_id", null: false
     t.bigint "farm_id", null: false

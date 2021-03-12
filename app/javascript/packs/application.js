@@ -32,6 +32,7 @@ import { drawerOpener } from '../components/openDrawer.js';
 import { initUpdateNavbarOnScroll } from '../components/navbarScroll.js';
 import { dateForCalendarEvent } from '../components/dateForCalendarEvent.js';
 import { choseWorker } from '../components/choseWorker.js';
+import { autoFillPrice } from '../components/autoFillPrice.js';
 import { initSelect2 } from '../plugins/init_select2';
 
 
@@ -43,4 +44,5 @@ document.addEventListener('turbolinks:load', () => {
   dateForCalendarEvent();
   choseWorker();
   initSelect2();
+  autoFillPrice();
 });

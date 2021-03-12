@@ -1,6 +1,9 @@
 <div class="container custom-container">
   <div class="page-header non-scrolled-page-header scrollable-page-header d-flex justify-content-between">
-    <h2>Vente <%= @sale.outlet.full_name %> du <%= @sale.date.to_date.strftime('%-d') %> <%= I18n.t(:month_names)[@sale.date.to_date.strftime('%b').to_sym] %></h2>
+    <h2>Vente <%= link_to farm_pointsdevente_path(@farm, @sale.outlet), class: "green-hover" do %><%= @sale.outlet.full_name %><% end %> du <%= @sale.date.to_date.strftime('%-d') %> <%= I18n.t(:month_names)[@sale.date.to_date.strftime('%b').to_sym] %></h2>
+    <div class="pr-38 d-flex">
+      <%= get_price_in_cents(@sale.ttc_total) %>
+    </div>
   </div>
 
   <div class="page-content">
@@ -24,7 +27,7 @@
       <tbody>
         <% @sales_lines.each do |line| %>
           <tr>
-            <td><%= line.product.name %></td>
+            <td><%= line.product.name.capitalize %></td>
             <td><%= line.bed.garden.name %> - <%= line.bed.name %></td>
             <td><%= line.unit %></td>
             <td><%= get_price_in_cents(line.ht_unit_price) %></td>
@@ -34,7 +37,7 @@
             <td><%= get_price_in_cents(line.ttc_total) %></td>
             <td>
               <%= link_to farm_sales_line_path(@farm, line.id), method: :delete, data: { confirm: "T'es #{current_user.is_female? ? 'sûre' : 'sûr'} ? 🤨"} do %>
-                <div class="round-button red m-2">
+                <div class="round-button red">
                   <i class="fas fa-times round-txt-button"></i>
                 </div>
               <% end %>
@@ -45,11 +48,11 @@
           <td><%= form.select :product, @products %></td>
           <td><%= form.select :bed, @beds %></td>
           <td><%= form.select :unit, ["botte", "pièce", "kg", "unité"] %></td>
-          <td><%= form.number_field :ht_unit_price, class: "price-column" %></td>
-          <td><%= form.number_field :ttc_unit_price, class: "price-column" %></td>
-          <td><%= form.number_field :quantity, class: "price-column" %></td>
-          <td><%= form.number_field :ht_total, class: "price-column" %></td>
-          <td><div><%= form.number_field :ttc_total, class: "price-column" %></div></td>
+          <td><%= form.number_field :ht_unit_price, step: 0.01, class: "price-column" %></td>
+          <td><%= form.number_field :ttc_unit_price, step: 0.01, class: "price-column" %></td>
+          <td><%= form.number_field :quantity, step: 0.01, class: "price-column" %></td>
+          <td><%= form.number_field :ht_total, step: 0.01, class: "price-column" %></td>
+          <td><div><%= form.number_field :ttc_total, step: 0.01, class: "price-column" %></div></td>
           <td><%= form.submit value: "Valider", 'data-disable-with': "..." %></td>
         </tr>
       </tbody>

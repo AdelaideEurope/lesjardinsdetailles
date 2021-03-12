@@ -2,7 +2,20 @@
   <div class="page-header non-scrolled-page-header scrollable-page-header d-flex justify-content-between">
     <h2>Les Jardins détaillés <span class="ml-2">✨</span></h2>
     <div class="pr-38 d-flex">
-      <div class="dropdown show">
+      <div class="d-flex justify-content-end mb-4">
+    <div class="d-flex">
+      <% @workers.each do |worker| %>
+        <%= link_to farm_thebest_path(@farm, worker) do  %>
+          <div class="d-flex pr-1 pointer">
+            <div class="txt-avatar ml-2 <%= worker.color %>">
+              <%= worker.initial %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+      <div class="dropdown show ml-4">
         <div class="round-button green" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-plus round-txt-button"></i></div>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
           <%= link_to new_farm_pointsdevente_path(current_user.farm_id), class: 'white dropdown-item' do %>
@@ -21,6 +34,7 @@
         </div>
       </div>
     </div>
+
   </div>
 
   <div class="page-content">
@@ -43,19 +57,7 @@
         </div>
       </div>
     </div> -->
-  <div class="d-flex justify-content-end mb-4">
-    <div class="d-flex">
-      <% @workers.each do |worker| %>
-        <%= link_to farm_thebest_path(@farm, worker) do  %>
-          <div class="d-flex pr-1 pointer">
-            <div class="txt-avatar ml-2 <%= worker.color %>">
-              <%= worker.initial %>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
-  </div>
+
   <!-- <div class="farm-actions">
       <div></div>
   </div> -->

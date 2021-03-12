@@ -1,5 +1,5 @@
 class OutletsController < ApplicationController
-  before_action :set_farm, only: [:new, :create]
+  before_action :set_farm, only: [:new, :create, :show]
   before_action :set_outlet, only: [:show]
 
   def index
@@ -9,6 +9,7 @@ class OutletsController < ApplicationController
 
   def show
     authorize @outlet
+    @sales = @outlet.sales
   end
 
   def new
