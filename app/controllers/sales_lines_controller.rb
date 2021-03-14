@@ -20,7 +20,7 @@ class SalesLinesController < ApplicationController
       outlet_ttc_turnover = outlet.ttc_turnover += ttc_total
       farm_ht_turnover = @farm.ht_turnover += ht_total
       farm_ttc_turnover = @farm.ttc_turnover += ttc_total
-      sale.update(ht_total: ht_total, ttc_total: ttc_total)
+      sale.update(ht_total: sale_ht_total, ttc_total: sale_ttc_total)
       outlet.update(ht_turnover: outlet_ht_turnover, ttc_turnover: outlet_ttc_turnover)
       @farm.update(ht_turnover: farm_ht_turnover, ttc_turnover: farm_ttc_turnover)
       redirect_to farm_pointsdevente_sale_path(@farm, outlet, sale)
