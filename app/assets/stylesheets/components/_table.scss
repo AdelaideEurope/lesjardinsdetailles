@@ -11,3 +11,22 @@
 .price-column {
   width: 80px;
 }
+
+.total-line, .total-lines {
+  td {
+    border-top: none;
+  }
+}
+
+.total-line {
+  td.total-separation-line {
+    border-top: 2px solid $lightgrey;
+  }
+}
+
+
+.new-sales-line {
+  input {
+    border-bottom: none !important;
+  }
+}

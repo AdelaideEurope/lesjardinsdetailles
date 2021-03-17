@@ -1,7 +1,7 @@
 <div class="container custom-container">
   <div class="page-header non-scrolled-page-header scrollable-page-header d-flex justify-content-between">
     <h2>Vente <%= link_to farm_pointsdevente_path(@farm, @sale.outlet), class: "green-hover" do %><%= @sale.outlet.full_name %><% end %> du <%= @sale.date.to_date.strftime('%-d') %> <%= I18n.t(:month_names)[@sale.date.to_date.strftime('%b').to_sym] %></h2>
-    <div class="pr-38 d-flex">
+    <div class="pr-38 d-flex fs-16 fw-600">
       <%= get_price_in_cents(@sale.ttc_total) %>
     </div>
   </div>
@@ -15,11 +15,11 @@
           <th scope="col">Légume</th>
           <th scope="col">Planche</th>
           <th scope="col">Unité</th>
-          <th scope="col">PU HT</th>
-          <th scope="col">PU TTC</th>
-          <th scope="col">Quantité</th>
-          <th scope="col">Total HT</th>
-          <th scope="col">Total TTC</th>
+          <th scope="col" class="text-right">PU HT</th>
+          <th scope="col" class="text-right">PU TTC</th>
+          <th scope="col" class="text-right">Quantité</th>
+          <th scope="col" class="text-right">Montant HT</th>
+          <th scope="col" class="text-right">Montant TTC</th>
           <th scope="col"></th>
 
         </tr>
@@ -30,12 +30,12 @@
             <td><%= line.product.name.capitalize %></td>
             <td><%= line.bed.garden.name %> - <%= line.bed.name %></td>
             <td><%= line.unit %></td>
-            <td><%= get_price_in_cents(line.ht_unit_price) %></td>
-            <td><%= get_price_in_cents(line.ttc_unit_price) %></td>
-            <td><%= line.quantity %></td>
-            <td><%= get_price_in_cents(line.ht_total) %></td>
-            <td><%= get_price_in_cents(line.ttc_total) %></td>
-            <td>
+            <td class="text-right"><%= get_price_in_cents(line.ht_unit_price) %></td>
+            <td class="text-right"><%= get_price_in_cents(line.ttc_unit_price) %></td>
+            <td class="text-right"><%= line.quantity %></td>
+            <td class="text-right"><%= get_price_in_cents(line.ht_total) %></td>
+            <td class="text-right"><%= get_price_in_cents(line.ttc_total) %></td>
+            <td class="d-flex justify-content-end">
               <%= link_to farm_sales_line_path(@farm, line.id), method: :delete, data: { confirm: "T'es #{current_user.is_female? ? 'sûre' : 'sûr'} ? 🤨"} do %>
                 <div class="round-button red">
                   <i class="fas fa-times round-txt-button"></i>
@@ -44,16 +44,44 @@
             </td>
           </tr>
         <% end %>
-        <tr>
+        <tr class="new-sales-line">
           <td><%= form.select :product, @products %></td>
           <td><%= form.select :bed, @beds %></td>
           <td><%= form.select :unit, ["botte", "pièce", "kg", "unité"] %></td>
-          <td><%= form.number_field :ht_unit_price, step: 0.01, class: "price-column" %></td>
-          <td><%= form.number_field :ttc_unit_price, step: 0.01, class: "price-column" %></td>
-          <td><%= form.number_field :quantity, step: 0.01, class: "price-column" %></td>
-          <td><%= form.number_field :ht_total, step: 0.01, class: "price-column" %></td>
-          <td><div><%= form.number_field :ttc_total, step: 0.01, class: "price-column" %></div></td>
-          <td><%= form.submit value: "Valider", 'data-disable-with': "..." %></td>
+          <td style="text-align-last: end"><%= form.number_field :ht_unit_price, step: 0.01, class: "price-column" %></td>
+          <td style="text-align-last: end"><%= form.number_field :ttc_unit_price, step: 0.01, class: "price-column" %></td>
+          <td style="text-align-last: end"><%= form.number_field :quantity, step: 0.01, class: "price-column" %></td>
+          <td style="text-align-last: end"><%= form.number_field :ht_total, step: 0.01, class: "price-column" %></td>
+          <td style="text-align-last: end"><div><%= form.number_field :ttc_total, step: 0.01, class: "price-column" %></div></td>
+          <td class="d-flex justify-content-end"><%= form.submit value: "Valider", 'data-disable-with': "..." %></td>
+        </tr>
+        <tr class="total-line">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="total-separation-line text-right"><%= get_price_in_cents(@sale.ht_total) %></td>
+          <td class="total-separation-line text-right"><%= get_price_in_cents(@sale.ttc_total) %></td>
+          <td class="total-separation-line text-right"></td>
+        </tr>
+        <tr class="total-lines">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="total-separation-line" colspan="2" style="padding-left: 80px">Montant arrondi</td>
+          <td class="total-separation-line text-right"><%= get_price_in_cents(@sale.rounded_ht_total) %></td>
+          <td class="total-separation-line text-right"><%= get_price_in_cents(@sale.rounded_ttc_total) %></td>
+        </tr><tr class="total-lines">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="total-separation-line" colspan="2" style="padding-left: 80px">Montant réglé</td>
+          <td class="total-separation-line text-right"><%= get_price_in_cents(@sale.rounded_ht_total) %></td>
+          <td class="total-separation-line text-right"><%= get_price_in_cents(@sale.rounded_ttc_total) %></td>
         </tr>
       </tbody>
     </table>

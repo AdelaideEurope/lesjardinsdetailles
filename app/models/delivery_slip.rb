@@ -1,0 +1,2 @@
+class DeliverySlip < ApplicationRecord
+end
