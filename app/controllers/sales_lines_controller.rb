@@ -10,7 +10,6 @@ class SalesLinesController < ApplicationController
     ttc_unit_price = params[:sales_line][:ttc_unit_price].to_f * 100
     ht_total = params[:sales_line][:ht_total].to_f * 100
     ttc_total = params[:sales_line][:ttc_total].to_f * 100
-
     @sales_line = SalesLine.new(product_id: params[:sales_line][:product].to_i, bed_id: params[:sales_line][:bed].to_i, unit: params[:sales_line][:unit], ht_unit_price: ht_unit_price, ttc_unit_price: ttc_unit_price, ht_total: ht_total, ttc_total: ttc_total, quantity: params[:sales_line][:quantity].to_f, sale_id: sale_id, date: params[:date])
     authorize @sales_line
     if @sales_line.save
