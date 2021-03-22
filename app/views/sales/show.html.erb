@@ -32,7 +32,7 @@
             <td><%= line.unit %></td>
             <td class="text-right"><%= get_price_in_cents(line.ht_unit_price) %></td>
             <td class="text-right"><%= get_price_in_cents(line.ttc_unit_price) %></td>
-            <td class="text-right"><%= line.quantity %></td>
+            <td class="text-right"><%= remove_trailing_zero(line.quantity) %></td>
             <td class="text-right"><%= get_price_in_cents(line.ht_total) %></td>
             <td class="text-right"><%= get_price_in_cents(line.ttc_total) %></td>
             <td class="d-flex justify-content-end">
