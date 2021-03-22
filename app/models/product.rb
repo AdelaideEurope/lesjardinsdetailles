@@ -16,6 +16,10 @@ class Product < ApplicationRecord
     !self.fertilization_need.nil? && self.fertilization_need&.fertilization_type != ""
   end
 
+  def has_ferti_instance?
+    !self.fertilization_need.nil?
+  end
+
   def has_ferti_indicated?
     !self.fertilization_need.nil? && self.fertilization_need.fertilization_type != "" && self.fertilization_need.quantity != "" && self.fertilization_need.quantity != nil && self.fertilization_need.unit != "" && self.fertilization_need.unit != nil
   end

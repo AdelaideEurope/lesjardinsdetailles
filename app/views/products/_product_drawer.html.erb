@@ -73,9 +73,10 @@
         <% end %>
 
         <% if product.has_ferti_indicated? %>
-          <h2>La ferti</h2>
+          <h2 class="mt-4">La ferti</h2>
           <div>Type : <%= product.fertilization_need.fertilization_type %></div>
-          <div>Quantité : <%= product.fertilization_need.quantity %> / <%= product.fertilization_need.unit %></div>
+          <div>Quantité : <%= product.fertilization_need.quantity %></div>
+          <div>Unité : <%= product.fertilization_need.unit %></div>
         <% end %>
 
       </div>

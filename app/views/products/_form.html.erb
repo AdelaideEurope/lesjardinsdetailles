@@ -55,7 +55,7 @@
           <div class="w-47-desktop">
             <div class="d-flex">
               <div><%= o.input :quantity, :label => "Quantité", input_html: {value: product.fertilization_need&.quantity}, required: false %></div>
-              <div class="ml-4"><%= o.input :unit, :label => "Unité", input_html: {value: product.fertilization_need&.unit}, required: false %></div>
+              <div class="ml-4"><%= o.input :unit, :label => "Unité", input_html: {value: product.fertilization_need&.unit}, required: false, placeholder: "ex : kg / mètre carré" %></div>
             </div>
           </div>
         <% end %>

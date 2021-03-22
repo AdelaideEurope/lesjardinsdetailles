@@ -58,7 +58,7 @@ class ProductsController < ApplicationController
       if params[:product][:picture]
         @product.photo.attach(params[:product][:picture])
       end
-      if @product.has_ferti?
+      if @product.has_ferti_instance?
         @fertilization_need = @product.fertilization_need
         @fertilization_need.update(fertilization_type: params[:ferti][:type], unit: params[:ferti][:unit], quantity: params[:ferti][:quantity], product_id: @product.id)
         flash[:notice] = "Produit modifié avec succès !"
