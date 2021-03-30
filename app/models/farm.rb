@@ -4,6 +4,7 @@ class Farm < ApplicationRecord
   has_many :gardens
   has_many :events
   has_many :outlets
+  has_many :hen_actions
   has_many :sales, through: :outlets
 
   def workers

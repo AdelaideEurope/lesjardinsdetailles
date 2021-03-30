@@ -1,0 +1,11 @@
+<div class="container custom-container" style="overflow: auto;">
+  <div class="page-header non-scrolled-page-header scrollable-page-header d-block">
+    <h2 class="mb-0">Enregistrer une action au poulailler</h2>
+  </div>
+
+  <div class="page-content">
+  </div>
+  <div class="container">
+    <%= render 'form', farm: @farm, hen_action: @hen_action, url: farm_hen_actions_path(@farm.id) %>
+  </div>
+</div>

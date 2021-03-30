@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_22_181315) do
+ActiveRecord::Schema.define(version: 2021_03_24_215101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -160,6 +160,26 @@ ActiveRecord::Schema.define(version: 2021_03_22_181315) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["farm_id"], name: "index_gardens_on_farm_id"
+  end
+
+  create_table "hen_actions", force: :cascade do |t|
+    t.datetime "date"
+    t.string "action"
+    t.string "comment"
+    t.bigint "farm_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["farm_id"], name: "index_hen_actions_on_farm_id"
+  end
+
+  create_table "hen_journals", force: :cascade do |t|
+    t.datetime "date"
+    t.string "action"
+    t.string "comment"
+    t.bigint "farm_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["farm_id"], name: "index_hen_journals_on_farm_id"
   end
 
   create_table "newsletter_subscribers", force: :cascade do |t|
@@ -353,6 +373,8 @@ ActiveRecord::Schema.define(version: 2021_03_22_181315) do
   add_foreign_key "events", "farms"
   add_foreign_key "fertilization_needs", "products"
   add_foreign_key "gardens", "farms"
+  add_foreign_key "hen_actions", "farms"
+  add_foreign_key "hen_journals", "farms"
   add_foreign_key "newsletter_subscribers", "farms"
   add_foreign_key "outlets", "farms"
   add_foreign_key "outlets", "outlet_groups"

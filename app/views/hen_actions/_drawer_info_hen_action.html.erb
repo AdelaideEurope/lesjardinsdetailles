@@ -1,0 +1,35 @@
+<section class="drawer" id="drawer-info-hen-action-<%= hen_action.id %>" data-drawer-target>
+  <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+  <div class="drawer__wrapper">
+    <div class="drawer__header">
+      <div class="d-flex justify-content-between">
+
+          <div class="drawer__title">
+            <h2>Fait au poulailler le <%= hen_action.date.to_date.strftime('%-d') %> <%= I18n.t(:month_names)[hen_action.date.to_date.strftime('%b').to_sym] %></h2>
+          </div>
+
+        <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <div class="drawer__content drawer-content-cpl drawer-content-with-bottom-buttons">
+      <div>
+        <h4>Description</h4>
+        <p><%= hen_action.action %></p>
+      </div>
+
+      <div>
+        <% if hen_action.has_comment? %>
+          <h4 class="mt-4">Commentaire</h4>
+            <p><%= hen_action.comment %></p>
+        <% end %>
+      </div>
+      <div class="drawer-edit-bottom-buttons px-sm-4">
+        <div class="btn txt-button-background orange mt-2" data-drawer-trigger aria-controls="drawer-hen-action-edit<%= hen_action.id %>">Modifier</div>
+      </div>
+    </div>
+  </div>
+</section>
+<%= render "drawer_edit_hen_action", hen_action: hen_action, farm: @farm %>
+
