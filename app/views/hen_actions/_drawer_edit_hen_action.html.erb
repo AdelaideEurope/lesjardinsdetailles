@@ -15,7 +15,7 @@
     </div>
     <div class="drawer__content drawer-content-with-bottom-buttons">
       <div>
-        <%= form_with model: hen_action, url: farm_hen_action_path(farm, hen_action), method: :patch, local: true do |form| %>
+        <%= form_with model: hen_action, url: farm_poulette_path(farm, hen_action), method: :patch, local: true do |form| %>
 
         <h4 class="mt-4">Description</h4>
         <%= form.text_area :action, value: hen_action&.action, class: "mt-2 w-100", rows: "4" %>
@@ -24,7 +24,7 @@
       </div>
       <div class="drawer-edit-bottom-buttons px-sm-4">
         <div><%= form.submit value: "Valider", class: "btn txt-button-background olive mt-2", 'data-disable-with': "..." %></div>
-        <div><%= link_to "Supprimer", farm_hen_action_path(farm, hen_action.id, start_date: params[:start_date]), method: :delete, class: "btn txt-button-background red mt-2", data: { confirm: "T'es #{current_user.is_female? ? 'sûre' : 'sûr'} ? 🤨"} %></div>
+        <div><%= link_to "Supprimer", farm_poulette_path(farm, hen_action.id, start_date: params[:start_date]), method: :delete, class: "btn txt-button-background red mt-2", data: { confirm: "T'es #{current_user.is_female? ? 'sûre' : 'sûr'} ? 🤨"} %></div>
       </div>
       <% end %>
     </div>

@@ -29,15 +29,15 @@ class HenActionsController < ApplicationController
       authorize @hen_action
       if @hen_action.save
         flash[:notice] = "C'est noté ! 🐔"
-        redirect_to farm_hen_actions_path(@farm)
+        redirect_to farm_poulettes_path(@farm)
       else
-        redirect_to farm_hen_actions_path(@farm)
+        redirect_to farm_poulettes_path(@farm)
       end
     end
 
     def update
       if @hen_action.update(comment: params[:hen_action][:comment], action: params[:hen_action][:action])
-        redirect_to farm_hen_actions_path(@farm)
+        redirect_to farm_poulettes_path(@farm)
         flash[:notice] = "Modif' ✔"
       end
       authorize @hen_action
@@ -45,7 +45,7 @@ class HenActionsController < ApplicationController
 
     def destroy
       if @hen_action.destroy
-        redirect_to farm_hen_actions_path(@farm)
+        redirect_to farm_poulettes_path(@farm)
         flash[:notice] = "Action supprimée avec succès !"
       end
       authorize @hen_action

@@ -41,7 +41,7 @@
           <% end %>
         </li>
         <li class="sidebar-item">
-          <%= link_to farm_hen_actions_path(current_user.farm_id) do %>
+          <%= link_to farm_poulettes_path(current_user.farm_id) do %>
             <%= image_tag "hen.png" %>
           <% end %>
         </li>
@@ -96,7 +96,7 @@
     <%= link_to farm_produits_path(current_user.farm_id) do %>
       <i class="fas fa-carrot sidebar-icon-item"></i>
     <% end %>
-    <%= link_to farm_hen_actions_path(current_user.farm_id) do %>
+    <%= link_to farm_poulettes_path(current_user.farm_id) do %>
       <%= image_tag "hen.png" %>
     <% end %>
   </div>

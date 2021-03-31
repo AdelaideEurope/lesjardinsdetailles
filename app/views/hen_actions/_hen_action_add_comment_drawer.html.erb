@@ -16,7 +16,7 @@
     </div>
     <div class="drawer__content drawer-content-with-bottom-buttons">
       <div>
-        <%= form_with model: hen_action, url: farm_hen_action_path(farm, hen_action, add_comment: true), method: :patch, local: true do |form| %>
+        <%= form_with model: hen_action, url: farm_poulette_path(farm, hen_action, add_comment: true), method: :patch, local: true do |form| %>
         <h4 class="mt-4">Commentaire</h4>
         <%= form.text_area :comment, class: "mt-2 w-100", rows: "4" %>
       </div>
