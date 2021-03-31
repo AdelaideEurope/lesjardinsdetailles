@@ -1,0 +1,11 @@
+<div class="container custom-container" style="overflow: auto;">
+  <div class="page-header non-scrolled-page-header scrollable-page-header d-block">
+    <h2 class="mb-0">Enregistrer une décision</h2>
+  </div>
+
+  <div class="page-content">
+  </div>
+  <div class="container">
+    <%= render 'form', farm: @farm, decision: @decision, url: farm_decisions_path(@farm.id) %>
+  </div>
+</div>

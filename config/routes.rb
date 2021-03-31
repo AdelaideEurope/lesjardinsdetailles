@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :crop_plan_line_user_events, only: [ :create, :update, :destroy ]
     resources :ventes, controller: 'sales', only: [ :index, :show ]
     resources :hen_actions, only: [ :index, :show, :new, :create, :destroy, :edit, :update ]
+    resources :decisions, only: [ :index, :show, :new, :create, :destroy, :edit, :update ]
     resources :pointsdevente, controller: 'outlets', only: [ :index, :show, :new, :create ] do
       resources :sales, only: [ :index, :show, :new, :create, :update, :destroy ]
     end

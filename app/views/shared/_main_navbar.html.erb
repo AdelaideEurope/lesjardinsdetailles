@@ -45,6 +45,11 @@
             <%= image_tag "hen.png" %>
           <% end %>
         </li>
+        <li class="sidebar-item">
+          <%= link_to farm_decisions_path(current_user.farm_id) do %>
+            <%= image_tag "decision.png" %>
+          <% end %>
+        </li>
       </ul>
     <% else %>
       <ul class="list-unstyled sidebar-items">

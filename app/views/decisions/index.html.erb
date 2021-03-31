@@ -1,0 +1,58 @@
+<div class="container custom-container">
+  <div class="page-header non-scrolled-page-header scrollable-page-header d-flex justify-content-between">
+    <h2>C'est acté, décidé, confirmé... on ne revient plus dessus !</h2>
+    <div class="pr-38 d-flex">
+      <%= link_to new_farm_decision_path(@farm.id) do %>
+        <div class="round-button green"><i class="fas fa-plus round-txt-button"></i></div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="page-content">
+  </div>
+  <div class="search-form">
+  <%= form_tag farm_decisions_path(@farm), method: :get, class: "search-input" do %>
+    <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Chercher une décision" %>
+    <button type="submit" class="btn search-button" id="submit">
+      <i class="fas fa-search"></i>
+    </button>
+  <% end %>
+  </div>
+  <div>
+    <div class="my-4">
+      <% @decisions.each do |decision| %>
+        <div class="d-flex list-item-block my-2">
+          <div class="card-list-item-left-block">
+            <div class="align-self-center pr-2 pr-sm-4" >
+              <p><%= decision.date.to_date.strftime('%-d') %> <%= I18n.t(:month_names)[decision.date.to_date.strftime('%b').to_sym] %></p>
+            </div>
+            <div class="d-flex margin-auto-0"><%= decision.object %> </div>
+          </div>
+          <div class="d-flex justify-content-end card-list-item-round-button-block">
+            <div class="d-flex">
+              <div class="round-button green mr-1 mt-1 m-sm-2" data-drawer-trigger aria-controls="drawer-info-decision-<%= decision.id %>" aria-expanded="false">
+                <i class="fas fa-search round-txt-button"></i>
+              </div>
+              <div class="round-button <%= decision.has_comment? ? 'green' : 'lightgrey' %> mr-1 mt-1 m-sm-2" data-drawer-trigger aria-controls="drawer-decision-comment-<%= decision.id %>" aria-expanded="false">
+                <i class="fas fa-comment round-txt-button"></i>
+              </div>
+               <%= link_to farm_decision_path(@farm, decision.id), method: :delete, data: { confirm: "T'es #{current_user.is_female? ? 'sûre' : 'sûr'} ? 🤨"} do %>
+                <div class="round-button red mt-1 m-sm-2"><i class="fas fa-trash round-txt-button"></i></div>
+              <% end %>
+            </div>
+
+          </div>
+        </div>
+         <%= render "drawer_info_decision", decision: decision, farm: @farm %>
+
+        <!-- drawer edit tour des jardins -->
+        <%#= render "pages/dashboard_drawers/drawer_edit_garden_event", garden_event: decision, farm: @farm %>
+
+        <%= render "decision_comment_drawer", decision: decision %>
+        <%= render "decision_add_comment_drawer", farm: @farm, decision: decision %>
+      <% end %>
+    </div>
+  </div>
+
+</div>
+

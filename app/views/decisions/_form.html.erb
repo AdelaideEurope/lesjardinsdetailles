@@ -1,0 +1,24 @@
+<%= simple_form_for [farm, decision], url: url do |f| %>
+  <div class="flex-wrap d-flex justify-content-between">
+    <div class="w-48-desktop">
+      <div class="simple-card">
+        <h3>Date</h3>
+        <div><%= f.input :date, as: :date, label: "", class: "w-100", required: true %></div>
+        <h3 class="mt-4">Sujet</h3>
+        <div><%= f.text_area :object, class: "w-100", required: true %></div>
+        <h3 class="mt-4">Détails</h3>
+        <div><%= f.text_area :details, class: "w-100", required: true %></div>
+        <h3 class="mt-4">Commentaire</h3>
+        <div><%= f.text_area :comment, class: "w-100" %></div>
+      </div>
+    </div>
+  </div>
+  <div class="w-48-desktop d-flex">
+    <%= f.submit "Valider", class: "btn txt-button mt-4 mx-auto" %>
+  </div>
+<% end %>
+<style>
+  abbr[title] {
+    display: none;
+  }
+</style>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_24_215101) do
+ActiveRecord::Schema.define(version: 2021_03_31_195930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,17 @@ ActiveRecord::Schema.define(version: 2021_03_24_215101) do
     t.index ["bed_id"], name: "index_crop_plan_lines_on_bed_id"
     t.index ["product_id"], name: "index_crop_plan_lines_on_product_id"
     t.index ["vegetable_variet_id"], name: "index_crop_plan_lines_on_vegetable_variet_id"
+  end
+
+  create_table "decisions", force: :cascade do |t|
+    t.datetime "date"
+    t.string "object"
+    t.string "details"
+    t.string "comment"
+    t.bigint "farm_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["farm_id"], name: "index_decisions_on_farm_id"
   end
 
   create_table "delivery_slips", force: :cascade do |t|
@@ -369,6 +380,7 @@ ActiveRecord::Schema.define(version: 2021_03_24_215101) do
   add_foreign_key "crop_plan_lines", "beds"
   add_foreign_key "crop_plan_lines", "products"
   add_foreign_key "crop_plan_lines", "vegetable_variets"
+  add_foreign_key "decisions", "farms"
   add_foreign_key "delivery_slips", "sales"
   add_foreign_key "events", "farms"
   add_foreign_key "fertilization_needs", "products"

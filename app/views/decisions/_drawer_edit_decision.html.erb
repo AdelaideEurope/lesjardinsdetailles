@@ -1,0 +1,34 @@
+<section class="drawer" id="drawer-decision-edit<%= decision.id %>" data-drawer-target>
+  <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+  <div class="drawer__wrapper">
+    <div class="drawer__header">
+      <div class="d-flex justify-content-between">
+        <div class="drawer__title">
+          <div>
+            <h2>Modifier</h2>
+          </div>
+        </div>
+        <button class="drawer__close" data-drawer-close aria-label="Fermer le drawer">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <div class="drawer__content drawer-content-with-bottom-buttons">
+      <div>
+        <%= form_with model: decision, url: farm_decision_path(farm, decision), method: :patch, local: true do |form| %>
+
+        <h4 class="mt-4">Sujet</h4>
+        <%= form.text_area :object, value: decision&.object, class: "mt-2 w-100", rows: "1" %>
+        <h4 class="mt-4">Détails</h4>
+        <%= form.text_area :details, value: decision&.details, class: "mt-2 w-100", rows: "2" %>
+        <h4 class="mt-4">Commentaire</h4>
+        <%= form.text_area :comment, value: decision&.comment, class: "mt-2 w-100", rows: "2" %>
+      </div>
+      <div class="drawer-edit-bottom-buttons px-sm-4">
+        <div><%= form.submit value: "Valider", class: "btn txt-button-background olive mt-2", 'data-disable-with': "..." %></div>
+        <div><%= link_to "Supprimer", farm_decision_path(farm, decision.id, start_date: params[:start_date]), method: :delete, class: "btn txt-button-background red mt-2", data: { confirm: "T'es #{current_user.is_female? ? 'sûre' : 'sûr'} ? 🤨"} %></div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</section>

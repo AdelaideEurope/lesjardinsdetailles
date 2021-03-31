@@ -7,7 +7,7 @@ class HenActionsController < ApplicationController
       if !params[:query]
         @hen_actions = HenAction.where(farm_id: @farm.id).order("date DESC")
       elsif params[:query].present?
-        sql_query = "action ILIKE :query"
+        sql_query = "action ILIKE :query OR comment ILIKE :query"
         @hen_actions = HenAction.where(sql_query, query: "%#{params[:query]}%").where(farm_id: @farm.id, ).order("date DESC")
       else
         @hen_actions = HenAction.where(farm_id: @farm.id).order("date DESC")

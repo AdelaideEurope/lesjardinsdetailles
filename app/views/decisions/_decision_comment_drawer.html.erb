@@ -1,0 +1,27 @@
+<section class="drawer" id="drawer-decision-comment-<%= decision.id %>" data-drawer-target>
+  <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+  <div class="drawer__wrapper">
+    <div class="drawer__header">
+      <div class="d-flex justify-content-between">
+        <div class="drawer__title">
+          <div>
+            <h2>Décision du <%= decision.date.to_date.strftime('%-d') %> <%= I18n.t(:month_names)[decision.date.to_date.strftime('%b').to_sym] %></h2>
+          </div>
+        </div>
+        <button class="drawer__close" data-drawer-close aria-label="Close Drawer">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <div class="drawer__content">
+      <h4 class="pt-3">Commentaire</h4>
+      <% if decision.has_comment? %>
+        <p>
+          <%= decision.comment.capitalize %>
+        <p>
+      <% else %>
+        <p>Pas de commentaire. Si tu as des choses à dire, clique <span class="pointer orange" data-drawer-trigger aria-controls="drawer-decision-add-comment-<%= decision.id %>" aria-expanded="false">LÀ !</span></p>
+      <% end %>
+    </div>
+  </div>
+</section>
