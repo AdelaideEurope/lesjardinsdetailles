@@ -20,7 +20,9 @@
               </div>
               <div class="card-list-item-main-info-block">
                 <div>
-                  <p><%= planting_event.product.name.capitalize %></p>
+
+
+                  <p><%= planting_event.crop_plan_line.has_variet? ? planting_event.crop_plan_line.product.name.capitalize + " - " + planting_event.crop_plan_line.vegetable_variet.name.capitalize : planting_event.crop_plan_line.product.name.capitalize %></p>
                   <p><%= planting_event.seedling_surface %></p>
                 </div>
                 <div class="card-list-item-second-line"><%= planting_event.bed.garden.name %> - <%= planting_event.bed.name %></div>
