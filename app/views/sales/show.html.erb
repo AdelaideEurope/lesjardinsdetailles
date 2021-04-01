@@ -9,7 +9,7 @@
   <div class="page-content">
   </div>
   <%= form_with model: @new_sales_line, url: farm_sales_lines_path(@farm, outlet: @sale.outlet.id, sale: @sale.id), method: :post do |form| %>
-    <table class="table mt-4">
+    <table class="table mt-4 sales-lines-table">
       <thead>
         <tr>
           <th scope="col">Légume</th>
@@ -28,7 +28,11 @@
         <% @sales_lines.each do |line| %>
           <tr>
             <td><%= line.product.name.capitalize %></td>
-            <td><%= line.bed.garden.name %> - <%= line.bed.name %></td>
+            <td id="sales-line-<%= line.id %>">
+            <button type="button" data-toggle="modal" data-target="#sales-line-<%= line.id %>">
+              <%= line.bed.garden.name if line.bed %> - <%= line.bed.name if line.bed%>
+            </button>
+            </td>
             <td><%= line.unit %></td>
             <td class="text-right"><%= get_price_in_cents(line.ht_unit_price) %></td>
             <td class="text-right"><%= get_price_in_cents(line.ttc_unit_price) %></td>
@@ -43,6 +47,26 @@
               <% end %>
             </td>
           </tr>
+
+          <div class="modal fade" id="sales-line-<%= line.id %>" tabindex="-1" role="dialog" aria-labelledby="sales-line-<%= line.id %>Label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content" style="width: 250px">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="sales-line-<%= line.id %>Label">Modifier la planche</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <% line.product.crop_plan_lines.each do |cpl| %>
+                    <%= link_to farm_sales_line_path(@sale.outlet, line, bed: cpl.bed), method: :patch do %>
+                      <div class="sales-line-bed-choice pt-2 pb-2 pl-4 raisin"><%= cpl.bed.full_name %></div>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
         <% end %>
         <tr class="new-sales-line">
           <td><%= form.select :product, @products %></td>

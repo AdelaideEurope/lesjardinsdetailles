@@ -11,6 +11,13 @@
   font-size: 14px;
 }
 
+.sales-lines-table {
+  button {
+    all: unset;
+  }
+}
+
+
 .txt-button {
   cursor: pointer;
   border: $olive 1px solid !important;

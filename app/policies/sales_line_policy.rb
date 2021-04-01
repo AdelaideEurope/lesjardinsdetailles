@@ -16,4 +16,10 @@ class SalesLinePolicy < ApplicationPolicy
       true
     end
   end
+
+  def update?
+    if user.manager
+      true
+    end
+  end
 end
