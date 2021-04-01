@@ -13,7 +13,7 @@ class SalesController < ApplicationController
     @sale = Sale.find(params[:id])
     authorize @sale
     @new_sales_line = SalesLine.new
-    @sales_lines = @sale.sales_lines
+    @sales_lines = @sale.sales_lines.order(:created_at)
     @beds = Bed.all.map { |bed| [bed.full_name, bed.id] }
     @beds.unshift(["-"])
     @products = Product.where(farm_id: @farm.id).order(:slug).map { |product| [product.name.capitalize, product.id] }
