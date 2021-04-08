@@ -7,12 +7,12 @@ class SalesLinesController < ApplicationController
     sale = Sale.find(sale_id)
     outlet_id = params[:outlet].to_i
     outlet = Outlet.find(outlet_id)
-    ht_unit_price = params[:sales_line][:ht_unit_price].to_f * 100
-    ttc_unit_price = params[:sales_line][:ttc_unit_price].to_f * 100
-    ht_total = params[:sales_line][:ht_total].to_f * 100
-    ttc_total = params[:sales_line][:ttc_total].to_f * 100
+    ht_unit_price = (params[:sales_line][:ht_unit_price].to_f * 100).round
+    ttc_unit_price = (params[:sales_line][:ttc_unit_price].to_f * 100).round
+    ht_total = (params[:sales_line][:ht_total].to_f * 100).round
+    ttc_total = (params[:sales_line][:ttc_total].to_f * 100).round
     bed_id = params[:sales_line][:bed].to_i == 0 ? nil : params[:sales_line][:bed].to_i
-    @sales_line = SalesLine.new(product_id: params[:sales_line][:product].to_i, bed_id: bed_id, unit: params[:sales_line][:unit], ht_unit_price: ht_unit_price, ttc_unit_price: ttc_unit_price, ht_total: ht_total, ttc_total: ttc_total, quantity: params[:sales_line][:quantity].to_f, sale_id: sale_id, date: params[:date])
+    @sales_line = SalesLine.new(product_id: params[:sales_line][:product].to_i, bed_id: bed_id, unit: params[:sales_line][:unit], ht_unit_price: ht_unit_price, ttc_unit_price: ttc_unit_price, ht_total: ht_total, ttc_total: ttc_total, quantity: params[:sales_line][:quantity].to_f, sale_id: sale_id, date: sale.date)
     authorize @sales_line
     if @sales_line.save
       sale_ht_total = sale.ht_total += ht_total

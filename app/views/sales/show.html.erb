@@ -8,7 +8,7 @@
 
   <div class="page-content">
   </div>
-  <%= form_with model: @new_sales_line, url: farm_sales_lines_path(@farm, outlet: @sale.outlet.id, sale: @sale.id), method: :post do |form| %>
+  <%= form_with model: @new_sales_line, url: farm_sales_lines_path(@farm, outlet: @sale.outlet.id, sale: @sale.id), method: :post, local: true do |form| %>
     <table class="table mt-4 sales-lines-table">
       <thead>
         <tr>
