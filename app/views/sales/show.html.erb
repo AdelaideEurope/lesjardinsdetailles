@@ -71,13 +71,13 @@
         <tr class="new-sales-line">
           <td><%= form.select :product, @products %></td>
           <td><%= form.select :bed, @beds %></td>
-          <td><%= form.select :unit, ["botte", "pièce", "kg", "unité"] %></td>
+          <td><%= form.select :unit, ["-", "botte", "pièce", "kg", "unité"] %></td>
           <td style="text-align-last: end"><%= form.number_field :ht_unit_price, step: 0.01, class: "price-column" %></td>
           <td style="text-align-last: end"><%= form.number_field :ttc_unit_price, step: 0.01, class: "price-column" %></td>
           <td style="text-align-last: end"><%= form.number_field :quantity, step: 0.01, class: "price-column" %></td>
           <td style="text-align-last: end"><%= form.number_field :ht_total, step: 0.01, class: "price-column" %></td>
           <td style="text-align-last: end"><div><%= form.number_field :ttc_total, step: 0.01, class: "price-column" %></div></td>
-          <td class="d-flex justify-content-end"><%= form.submit value: "Valider", 'data-disable-with': "..." %></td>
+          <td class="d-flex justify-content-end" style="border-top: none"><%= form.submit value: "Valider", 'data-disable-with': "..." %></td>
         </tr>
         <tr class="total-line">
           <td></td>

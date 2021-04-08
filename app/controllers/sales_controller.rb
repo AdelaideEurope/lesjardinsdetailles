@@ -17,6 +17,7 @@ class SalesController < ApplicationController
     @beds = Bed.all.map { |bed| [bed.full_name, bed.id] }
     @beds.unshift(["-"])
     @products = Product.where(farm_id: @farm.id).order(:slug).map { |product| [product.name.capitalize, product.id] }
+    @products.unshift(["-"])
   end
 
   def new

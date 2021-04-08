@@ -12,6 +12,14 @@ class SalesLinesController < ApplicationController
     ht_total = (params[:sales_line][:ht_total].to_f * 100).round
     ttc_total = (params[:sales_line][:ttc_total].to_f * 100).round
     bed_id = params[:sales_line][:bed].to_i == 0 ? nil : params[:sales_line][:bed].to_i
+    if params[:sales_line][:product].to_i == 0
+      flash[:alert] = "Attention, tu n'as pas indiqué le légume"
+      redirect_to farm_pointsdevente_sale_path(@farm, outlet, sale)
+    end
+    if params[:sales_line][:unit] == "-"
+      flash[:alert] = "Attention, tu n'as pas indiqué l'unité"
+      redirect_to farm_pointsdevente_sale_path(@farm, outlet, sale)
+    end
     @sales_line = SalesLine.new(product_id: params[:sales_line][:product].to_i, bed_id: bed_id, unit: params[:sales_line][:unit], ht_unit_price: ht_unit_price, ttc_unit_price: ttc_unit_price, ht_total: ht_total, ttc_total: ttc_total, quantity: params[:sales_line][:quantity].to_f, sale_id: sale_id, date: sale.date)
     authorize @sales_line
     if @sales_line.save

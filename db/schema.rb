@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_31_195930) do
+ActiveRecord::Schema.define(version: 2021_04_08_210323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -191,6 +191,17 @@ ActiveRecord::Schema.define(version: 2021_03_31_195930) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["farm_id"], name: "index_hen_journals_on_farm_id"
+  end
+
+  create_table "last_prices", force: :cascade do |t|
+    t.text "amount", default: [], array: true
+    t.text "unit", default: [], array: true
+    t.bigint "product_id", null: false
+    t.bigint "outlet_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["outlet_id"], name: "index_last_prices_on_outlet_id"
+    t.index ["product_id"], name: "index_last_prices_on_product_id"
   end
 
   create_table "newsletter_subscribers", force: :cascade do |t|
@@ -387,6 +398,8 @@ ActiveRecord::Schema.define(version: 2021_03_31_195930) do
   add_foreign_key "gardens", "farms"
   add_foreign_key "hen_actions", "farms"
   add_foreign_key "hen_journals", "farms"
+  add_foreign_key "last_prices", "outlets"
+  add_foreign_key "last_prices", "products"
   add_foreign_key "newsletter_subscribers", "farms"
   add_foreign_key "outlets", "farms"
   add_foreign_key "outlets", "outlet_groups"
