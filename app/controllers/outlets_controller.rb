@@ -9,7 +9,7 @@ class OutletsController < ApplicationController
 
   def show
     authorize @outlet
-    @sales = @outlet.sales
+    @sales = @outlet.sales.order("date DESC")
   end
 
   def new
