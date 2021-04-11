@@ -13,7 +13,6 @@ const dateForCalendarEvent = () => {
         startTime.value = date
 
         let modalBtn = modal.firstElementChild.firstElementChild.firstElementChild.lastElementChild
-        console.log(modalBtn)
         modalBtn.addEventListener('click', (event) => {
           modal.classList.remove("d-block");
           modal.classList.remove("show");

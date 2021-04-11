@@ -1,0 +1,20 @@
+<div class="container custom-container">
+   <div class="page-header non-scrolled-page-header scrollable-page-header">
+      <h2>Ajouter plusieurs prix<span class="ml-2"></span></h2>
+  </div>
+
+  <div class="page-content">
+  </div>
+
+  <div>
+    <%= form_with url: farm_product_variets_multiple_create_path(@farm), local: true, method: :post do |form| %>
+      <h3 class="mt-4">Copie le champ J3 de l'Excel (onglet création variétés)</h3>
+      <h5>Comme par magie, toutes tes variétés seront créées<span class="fs-36-24 mr-2">🧞‍♀️</span></h5>
+      <%= form.text_area :string, rows: "1" %>
+      <div><%= form.submit value: "Valider", class: "btn txt-button-background olive mt-2", 'data-disable-with': "..." %></div>
+    <% end %>
+  </div>
+</div>
+
+
+

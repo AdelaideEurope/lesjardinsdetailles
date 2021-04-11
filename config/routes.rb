@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     end
     resources :thebest, controller: 'users', only: [ :show ]
     resources :sales_lines, only: [ :index, :show, :new, :update, :create, :destroy ]
+    get "last_prices_multiple_new", to: 'outlets#last_prices_multiple_new'
+    post "last_prices_multiple_create", to: 'outlets#last_prices_multiple_create'
     resources :user_events, only: [ :create, :update, :destroy ]
     get 'dashboard', to: 'pages#dashboard'
   end

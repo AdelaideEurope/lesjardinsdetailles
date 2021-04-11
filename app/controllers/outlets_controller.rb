@@ -1,5 +1,5 @@
 class OutletsController < ApplicationController
-  before_action :set_farm, only: [:new, :create, :show]
+  before_action :set_farm, only: [:new, :create, :show, :last_prices_multiple_new, :last_prices_multiple_create]
   before_action :set_outlet, only: [:show]
 
   def index
@@ -32,6 +32,18 @@ class OutletsController < ApplicationController
       render :new
     end
 
+  end
+
+  def last_prices_multiple_new
+    @outlets = Outlet.where(farm_id: current_user.farm_id)
+    authorize @outlets
+  end
+
+
+  def last_prices_multiple_create
+    @outlets = Outlet.where(farm_id: current_user.farm_id)
+    authorize @outlets
+    slices = params[:string].split(";").map {|sub| sub.split("/")}
   end
 
   private

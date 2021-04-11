@@ -16,12 +16,32 @@ class SalesLinesController < ApplicationController
       flash[:alert] = "Attention, tu n'as pas indiqué le légume"
       redirect_to farm_pointsdevente_sale_path(@farm, outlet, sale)
     end
+
     if params[:sales_line][:unit] == "-"
       flash[:alert] = "Attention, tu n'as pas indiqué l'unité"
       redirect_to farm_pointsdevente_sale_path(@farm, outlet, sale)
     end
+
+    last_price = LastPrice.where(outlet_id: outlet_id, product_id: params[:sales_line][:product].to_i)[0]
+    if last_price.nil?
+      last_price_amount = (params[:sales_line][:ht_unit_price].to_f * 100).round
+      LastPrice.create(outlet_id: outlet_id, product_id: params[:sales_line][:product].to_i, amount: [last_price_amount], unit: [params[:sales_line][:unit]])
+    elsif !last_price.unit.include?(params[:sales_line][:unit])
+      last_price_amount = (params[:sales_line][:ht_unit_price].to_f * 100).round
+      last_price_unit = params[:sales_line][:unit]
+      last_price_amounts = last_price.amount.push(last_price_amount)
+      last_price_units = last_price.unit.push(last_price_unit)
+      last_price.update(amount: last_price_amounts, unit: last_price_units)
+    else
+      last_price_amount = (params[:sales_line][:ht_unit_price].to_f * 100).round
+      index_amount_to_replace = last_price.unit.find_index(params[:sales_line][:unit])
+      last_price.amount[index_amount_to_replace] = last_price_amount
+      last_price.save
+    end
+
     @sales_line = SalesLine.new(product_id: params[:sales_line][:product].to_i, bed_id: bed_id, unit: params[:sales_line][:unit], ht_unit_price: ht_unit_price, ttc_unit_price: ttc_unit_price, ht_total: ht_total, ttc_total: ttc_total, quantity: params[:sales_line][:quantity].to_f, sale_id: sale_id, date: sale.date)
     authorize @sales_line
+
     if @sales_line.save
       sale_ht_total = sale.ht_total += ht_total
       sale_ttc_total = sale.ttc_total += ttc_total
