@@ -38,11 +38,11 @@ import { initSelect2 } from '../plugins/init_select2';
 
 
 document.addEventListener('turbolinks:load', () => {
-  // Call your functions here, e.g:
   drawerOpener();
   initUpdateNavbarOnScroll();
   dateForCalendarEvent();
   choseWorker();
   initSelect2();
   autoFillPrice();
+  // Call your functions here, e.g:
 });
