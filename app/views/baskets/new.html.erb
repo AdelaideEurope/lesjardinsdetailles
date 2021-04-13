@@ -1,0 +1,11 @@
+<div class="container custom-container" style="overflow: auto;">
+  <div class="page-header non-scrolled-page-header scrollable-page-header d-block">
+    <h2 class="mb-0">Créer des paniers pour <%= link_to farm_pointsdevente_path(@farm, @outlet.id) do %><span class="green"><%= @outlet.full_name %></span><% end %></h2>
+  </div>
+
+  <div class="page-content">
+  </div>
+  <div class="container">
+    <%= render 'form', farm: @farm, outlet: @outlet, basket: @basket, url: farm_pointsdevente_baskets_path(@farm.id) %>
+  </div>
+</div>

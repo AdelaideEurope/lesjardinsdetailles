@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_08_210323) do
+ActiveRecord::Schema.define(version: 2021_04_13_195858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,41 @@ ActiveRecord::Schema.define(version: 2021_04_08_210323) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "basket_lines", force: :cascade do |t|
+    t.date "date"
+    t.bigint "basket_id", null: false
+    t.integer "ht_unit_price"
+    t.integer "ttc_unit_price"
+    t.decimal "quantity"
+    t.integer "ht_total_price"
+    t.integer "ttc_total_price"
+    t.string "unit"
+    t.bigint "bed_id"
+    t.bigint "product_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["basket_id"], name: "index_basket_lines_on_basket_id"
+    t.index ["bed_id"], name: "index_basket_lines_on_bed_id"
+    t.index ["product_id"], name: "index_basket_lines_on_product_id"
+  end
+
+  create_table "baskets", force: :cascade do |t|
+    t.string "name"
+    t.date "date"
+    t.bigint "sale_id", null: false
+    t.integer "ht_price"
+    t.integer "ttc_price"
+    t.integer "quantity"
+    t.boolean "confirmed"
+    t.boolean "recurrent"
+    t.string "frequency"
+    t.integer "cumulated_difference"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "comment"
+    t.index ["sale_id"], name: "index_baskets_on_sale_id"
   end
 
   create_table "beds", force: :cascade do |t|
@@ -384,6 +419,10 @@ ActiveRecord::Schema.define(version: 2021_04_08_210323) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "basket_lines", "baskets"
+  add_foreign_key "basket_lines", "beds"
+  add_foreign_key "basket_lines", "products"
+  add_foreign_key "baskets", "sales"
   add_foreign_key "beds", "gardens"
   add_foreign_key "crop_plan_line_events", "crop_plan_lines"
   add_foreign_key "crop_plan_line_user_events", "crop_plan_line_events"

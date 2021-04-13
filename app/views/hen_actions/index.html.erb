@@ -24,7 +24,7 @@
         <div class="d-flex list-item-block my-2">
           <div class="card-list-item-left-block">
             <div class="align-self-center pr-2 pr-sm-4" >
-              <p><%= hen_action.date.to_date.strftime('%-d') %> <%= I18n.t(:month_names)[hen_action.date.to_date.strftime('%b').to_sym] %></p>
+              <p style="width: 80px"><%= hen_action.date.to_date.strftime('%-d') %> <%= I18n.t(:month_names)[hen_action.date.to_date.strftime('%b').to_sym] %></p>
             </div>
             <div class="d-flex margin-auto-0"><%= hen_action.action %> </div>
           </div>

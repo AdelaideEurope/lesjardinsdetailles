@@ -1,14 +1,14 @@
 <div class="container custom-container">
    <div class="page-header non-scrolled-page-header scrollable-page-header d-flex justify-content-between">
       <h2><%= @outlet.full_name %> <span class="ml-2"></span></h2>
-      <div class="pr-38 d-flex">
+      <div class="pr-38 d-flex fs-24-16">
         <%= get_price_in_cents(@outlet.ttc_turnover) %>
       </div>
   </div>
 
   <div class="page-content">
   </div>
-
+  <div class="text-right"><%= link_to new_farm_pointsdevente_basket_path(@farm, @outlet) do %> Ajouter des paniers <% end %></div>
   <div>
     <div class="my-4 desktop_only">
       <% @sales.each do |sale| %>
@@ -29,9 +29,19 @@
               <div class="round-button <%= sale.has_comment? ? 'green' : 'lightgrey' %> m-2" data-drawer-trigger aria-controls="drawer-sale-comment-<%= sale.id %>" aria-expanded="false">
                 <i class="fas fa-comment round-txt-button"></i>
               </div>
-              <div class="round-button olive m-2">
-                <%= image_tag "panier.png", alt: "panier", class: "round-img-button" %>
-              </div>
+              <% if sale.has_baskets? %>
+                <%= link_to farm_pointsdevente_sale_baskets_path(@farm, @outlet, sale) do %>
+                  <div class="round-button olive m-2">
+                    <%= image_tag "panier.png", alt: "panier", class: "round-img-button" %>
+                  </div>
+                <% end %>
+              <% else %>
+                <%= link_to new_farm_pointsdevente_basket_path(@farm, @outlet, date: sale.date&.to_date) do %>
+                  <div class="round-button lightgrey m-2">
+                    <%= image_tag "panier.png", alt: "panier", class: "round-img-button" %>
+                  </div>
+                <% end %>
+                <% end %>
               <div class="round-button red m-2">
                 <i class="fas fa-euro-sign round-txt-button"></i>
               </div>
@@ -66,9 +76,15 @@
                     <div class="round-button green m-2">
                       <i class="fas fa-search-plus round-txt-button"></i>
                     </div>
-                    <div class="round-button olive m-2">
-                      <%= image_tag "panier.png", alt: "panier", class: "round-img-button" %>
-                    </div>
+                    <% if sale.has_baskets? %>
+                     <div class="round-button olive m-2">
+                       <%= image_tag "panier.png", alt: "panier", class: "round-img-button" %>
+                     </div>
+                    <% else %>
+                     <div class="round-button lightgrey m-2">
+                       <%= image_tag "panier.png", alt: "panier", class: "round-img-button" %>
+                     </div>
+                    <% end %>
                     <div class="round-button red m-2">
                       <i class="fas fa-euro-sign round-txt-button"></i>
                     </div>

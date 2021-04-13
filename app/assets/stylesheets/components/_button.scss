@@ -11,7 +11,7 @@
   font-size: 14px;
 }
 
-.sales-lines-table {
+.sales-lines-table, .basket-lines-table {
   button {
     all: unset;
   }
@@ -55,7 +55,7 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  color: white;
+  color: white !important;
   text-align: center;
   font-size: 12px;
   box-shadow: 2px 2px 1px rgba(197,203,211, 0.4);

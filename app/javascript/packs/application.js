@@ -33,6 +33,7 @@ import { initUpdateNavbarOnScroll } from '../components/navbarScroll.js';
 import { dateForCalendarEvent } from '../components/dateForCalendarEvent.js';
 import { choseWorker } from '../components/choseWorker.js';
 import { autoFillPrice } from '../components/autoFillPrice.js';
+import { autoFillPriceBasket } from '../components/autoFillPriceBasket.js';
 import { initSelect2 } from '../plugins/init_select2';
 
 
@@ -44,5 +45,6 @@ document.addEventListener('turbolinks:load', () => {
   choseWorker();
   initSelect2();
   autoFillPrice();
+  autoFillPriceBasket();
   // Call your functions here, e.g:
 });

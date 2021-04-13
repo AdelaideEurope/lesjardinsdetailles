@@ -6,6 +6,8 @@ class Product < ApplicationRecord
   has_many :vegetable_variets
   has_many :crop_plan_lines
   has_many :crop_plan_line_events
+  has_many :sales_lines
+  has_many :basket_lines
 
   extend FriendlyId
   friendly_id :name, use: :slugged

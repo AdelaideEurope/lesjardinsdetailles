@@ -17,7 +17,12 @@ Rails.application.routes.draw do
     resources :poulettes, controller: 'hen_actions', only: [ :index, :show, :new, :create, :destroy, :edit, :update ]
     resources :decisions, only: [ :index, :show, :new, :create, :destroy, :edit, :update ]
     resources :pointsdevente, controller: 'outlets', only: [ :index, :show, :new, :create ] do
-      resources :sales, only: [ :index, :show, :new, :create, :update, :destroy ]
+      resources :baskets, only: [ :new, :create ]
+      resources :sales, only: [ :index, :show, :new, :create, :update, :destroy ] do
+        resources :baskets, only: [ :index, :show, :update, :destroy ] do
+          resources :basket_lines, only: [ :index, :show, :new, :update, :create, :destroy ]
+        end
+      end
     end
     resources :thebest, controller: 'users', only: [ :show ]
     resources :sales_lines, only: [ :index, :show, :new, :update, :create, :destroy ]

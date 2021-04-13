@@ -1,0 +1,20 @@
+<section class="drawer" id="drawer-previous-baskets-<%= basket.id %>" data-drawer-target>
+  <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+  <div class="drawer__wrapper">
+    <div class="drawer__header">
+      <div class="d-flex justify-content-between">
+        <div class="drawer__title">
+          <div>
+            <h2>Les anciens paniers à <%= get_price_in_cents(basket.ttc_price) %></h2>
+          </div>
+        </div>
+        <button class="drawer__close" data-drawer-close aria-label="Fermer le drawer">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <div class="drawer__content drawer-content-with-bottom-buttons">
+      <%= @previous_baskets %>
+    </div>
+  </div>
+</section>

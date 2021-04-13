@@ -1,0 +1,75 @@
+<%= form_with model: basket, url: url, method: :post, local: true do |f| %>
+  <div class="flex-wrap d-flex justify-content-between">
+    <div class="w-48-desktop">
+      <h3 class="mt-4">Paniers ponctuels (une seule vente) ?</h3>
+      <div class="simple-card">
+        <h4>Date du panier</h4>
+        <%= f.date_field :date, value: params[:date], :label => "Date" %>
+        <div class="mt-4">
+          <h4>Nom des paniers</h4>
+          <%= f.text_area :name, rows: "1", class: "w-100" %>
+          <h5 class="pl-0"><i class="fas fa-info-circle"></i> Si tu laisses ce champ vide, ils s'appelleront "Panier à x €" (original, non ?)</h5>
+        </div>
+        <div class="d-sm-flex justify-content-between">
+          <div class="mt-4">
+            <h4>Combien de paniers ?</h4>
+            <%= f.number_field :quantity, rows: "1" %>
+          </div>
+          <div class="mt-4">
+            <h4>À quel prix ?</h4>
+            <%= f.number_field :ttc_price, rows: "1" %>
+          </div>
+
+        </div>
+        <div class="mt-4">
+          <h4>Commentaire</h4>
+          <%= f.text_area :comment, rows: "4", class: "w-100" %>
+        </div>
+      </div>
+    </div>
+
+    <div  class="w-48-desktop">
+      <h3 class="mt-4">Ou paniers récurrents (plusieurs ventes) ?</h3>
+      <div class="simple-card">
+        <div class="d-sm-flex justify-content-between">
+          <div>
+            <h4>Date du premier panier</h4>
+            <%= f.date_field :first_date, :label => "Date" %>
+          </div>
+          <div>
+          <h4 class="pt-4 pt-sm-0">Date du dernier panier</h4>
+            <%= f.date_field :last_date, :label => "Date" %>
+          </div>
+        </div>
+        <div class="mt-4">
+          <h4>Fréquence</h4>
+          <%= f.select :frequency, ["", "Toutes les semaines", "Une semaine sur deux"], class: "w-100" %>
+        </div>
+        <div class="mt-4">
+          <h4>Nom des paniers</h4>
+          <%= f.text_area :name, rows: "1", class: "w-100" %>
+          <h5 class="pl-0"><i class="fas fa-info-circle"></i> Si tu laisses ce champ vide, ils s'appelleront "Panier à x €" (original, non ?)</h5>
+        </div>
+        <div class="d-sm-flex justify-content-between">
+          <div class="mt-4">
+            <h4>Combien de paniers ?</h4>
+            <%= f.number_field :quantity, rows: "1" %>
+          </div>
+          <div class="mt-4">
+            <h4>À quel prix ?</h4>
+            <%= f.number_field :ttc_price, rows: "1" %>
+          </div>
+
+        </div>
+        <div class="mt-4">
+          <h4>Commentaire</h4>
+          <h5><i class="fas fa-info-circle"></i> Ce commentaire sera présent sur tous les paniers de la période</h5>
+          <%= f.text_area :recurrent_comment, rows: "4", class: "w-100" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex">
+    <%= f.submit "Valider", class: "btn txt-button mt-4 mx-auto" %>
+  </div>
+<% end %>
