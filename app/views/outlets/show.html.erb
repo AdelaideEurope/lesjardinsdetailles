@@ -1,8 +1,8 @@
 <div class="container custom-container">
    <div class="page-header non-scrolled-page-header scrollable-page-header d-flex justify-content-between">
       <h2><%= @outlet.full_name %> <span class="ml-2"></span></h2>
-      <div class="pr-38 d-flex fs-24-16">
-        <%= get_price_in_cents(@outlet.ttc_turnover) %>
+      <div class="pr-38 d-flex fs-24-16" style="margin-top: -4px">
+        <span class="fs-14 pr-2 pl-2 pt-2" style="margin-top: 0.1em"><%= get_price_in_cents(@outlet.ht_turnover) %></span><span class="pr-2">|</span><%= get_price_in_cents(@outlet.ttc_turnover) %>
       </div>
   </div>
 
