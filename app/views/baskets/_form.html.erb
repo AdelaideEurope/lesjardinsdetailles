@@ -7,23 +7,23 @@
         <%= f.date_field :date, value: params[:date], :label => "Date" %>
         <div class="mt-4">
           <h4>Nom des paniers</h4>
-          <%= f.text_area :name, rows: "1", class: "w-100" %>
+          <%= f.text_area :ad_hoc_name, rows: "1", class: "w-100" %>
           <h5 class="pl-0"><i class="fas fa-info-circle"></i> Si tu laisses ce champ vide, ils s'appelleront "Panier à x €" (original, non ?)</h5>
         </div>
         <div class="d-sm-flex justify-content-between">
           <div class="mt-4">
             <h4>Combien de paniers ?</h4>
-            <%= f.number_field :quantity, rows: "1" %>
+            <%= f.number_field :ad_hoc_quantity, rows: "1" %>
           </div>
           <div class="mt-4">
             <h4>À quel prix ?</h4>
-            <%= f.number_field :ttc_price, rows: "1", step: 0.1 %>
+            <%= f.number_field :ad_hoc_ttc_price, rows: "1", step: 0.1 %>
           </div>
 
         </div>
         <div class="mt-4">
           <h4>Commentaire</h4>
-          <%= f.text_area :comment, rows: "4", class: "w-100" %>
+          <%= f.text_area :ad_hoc_comment, rows: "4", class: "w-100" %>
         </div>
       </div>
     </div>

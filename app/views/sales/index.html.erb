@@ -26,7 +26,7 @@
 
   <div>
     <div class="progress">
-      <div class="progress-bar" role="progressbar" style="width: <%= percentage(@farm.ttc_turnover, @farm.estimated_ttc_turnover) %>" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+      <div class="progress-bar" role="progressbar" style="width: <%= percentage(@farm.ttc_turnover, @farm.estimated_ttc_turnover) %>%" aria-valuenow="<%= percentage(@farm.ttc_turnover, @farm.estimated_ttc_turnover) %>" aria-valuemin="0" aria-valuemax="100"><%= percentage(@farm.ttc_turnover, @farm.estimated_ttc_turnover) %> %</div>
     </div>
     <div class="my-4 desktop_only">
       <% @sales.each do |sale| %>
