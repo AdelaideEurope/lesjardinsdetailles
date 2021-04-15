@@ -41,7 +41,7 @@ import { initSelect2 } from '../plugins/init_select2';
 document.addEventListener('turbolinks:load', () => {
   drawerOpener();
   initUpdateNavbarOnScroll();
-  dateForCalendarEvent();
+  // dateForCalendarEvent();
   choseWorker();
   initSelect2();
   autoFillPrice();
