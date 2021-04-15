@@ -46,6 +46,11 @@ class SalesLinesController < ApplicationController
     if @sales_line.save
       sale_ht_total = sale.ht_total += ht_total
       sale_ttc_total = sale.ttc_total += ttc_total
+
+      product_ht_total = @sales_line.product.ht_turnover += ht_total
+      product_ttc_total = @sales_line.product.ttc_turnover += ttc_total
+      @sales_line.product.update(ht_turnover: product_ht_total, ttc_turnover: product_ttc_total)
+
       outlet_ht_turnover = outlet.ht_turnover += ht_total
       outlet_ttc_turnover = outlet.ttc_turnover += ttc_total
       farm_ht_turnover = @farm.ht_turnover += ht_total
@@ -70,6 +75,10 @@ class SalesLinesController < ApplicationController
     outlet = @sales_line.sale.outlet
     authorize @sales_line
     if @sales_line.destroy
+      product_ht_total = @sales_line.product.ht_turnover -= ht_total
+      product_ttc_total = @sales_line.product.ttc_turnover -= ttc_total
+      @sales_line.product.update(ht_turnover: product_ht_total, ttc_turnover: product_ttc_total)
+
       sale_ht_total = sale.ht_total -= ht_total
       sale_ttc_total = sale.ttc_total -= ttc_total
       outlet_ht_turnover = outlet.ht_turnover -= ht_total

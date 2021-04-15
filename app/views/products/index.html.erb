@@ -44,7 +44,7 @@
             <%= product.product_group.name.capitalize %>
           </td>
           <td>
-            <%= product.ttc_turnover || "-" %> €
+            <span class="lightgrey"><%= get_price_in_cents(product.ht_turnover) %></span><span> | <%= get_price_in_cents(product.ttc_turnover) %></span>
           </td>
         </tr>
         <tr>
