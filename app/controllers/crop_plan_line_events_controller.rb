@@ -11,6 +11,7 @@ class CropPlanLineEventsController < ApplicationController
   end
 
   def update
+    raise
     authorize @crop_plan_line_event
     if params[:delete_comment]
       start_date = params[:start_date]

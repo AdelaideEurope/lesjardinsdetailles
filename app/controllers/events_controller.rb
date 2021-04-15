@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:edit, :update, :destroy]
-  before_action :set_farm, only: [:index, :create, :edit, :update, :destroy]
+  before_action :set_farm, only: [:index, :create, :edit, :update, :destroy, :events_multiple_update]
 
   def index
     @events = Event.where(farm_id: current_user.farm_id)
@@ -158,6 +158,14 @@ class EventsController < ApplicationController
     authorize @event
   end
 
+  def events_multiple_update
+    start_date = params[:start_date]
+    @todo_admin_events = Event.todo_admin_events(start_date, @farm.id)
+    @todo_admin_events.each {|event| event.update(date: event.date + 1.week)}
+    flash[:notice] = "Toutes les tâches non faites ont bien été décalées d'une semaine !"
+    redirect_to farm_dashboard_path(@farm, start_date: (start_date.to_date + 1.week).to_s)
+    authorize @todo_admin_events
+  end
 
   def destroy
     authorize @event

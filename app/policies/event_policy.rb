@@ -34,4 +34,10 @@ class EventPolicy < ApplicationPolicy
       true
     end
   end
+
+  def events_multiple_update?
+    if user.worker
+      true
+    end
+  end
 end

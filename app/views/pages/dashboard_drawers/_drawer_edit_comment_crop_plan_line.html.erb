@@ -15,14 +15,14 @@
       </div>
     </div>
     <div class="drawer__content drawer-content-with-bottom-buttons">
-      <div>
-        <%= form_with model: cple, url: farm_crop_plan_line_event_path(farm, cple, edit_comment: true, start_date: params[:start_date]), method: :patch, local: true do |form| %>
-        <h4 class="mt-4">Commentaire</h4>
-        <%= form.text_area :comment, value: cple.comment, class: "mt-2 w-100", rows: "4" %>
-      </div>
-      <div class="drawer-edit-bottom-buttons px-sm-4">
-        <div><%= form.submit value: "Valider", class: "btn txt-button-background olive mt-2", 'data-disable-with': "..." %></div>
-      </div>
+      <%= form_with model: cple, url: farm_crop_plan_line_event_path(farm, cple, edit_comment: true, start_date: params[:start_date]), method: :patch, local: true do |form| %>
+        <div>
+          <h4 class="mt-4">Commentaire</h4>
+          <%= form.text_area :comment, value: cple.comment, class: "mt-2 w-100", rows: "4" %>
+        </div>
+        <div class="drawer-edit-bottom-buttons px-sm-4">
+          <div><%= form.submit value: "Valider", class: "btn txt-button-background olive mt-2", 'data-disable-with': "..." %></div>
+        </div>
       <% end %>
     </div>
   </div>

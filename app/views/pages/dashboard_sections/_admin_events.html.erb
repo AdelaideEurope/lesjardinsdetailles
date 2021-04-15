@@ -9,6 +9,7 @@
         <p><%= "Non, rien de rien..."  %></p>
         <% end %>
         <%= render "pages/dashboard_sections/done_todo_admin_events", farm: farm, admin_events: todo_admin_events, workers: workers, event: event %>
+        <%= link_to farm_events_multiple_update_path(farm, start_date: params[:start_date]), method: :post do %>Décaler tout à la semaine pro<% end %>
 
         <% if !done_admin_events.empty? %>
           <a class="collapsed" data-toggle="collapse" href="#collapse-done-admin-<%= params[:start_date] %>" aria-expanded="false" aria-controls="collapse-done-admin-<%= params[:start_date] %>">
