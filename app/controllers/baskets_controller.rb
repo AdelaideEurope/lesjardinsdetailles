@@ -109,14 +109,14 @@ class BasketsController < ApplicationController
     authorize @basket
     if params[:confirm] == "true" && @basket.confirmed != true
       if @basket.update(confirmed: true)
-        sale_ht_total = @basket.sale.ht_total += @basket.ht_price
-        sale_ttc_total = @basket.sale.ttc_total += @basket.ttc_price
+        basket_ht_total = @basket.sale.ht_total += @basket.ht_price * @basket.quantity
+        basket_ttc_total = @basket.sale.ttc_total += @basket.ttc_price * @basket.quantity
         outlet_ht_turnover = @outlet.ht_turnover += @basket.ht_price
         outlet_ttc_turnover = @outlet.ttc_turnover += @basket.ttc_price
         farm_ht_turnover = @farm.ht_turnover += @basket.ht_price
         farm_ttc_turnover = @farm.ttc_turnover += @basket.ttc_price
 
-        @basket.sale.update(ht_total: sale_ht_total, ttc_total: sale_ttc_total)
+        @basket.sale.update(ht_total: basket_ht_total, ttc_total: basket_ttc_total)
         @outlet.update(ht_turnover: outlet_ht_turnover, ttc_turnover: outlet_ttc_turnover)
         @farm.update(ht_turnover: farm_ht_turnover, ttc_turnover: farm_ttc_turnover)
         redirect_to farm_pointsdevente_sale_path(@farm, @outlet.id, @basket.sale.id, @basket.id)
