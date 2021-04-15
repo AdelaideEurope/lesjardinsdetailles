@@ -22,9 +22,7 @@
                   <thead>
                     <tr>
                       <th scope="col">Légume</th>
-                      <th scope="col">Planche</th>
                       <th scope="col">Unité</th>
-                      <th scope="col" class="text-right">PU HT</th>
                       <th scope="col" class="text-right">PU TTC</th>
                       <th scope="col" class="text-right">Qté</th>
                       <th scope="col" class="text-right d-none">HT</th>
@@ -36,52 +34,22 @@
                     <% basket.basket_lines.each do |basket_line| %>
                       <tr>
                         <td><%= basket_line.product.name.capitalize %></td>
-                        <td id="basket-line-<%= basket_line.id %>">
-                          <button type="button" data-toggle="modal" data-target="#basket-line-<%= basket_line.id %>">
-                            <%= basket_line.bed.garden.name if basket_line.bed %> - <%= basket_line.bed.name if basket_line.bed%>
-                          </button>
-                        </td>
                         <td><%= basket_line.unit %></td>
                         <td class="text-right"><%= get_price_in_cents(basket_line.ht_unit_price) %></td>
-                        <td class="text-right"><%= get_price_in_cents(basket_line.ttc_unit_price) %></td>
                         <td class="text-right"><%= remove_trailing_zero(basket_line.quantity) %></td>
                         <td class="text-right d-none"><%= get_price_in_cents(basket_line.ht_total_price) %></td>
                         <td class="text-right"><%= get_price_in_cents(basket_line.ttc_total_price) %></td>
                         <td></td>
                       </tr>
-
-
-                      <div class="modal fade" id="basket-line-<%= basket_line.id %>" tabindex="-1" role="dialog" aria-labelledby="basket-line-<%= basket_line.id %>Label" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content" style="width: 250px">
-                            <div class="modal-header">
-                              <h4 class="modal-title" id="basket-line-<%= basket_line.id %>Label">Modifier la planche</h4>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body">
-                              <% basket_line.product.crop_plan_lines.each do |cpl| %>
-                                <%= link_to farm_pointsdevente_sale_basket_basket_line_path(@farm, @sale.outlet, @sale, basket, basket_line, bed: cpl.bed, source: "basket-index"), method: :patch do %>
-                                  <div class="basket-line-bed-choice pt-2 pb-2 pl-4 raisin"><%= cpl.bed.full_name %></div>
-                                <% end %>
-                              <% end %>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
                     <% end %>
                     <tr class="new-sales-line">
                       <td><%= form.select :product, @products %></td>
-                      <td><%= form.select :bed, @beds %></td>
                       <td><%= form.select :unit, ["-", "botte", "pièce", "kg", "unité"] %></td>
-                      <td style="text-align-last: end"><%= form.number_field :ht_unit_price, step: 0.01, class: "price-column" %></td>
                       <td style="text-align-last: end"><%= form.number_field :ttc_unit_price, step: 0.01, class: "price-column" %></td>
-                      <td style="text-align-last: end"><%= form.number_field :quantity, step: 0.01, class: "price-column" %></td>
-                      <%= form.hidden_field :ht_total, step: 0.01, class: "price-column" %>
+                      <td style="text-align-last: end"><%= form.number_field :quantity, step: 0.01, class: "quantity-column" %></td>
+                      <%= form.hidden_field :ht_total, step: 0.01 %>
                       <td style="text-align-last: end"><div><%= form.number_field :ttc_total, step: 0.01, class: "price-column" %></div></td>
-                      <td class="d-flex justify-content-end" style="border-top: none"><%= form.submit value: "Valider", 'data-disable-with': "..." %></td>
+                      <td class="d-flex justify-content-end" style="border-top: none"><%= form.submit value: "OK", 'data-disable-with': "..." %></td>
                     </tr>
                   </tbody>
                 </table>
@@ -97,3 +65,6 @@
     <% end %>
   </div>
 </div>
+
+
+

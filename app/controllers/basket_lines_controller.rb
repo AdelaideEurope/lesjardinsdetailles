@@ -8,7 +8,7 @@ class BasketLinesController < ApplicationController
     sale = Sale.find(sale_id)
     outlet_id = params[:pointsdevente_id].to_i
     outlet = Outlet.find(outlet_id)
-    ht_unit_price = (params[:basket_line][:ht_unit_price].to_f * 100).round
+    ht_unit_price = ((params[:basket_line][:ttc_unit_price].to_f  / 1.055) * 100).round
     ttc_unit_price = (params[:basket_line][:ttc_unit_price].to_f * 100).round
     ht_total = ((params[:basket_line][:ttc_total].to_f  / 1.055) * 100).round
     ttc_total = (params[:basket_line][:ttc_total].to_f * 100).round

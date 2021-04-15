@@ -18,8 +18,9 @@ class SalesLinesController < ApplicationController
     end
 
     if params[:sales_line][:unit] == "-"
-      flash[:alert] = "Attention, tu n'as pas indiqué l'unité"
-      redirect_to farm_pointsdevente_sale_path(@farm, outlet, sale)
+      unit = Product.find(params[:sales_line][:product].to_i).general_unit
+    else
+      unit = params[:sales_line][:unit]
     end
 
     last_price = LastPrice.where(outlet_id: outlet_id, product_id: params[:sales_line][:product].to_i)[0]
@@ -39,7 +40,7 @@ class SalesLinesController < ApplicationController
       last_price.save
     end
 
-    @sales_line = SalesLine.new(product_id: params[:sales_line][:product].to_i, bed_id: bed_id, unit: params[:sales_line][:unit], ht_unit_price: ht_unit_price, ttc_unit_price: ttc_unit_price, ht_total: ht_total, ttc_total: ttc_total, quantity: params[:sales_line][:quantity].to_f, sale_id: sale_id, date: sale.date)
+    @sales_line = SalesLine.new(product_id: params[:sales_line][:product].to_i, bed_id: bed_id, unit: unit, ht_unit_price: ht_unit_price, ttc_unit_price: ttc_unit_price, ht_total: ht_total, ttc_total: ttc_total, quantity: params[:sales_line][:quantity].to_f, sale_id: sale_id, date: sale.date)
     authorize @sales_line
 
     if @sales_line.save

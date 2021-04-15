@@ -147,7 +147,7 @@
                 </div>
                 <div class="modal-body">
                   <% line.product.crop_plan_lines.each do |cpl| %>
-                    <%= link_to farm_sales_line_path(@sale.outlet, line, bed: cpl.bed), method: :patch do %>
+                    <%= link_to farm_sales_line_path(@farm, line, bed: cpl.bed), method: :patch do %>
                       <div class="sales-line-bed-choice pt-2 pb-2 pl-4 raisin"><%= cpl.bed.full_name %></div>
                     <% end %>
                   <% end %>
