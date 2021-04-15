@@ -35,7 +35,7 @@
                       <tr>
                         <td><%= basket_line.product.name.capitalize %></td>
                         <td><%= basket_line.unit %></td>
-                        <td class="text-right"><%= get_price_in_cents(basket_line.ht_unit_price) %></td>
+                        <td class="text-right"><%= get_price_in_cents(basket_line.ttc_unit_price) %></td>
                         <td class="text-right"><%= remove_trailing_zero(basket_line.quantity) %></td>
                         <td class="text-right d-none"><%= get_price_in_cents(basket_line.ht_total_price) %></td>
                         <td class="text-right"><%= get_price_in_cents(basket_line.ttc_total_price) %></td>

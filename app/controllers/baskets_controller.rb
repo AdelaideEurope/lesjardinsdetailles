@@ -16,7 +16,7 @@ class BasketsController < ApplicationController
       else
         basket_sale_id = Sale.create(date: date, outlet_id: @outlet.id, ht_total: 0, ttc_total: 0, rounded_ht_total: 0, rounded_ttc_total: 0).id
       end
-
+      raise
       basket_name = params[:basket][:name] != "" ? params[:basket][:name] : "Panier à #{params[:basket][:ttc_price]} €"
       @basket = Basket.new(name: basket_name, date: date, sale_id: basket_sale_id, comment: params[:basket][:comment], quantity: params[:basket][:quantity], ttc_price: params[:basket][:ttc_price].to_i * 100, ht_price: (params[:basket][:ttc_price].to_i * 100) / 1.055, recurrent: false, cumulated_difference: 0)
       authorize @basket
