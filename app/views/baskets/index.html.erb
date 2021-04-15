@@ -23,8 +23,8 @@
                     <tr>
                       <th scope="col">Légume</th>
                       <th scope="col">Unité</th>
-                      <th scope="col" class="text-right">PU TTC</th>
                       <th scope="col" class="text-right">Qté</th>
+                      <th scope="col" class="text-right">PU TTC</th>
                       <th scope="col" class="text-right d-none">HT</th>
                       <th scope="col" class="text-right">TTC</th>
                       <th scope="col"></th>
@@ -35,8 +35,8 @@
                       <tr>
                         <td><%= basket_line.product.name.capitalize %></td>
                         <td><%= basket_line.unit %></td>
-                        <td class="text-right"><%= get_price_in_cents(basket_line.ttc_unit_price) %></td>
                         <td class="text-right"><%= remove_trailing_zero(basket_line.quantity) %></td>
+                        <td class="text-right"><%= get_price_in_cents(basket_line.ttc_unit_price) %></td>
                         <td class="text-right d-none"><%= get_price_in_cents(basket_line.ht_total_price) %></td>
                         <td class="text-right"><%= get_price_in_cents(basket_line.ttc_total_price) %></td>
                         <td></td>
@@ -45,8 +45,8 @@
                     <tr class="new-sales-line">
                       <td><%= form.select :product, @products %></td>
                       <td><%= form.select :unit, ["-", "botte", "pièce", "kg", "unité"] %></td>
-                      <td style="text-align-last: end"><%= form.number_field :ttc_unit_price, step: 0.01, class: "price-column" %></td>
                       <td style="text-align-last: end"><%= form.number_field :quantity, step: 0.01, class: "quantity-column" %></td>
+                      <td style="text-align-last: end"><%= form.number_field :ttc_unit_price, step: 0.01, class: "price-column" %></td>
                       <%= form.hidden_field :ht_total, step: 0.01 %>
                       <td style="text-align-last: end"><div><%= form.number_field :ttc_total, step: 0.01, class: "price-column" %></div></td>
                       <td class="d-flex justify-content-end" style="border-top: none"><%= form.submit value: "OK", 'data-disable-with': "..." %></td>

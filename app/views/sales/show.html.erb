@@ -32,9 +32,9 @@
           <th scope="col">Légume</th>
           <th scope="col">Planche</th>
           <th scope="col">Unité</th>
+          <th scope="col" class="text-right">Quantité</th>
           <th scope="col" class="text-right">PU HT</th>
           <th scope="col" class="text-right">PU TTC</th>
-          <th scope="col" class="text-right">Quantité</th>
           <th scope="col" class="text-right">Montant HT</th>
           <th scope="col" class="text-right">Montant TTC</th>
           <th scope="col"></th>
@@ -47,11 +47,11 @@
             <td class="<%= 'pointer' if basket.has_basket_lines? %>" data-toggle="<%= 'collapse' if basket.has_basket_lines? %>" data-target="#basket<%= basket.id %>" class="accordion-toggle"><%= basket.name.capitalize %></td>
             <td></td>
             <td></td>
-            <td class="text-right"></td>
-            <td class="text-right"></td>
             <td class="text-right"><%= remove_trailing_zero(basket.quantity) %></td>
             <td class="text-right"><%= get_price_in_cents(basket.ht_price) %></td>
             <td class="text-right"><%= get_price_in_cents(basket.ttc_price) %></td>
+            <td class="text-right"><%= get_price_in_cents(basket.ht_price*basket.quantity) %></td>
+            <td class="text-right"><%= get_price_in_cents(basket.ttc_price*basket.quantity) %></td>
             <td class="d-flex justify-content-end">
               <% if basket.confirmed != true %>
                 <%= link_to farm_pointsdevente_sale_basket_path(@farm, @sale.outlet.id, @sale.id, basket.id, confirm: true), method: :patch, data: { confirm: "Le montant de ces paniers sera ajouté au total de la vente, c'est good ?"} do %>
@@ -79,9 +79,9 @@
                         </button>
                       </td>
                       <td><%= basket_line.unit %></td>
+                      <td class="text-right"><%= remove_trailing_zero(basket_line.quantity) %></td>
                       <td class="text-right"><%= get_price_in_cents(basket_line.ht_unit_price) %></td>
                       <td class="text-right"><%= get_price_in_cents(basket_line.ttc_unit_price) %></td>
-                      <td class="text-right"><%= remove_trailing_zero(basket_line.quantity) %></td>
                       <td class="text-right"><%= get_price_in_cents(basket_line.ht_total_price) %></td>
                       <td class="text-right"><%= get_price_in_cents(basket_line.ttc_total_price) %></td>
                       <td></td>
@@ -122,9 +122,9 @@
             </button>
             </td>
             <td><%= line.unit %></td>
+            <td class="text-right"><%= remove_trailing_zero(line.quantity) %></td>
             <td class="text-right"><%= get_price_in_cents(line.ht_unit_price) %></td>
             <td class="text-right"><%= get_price_in_cents(line.ttc_unit_price) %></td>
-            <td class="text-right"><%= remove_trailing_zero(line.quantity) %></td>
             <td class="text-right"><%= get_price_in_cents(line.ht_total) %></td>
             <td class="text-right"><%= get_price_in_cents(line.ttc_total) %></td>
             <td class="d-flex justify-content-end">
@@ -160,9 +160,9 @@
           <td><%= form.select :product, @products %></td>
           <td><%= form.select :bed, @beds %></td>
           <td><%= form.select :unit, ["-", "botte", "pièce", "kg", "unité"] %></td>
+          <td style="text-align-last: end"><%= form.number_field :quantity, step: 0.01, class: "price-column" %></td>
           <td style="text-align-last: end"><%= form.number_field :ht_unit_price, step: 0.01, class: "price-column" %></td>
           <td style="text-align-last: end"><%= form.number_field :ttc_unit_price, step: 0.01, class: "price-column" %></td>
-          <td style="text-align-last: end"><%= form.number_field :quantity, step: 0.01, class: "price-column" %></td>
           <td style="text-align-last: end"><%= form.number_field :ht_total, step: 0.01, class: "price-column" %></td>
           <td style="text-align-last: end"><div><%= form.number_field :ttc_total, step: 0.01, class: "price-column" %></div></td>
           <td class="d-flex justify-content-end" style="border-top: none"><%= form.submit value: "Valider", 'data-disable-with': "..." %></td>
