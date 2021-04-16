@@ -51,8 +51,16 @@
                     <td class="basket-product"></td>
                     <td class="basket-other-col"></td>
                     <td class="basket-other-col"></td>
+                    <td class="basket-other-col basket-ttc-actual-total">Total</td>
+                    <td class="text-right basket-other-col basket-ttc-actual-total"><%= get_price_in_cents(basket.ttc_actual_total) %></td>
+                    <td class="basket-last-col basket-ttc-actual-total d-flex justify-content-end"></td>
+                  </tr>
+                  <tr class="total-basket-line">
+                    <td class="basket-product"></td>
                     <td class="basket-other-col"></td>
-                    <td class="text-right basket-other-col"><%= get_price_in_cents(basket.ttc_actual_total) %></td>
+                    <td class="basket-other-col"></td>
+                    <td class="basket-other-col">Écart</td>
+                    <td class="text-right basket-other-col"><%= get_price_in_cents(basket.ttc_price - basket.ttc_actual_total) %></td>
                     <td class="basket-last-col d-flex justify-content-end"></td>
                   </tr>
                 </tbody>

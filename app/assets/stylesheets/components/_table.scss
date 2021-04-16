@@ -40,6 +40,9 @@
   th, td {
     border-top: none;
   }
+  th {
+    padding-bottom: 8px !important;
+  }
   margin-bottom: 0px;
 }
 
@@ -47,6 +50,11 @@
   td {
     padding-bottom: 0px;
   }
+}
+
+td.basket-ttc-actual-total {
+  border-top: 1px solid $olive !important;
+  padding-bottom: 8px !important;
 }
 
 .basket-product {
@@ -65,3 +73,4 @@
   padding-right: 0px !important;
   padding-bottom: 0px !important;
 }
+
