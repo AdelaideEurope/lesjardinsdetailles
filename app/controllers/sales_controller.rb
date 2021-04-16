@@ -14,10 +14,8 @@ class SalesController < ApplicationController
     authorize @sale
     @new_sales_line = SalesLine.new
     @sales_lines = @sale.sales_lines.order(:created_at)
-    @beds = Bed.all.map { |bed| [bed.full_name, bed.id] }
-    @beds.unshift(["-"])
+    @beds = Bed.all.order(:full_name).pluck(:full_name, :id)
     @products = Product.where(farm_id: @farm.id).order(:slug).map { |product| [product.name.capitalize, product.id] }
-    @products.unshift(["-"])
   end
 
   def new

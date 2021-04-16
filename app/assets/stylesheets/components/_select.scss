@@ -4,3 +4,9 @@
     cursor: pointer;
   }
 }
+
+.bed-list {
+  .select2-search--inline {
+    display: none;
+  }
+}
