@@ -40,7 +40,7 @@
                         <td class="text-right d-none"><%= get_price_in_cents(basket_line.ht_total_price) %></td>
                         <td class="text-right"><%= get_price_in_cents(basket_line.ttc_total_price) %></td>
                         <td>
-                          <%= link_to farm_pointsdevente_sale_basket_basket_line_path(@farm, @sale.outlet.id, @sale.id, basket.id, basket_line.id), method: :delete, local: true, data: { confirm: "T'es #{current_user.is_female? ? 'sûre' : 'sûr'} ? 🤨"} do %>
+                          <%= link_to farm_pointsdevente_sale_basket_basket_line_path(@farm, @sale.outlet.id, @sale.id, basket.id, basket_line.id, ttc_actual_total: basket.ttc_actual_total, ht_actual_total: basket.ht_actual_total), method: :delete, local: true, data: { confirm: "T'es #{current_user.is_female? ? 'sûre' : 'sûr'} ? 🤨"} do %>
                             <div class="round-button red">
                               <i class="fas fa-times round-txt-button"></i>
                             </div>

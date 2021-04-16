@@ -55,7 +55,17 @@ class BasketLinesController < ApplicationController
   end
 
   def destroy
-    raise
+    sale = @basket_line.basket.sale
+    outlet = @basket_line.basket.sale.outlet
+    authorize @basket_line
+    if @basket_line.destroy
+      ht_total = (params[:ht_actual_total].to_i)
+      ttc_total = (params[:ttc_actual_total].to_i)
+      ht_actual_total = @basket_line.basket.ht_actual_total -= ht_total
+      ttc_actual_total = @basket_line.basket.ttc_actual_total -= ttc_total
+      @basket_line.basket.update(ttc_actual_total: ttc_actual_total, ht_actual_total: ht_actual_total)
+      redirect_to farm_pointsdevente_sale_baskets_path(@farm, outlet, sale)
+    end
   end
 
   private
