@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_15_203925) do
+ActiveRecord::Schema.define(version: 2021_04_16_055454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,8 @@ ActiveRecord::Schema.define(version: 2021_04_15_203925) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "comment"
+    t.decimal "ht_actual_total"
+    t.decimal "ttc_actual_total"
     t.index ["sale_id"], name: "index_baskets_on_sale_id"
   end
 

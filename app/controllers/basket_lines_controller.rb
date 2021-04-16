@@ -4,6 +4,7 @@ class BasketLinesController < ApplicationController
 
 
   def create
+    @basket = Basket.find(params[:basket_id].to_i)
     sale_id = params[:sale_id].to_i
     sale = Sale.find(sale_id)
     outlet_id = params[:pointsdevente_id].to_i
@@ -25,10 +26,16 @@ class BasketLinesController < ApplicationController
       unit = params[:basket_line][:unit]
     end
 
+    basket_ht_actual_total = @basket.ht_actual_total.nil? ? 0 : @basket.ht_actual_total
+    basket_ttc_actual_total = @basket.ttc_actual_total.nil? ? 0 : @basket.ttc_actual_total
+    ht_actual_total = basket_ht_actual_total += ht_total
+    ttc_actual_total = basket_ttc_actual_total += ttc_total
+
     @basket_line = BasketLine.new(date: sale.date, basket_id: params[:basket_id], ht_unit_price: ht_unit_price, ttc_unit_price: ttc_unit_price, quantity: params[:basket_line][:quantity].to_f, ht_total_price: ht_total, ttc_total_price: ttc_total, unit: unit, bed_id: bed_id, product_id: params[:basket_line][:product].to_i)
     authorize @basket_line
 
     if @basket_line.save
+      @basket.update(ttc_actual_total: ttc_actual_total, ht_actual_total: ht_actual_total)
       redirect_to farm_pointsdevente_sale_baskets_path(@farm, outlet, sale)
     end
   end
@@ -44,9 +51,11 @@ class BasketLinesController < ApplicationController
       redirect_to farm_pointsdevente_sale_baskets_path(@farm, @basket_line.basket.sale.outlet, @basket_line.basket.sale)
     else
       redirect_to farm_pointsdevente_sale_path(@farm, @basket_line.basket.sale.outlet, @basket_line.basket.sale)
-
     end
+  end
 
+  def destroy
+    raise
   end
 
   private
