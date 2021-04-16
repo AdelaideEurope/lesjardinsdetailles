@@ -8,75 +8,78 @@
 
   <div class="page-content">
   </div>
-  <div class="d-flex justify-content-between flex-wrap">
-    <% @baskets.each_with_index do |basket, i| %>
-      <div class="dashboard-crop-plan-line-card dashboard-admin-event-card <%= @colors[i%3] %> mt-4 mr-4">
+  <% @baskets.each_with_index do |basket, i| %>
+    <div class="d-flex justify-content-between flex-wrap">
+      <div class="dashboard-crop-plan-line-card dashboard-admin-event-card <%= @colors[i%3] %>">
         <div class="card-colored-top-part-fixed-color <%= @colors[i%3] %>">
           <div class="card-top-part-text"><%= basket.name %> x <%= basket.quantity %></div>
         </div>
         <div class="card-bottom-part">
-          <div class="card-bottom-part-text">
-            <div class="card-main-info-top-right"></div>
-              <%= form_with model: @new_basket_line, url: farm_pointsdevente_sale_basket_basket_lines_path(@farm, @sale.outlet.id, @sale.id, basket), method: :post, local: true do |form| %>
-                <table class="table basket-lines-table">
-                  <thead>
+          <div class="card-bottom-part-text p-0">
+            <%= form_with model: @new_basket_line, url: farm_pointsdevente_sale_basket_basket_lines_path(@farm, @sale.outlet.id, @sale.id, basket), method: :post, local: true do |form| %>
+              <table class="table basket-lines-table">
+                <thead>
+                  <tr>
+                    <th scope="col" class="basket-product">Légume</th>
+                    <th scope="col" class="basket-other-col">Unité</th>
+                    <th scope="col" class="basket-other-col text-right">Qté</th>
+                    <th scope="col" class="basket-other-col text-right">PU TTC</th>
+                    <th scope="col" class="basket-other-col text-right d-none">HT</th>
+                    <th scope="col" class="basket-other-col text-right">TTC</th>
+                    <th scope="col" class="basket-last-col d-flex justify-content-end"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% basket.basket_lines.each do |basket_line| %>
                     <tr>
-                      <th scope="col">Légume</th>
-                      <th scope="col">Unité</th>
-                      <th scope="col" class="text-right">Qté</th>
-                      <th scope="col" class="text-right">PU TTC</th>
-                      <th scope="col" class="text-right d-none">HT</th>
-                      <th scope="col" class="text-right">TTC</th>
-                      <th scope="col"></th>
+                      <td class="basket-product"><%= basket_line.product.name.capitalize %></td>
+                      <td class="basket-other-col"><%= basket_line.unit %></td>
+                      <td class="text-right basket-other-col"><%= remove_trailing_zero(basket_line.quantity) %></td>
+                      <td class="text-right basket-other-col"><%= get_price_in_cents(basket_line.ttc_unit_price) %></td>
+                      <td class="text-right basket-other-col d-none"><%= get_price_in_cents(basket_line.ht_total_price) %></td>
+                      <td class="text-right basket-other-col"><%= get_price_in_cents(basket_line.ttc_total_price) %></td>
+                      <td class="basket-last-col d-flex justify-content-end">
+                        <%= link_to farm_pointsdevente_sale_basket_basket_line_path(@farm, @sale.outlet.id, @sale.id, basket.id, basket_line.id, ttc_actual_total: basket.ttc_actual_total, ht_actual_total: basket.ht_actual_total), method: :delete, local: true, data: { confirm: "T'es #{current_user.is_female? ? 'sûre' : 'sûr'} ? 🤨"} do %>
+                          <div class="round-button red">
+                            <i class="fas fa-times round-txt-button"></i>
+                          </div>
+                        <% end %>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    <% basket.basket_lines.each do |basket_line| %>
-                      <tr>
-                        <td><%= basket_line.product.name.capitalize %></td>
-                        <td><%= basket_line.unit %></td>
-                        <td class="text-right"><%= remove_trailing_zero(basket_line.quantity) %></td>
-                        <td class="text-right"><%= get_price_in_cents(basket_line.ttc_unit_price) %></td>
-                        <td class="text-right d-none"><%= get_price_in_cents(basket_line.ht_total_price) %></td>
-                        <td class="text-right"><%= get_price_in_cents(basket_line.ttc_total_price) %></td>
-                        <td>
-                          <%= link_to farm_pointsdevente_sale_basket_basket_line_path(@farm, @sale.outlet.id, @sale.id, basket.id, basket_line.id, ttc_actual_total: basket.ttc_actual_total, ht_actual_total: basket.ht_actual_total), method: :delete, local: true, data: { confirm: "T'es #{current_user.is_female? ? 'sûre' : 'sûr'} ? 🤨"} do %>
-                            <div class="round-button red">
-                              <i class="fas fa-times round-txt-button"></i>
-                            </div>
-                          <% end %>
-                        </td>
-                      </tr>
-                    <% end %>
-                    <tr class="new-sales-line">
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td class="text-right"><%= get_price_in_cents(basket.ttc_actual_total) %></td>
-                      <td></td>
-                    </tr>
-                    <tr class="new-sales-line">
-                      <td><%= form.select :product, @products %></td>
-                      <td><%= form.select :unit, ["-", "botte", "pièce", "kg", "unité"] %></td>
-                      <td style="text-align-last: end"><%= form.number_field :quantity, step: 0.01, class: "quantity-column" %></td>
-                      <td style="text-align-last: end"><%= form.number_field :ttc_unit_price, step: 0.01, class: "price-column" %></td>
-                      <%= form.hidden_field :ht_total, step: 0.01 %>
-                      <td style="text-align-last: end"><div><%= form.number_field :ttc_total, step: 0.01, class: "price-column" %></div></td>
-                      <td class="d-flex justify-content-end" style="border-top: none"><%= form.submit value: "OK", 'data-disable-with': "..." %></td>
-                    </tr>
-                  </tbody>
-                </table>
-              <% end %>
+                  <% end %>
+                  <tr class="total-basket-line">
+                    <td class="basket-product"></td>
+                    <td class="basket-other-col"></td>
+                    <td class="basket-other-col"></td>
+                    <td class="basket-other-col"></td>
+                    <td class="text-right basket-other-col"><%= get_price_in_cents(basket.ttc_actual_total) %></td>
+                    <td class="basket-last-col d-flex justify-content-end"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table basket-lines-table new-basket-line-table">
+                <tbody>
+                  <tr class="new-sales-line">
+                    <td class="basket-product"><%= form.select :product, @products %></td>
+                    <td class="basket-other-col"><%= form.select :unit, ["-", "botte", "pièce", "kg", "unité"] %></td>
+                    <td style="text-align-last: end" class="basket-other-col"><%= form.number_field :quantity, step: 0.01, class: "quantity-column" %></td>
+                    <td style="text-align-last: end" class="basket-other-col"><%= form.number_field :ttc_unit_price, step: 0.01, class: "price-column" %></td>
+                    <%= form.hidden_field :ht_total, step: 0.01 %>
+                    <td style="text-align-last: end" class="basket-other-col"><div><%= form.number_field :ttc_total, step: 0.01, class: "price-column" %></div></td>
+                    <td class="d-flex justify-content-end basket-last-col d-flex justify-content-end" style="border-top: none"><%= form.submit value: "OK", 'data-disable-with': "..." %></td>
+                  </tr>
+                </tbody>
+              </table>
+            <% end %>
             </div>
           </div>
           <div class="d-flex justify-content-end">
             <div class="card-bottom-right-triangle <%= @colors[i%3] %> pointer" data-drawer-trigger aria-controls="drawer-previous-baskets-<%= basket.id %>"><i class="fas fa-search-plus"></i></div>
           </div>
         </div>
-      </div>
-      <%= render "drawer_previous_baskets", basket: basket, farm: @farm, outlet: @sale.outlet %>
-    <% end %>
+        <%= render "drawer_previous_baskets", basket: basket, farm: @farm, outlet: @sale.outlet %>
+      <% end %>
+    </div>
   </div>
 </div>
 
