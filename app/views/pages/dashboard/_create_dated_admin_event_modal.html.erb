@@ -2,7 +2,7 @@
 <div class="modal fade" id="modal-new-dated-admin-event" tabindex="-1" aria-labelledby="modal-new-admin-eventLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content" style="height: 400px; overflow: scroll;">
-      <div class="modal-header">
+      <div class="modal-header modal-new-admin-header">
         <h2 class="modal-title" id="modal-new-admin-eventLabel">Nouvel événement 🗓</h2>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -19,10 +19,6 @@
             <!-- <div class="d-flex mt-2 w-sm-75"> -->
               <div class="ml-2">
                 <div class="d-flex">
-                  <div>
-                    <h4 class="mt-2">Heure début</h4>
-                    <%= form.time_select :start_hour, class: "mt-2 timepicker", rows: "1" %>
-                  </div>
                   <div class="ml-2">
                     <h4 class="mt-2">Heure fin</h4>
                     <%= form.time_select :end_hour, class: "mt-2", rows: "1" %>
@@ -75,29 +71,26 @@
           <div>
             <div>
               <div>
-              <h4 class="mt-2 mb-0">Date</h4>
-                <%= form.date_field :start_date, class: "mt-2 w-100 start-time", rows: "1" %>
+                <h4 class="mt-2 mb-0">Dates</h4>
+                <%= form.date_field :start_date, class: "mt-2 start-time datepicker", rows: "1" %>
               </div>
+
             <!-- <div class="d-flex mt-2 w-sm-75"> -->
               <div>
                 <div class="d-flex">
                   <div>
-                    <h4 class="mt-2 mb-0">Heure début</h4>
-                    <%= form.time_select :start_hour, class: "mt-2", rows: "1" %>
-                  </div>
-                  <div class="ml-4">
                     <h4 class="mt-2 mb-0">Heure fin</h4>
                     <%= form.time_select :end_hour, class: "mt-2", rows: "1" %>
                   </div>
-                  <div class="d-flex ml-4 mt-2"><span><%= form.check_box :is_all_day, {checked: true} %></span></div>
+                  <div class="d-flex ml-4 mr-4 mt-4"><span><%= form.check_box :is_all_day, {checked: true} %></span></div>
+                  <div>
+                    <h4 class="mt-2 mb-0">Type</h4>
+                    <div class="d-flex ml-0 event-type-select"><%= form.select :event_subcategory, ["vente", "rdv", "mission"], class: "mt-2", rows: "1" %></div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div class="d-flex mt-2">
-              <h4 class="mb-0">Type d'événement</h4>
-              <div class="d-flex event-type-select"><%= form.select :event_subcategory, ["vente", "rdv", "mission"], class: "mt-2", rows: "1" %></div>
-            </div>
             <h4 class="mt-2 mb-0">Titre</h4>
             <%= form.text_area :description, class: "mt-2  w-100", rows: "1" %>
             <h4 class="mt-2 mb-0">Description</h4>

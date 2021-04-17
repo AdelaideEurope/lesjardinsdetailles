@@ -16,17 +16,16 @@ class EventsController < ApplicationController
   end
 
   def create
-    date = params[:event][:start_date]
+    array_dates = params[:event][:start_date].split(", ")
+    array_parsed_dates = array_dates.map {|d| DateTime.parse(d)}
     if params[:event_category] == "dated_admin"
-      is_all_day = params[:event][:is_all_day] == '1'
-      start_hour = params[:event]["start_hour(4i)"]+":"+params[:event]["start_hour(5i)"]
-      end_hour = params[:event]["end_hour(4i)"]+":"+params[:event]["end_hour(5i)"]
-      start_date_with_hour = DateTime.parse(date+"T"+start_hour)
-      end_date_with_hour = DateTime.parse(date+"T"+end_hour)
-      @new_event = Event.new(date: params[:start_date], description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details], event_subcategory: params[:event][:event_subcategory], event_category: params[:event_category], farm_id: current_user.farm_id, start_time: start_date_with_hour, end_time: end_date_with_hour, is_all_day: is_all_day)
-      authorize @new_event
-      if @new_event.save
+      array_parsed_dates.each do |event_date|
+        is_all_day = params[:event][:is_all_day] == '1'
+        end_date_with_hour = DateTime.parse(event_date.to_s[0..-16] + " " + params[:event]["end_hour(4i)"]+":"+params[:event]["end_hour(5i)"])
+        @new_event = Event.new(date: params[:start_date], description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details], event_subcategory: params[:event][:event_subcategory], event_category: params[:event_category], farm_id: current_user.farm_id, start_time: event_date, end_time: end_date_with_hour, is_all_day: is_all_day)
+        authorize @new_event
 
+        @new_event.save
         workers = params[:event][:worker_list].split(",").map{|el| el.to_i}
         counts = Hash.new(0)
         workers.each { |id| counts[id] += 1 }
@@ -34,19 +33,14 @@ class EventsController < ApplicationController
         counts.each do |user_id, _value|
           UserEvent.create(user_id: user_id, event_id: @new_event.id)
         end
-
-        if params[:to_calendar] == "true"
-          redirect_to farm_calendrier_index_path(@farm, start_date: date)
-        else
-          redirect_to farm_dashboard_path(@farm, start_date: date)
-        end
-      else
-        if params[:to_calendar] == "true"
-          redirect_to farm_calendrier_index_path(@farm, start_date: date)
-        else
-          redirect_to farm_dashboard_path(@farm, start_date: date)
-        end
       end
+
+      if params[:to_calendar] == "true"
+        redirect_to farm_calendrier_index_path(@farm, start_date: params[:event][:start_date].split(", ")[0])
+      else
+        redirect_to farm_dashboard_path(@farm, start_date: params[:event][:start_date].split(", ")[0])
+      end
+
     else
       params_start_date = params[:start_date]
       !params_start_date.nil? ? date = params[:start_date] : date = Date.today

@@ -24,7 +24,7 @@ class HenActionsController < ApplicationController
       year = params[:hen_action]["date(1i)"]
       month = params[:hen_action]["date(2i)"].length == 1 ? "0" + params[:hen_action]["date(2i)"] : params[:hen_action]["date(2i)"]
       day = params[:hen_action]["date(3i)"]
-      date = year + month + day
+      date = year + "-" + month + "-" + day
       @hen_action = HenAction.new(farm_id: params[:farm_id], comment: params[:hen_action][:comment], action: params[:hen_action][:action], date: Date.parse(date))
       authorize @hen_action
       if @hen_action.save

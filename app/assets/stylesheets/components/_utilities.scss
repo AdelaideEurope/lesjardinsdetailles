@@ -257,6 +257,10 @@ input {
 
 // VERSION MOBILE
 @media(max-width:812px) {
+  .modal-new-admin-header {
+    padding-left: 4px;
+  }
+
   .mobile_only {
     display: block;
   }
