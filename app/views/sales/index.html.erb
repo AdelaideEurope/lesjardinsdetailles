@@ -12,7 +12,7 @@
               <div class="dropdown-farm-create dropleft"><a class="dropdown-item dropdown-toggle" href="#">Créer une vente</a>
                 <ul class="submenu dropdown-menu">
                   <% @outlets.each do |outlet| %>
-                    <li><%= link_to new_farm_pointsdevente_sale_path(@farm, outlet), class: 'white dropdown-item' do %><%= outlet.full_name %><% end %></li>
+                    <li><%= link_to new_farm_pointsdevente_sale_path(@farm, outlet), class: 'dropdown-item' do %><%= outlet.full_name %><% end %></li>
                   <% end %>
                 </ul>
               </div>
