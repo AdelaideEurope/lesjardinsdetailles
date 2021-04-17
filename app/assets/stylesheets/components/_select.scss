@@ -2,6 +2,12 @@
   &:hover {
     background: $lightgrey;
     cursor: pointer;
+    color: $raisin !important;
+  }
+  a {
+    &:hover {
+      color: $raisin !important;
+    }
   }
 }
 

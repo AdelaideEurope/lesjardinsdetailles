@@ -1,0 +1,44 @@
+<%= simple_form_for [invoice], url: url do |f| %>
+  <div class="flex-wrap d-flex justify-content-between mb-4">
+    <div class="w-48-desktop">
+      <div class="simple-card">
+        <h3>Date de la facture</h3>
+        <div><%= f.input :date, as: :string, label: false, input_html: { class: "datepickernotime fit-content search-input-target-date" } %></div>
+        <%= hidden_field_tag :sale_date, Date.today %>
+
+        <h3>Numéro</h3>
+        <div><%= f.input :number, label: false, input_html: { value: @invoice_id, class: "fit-content br-none" } %></div>
+        <h3>Un petit commentaire ?</h3>
+        <div><%= f.text_area :comment, class: "w-100" %></div>
+      </div>
+    </div>
+    <div class="w-48-desktop">
+      <div class="simple-card">
+        <h3>Coordonnées du client à afficher</h3>
+        <div><%= f.input :outlet_display_name, label: "Nom", input_html: {value: outlet.full_name, class: "br-none"}, class: "w-100" %></div>
+        <div><%= f.input :outlet_address, label: "Adresse", input_html: {value: outlet.address, class: "br-none"}, class: "w-100" %></div>
+        <div class="d-flex">
+          <div><%= f.input :outlet_zip_code, label: "Code postal", input_html: {value: outlet.zip_code, class: "br-none"}, class: "w-100" %></div>
+          <div class="ml-4"><%= f.input :outlet_city, label: "Ville", input_html: {value: outlet.city, class: "br-none"}, class: "w-100" %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h4>Choisis les ventes de cette facture</h4>
+  <div class="simple-card">
+    <div class="d-flex justify-content-around">
+      <% @outlet.sales.each do |sale| %>
+        <% if !sale.has_invoice? %>
+          <div class="p-1">
+            <%= check_box_tag 'invoice_sales[]', sale.id %><span class="ml-3">Vente du <%= link_to farm_pointsdevente_sale_path(@farm, @outlet, sale), target: "_blank" do %><span class="raisin"><%= sale.date.to_date.strftime('%-d') %> <%= I18n.t(:month_names)[sale.date.to_date.strftime('%b').to_sym] %></span><% end %></span>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+
+  <div class="d-flex">
+    <%= f.submit "Créer", class: "btn txt-button mt-4 mx-auto" %>
+  </div>
+<% end %>

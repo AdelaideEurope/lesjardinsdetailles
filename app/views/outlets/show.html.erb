@@ -42,16 +42,57 @@
                   </div>
                 <% end %>
               <% end %>
+              <% if sale.has_delivery_slip? && sale.delivery_slip.is_confirmed? %>
+                <div class="round-button olive %> m-2">
+                  <i class="far fa-file-alt round-txt-button"></i>
+                </div>
+              <% elsif sale.has_delivery_slip? %>
+                <div class="dropdown show">
+                  <div class="round-button green m-2" id="dropdownDelivery<%= sale.id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-file-alt round-txt-button"></i></div>
+                  <div class="dropdown-menu modal-position-center" aria-labelledby="dropdownDelivery<%= sale.id %>">
+                    <%= link_to farm_pointsdevente_sale_livraison_path(@farm, sale.outlet, sale, sale.delivery_slip, format: "pdf") do %>
+                      <div class="sales-line-bed-choice text-center raisin p-1 mb-2">Consulter</div>
+                    <% end %>
+                    <div class="sales-line-bed-choice text-center p-1"><%= link_to farm_pointsdevente_sale_livraison_path(@farm, sale.outlet, sale, sale.delivery_slip), method: :patch, class: "raisin" do %>Confirmer ✔️<% end %></div>
+                  </div>
+                </div>
+              <% else %>
+                <%= link_to new_farm_pointsdevente_sale_livraison_path(@farm, sale.outlet, sale) do %>
+                  <div class="round-button lightgrey %> m-2">
+                    <i class="far fa-file-alt round-txt-button"></i>
+                  </div>
+                <% end %>
+              <% end %>
+              <% if sale.has_invoice? && sale.invoice.is_sent? %>
+                <%= link_to farm_pointsdevente_facture_path(@farm, sale.outlet, sale.invoice, format: "pdf") do %>
+                  <div class="round-button olive %> m-2">
+                    <%= image_tag "invoice.png", alt: "invoice", class: "round-img-button" %>
+                  </div>
+                <% end %>
+              <% elsif sale.has_invoice? %>
+                <div class="dropdown show">
+                  <div class="round-button green m-2" id="dropdownDelivery<%= sale.id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= image_tag "invoice.png", alt: "invoice", class: "round-img-button" %></div>
+                  <div class="dropdown-menu modal-position-center" aria-labelledby="dropdownDelivery<%= sale.id %>">
+                    <%= link_to farm_pointsdevente_facture_path(@farm, sale.outlet, sale.invoice, format: "pdf") do %>
+                      <div class="sales-line-bed-choice text-center raisin p-1 mb-2">Consulter</div>
+                    <% end %>
+                    <div class="sales-line-bed-choice text-center p-1"><%= link_to farm_pointsdevente_facture_path(@farm, sale.outlet, sale.invoice), method: :patch, class: "raisin" do %>Confirmer ✔️<% end %></div>
+                  </div>
+                </div>
+              <% else %>
+                <%= link_to new_farm_pointsdevente_facture_path(@farm, sale.outlet) do %>
+                  <div class="round-button lightgrey %> m-2">
+                    <%= image_tag "invoice.png", alt: "invoice", class: "round-img-button" %>
+                  </div>
+                <% end %>
+              <% end %>
               <div class="round-button red m-2">
                 <i class="fas fa-euro-sign round-txt-button"></i>
-              </div>
-              <div class="round-button red m-2">
-                <i class="far fa-file-alt round-txt-button"></i>
               </div>
 
             </div>
             <div class="align-self-center" style="text-align-last: right; min-width: 80px;">
-              <div class="d-flex"><span style="padding-top: 3px" class="pr-2 lightgrey"><%= get_price_in_cents(sale.ht_total) %></span>|<h4 class="mb-0 align-self-center fw-500 pl-2"><%= get_price_in_cents(sale.ttc_total) %></h4></div>
+              <div class="d-flex justify-content-end" style="width: 200px"><span style="padding-top: 3px" class="pr-2 lightgrey"><%= get_price_in_cents(sale.ht_total) %></span>|<h4 class="mb-0 align-self-center fw-500 pl-2"><%= get_price_in_cents(sale.ttc_total) %></h4></div>
             </div>
           </div>
         </div>

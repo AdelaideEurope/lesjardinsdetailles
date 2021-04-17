@@ -3,7 +3,7 @@
     <div class="w-48-desktop">
       <div class="simple-card">
         <h3>Date</h3>
-        <div><%= f.input :date, as: :date, class: "w-100", required: true %></div>
+        <div><%= f.input :date, as: :string, label: false, input_html: { class: "datepickernotime fit-content search-input-target-date" } %></div>
         <h3>Action</h3>
         <div><%= f.text_area :action, class: "w-100", required: true %></div>
         <h3 class="mt-4">Commentaire</h3>

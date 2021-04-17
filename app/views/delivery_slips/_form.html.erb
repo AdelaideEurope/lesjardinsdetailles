@@ -1,0 +1,147 @@
+<%= simple_form_for [delivery_slip], url: url do |f| %>
+  <div class="flex-wrap d-flex justify-content-between mb-4">
+    <div class="w-48-desktop">
+      <div class="simple-card">
+        <h3>Date du bon de livraison</h3>
+        <div><%= f.input :date, as: :string, label: false, input_html: { class: "datepickernotime fit-content search-input-target-date" } %></div>
+        <%= hidden_field_tag :sale_date, sale.date.to_date %>
+
+        <h3>Numéro</h3>
+        <div><%= f.input :number, label: false, input_html: { value: @delivery_slip_id, class: "fit-content br-none" } %></div>
+        <h3>Un petit commentaire ?</h3>
+        <div><%= f.text_area :comment, class: "w-100" %></div>
+      </div>
+    </div>
+    <div class="w-48-desktop">
+      <div class="simple-card">
+        <h3>Coordonnées du client à afficher</h3>
+        <div><%= f.input :outlet_display_name, label: "Nom", input_html: {value: sale.outlet.full_name, class: "br-none"}, class: "w-100" %></div>
+        <div><%= f.input :outlet_address, label: "Adresse", input_html: {value: sale.outlet.address, class: "br-none"}, class: "w-100" %></div>
+        <div class="d-flex">
+          <div><%= f.input :outlet_zip_code, label: "Code postal", input_html: {value: sale.outlet.zip_code, class: "br-none"}, class: "w-100" %></div>
+          <div class="ml-4"><%= f.input :outlet_city, label: "Ville", input_html: {value: sale.outlet.city, class: "br-none"}, class: "w-100" %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h4 class="pt-4">Détail de la vente</h4>
+  <table class="table mt-4 sales-lines-table">
+    <thead>
+      <tr>
+        <th scope="col">Légume/Produit</th>
+        <th scope="col">Unité</th>
+        <th scope="col" class="text-right">Quantité</th>
+        <th scope="col" class="text-right">PU HT</th>
+        <th scope="col" class="text-right">PU TTC</th>
+        <th scope="col" class="text-right">Montant HT</th>
+        <th scope="col" class="text-right">Montant TTC</th>
+        <th scope="col"></th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <% sale.baskets.each do |basket| %>
+        <tr>
+          <td class="<%= 'pointer' if basket.has_basket_lines? %>" data-toggle="<%= 'collapse' if basket.has_basket_lines? %>" data-target="#basket<%= basket.id %>" class="accordion-toggle"><%= basket.name.capitalize %></td>
+          <td></td>
+          <td></td>
+          <td class="text-right"><%= remove_trailing_zero(basket.quantity) %></td>
+          <td class="text-right"><%= get_price_in_cents(basket.ht_price) %></td>
+          <td class="text-right"><%= get_price_in_cents(basket.ttc_price) %></td>
+          <td class="text-right"><%= get_price_in_cents(basket.ht_price*basket.quantity) %></td>
+          <td class="text-right"><%= get_price_in_cents(basket.ttc_price*basket.quantity) %></td>
+          <td class="d-flex justify-content-end">
+            <% if basket.confirmed != true %>
+              <%= link_to farm_pointsdevente_sale_basket_path(@farm, sale.outlet.id, sale.id, basket.id, confirm: true), method: :patch, data: { confirm: "Le montant de ces paniers sera ajouté au total de la vente, c'est good ?"} do %>
+                <div class="round-button green">
+                  <i class="fas fa-check round-txt-button"></i>
+                </div>
+              <% end %>
+            <% else %>
+              <div class="round-button olive no-pointer">
+                <i class="fas fa-check round-txt-button"></i>
+              </div>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="12" class="hiddenRow" style="padding-left: 4px !important">
+            <div class="accordian-body collapse" id="basket<%= basket.id %>">
+              <table class="table table-striped lightgrey">
+                <% basket.basket_lines.each do |basket_line| %>
+                  <tr>
+                    <td><%= basket_line.product.name.capitalize %></td>
+                    <td><%= basket_line.unit %></td>
+                    <td class="text-right"><%= remove_trailing_zero(basket_line.quantity) %></td>
+                    <td class="text-right"><%= get_price_in_cents(basket_line.ht_unit_price) %></td>
+                    <td class="text-right"><%= get_price_in_cents(basket_line.ttc_unit_price) %></td>
+                    <td class="text-right"><%= get_price_in_cents(basket_line.ht_total_price) %></td>
+                    <td class="text-right"><%= get_price_in_cents(basket_line.ttc_total_price) %></td>
+                    <td></td>
+                  </tr>
+
+                  <div class="modal fade" id="sale-basket-line-<%= basket_line.id %>" tabindex="-1" role="dialog" aria-labelledby="sale-basket-line-<%= basket_line.id %>Label" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content" style="width: 250px">
+                        <div class="modal-header">
+                          <h4 class="modal-title" id="sale-basket-line-<%= basket_line.id %>Label">Modifier la planche</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <% basket_line.product.crop_plan_lines.each do |cpl| %>
+                            <%= link_to farm_pointsdevente_sale_basket_basket_line_path(@farm, sale.outlet, sale, basket, basket_line, bed: cpl.bed, source: "sales-show"), method: :patch do %>
+                              <div class="basket-line-bed-choice pt-2 pb-2 pl-4 raisin"><%= cpl.bed.full_name %></div>
+                            <% end %>
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+
+              </table>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+      <% @sales_lines.each do |k, v| %>
+        <tr>
+          <td><%= k[0].name.capitalize %></td>
+          <td><%= k[1] %></td>
+          <td class="text-right"><%= remove_trailing_zero(v[:quantity]) %></td>
+          <td class="text-right"><%= get_price_in_cents(v[:ht_unit_price]) %></td>
+          <td class="text-right"><%= get_price_in_cents(v[:ttc_unit_price]) %></td>
+          <td class="text-right"><%= get_price_in_cents(v[:ht_total]) %></td>
+          <td class="text-right"><%= get_price_in_cents(v[:ttc_total]) %></td>
+        </tr>
+      <% end %>
+      <tr class="total-line">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="total-separation-line text-right"><%= get_price_in_cents(sale.ht_total) %></td>
+        <td class="total-separation-line text-right"><%= get_price_in_cents(sale.ttc_total) %></td>
+        <td class="total-separation-line text-right"></td>
+      </tr>
+      <tr class="total-lines">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="total-separation-line text-right" colspan="2" style="padding-left: 80px" ><b>Montant à payer (arrondi)</b></td>
+        <td class="total-separation-line text-right"><b><%= sale.rounded_ht_total == 0 ? get_price_in_cents(sale.ht_total) : get_price_in_cents(sale.rounded_ht_total) %><b></td>
+        <td class="total-separation-line text-right"><b><%= sale.rounded_ttc_total == 0 ? get_price_in_cents(sale.ttc_total) : get_price_in_cents(sale.rounded_ttc_total) %></b></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+  <div class="d-flex">
+    <%= f.submit "Créer", class: "btn txt-button mt-4 mx-auto" %>
+  </div>
+<% end %>

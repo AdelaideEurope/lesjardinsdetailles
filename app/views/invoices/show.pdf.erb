@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <title>Les Jardins détaillés</title>
+  </head>
+
+  <body>
+    <div style="text-align: right">
+      <div>Numéro de facture : <%= @invoice.number %></div>
+    </div>
+
+    <div class="farm-information">
+      <div style="font-size: 24px; font-style: italic;"><%= @farm.full_name %></div>
+      <div class="ljd-address">
+        <div><%= @farm.address %></div>
+        <div><%= @farm.zip_code%> <%= @farm.city %></div>
+        <div>SIRET : <%= @farm.siret %></div>
+      </div>
+    </div>
+    <div style="display: flex; justify-content: flex-end">
+      <div style="font-size: 24px; font-style: italic; text-align: right; margin-right: 96px"><%= @invoice.outlet_display_name %></div>
+      <div style="text-align: right; margin-right: 96px">
+        <div><%= @invoice.outlet_address %></div>
+        <div><%= @invoice.outlet_zip_code%> <%= @invoice.outlet_city %></div>
+      </div>
+    </div>
+
+
+
+    <div class="file-title">FACTURE</div>
+    <div class="details-facture">
+      <table class="table" style="margin-top: 36px">
+        <thead>
+         <tr>
+           <th scope="col" style="text-align: left">Légume/Produit</th>
+           <th scope="col">Unité</th>
+           <th scope="col" style="text-align: right">Quantité</th>
+           <th scope="col" style="text-align: right">PU HT</th>
+           <th scope="col" style="text-align: right">PU TTC</th>
+           <th scope="col" style="text-align: right">Montant HT</th>
+           <th scope="col" style="text-align: right">Montant TTC</th>
+           <th scope="col"></th>
+
+         </tr>
+        </thead>
+
+       </table>
+    </div>
+
+  </body>
+</html>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_16_183005) do
+ActiveRecord::Schema.define(version: 2021_04_17_215450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,6 +145,11 @@ ActiveRecord::Schema.define(version: 2021_04_16_183005) do
     t.boolean "confirmed"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "comment"
+    t.string "outlet_display_name"
+    t.string "outlet_address"
+    t.string "outlet_zip_code"
+    t.string "outlet_city"
     t.index ["sale_id"], name: "index_delivery_slips_on_sale_id"
   end
 
@@ -228,6 +233,23 @@ ActiveRecord::Schema.define(version: 2021_04_16_183005) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["farm_id"], name: "index_hen_journals_on_farm_id"
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.datetime "date"
+    t.bigint "outlet_id", null: false
+    t.string "number"
+    t.integer "ht_total"
+    t.integer "ttc_total"
+    t.boolean "sent"
+    t.string "comment"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "outlet_display_name"
+    t.string "outlet_address"
+    t.string "outlet_zip_code"
+    t.string "outlet_city"
+    t.index ["outlet_id"], name: "index_invoices_on_outlet_id"
   end
 
   create_table "last_prices", force: :cascade do |t|
@@ -346,6 +368,8 @@ ActiveRecord::Schema.define(version: 2021_04_16_183005) do
     t.string "comment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "invoice_id"
+    t.index ["invoice_id"], name: "index_sales_on_invoice_id"
     t.index ["outlet_id"], name: "index_sales_on_outlet_id"
   end
 
@@ -439,6 +463,7 @@ ActiveRecord::Schema.define(version: 2021_04_16_183005) do
   add_foreign_key "gardens", "farms"
   add_foreign_key "hen_actions", "farms"
   add_foreign_key "hen_journals", "farms"
+  add_foreign_key "invoices", "outlets"
   add_foreign_key "last_prices", "outlets"
   add_foreign_key "last_prices", "products"
   add_foreign_key "newsletter_subscribers", "farms"
@@ -446,6 +471,7 @@ ActiveRecord::Schema.define(version: 2021_04_16_183005) do
   add_foreign_key "outlets", "outlet_groups"
   add_foreign_key "products", "farms"
   add_foreign_key "products", "product_groups"
+  add_foreign_key "sales", "invoices"
   add_foreign_key "sales", "outlets"
   add_foreign_key "sales_lines", "beds"
   add_foreign_key "sales_lines", "products"

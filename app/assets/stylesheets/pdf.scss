@@ -1,0 +1,194 @@
+// Define variables for your color scheme
+// For example:
+$raisin: #242331;
+$green: #276259;
+$olive: #A1BD7F;
+$orange: #E85F5C;
+$red: #B23A48;
+$lightgrey: #C5CBD3;
+$greensheen: #89B6A5;
+$teagreen: #CAE7B9;
+$orangeyellow: #FED766;
+$celadon: #98CCC9;
+
+
+// $red: #FD1015;
+// $blue: #167FFB;
+// $yellow: #FFC65A;
+// $orange: #E67E22;
+// $green: #276259;
+// $gray: #0E0000;
+// $light-gray: #F4F4F4;
+
+.raisin {
+  color: $raisin;
+}
+.green {
+  color: $green;
+}
+.olive {
+  color: $olive;
+}
+.orange {
+  color: $orange;
+}
+.red {
+  color: $red;
+}
+.lightgrey {
+  color: $lightgrey;
+}
+.white {
+  color: white;
+  &:hover {
+    color: white;
+  }
+}
+.celadon {
+  color: $celadon;
+}
+.greensheen {
+  color: $greensheen;
+}
+.teagreen {
+  color: $teagreen;
+}
+.orangeyellow {
+  color: $orangeyellow;
+}
+
+.bgcolor-raisin {
+  background-color: $raisin;
+}
+.bgcolor-green {
+  background-color: $green;
+}
+.bgcolor-olive {
+  background-color: $olive;
+}
+.bgcolor-orange {
+  background-color: $orange;
+}
+.bgcolor-red {
+  background-color: $red;
+}
+.bgcolor-lightgrey {
+  background-color: $lightgrey;
+}
+.bgcolor-celadon {
+  background-color: $celadon;
+}
+.bgcolor-white {
+  background-color: white;
+}
+.bgcolor-greensheen {
+  background-color: $greensheen;
+}
+.bgcolor-teagreen {
+  background-color: $teagreen;
+}
+.bgcolor-orangeyellow {
+  background-color: $orangeyellow;
+}
+
+
+.infos-facture {
+  border: 2px solid $olive;
+  padding: 16px;
+  border-radius: 8px;
+  width: fit-content;
+  height: fit-content;
+}
+
+.farm-information {
+  margin-left: 96px;
+  margin-top: 50px;
+}
+
+.jardinsdele {
+  font-size: 24px;
+  font-style: italic;
+}
+
+.nom-client {
+  font-size: 24px;
+  font-style: italic;
+}
+
+.file-title {
+  text-align: center;
+  font-size: 36px;
+  margin-top: 56px;
+  padding: 20px;
+  border-radius: 8px;
+  border: 2px solid $lightgrey;
+}
+
+.alignement-coordonnees {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 96px;
+}
+
+.total-line {
+  td.total-separation-line {
+    border-top: 2px solid $lightgrey;
+  }
+}
+
+.total-line, .total-lines {
+  td {
+    border-top: none;
+    padding-top: 12px;
+  }
+}
+
+.img-facture-vente {
+  height: 60px;
+}
+
+.facture-vente {
+  display: flex;
+  justify-content: center;
+}
+
+.recap-facture {
+  width: 46%;
+  margin: 16px 54%;
+  .table th {
+    border-top: 1px solid $olive;
+    border-bottom: 1px solid $olive;
+    font-weight: unset;
+  }
+
+  .table td {
+    border-top: 1px solid $olive;
+    border-bottom: 1px solid $olive;
+    padding: 12px 24px;
+  }
+
+  .table thead th {
+    border-bottom: 1px solid $olive;
+    padding: 12px 24px;
+  }
+}
+
+.details-facture {
+  .table th {
+    font-weight: unset;
+    border-top: none;
+  }
+  .table {
+    width: 80%;
+    margin: 1% 10% 1rem 10%;
+  }
+}
+
+.facture-top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo-ele-img {
+  height: 200px;
+}

@@ -39,10 +39,10 @@ class SalesLinesController < ApplicationController
       last_price.save
     end
 
-    if params[:beds].length == 1
+    if params[:beds] && params[:beds].length == 1
       bed_id = params[:sales_line][:bed].to_i == 0 ? nil : params[:sales_line][:bed].to_i
       @sales_line = SalesLine.create(product_id: params[:sales_line][:product].to_i, bed_id: bed_id, unit: unit, ht_unit_price: ht_unit_price, ttc_unit_price: ttc_unit_price, ht_total: ht_total, ttc_total: ttc_total, quantity: params[:sales_line][:quantity].to_f, sale_id: sale_id, date: sale.date)
-    else
+    elsif params[:beds]
       params[:beds].each do |bed|
         bed_id = bed.to_i
         each_ttc_total = ttc_total / params[:beds].length
@@ -51,6 +51,8 @@ class SalesLinesController < ApplicationController
 
         @sales_line = SalesLine.create(product_id: params[:sales_line][:product].to_i, bed_id: bed_id, unit: unit, ht_unit_price: ht_unit_price, ttc_unit_price: ttc_unit_price, ht_total: each_ht_total, ttc_total: each_ttc_total, quantity: each_quantity, sale_id: sale_id, date: sale.date)
       end
+    else
+      @sales_line = SalesLine.create(product_id: params[:sales_line][:product].to_i, unit: unit, ht_unit_price: ht_unit_price, ttc_unit_price: ttc_unit_price, ht_total: ht_total, ttc_total: ttc_total, quantity: params[:sales_line][:quantity].to_f, sale_id: sale_id, date: sale.date)
     end
     sale_ht_total = sale.ht_total += ht_total
     sale_ttc_total = sale.ttc_total += ttc_total

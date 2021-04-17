@@ -1,0 +1,11 @@
+<div class="container custom-container" style="overflow: auto;">
+  <div class="page-header non-scrolled-page-header scrollable-page-header d-block">
+    <h2 class="mb-0">Créer une facture pour <%= link_to farm_pointsdevente_path(@farm, @outlet) do %> <span class="green"><%= @outlet.full_name %></span><% end %></h2>
+  </div>
+
+  <div class="page-content">
+  </div>
+  <div class="container">
+    <%= render 'form', farm: @farm, outlet: @outlet, invoice: @invoice, url: farm_pointsdevente_factures_path(@farm.id, @outlet.id) %>
+  </div>
+</div>

@@ -25,3 +25,7 @@
 .dropdown-menu > .dropdown-farm-create:hover > .submenu{
   display: block;
 }
+
+.dropdown-menu.show.modal-position-center {
+  left: -64px !important;
+}

@@ -24,6 +24,14 @@ html {
   max-width: 2000px !important;
 }
 
+.fit-content {
+  width: fit-content;
+}
+
+.br-none {
+  border-radius: 0px !important;
+}
+
 h1 {
   font-family: $headers-font;
   font-size: 28px;
