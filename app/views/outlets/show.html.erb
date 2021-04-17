@@ -53,7 +53,7 @@
                     <%= link_to farm_pointsdevente_sale_livraison_path(@farm, sale.outlet, sale, sale.delivery_slip, format: "pdf") do %>
                       <div class="sales-line-bed-choice text-center raisin p-1 mb-2">Consulter</div>
                     <% end %>
-                    <div class="sales-line-bed-choice text-center p-1"><%= link_to farm_pointsdevente_sale_livraison_path(@farm, sale.outlet, sale, sale.delivery_slip), method: :patch, class: "raisin" do %>Confirmer ✔️<% end %></div>
+                    <div class="sales-line-bed-choice text-center p-1"><%= link_to farm_pointsdevente_sale_livraison_path(@farm, sale.outlet, sale, sale.delivery_slip), method: :patch, class: "raisin" do %>Marquer comme envoyé ✔️<% end %></div>
                   </div>
                 </div>
               <% else %>
@@ -76,7 +76,7 @@
                     <%= link_to farm_pointsdevente_facture_path(@farm, sale.outlet, sale.invoice, format: "pdf") do %>
                       <div class="sales-line-bed-choice text-center raisin p-1 mb-2">Consulter</div>
                     <% end %>
-                    <div class="sales-line-bed-choice text-center p-1"><%= link_to farm_pointsdevente_facture_path(@farm, sale.outlet, sale.invoice), method: :patch, class: "raisin" do %>Confirmer ✔️<% end %></div>
+                    <div class="sales-line-bed-choice text-center p-1"><%= link_to farm_pointsdevente_facture_path(@farm, sale.outlet, sale.invoice), method: :patch, class: "raisin" do %>Marquer comme envoyée ✔️<% end %></div>
                   </div>
                 </div>
               <% else %>
