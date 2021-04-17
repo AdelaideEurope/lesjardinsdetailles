@@ -35,7 +35,7 @@ import { choseWorker } from '../components/choseWorker.js';
 import { autoFillPrice } from '../components/autoFillPrice.js';
 import { autoFillPriceBasket } from '../components/autoFillPriceBasket.js';
 import { initSelect2 } from '../plugins/init_select2';
-import { initFlatPickr } from '../plugins/flatpickr';
+// import { initFlatPickr } from '../plugins/flatpickr';
 
 
 
@@ -47,7 +47,7 @@ document.addEventListener('turbolinks:load', () => {
   initSelect2();
   autoFillPrice();
   autoFillPriceBasket();
-  initFlatPickr();
+  // initFlatPickr();
 
   // Call your functions here, e.g:
 });
