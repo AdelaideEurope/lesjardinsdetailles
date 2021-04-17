@@ -13,15 +13,15 @@
           <div class="mb-4">
             <div class="d-flex">
               <div>
-              <h4 class="mt-2">Date</h4>
-                <%= form.date_field :start_date, class: "mt-2 start-time", rows: "1" %>
+              <h4 class="mt-2">Dates</h4>
+              <%= form.date_field :start_date, class: "mt-2 start-time datepicker", rows: "1" %>
               </div>
             <!-- <div class="d-flex mt-2 w-sm-75"> -->
               <div class="ml-2">
                 <div class="d-flex">
                   <div>
                     <h4 class="mt-2">Heure début</h4>
-                    <%= form.time_select :start_hour, class: "mt-2", rows: "1" %>
+                    <%= form.time_select :start_hour, class: "mt-2 timepicker", rows: "1" %>
                   </div>
                   <div class="ml-2">
                     <h4 class="mt-2">Heure fin</h4>
