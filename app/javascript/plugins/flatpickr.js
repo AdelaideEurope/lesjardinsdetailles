@@ -10,6 +10,13 @@ const initFlatPickr = () => {
     mode: "multiple",
   });
 
+  flatpickr(".datepickerweek", {
+    locale: French,
+    altFormat: 'd M Y',
+    altInput: true,
+    weekNumbers: true,
+  });
+
   flatpickr(".timepicker", {
     locale: French,
     altFormat: 'd M Y',

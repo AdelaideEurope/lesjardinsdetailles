@@ -14,12 +14,19 @@
   border-right: 2px solid $olive;
 }
 
+.search-input-target-date {
+  margin-top: 2px;
+  height: 40px;
+  width: 136px;
+  background: white !important;
+}
+
 .table-striped tbody tr:nth-of-type(odd) {
   background: none;
 }
 
 .simple-calendar table {
-  margin-top: 90px;
+  margin-top: 112px;
   margin-bottom: 30px;
 }
 
