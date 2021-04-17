@@ -161,7 +161,7 @@
           <td class="bed-list">
             <%= select_tag "beds[]", options_for_select(@beds, :full_name), multiple: true%>
           </td>
-          <td><%= form.select :unit, ["-", "botte", "pièce", "kg", "unité"] %></td>
+          <td><%= form.select :unit, ["-", "botte", "pièce", "kg", "boîte"] %></td>
           <td style="text-align-last: end"><%= form.number_field :quantity, step: 0.01, class: "price-column" %></td>
           <td style="text-align-last: end"><%= form.number_field :ht_unit_price, step: 0.01, class: "price-column" %></td>
           <td style="text-align-last: end"><%= form.number_field :ttc_unit_price, step: 0.01, class: "price-column" %></td>

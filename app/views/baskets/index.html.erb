@@ -52,7 +52,7 @@
                     <td class="basket-other-col"></td>
                     <td class="basket-other-col"></td>
                     <td class="basket-other-col basket-ttc-actual-total">Total</td>
-                    <td class="text-right basket-other-col basket-ttc-actual-total"><%= get_price_in_cents(basket.ttc_actual_total) %></td>
+                    <td class="text-right basket-other-col basket-ttc-actual-total"><%= get_price_in_cents(basket.ttc_actual_total.to_i) %></td>
                     <td class="basket-last-col basket-ttc-actual-total d-flex justify-content-end"></td>
                   </tr>
                   <tr class="total-basket-line">
@@ -60,7 +60,7 @@
                     <td class="basket-other-col"></td>
                     <td class="basket-other-col"></td>
                     <td class="basket-other-col">Écart</td>
-                    <td class="text-right basket-other-col"><%= get_price_in_cents(basket.ttc_price - basket.ttc_actual_total) %></td>
+                    <td class="text-right basket-other-col"><%= get_price_in_cents(basket.ttc_price - basket.ttc_actual_total.to_i) %></td>
                     <td class="basket-last-col d-flex justify-content-end"></td>
                   </tr>
                 </tbody>
@@ -69,7 +69,7 @@
                 <tbody>
                   <tr class="new-sales-line">
                     <td class="basket-product"><%= form.select :product, @products %></td>
-                    <td class="basket-other-col"><%= form.select :unit, ["-", "botte", "pièce", "kg", "unité"] %></td>
+                    <td class="basket-other-col"><%= form.select :unit, ["-", "botte", "pièce", "kg", "boîte"] %></td>
                     <td style="text-align-last: end" class="basket-other-col"><%= form.number_field :quantity, step: 0.01, class: "quantity-column" %></td>
                     <td style="text-align-last: end" class="basket-other-col"><%= form.number_field :ttc_unit_price, step: 0.01, class: "price-column" %></td>
                     <%= form.hidden_field :ht_total, step: 0.01 %>

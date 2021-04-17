@@ -11,7 +11,7 @@
     <div class="w-48-desktop">
       <h3 class="mt-4">Infos ventes</h3>
       <div class="simple-card">
-        <%= f.input :general_unit, :label => "Unité générale", collection: ["botte", "pièce", "kg", "unité"], required: true %>
+        <%= f.input :general_unit, :label => "Unité générale", collection: ["botte", "pièce", "kg", "boîte"], required: true %>
         <%= f.input :general_price_final_client, input_html: {value: product.general_price_final_client.to_i.fdiv(100)}, :label => "Prix général client final" %>
         <%= f.input :general_price_intermediary, input_html: {value: product.general_price_intermediary.to_i.fdiv(100)}, :label => "Prix général intermédiaire" %>
       </div>
