@@ -1,11 +1,11 @@
-<% if sale.has_invoice? && sale.is_paid? %>
+<% if sale.is_paid? %>
   <div class="dropdown show">
     <div class="round-button olive m-2" id="dropdownPaid<%= sale.id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <i class="fas fa-euro-sign round-txt-button"></i>
     </div>
     <div class="dropdown-menu wide-modal-position-center" aria-labelledby="dropdownPaid<%= sale.id %>">
       <div class="text-center pl-1 pr-1" style="padding-top: 6px; padding-bottom: 12px;">
-        Payé : <%= get_price_in_cents(sale.amount_paid) %>
+        Payé : <%= get_price_in_cents(sale.total_paid) %>
       </div>
     </div>
   </div>

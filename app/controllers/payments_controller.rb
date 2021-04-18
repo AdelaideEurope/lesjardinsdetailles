@@ -6,9 +6,9 @@ class PaymentsController < ApplicationController
 
   def create
     @sale = Sale.find(params[:sale_id])
-    has_invoice = @outlet.has_invoice
-    if has_invoice
-      @payment = Payment.new(date: Date.today, outlet_id: @outlet.id, paid_amount: @sale.ht_total, invoice_id: @sale.invoice.id)
+
+    if @outlet.has_invoice
+      @payment = Payment.new(date: Date.today, outlet_id: @outlet.id, paid_amount: @sale.ttc_total, invoice_id: @sale.invoice.id)
     else
       @payment = Payment.new(date: Date.today, outlet_id: @outlet.id, paid_amount: @sale.ttc_total, sale_id: @sale.id)
     end
