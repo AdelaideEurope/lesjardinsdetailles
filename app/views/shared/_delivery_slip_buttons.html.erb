@@ -1,0 +1,21 @@
+<% if sale.has_delivery_slip? && sale.delivery_slip.is_confirmed? %>
+  <div class="round-button olive %> m-2">
+    <i class="far fa-file-alt round-txt-button"></i>
+  </div>
+<% elsif sale.has_delivery_slip? %>
+  <div class="dropdown show">
+    <div class="round-button green m-2" id="dropdownDelivery<%= sale.id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-file-alt round-txt-button"></i></div>
+    <div class="dropdown-menu modal-position-center" aria-labelledby="dropdownDelivery<%= sale.id %>">
+      <%= link_to farm_pointsdevente_sale_livraison_path(@farm, sale.outlet, sale, sale.delivery_slip, format: "pdf") do %>
+        <div class="sales-line-bed-choice text-center raisin p-1 mb-2">Consulter</div>
+      <% end %>
+      <div class="sales-line-bed-choice text-center p-1"><%= link_to farm_pointsdevente_sale_livraison_path(@farm, sale.outlet, sale, sale.delivery_slip), method: :patch, class: "raisin" do %>Marquer comme envoyé ✔️<% end %></div>
+    </div>
+  </div>
+<% else %>
+  <%= link_to new_farm_pointsdevente_sale_livraison_path(@farm, sale.outlet, sale) do %>
+    <div class="round-button lightgrey %> m-2">
+      <i class="far fa-file-alt round-txt-button"></i>
+    </div>
+  <% end %>
+<% end %>

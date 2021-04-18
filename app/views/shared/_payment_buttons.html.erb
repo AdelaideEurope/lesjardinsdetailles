@@ -1,0 +1,26 @@
+<% if sale.has_invoice? && sale.is_paid? %>
+  <div class="round-button olive m-2">
+    <i class="fas fa-euro-sign round-txt-button"></i>
+  </div>
+<% else %>
+  <div class="dropdown show">
+    <div class="round-button red m-2" id="dropdownPayment<%= sale.id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="fas fa-euro-sign round-txt-button"></i>
+    </div>
+    <div class="dropdown-menu wide-modal-position-center" aria-labelledby="dropdownPayment<%= sale.id %>">
+      <div class="sales-line-bed-choice text-center p-1">Payé : <%= get_price_in_cents(sale.amount_paid) %></div>
+      <div class="sales-line-bed-choice text-center p-1">Marquer comme payé en intégralité  🎉</div>
+      <div class="sales-line-bed-choice text-center p-1 d-flex">
+        <div style="line-height: 60px" class="pr-2">Autre montant payé</div>
+        <div class="d-flex">
+          <%= form_tag farm_decisions_path(@farm), method: :patch, class: "search-input d-flex" do %>
+            <%= text_field_tag :query, params[:query], class: "form-control w-60-px br-none" %>
+            <button type="submit" class="btn confirm-button" id="submit">
+              <div class="round-button olive m-2"><i class="fas fa-check round-txt-button"></i></div>
+            </button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

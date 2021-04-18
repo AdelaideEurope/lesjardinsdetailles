@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_17_215450) do
+ActiveRecord::Schema.define(version: 2021_04_18_055842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -308,6 +308,18 @@ ActiveRecord::Schema.define(version: 2021_04_17_215450) do
     t.index ["outlet_group_id"], name: "index_outlets_on_outlet_group_id"
   end
 
+  create_table "payments", force: :cascade do |t|
+    t.integer "paid_amount"
+    t.bigint "outlet_id", null: false
+    t.string "payment_method"
+    t.datetime "date"
+    t.bigint "invoice_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["invoice_id"], name: "index_payments_on_invoice_id"
+    t.index ["outlet_id"], name: "index_payments_on_outlet_id"
+  end
+
   create_table "presence_periods", force: :cascade do |t|
     t.datetime "date"
     t.boolean "on_call_period"
@@ -469,6 +481,8 @@ ActiveRecord::Schema.define(version: 2021_04_17_215450) do
   add_foreign_key "newsletter_subscribers", "farms"
   add_foreign_key "outlets", "farms"
   add_foreign_key "outlets", "outlet_groups"
+  add_foreign_key "payments", "invoices"
+  add_foreign_key "payments", "outlets"
   add_foreign_key "products", "farms"
   add_foreign_key "products", "product_groups"
   add_foreign_key "sales", "invoices"

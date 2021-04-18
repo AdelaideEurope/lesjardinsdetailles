@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resources :pointsdevente, controller: 'outlets', only: [ :index, :show, :new, :create ] do
       resources :baskets, only: [ :new, :create ]
       resources :factures, controller: "invoices", only: [ :new, :create, :index, :show, :update, :destroy ]
+      resources :paiements, controller: "payments", only: [ :new, :create, :index, :show, :update, :destroy ]
       resources :sales, only: [ :index, :show, :new, :create, :update, :destroy ] do
         resources :livraisons, controller: "delivery_slips", only: [ :new, :create, :index, :show, :update, :destroy ]
         resources :baskets, only: [ :index, :show, :update, :destroy ] do

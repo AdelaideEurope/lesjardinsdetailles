@@ -1,0 +1,23 @@
+<% if sale.has_invoice? && sale.invoice.is_sent? %>
+  <%= link_to farm_pointsdevente_facture_path(@farm, sale.outlet, sale.invoice, format: "pdf") do %>
+    <div class="round-button olive %> m-2">
+      <%= image_tag "invoice.png", alt: "invoice", class: "round-img-button" %>
+    </div>
+  <% end %>
+<% elsif sale.has_invoice? %>
+  <div class="dropdown show">
+    <div class="round-button green m-2" id="dropdownInvoice<%= sale.id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= image_tag "invoice.png", alt: "invoice", class: "round-img-button" %></div>
+    <div class="dropdown-menu modal-position-center" aria-labelledby="dropdownInvoice<%= sale.id %>">
+      <%= link_to farm_pointsdevente_facture_path(@farm, sale.outlet, sale.invoice, format: "pdf") do %>
+        <div class="sales-line-bed-choice text-center raisin p-1 mb-2">Consulter</div>
+      <% end %>
+      <div class="sales-line-bed-choice text-center p-1"><%= link_to farm_pointsdevente_facture_path(@farm, sale.outlet, sale.invoice), method: :patch, class: "raisin" do %>Marquer comme envoyée ✔️<% end %></div>
+    </div>
+  </div>
+<% else %>
+  <%= link_to new_farm_pointsdevente_facture_path(@farm, sale.outlet) do %>
+    <div class="round-button lightgrey %> m-2">
+      <%= image_tag "invoice.png", alt: "invoice", class: "round-img-button" %>
+    </div>
+  <% end %>
+<% end %>

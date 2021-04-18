@@ -41,7 +41,7 @@
             <div class="d-flex desktop_only">
               <%= link_to farm_pointsdevente_sale_path(@farm, sale.outlet, sale) do %>
                 <div class="round-button green m-2">
-                  <i class="fas fa-search-plus round-txt-button"></i>
+                  <i class="fas fa-search round-txt-button"></i>
                 </div>
               <% end %>
               <div class="round-button <%= sale.has_comment? ? 'green' : 'lightgrey' %> m-2" data-drawer-trigger aria-controls="drawer-sale-comment-<%= sale.id %>" aria-expanded="false">
@@ -133,7 +133,7 @@
                 <div class="d-flex justify-content-between card-list-item-round-button-block">
                   <div class="d-flex desktop_only">
                     <div class="round-button green m-2">
-                      <i class="fas fa-search-plus round-txt-button"></i>
+                      <i class="fas fa-search round-txt-button"></i>
                     </div>
                     <% if sale.has_baskets? %>
                       <%= link_to farm_pointsdevente_sale_baskets_path(@farm, sale.outlet, sale) do %>
@@ -174,7 +174,7 @@
                   </div>
                   <div class="px-2">
                     <div class="round-button green m-2">
-                      <i class="fas fa-search-plus round-txt-button"></i>
+                      <i class="fas fa-search round-txt-button"></i>
                     </div>
                   </div>
                   <div class="px-2">
