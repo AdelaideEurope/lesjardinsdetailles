@@ -198,6 +198,13 @@ input {
   width: 60px !important;
 }
 
+.h-30-px {
+  height: 30px !important;
+}
+
+.border-bottom-lightgrey {
+  border-bottom: 1px solid $lightgrey
+}
 .fs-8 {
   font-size: 8px;
 }

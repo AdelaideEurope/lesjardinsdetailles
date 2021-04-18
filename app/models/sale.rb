@@ -4,6 +4,7 @@ class Sale < ApplicationRecord
   has_many :sales_lines
   has_many :baskets
   has_one :delivery_slip
+  has_many :payments
 
   def has_comment?
     !self.comment.nil? && !self.comment.empty?

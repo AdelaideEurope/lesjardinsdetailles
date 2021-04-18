@@ -1,6 +1,6 @@
 <% if sale.has_invoice? && sale.invoice.is_sent? %>
   <%= link_to farm_pointsdevente_facture_path(@farm, sale.outlet, sale.invoice, format: "pdf") do %>
-    <div class="round-button olive %> m-2">
+    <div class="round-button no-pointer olive %> m-2">
       <%= image_tag "invoice.png", alt: "invoice", class: "round-img-button" %>
     </div>
   <% end %>
