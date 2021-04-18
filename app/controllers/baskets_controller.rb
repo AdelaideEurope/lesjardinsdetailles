@@ -48,7 +48,7 @@ class BasketsController < ApplicationController
         end
         ttc_price = params[:basket][:ad_hoc_ttc_price].to_i * 100
         basket_name = params[:basket][:name] != "" ? params[:basket][:name] : "Panier à #{params[:basket][:ttc_price]} €"
-        @basket = Basket.create(name: basket_name, date: date, sale_id: basket_sale_id, comment: params[:basket][:comment], quantity: params[:basket][:quantity], ttc_price: ttc_price, ht_price: (ttc_price / 1.055).round, recurrent: false, cumulated_difference: 0)
+        @basket = Basket.create(name: basket_name, date: date, sale_id: basket_sale_id, comment: params[:basket][:comment], quantity: params[:basket][:quantity], ttc_price: ttc_price, ht_price: (ttc_price / 1.055).round, recurrent: true, cumulated_difference: 0)
         authorize @basket
         baskets_added += 1
       end
@@ -75,7 +75,7 @@ class BasketsController < ApplicationController
         end
         basket_name = params[:basket][:name] != "" ? params[:basket][:name] : "Panier à #{params[:basket][:ttc_price]} €"
         ttc_price = params[:basket][:ad_hoc_ttc_price].to_i * 100
-        @basket = Basket.create(name: basket_name, date: date, sale_id: basket_sale_id, comment: params[:basket][:comment], quantity: params[:basket][:quantity], ttc_price: ttc_price, ht_price: (ttc_price / 1.055).round, recurrent: false, cumulated_difference: 0)
+        @basket = Basket.create(name: basket_name, date: date, sale_id: basket_sale_id, comment: params[:basket][:comment], quantity: params[:basket][:quantity], ttc_price: ttc_price, ht_price: (ttc_price / 1.055).round, recurrent: true, cumulated_difference: 0)
         authorize @basket
         baskets_added += 1
       end
