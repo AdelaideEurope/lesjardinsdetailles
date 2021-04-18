@@ -22,6 +22,7 @@ class DeliverySlipsController < ApplicationController
 
   def show
     authorize @delivery_slip
+    @tva = (@sale.ht_total / 100) * 5.5
     grouped_sales_lines
     respond_to do |format|
       format.html { render :show }

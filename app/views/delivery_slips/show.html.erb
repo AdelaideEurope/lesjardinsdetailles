@@ -2,7 +2,8 @@
   <div class="facture-top">
   <div class="logoele"></div>
   <div class="infos-facture">
-    <div>Numéro de bon de livraison : <%= @delivery_slip.number %></div>
+    <div>Bon de livraison n° : <%= @delivery_slip.number %></div>
+    <div>Date : <%= @delivery_slip.date.strftime('%d/%m') %></div>
   </div>
   </div>
 

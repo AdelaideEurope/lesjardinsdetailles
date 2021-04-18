@@ -124,6 +124,12 @@ $celadon: #98CCC9;
   border: 2px solid $lightgrey;
 }
 
+.invoice-lines:last-of-type {
+  td {
+    padding-bottom: 12px;
+  }
+}
+
 .alignement-coordonnees {
   display: flex;
   justify-content: space-between;

@@ -26,11 +26,12 @@
   </div>
   <h4>Choisis les ventes de cette facture</h4>
   <div class="simple-card">
-    <div class="d-flex justify-content-around">
-      <% @outlet.sales.each do |sale| %>
+    <div class="d-flex justify-content-around" style="flex-wrap: wrap-reverse;">
+      <% @invoiceable_sales.each do |sale| %>
         <% if !sale.has_invoice? %>
           <div class="p-1">
-            <%= check_box_tag 'invoice_sales[]', sale.id %><span class="ml-3">Vente du <%= link_to farm_pointsdevente_sale_path(@farm, @outlet, sale), target: "_blank" do %><span class="raisin"><%= sale.date.to_date.strftime('%-d') %> <%= I18n.t(:month_names)[sale.date.to_date.strftime('%b').to_sym] %></span><% end %></span>
+            <%= check_box_tag 'invoice_sales[]', sale.id %><span class="ml-3">Vente du <%= link_to farm_pointsdevente_sale_path(@farm, @outlet, sale), target: "_blank" do %><span class="raisin"><%= I18n.t(:day_names)[sale.date.to_date.strftime('%A').to_sym] %> <%= sale.date.to_date.strftime('%-d') %> <%= I18n.t(:month_names)[sale.date.to_date.strftime('%b').to_sym] %> (<span class="lightgrey"><%= get_price_in_cents(sale.ht_total) %></span> | <span class="fw-600"><%= get_price_in_cents(sale.ttc_total) %></span>)</span><% end %></span>
+
           </div>
         <% end %>
       <% end %>

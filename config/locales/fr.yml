@@ -40,3 +40,21 @@ fr:
     Nov: "novembre"
     Dec: "décembre"
 
+
+  abbr_day_names:
+    Mon: "lun"
+    Tue: "mar"
+    Wed: "mer"
+    Thu: "jeu"
+    Fri: "ven"
+    Sat: "sam"
+    Sun: "dim"
+
+  day_names:
+    Monday: "lundi"
+    Tueday: "mardi"
+    Wednesday: "mercredi"
+    Thurday: "jeudi"
+    Friday: "vendredi"
+    Saturday: "samedi"
+    Sunday: "dimanche"

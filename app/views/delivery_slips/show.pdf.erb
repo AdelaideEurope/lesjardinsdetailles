@@ -5,7 +5,8 @@
 
   <body>
     <div style="text-align: right">
-      <div>Numéro de bon de livraison : <%= @delivery_slip.number %></div>
+      <div>Bon de livraison n° : <%= @delivery_slip.number %></div>
+      <div>Date : <%= @delivery_slip.date.strftime('%d/%m/%y') %></div>
     </div>
 
     <div class="farm-information">
@@ -32,45 +33,43 @@
         <thead>
          <tr>
            <th scope="col" style="text-align: left">Légume/Produit</th>
-           <th scope="col">Unité</th>
+           <th scope="col" style="text-align: right">Unité</th>
            <th scope="col" style="text-align: right">Quantité</th>
            <th scope="col" style="text-align: right">PU HT</th>
-           <th scope="col" style="text-align: right">PU TTC</th>
            <th scope="col" style="text-align: right">Montant HT</th>
-           <th scope="col" style="text-align: right">Montant TTC</th>
            <th scope="col"></th>
 
          </tr>
         </thead>
         <tbody>
           <% @sales_lines.each do |k, v| %>
-           <tr>
+           <tr class="invoice-lines">
              <td><%= k[0].name.capitalize %></td>
-             <td><%= k[1] %></td>
+             <td style="text-align: right"><%= k[1] %></td>
              <td style="text-align: right"><%= remove_trailing_zero(v[:quantity]) %></td>
              <td style="text-align: right"><%= get_price_in_cents(v[:ht_unit_price]) %></td>
-             <td style="text-align: right"><%= get_price_in_cents(v[:ttc_unit_price]) %></td>
              <td style="text-align: right"><%= get_price_in_cents(v[:ht_total]) %></td>
-             <td style="text-align: right"><%= get_price_in_cents(v[:ttc_total]) %></td>
            </tr>
           <% end %>
           <tr class="total-line" style="margin-top: 12px">
            <td></td>
            <td></td>
            <td></td>
-           <td></td>
-           <td></td>
+           <td class="total-separation-line" style="text-align: right" style="padding-left: 80px" ><b>Total HT</b></td>
            <td class="total-separation-line" style="text-align: right"><%= get_price_in_cents(@sale.ht_total) %></td>
-           <td class="total-separation-line" style="text-align: right"><%= get_price_in_cents(@sale.ttc_total) %></td>
-           <td class="total-separation-line" style="text-align: right"></td>
+           <td></td>
           </tr>
           <tr class="total-lines">
            <td></td>
            <td></td>
+           <td style="text-align: right" colspan="2" style="padding-left: 80px" ><b>TVA</b></td>
+           <td class="total-separation-line" style="text-align: right"><b><%= get_price_in_cents(@tva) %><b></td>
+          </tr>
+          <tr class="total-lines">
            <td></td>
-           <td class="total-separation-line" style="text-align: right" colspan="2" style="padding-left: 80px" ><b>Montant à payer</b></td>
-           <td class="total-separation-line" style="text-align: right"><b><%= @sale.rounded_ht_total == 0 ? get_price_in_cents(@sale.ht_total) : get_price_in_cents(@sale.rounded_ht_total) %><b></td>
-           <td class="total-separation-line" style="text-align: right"><b><%= @sale.rounded_ttc_total == 0 ? get_price_in_cents(@sale.ttc_total) : get_price_in_cents(@sale.rounded_ttc_total) %></b></td>
+           <td></td>
+           <td class="total-separation-line" style="text-align: right" colspan="2" style="padding-left: 80px" ><b>Total à payer</b></td>
+           <td class="total-separation-line" style="text-align: right"><b><%= @sale.rounded_ht_total == 0 ? get_price_in_cents(@sale.ht_total + @tva) : get_price_in_cents(@sale.rounded_ht_total + @tva) %><b></td>
           </tr>
         </tbody>
        </table>

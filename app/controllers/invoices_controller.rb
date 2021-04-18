@@ -4,6 +4,7 @@ class InvoicesController < ApplicationController
   before_action :set_invoice, only: [:show, :update]
 
   def new
+    @invoiceable_sales = @outlet.sales.where("date <= ? AND invoice_id IS NULL", Date.today).order(:date)
     @invoice = Invoice.new
     authorize @invoice
     @invoice_id = Invoice.count + 1
