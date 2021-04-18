@@ -39,6 +39,54 @@
   </div>
   <%= render "sales/sale_comment_drawer", sale: @sale %>
 
+              <!-- MODAL À AJOUTER POUR EDIT -->
+
+<!--
+  <div class="modal fade" id="editSalesLineCenter" tabindex="-1" role="dialog" aria-labelledby="editSalesLineCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-edit-sales-line" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <table class="sales-lines-table">
+            <thead>
+              <tr>
+                <th scope="col">Légume/Produit</th>
+                <th scope="col">Planche</th>
+                <th scope="col">Unité</th>
+                <th scope="col" class="text-right">Quantité</th>
+                <th scope="col" class="text-right">PU HT</th>
+                <th scope="col" class="text-right">PU TTC</th>
+                <th scope="col" class="text-right">Montant HT</th>
+                <th scope="col" class="text-right">Montant TTC</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="new-sales-line">
+                <%= form_with model: @new_sales_line, url: farm_sales_lines_path(@farm, outlet: @sale.outlet.id, sale: @sale.id), method: :post, local: true do |form| %>
+                  <td><%= form.select :product, @products %></td>
+                  <td class="bed-list">
+                    <%= select_tag "beds[]", options_for_select(@beds, :full_name), multiple: true%>
+                  </td>
+                  <td><%= form.select :unit, ["-", "botte", "pièce", "kg", "boîte"] %></td>
+                  <td style="text-align-last: end"><%= form.number_field :quantity, step: 0.01, class: "price-column" %></td>
+                  <td style="text-align-last: end"><%= form.number_field :ht_unit_price, step: 0.01, class: "price-column" %></td>
+                  <td style="text-align-last: end"><%= form.number_field :ttc_unit_price, step: 0.01, class: "price-column" %></td>
+                  <td style="text-align-last: end"><%= form.number_field :ht_total, step: 0.01, class: "price-column" %></td>
+                  <td style="text-align-last: end"><div><%= form.number_field :ttc_total, step: 0.01, class: "price-column" %></div></td>
+                  <td class="d-flex justify-content-end" style="border-top: none"><%= form.submit value: "Valider", 'data-disable-with': "..." %></td>
+                <% end %>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
   <table class="table mt-4 sales-lines-table">
     <thead>
       <tr>
@@ -150,6 +198,12 @@
                 <i class="fas fa-comment round-txt-button"></i>
               </div>
             <% end %>
+            <!-- MODAL À AJOUTER POUR EDIT -->
+    <!--         <button type="button" data-toggle="modal" data-target="#editSalesLineCenter">
+              <div class="round-button orange mr-2">
+                <i class="fas fa-pen round-txt-button"></i>
+              </div>
+            </button> -->
             <%= link_to farm_sales_line_path(@farm, line.id), method: :delete, data: { confirm: "T'es #{current_user.is_female? ? 'sûre' : 'sûr'} ? 🤨"} do %>
               <div class="round-button red">
                 <i class="fas fa-times round-txt-button"></i>
@@ -157,6 +211,9 @@
             <% end %>
           </td>
         </tr>
+
+
+
 
         <%= render "sales_lines/sales_line_comment_drawer", line: line %>
         <%= render "sales_lines/sales_line_add_comment_drawer", farm: @farm, line: line %>
