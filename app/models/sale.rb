@@ -1,6 +1,6 @@
 class Sale < ApplicationRecord
   belongs_to :outlet
-  belongs_to :invoice
+  belongs_to :invoice, optional: true
   has_many :sales_lines
   has_many :baskets
   has_one :delivery_slip

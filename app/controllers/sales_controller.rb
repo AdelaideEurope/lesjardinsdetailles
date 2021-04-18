@@ -26,7 +26,7 @@ class SalesController < ApplicationController
   def create
     date = params[:sale][:date]
     if params[:sale][:frequency] == ""
-      @sale = Sale.new(date: date, outlet_id: @outlet.id, comment: params[:sale][:comment])
+      @sale = Sale.new(date: Date.parse(date), outlet_id: @outlet.id, comment: params[:sale][:comment])
       authorize @sale
       if @sale.save
         flash[:notice] = "Vente du #{date.to_date.strftime('%-d')} #{I18n.t(:month_names)[date.to_date.strftime('%b').to_sym]} créée avec succès !"
