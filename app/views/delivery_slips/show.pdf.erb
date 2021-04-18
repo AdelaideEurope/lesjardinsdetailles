@@ -5,7 +5,7 @@
 
   <body>
     <div style="text-align: right">
-      <div>Bon de livraison n° : <%= @delivery_slip.number %></div>
+      <div>Bon de livraison n° <%= @delivery_slip.number %></div>
       <div>Date : <%= @delivery_slip.date.strftime('%d/%m/%y') %></div>
     </div>
 
@@ -28,7 +28,7 @@
 
 
     <div class="file-title">BON DE LIVRAISON</div>
-    <div class="details-facture">
+    <div class="details-invoice">
       <table class="table" style="margin-top: 36px">
         <thead>
          <tr>
@@ -72,8 +72,8 @@
            <td class="total-separation-line" style="text-align: right"><b><%= @sale.rounded_ht_total == 0 ? get_price_in_cents(@sale.ht_total + @tva) : get_price_in_cents(@sale.rounded_ht_total + @tva) %><b></td>
           </tr>
         </tbody>
-       </table>
+      </table>
+      <div class="table" style="text-align: right; margin-top: 40px">Produits issus de l’agriculture biologique fr-bio-15</div>
     </div>
-
   </body>
 </html>
