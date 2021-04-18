@@ -1,6 +1,6 @@
 class DeliverySlipsController < ApplicationController
   before_action :set_farm, only: [:new, :create, :index, :update, :show]
-  before_action :set_outlet, only: [:new, :create]
+  before_action :set_outlet, only: [:show, :new, :create]
   before_action :set_sale, only: [:new, :create, :show, :update]
   before_action :set_delivery_slip, only: [:show, :update]
 

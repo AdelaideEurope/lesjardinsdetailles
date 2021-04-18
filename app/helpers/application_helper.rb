@@ -36,6 +36,16 @@ module ApplicationHelper
     (value1*100)/value2
   end
 
+  def plural(value, sing, plural)
+    if value.nil?
+      sing
+    elsif value > 1
+      plural
+    else
+      sing
+    end
+  end
+
   # def percentage_number_days_between_two_dates(start, end)
   #   ((number_days_since_first_day_of_year * 100) / 365).to_i
   # end

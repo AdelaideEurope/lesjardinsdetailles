@@ -52,4 +52,8 @@ class Sale < ApplicationRecord
     end
   end
 
+  def self.policy_class
+    SalePolicy
+  end
+
 end

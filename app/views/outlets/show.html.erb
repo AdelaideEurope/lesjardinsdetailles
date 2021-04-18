@@ -18,7 +18,7 @@
       <% @sales.each do |sale| %>
         <div class="d-flex justify-content-between list-item-block my-2">
           <div class="card-list-item-left-block">
-            <div class="align-self-center pr-4" style="width: 120px">
+            <div class="align-self-center pr-4" style="width: 130px">
               <p><%= sale.date.to_date.strftime('%-d') %> <%= I18n.t(:month_names)[sale.date.to_date.strftime('%b').to_sym] %></p>
             </div>
               <h4 class="mb-0 align-self-center fw-500"><%= sale.outlet.full_name %></h4>

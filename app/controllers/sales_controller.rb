@@ -4,9 +4,31 @@ class SalesController < ApplicationController
   before_action :set_sale, only: [:show, :update]
 
   def index
-    @sales = Sale.all.order("date DESC")
+    @sales = @farm.sales
     authorize @sales
-    @outlets = Outlet.all
+    @outlet_list = @farm.outlets.pluck(:full_name, :shortened_name)
+    @farm.outlets.each { |o| @outlet_list.push(o.full_name[0..3]) }
+
+    if params[:query].present?
+      @query = params[:query]
+      month_number = I18n.t(:month_numbers)[params[:query].to_sym]
+      paid_not_paid_list = ["payé", "payée", "pay", "impayé", "impayée", "impay", "imp"]
+      panier_list = ["paniers", "pan", "panier"]
+
+      if month_number != nil
+        sales_for_month(month_number)
+      elsif paid_not_paid_list.include?(@query)
+        paid_not_paid_sales(params[:query])
+      elsif panier_list.include?(@query)
+        panier_sales(params[:query])
+      else
+        outlet_sales(@query)
+      end
+    else
+      @sales = @farm.sales.order("date DESC")
+      @sale_count = @sales.length
+    end
+    @outlets = @farm.outlets
   end
 
   def show
@@ -95,8 +117,37 @@ class SalesController < ApplicationController
   def set_outlet
     @outlet = Outlet.find(params[:pointsdevente_id])
   end
+
   def set_sale
     @sale = Sale.find(params[:id])
+  end
+
+  def sales_for_month(month)
+    @sales = Sale.where('extract(month from date) = ?', month)
+    @sale_count = @sales.length
+  end
+
+  def paid_not_paid_sales(query)
+    paid_list = ["payé", "payée", "pay",]
+    not_paid_list = ["impayé", "impayée", "impay", "imp"]
+    if not_paid_list.include?(query)
+      @sales = Sale.all.select { |sale| !sale.is_paid? }.sort_by(&:date).reverse!
+      @sale_count = @sales.length
+    elsif paid_list.include?(query)
+      @sales = Sale.all.select { |sale| sale.is_paid? }.sort_by(&:date).reverse!
+      @sale_count = @sales.length
+    end
+  end
+
+  def panier_sales(query)
+    @sales = Sale.all.select { |sale| sale.has_baskets? }.sort_by(&:date).reverse!
+    @sale_count = @sales.length
+  end
+
+  def outlet_sales(query)
+    sql_query = "full_name ILIKE :query"
+    @sales = Outlet.where(sql_query, query: "%#{params[:query]}%").where(farm_id: current_user.farm_id).map(&:sales).flatten.sort_by(&:date).reverse!
+    @sale_count = @sales.length
   end
 
 end

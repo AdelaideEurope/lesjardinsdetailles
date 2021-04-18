@@ -17,10 +17,6 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html
       format.xlsx
-# à revoir
-      # format.pdf do
-      #   render pdf: "file_name"   # Excluding ".pdf" extension.
-      # end
     end
   end
 

@@ -28,11 +28,46 @@
     <div class="progress">
       <div class="progress-bar" role="progressbar" style="width: <%= percentage(@farm.ttc_turnover, @farm.estimated_ttc_turnover).round %>%" aria-valuenow="<%= percentage(@farm.ttc_turnover, @farm.estimated_ttc_turnover) %>" aria-valuemin="0" aria-valuemax="100"><%= percentage(@farm.ttc_turnover, @farm.estimated_ttc_turnover).round %> %</div>
     </div>
+
+
+    <div class="search-form mt-4">
+      <%= form_tag farm_ventes_path(@farm.id), method: :get, class: "search-input" do %>
+        <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Chercher une vente" %>
+        <button type="submit" class="btn search-button" id="submit">
+          <i class="fas fa-search"></i>
+        </button>
+      <% end %>
+    </div>
+
+    <div class="d-flex justify-content-end">
+      <button type="button" class="btn green pr-0" data-toggle="modal" data-target="#exampleModalLong">
+        <i class="fas fa-info-circle round-txt-button"></i>
+      </button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            La recherche peut se faire selon ces différents critères :
+            <ul>
+              <li>Nom du point de vente</li>
+              <li>Mois</li>
+              <li>Payée / Impayée</li>
+              <li>Paniers</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <h3><%= @sale_count %> <%= plural(@sale_count, "vente", "ventes") %> <%= @query ? "(pour la recherche : #{@query})" :  "" %></h3>
     <div class="my-4 desktop_only">
       <% @sales.each do |sale| %>
         <div class="d-flex justify-content-between list-item-block my-2">
           <div class="card-list-item-left-block">
-            <div class="align-self-center pr-4" style="width: 120px">
+            <div class="align-self-center pr-4" style="width: 130px">
               <p><%= sale.date.to_date.strftime('%-d') %> <%= I18n.t(:month_names)[sale.date.to_date.strftime('%b').to_sym] %></p>
             </div>
               <h4 class="mb-0 align-self-center fw-500"><%= link_to farm_pointsdevente_path(@farm, sale.outlet), class: "green-hover" do %><%= sale.outlet.full_name %><% end %></h4>

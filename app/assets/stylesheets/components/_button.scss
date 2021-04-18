@@ -9,6 +9,9 @@
   padding: 12px;
   height: 36px;
   font-size: 14px;
+  &:hover {
+    color: white;
+  }
 }
 
 .sales-lines-table, .basket-lines-table, .confirm-button {
