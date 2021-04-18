@@ -13,7 +13,7 @@ class DeliverySlipsController < ApplicationController
 
   def create
     date = Date.parse(params[:delivery_slip][:date])
-    @delivery_slip = DeliverySlip.new(sale_id: @sale.id, date: date, comment: params[:delivery_slip][:comment], number: params[:delivery_slip][:number], outlet_display_name: params[:delivery_slip][:outlet_display_name], outlet_address: params[:delivery_slip][:outlet_address], outlet_zip_code: params[:delivery_slip][:outlet_zip_code], outlet_zip_city: params[:delivery_slip][:outlet_city])
+    @delivery_slip = DeliverySlip.new(sale_id: @sale.id, date: date, comment: params[:delivery_slip][:comment], number: params[:delivery_slip][:number], outlet_display_name: params[:delivery_slip][:outlet_display_name], outlet_address: params[:delivery_slip][:outlet_address], outlet_zip_code: params[:delivery_slip][:outlet_zip_code], outlet_city: params[:delivery_slip][:outlet_city])
     authorize @delivery_slip
     @delivery_slip.save
       flash[:notice] = "Le voici le voilà le bon de commande tout chaud !"
