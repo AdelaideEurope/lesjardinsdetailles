@@ -27,23 +27,58 @@
 
 
     <div class="file-title">FACTURE</div>
-    <div class="details-facture">
+    <div class="details-invoice">
+      <div>
+        <div class="p-1" style="margin-top: 12px">
+          Pour rappel, cette facture concerne <%= pluralize(@invoice.sales.length, "la vente du ", "les ventes des ") %>
+          <%= @all_sales %>
+        </div>
+      </div>
       <table class="table" style="margin-top: 36px">
         <thead>
          <tr>
            <th scope="col" style="text-align: left">Légume/Produit</th>
-           <th scope="col">Unité</th>
+           <th scope="col" style="text-align: right">Unité</th>
            <th scope="col" style="text-align: right">Quantité</th>
            <th scope="col" style="text-align: right">PU HT</th>
-           <th scope="col" style="text-align: right">PU TTC</th>
            <th scope="col" style="text-align: right">Montant HT</th>
-           <th scope="col" style="text-align: right">Montant TTC</th>
            <th scope="col"></th>
 
          </tr>
         </thead>
-
-       </table>
+        <tbody>
+          <% @sales_lines.each do |k, v| %>
+           <tr class="invoice-lines">
+             <td><%= k[0].name.capitalize %></td>
+             <td style="text-align: right"><%= k[1] %></td>
+             <td style="text-align: right"><%= remove_trailing_zero(v[:quantity]) %></td>
+             <td style="text-align: right"><%= get_price_in_cents(v[:ht_unit_price]) %></td>
+             <td style="text-align: right"><%= get_price_in_cents(v[:ht_total]) %></td>
+           </tr>
+          <% end %>
+          <tr class="total-line" style="margin-top: 12px">
+           <td></td>
+           <td></td>
+           <td></td>
+           <td class="total-separation-line" style="text-align: right" >Total HT</td>
+           <td class="total-separation-line" style="text-align: right"><%= get_price_in_cents(@invoice_ht_total) %></td>
+           <td></td>
+          </tr>
+          <tr class="total-lines">
+           <td></td>
+           <td></td>
+           <td style="text-align: right" colspan="2" style="padding-left: 80px" >TVA</td>
+           <td class="total-separation-line" style="text-align: right"><%= get_price_in_cents(@tva) %></td>
+          </tr>
+          <tr class="total-lines">
+           <td></td>
+           <td></td>
+           <td class="total-separation-line" style="text-align: right" colspan="2" style="padding-left: 80px" ><b>Total à payer</b></td>
+           <td class="total-separation-line" style="text-align: right"><b><%= get_price_in_cents(@invoice_ht_total + @tva) %><b></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="table" style="text-align: right; margin-top: 40px">Produits issus de l’agriculture biologique fr-bio-15</div>
     </div>
 
   </body>

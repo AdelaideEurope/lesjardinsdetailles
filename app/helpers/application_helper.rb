@@ -36,7 +36,7 @@ module ApplicationHelper
     (value1*100)/value2
   end
 
-  def plural(value, sing, plural)
+  def pluralize(value, sing, plural)
     if value.nil?
       sing
     elsif value > 1

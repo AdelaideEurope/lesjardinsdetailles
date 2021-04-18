@@ -33,10 +33,10 @@
               <div class="round-button <%= sale.has_comment? ? 'green' : 'lightgrey' %> m-2" data-drawer-trigger aria-controls="drawer-sale-comment-<%= sale.id %>" aria-expanded="false">
                 <i class="fas fa-comment round-txt-button"></i>
               </div>
-              <%= render "shared/basket_buttons", sale: sale %>
+              <%= render "shared/basket_buttons", sale: sale, outlet: @outlet %>
               <%= render "shared/delivery_slip_buttons", sale: sale %>
               <%= render "shared/invoice_buttons", sale: sale %>
-              <%= render "shared/payment_buttons", sale: sale %>
+              <%= render "shared/payment_buttons", sale: sale, outlet: @outlet %>
             </div>
             <div class="align-self-center" style="text-align-last: right; min-width: 80px;">
               <div class="d-flex justify-content-end" style="width: 200px"><span style="padding-top: 3px" class="pr-2 lightgrey"><%= get_price_in_cents(sale.ht_total) %></span>|<h4 class="mb-0 align-self-center fw-500 pl-2"><%= get_price_in_cents(sale.ttc_total) %></h4></div>

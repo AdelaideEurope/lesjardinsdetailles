@@ -8,11 +8,16 @@ class InvoicesController < ApplicationController
     @invoice = Invoice.new
     authorize @invoice
     @invoice_id = Invoice.count + 1
-    # grouped_sales_lines
   end
 
   def show
     authorize @invoice
+    grouped_sales_lines
+    @invoice_ht_total = @invoice.sales.map{|s| s.ht_total}.sum
+    @tva = (@invoice_ht_total / 100) * 5.5
+
+    @all_sales = @invoice.sales.map{|sale| "#{sale.date.to_date.strftime('%-d')} #{I18n.t(:month_names)[sale.date.to_date.strftime('%b').to_sym]}"}.to_sentence(words_connector: ', ', last_word_connector: ' et ')
+
     respond_to do |format|
       format.html { render :show }
       format.pdf {
@@ -59,20 +64,20 @@ class InvoicesController < ApplicationController
     @invoice = Invoice.find(params[:id])
   end
 
-  # def grouped_sales_lines
-  #   @sales_lines = {}
-  #   @sale.sales_lines.each do |line|
-  #     if !@sales_lines[[line.product, line.unit]].nil?
-  #       ttc_total = @sales_lines[[line.product, line.unit]][:ttc_total] += line.ttc_total
-  #       ht_total = @sales_lines[[line.product, line.unit]][:ht_total] += line.ht_total
-  #       quantity = @sales_lines[[line.product, line.unit]][:quantity] += line.quantity
-  #       ht_unit_price = @sales_lines[[line.product, line.unit]][:ht_unit_price] += line.ht_unit_price
-  #       ttc_unit_price = @sales_lines[[line.product, line.unit]][:ttc_unit_price] += line.ttc_unit_price
-  #       @sales_lines[[line.product, line.unit]] = {ttc_total: ttc_total, ht_total: ht_total, quantity: quantity, ht_unit_price: ht_unit_price, ttc_unit_price: ttc_unit_price}
-  #     else
-  #       @sales_lines[[line.product, line.unit]] = {ttc_total: line.ttc_total, ht_total: line.ht_total, quantity: line.quantity, ht_unit_price: line.ht_unit_price, ttc_unit_price: line.ttc_unit_price}
-  #     end
-  #   end
-  # end
+  def grouped_sales_lines
+    @sales_lines = {}
+    @invoice.sales.each do |sale|
+      sale.sales_lines.each do |line|
+        if !@sales_lines[[line.product, line.unit]].nil?
+          ht_total = @sales_lines[[line.product, line.unit]][:ht_total] += line.ht_total
+          quantity = @sales_lines[[line.product, line.unit]][:quantity] += line.quantity
+          ht_unit_price = @sales_lines[[line.product, line.unit]][:ht_unit_price] += line.ht_unit_price
+          @sales_lines[[line.product, line.unit]] = {ht_total: ht_total, quantity: quantity, ht_unit_price: ht_unit_price}
+        else
+          @sales_lines[[line.product, line.unit]] = {ht_total: line.ht_total, quantity: line.quantity, ht_unit_price: line.ht_unit_price}
+        end
+      end
+    end
+  end
 
 end

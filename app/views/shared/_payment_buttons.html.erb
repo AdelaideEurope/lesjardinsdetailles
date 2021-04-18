@@ -16,7 +16,7 @@
     </div>
     <div class="dropdown-menu wide-modal-position-center" aria-labelledby="dropdownPayment<%= sale.id %>">
       <div class="text-center pl-1 pr-1 border-bottom-lightgrey" style="padding-top: 6px; padding-bottom: 12px;">Déjà payé : <%= get_price_in_cents(sale.amount_paid) %></div>
-      <%= link_to farm_pointsdevente_paiements_path(@farm, @outlet, sale_id: sale.id), method: :post do %>
+      <%= link_to farm_pointsdevente_paiements_path(@farm, outlet, sale_id: sale.id), method: :post do %>
         <div class="sales-line-bed-choice text-center raisin pl-1 pr-1" style="padding-top: 6px; padding-bottom: 6px">Marquer comme payé en intégralité  🎉</div>
       <% end %>
       <div class="sales-line-bed-choice justify-content-center d-flex">

@@ -1,11 +1,11 @@
 <% if sale.has_baskets? %>
-  <%= link_to farm_pointsdevente_sale_baskets_path(@farm, @outlet, sale) do %>
+  <%= link_to farm_pointsdevente_sale_baskets_path(@farm, outlet, sale) do %>
     <div class="round-button olive m-2">
       <%= image_tag "panier.png", alt: "panier", class: "round-img-button" %>
     </div>
   <% end %>
 <% else %>
-  <%= link_to new_farm_pointsdevente_basket_path(@farm, @outlet, date: sale.date&.to_date) do %>
+  <%= link_to new_farm_pointsdevente_basket_path(@farm, outlet, date: sale.date&.to_date) do %>
     <div class="round-button lightgrey m-2">
       <%= image_tag "panier.png", alt: "panier", class: "round-img-button" %>
     </div>

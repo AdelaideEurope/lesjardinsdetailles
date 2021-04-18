@@ -123,7 +123,7 @@ class SalesController < ApplicationController
   end
 
   def sales_for_month(month)
-    @sales = Sale.where('extract(month from date) = ?', month)
+    @sales = Sale.where('extract(month from date) = ?', month).order("date DESC")
     @sale_count = @sales.length
   end
 
