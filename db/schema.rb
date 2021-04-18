@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_18_120431) do
+ActiveRecord::Schema.define(version: 2021_04_18_174539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -401,6 +401,7 @@ ActiveRecord::Schema.define(version: 2021_04_18_120431) do
     t.datetime "updated_at", precision: 6, null: false
     t.decimal "quantity", default: "0.0"
     t.string "unit"
+    t.string "comment"
     t.index ["bed_id"], name: "index_sales_lines_on_bed_id"
     t.index ["product_id"], name: "index_sales_lines_on_product_id"
     t.index ["sale_id"], name: "index_sales_lines_on_sale_id"

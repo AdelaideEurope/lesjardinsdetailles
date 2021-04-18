@@ -75,7 +75,11 @@ class SalesLinesController < ApplicationController
 
   def update
     authorize @sales_line
-    @sales_line.update(bed_id: params[:bed])
+    if params[:add_comment] == "true"
+      @sales_line.update(comment: params[:sales_line][:comment])
+    else
+      @sales_line.update(bed_id: params[:bed])
+    end
     redirect_to farm_pointsdevente_sale_path(@farm, @sales_line.sale.outlet, @sales_line.sale)
   end
 

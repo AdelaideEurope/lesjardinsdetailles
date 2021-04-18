@@ -1,0 +1,29 @@
+<section class="drawer" id="drawer-line-add-comment-<%= line.id %>" data-drawer-target>
+  <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+  <div class="drawer__wrapper">
+    <div class="drawer__header">
+      <div class="d-flex justify-content-between">
+        <div class="drawer__title">
+          <div>
+            <h2>Nouveau commentaire</h2>
+          </div>
+          <div class="drawer-title-second-line"><%= line.product.name.capitalize %></div>
+        </div>
+        <button class="drawer__close" data-drawer-close aria-label="Fermer le drawer">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <div class="drawer__content drawer-content-with-bottom-buttons">
+      <div>
+        <%= form_with model: line, url: farm_sales_line_path(farm, line, add_comment: true), method: :patch, local: true do |form| %>
+        <h4 class="mt-4">Commentaire</h4>
+        <%= form.text_area :comment, class: "mt-2 w-100", rows: "4" %>
+      </div>
+      <div class="drawer-edit-bottom-buttons px-sm-4">
+        <div><%= form.submit value: "Valider", class: "btn txt-button-background olive mt-2", 'data-disable-with': "..." %></div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</section>
