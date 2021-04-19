@@ -26,7 +26,7 @@ class OutletsController < ApplicationController
         @sale_count = @sales.length
       end
     else
-      @sales = @farm.sales.order("date DESC")
+      @sales = @outlet.sales.order("date DESC")
       @sale_count = @sales.length
     end
   end
