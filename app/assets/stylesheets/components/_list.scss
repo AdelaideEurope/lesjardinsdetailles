@@ -3,6 +3,10 @@
   font-size: 14px;
 }
 
+.to-harvest-bullet::marker {
+  color: $olive;
+}
+
 .no-list-style {
   li {
     list-style: none;
@@ -46,6 +50,9 @@
 
 // VERSION MOBILE
 @media(max-width:812px) {
+  .to-harvest-bullet {
+    font-size: 12px;
+  }
   .card-list-item-second-line {
     color: $olive;
     font-size: 10px;

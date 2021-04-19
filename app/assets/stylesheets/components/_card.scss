@@ -32,6 +32,9 @@
   &.red {
     box-shadow: 0px 2px 4px 0px $red;
   }
+  &.olive {
+    box-shadow: 0px 2px 4px 0px $olive;
+  }
 }
 
 .dashboard-crop-plan-line-card {
@@ -46,6 +49,9 @@
   }
   &.red {
     box-shadow: 0px 2px 4px 0px $red;
+  }
+  &.olive {
+    box-shadow: 0px 2px 4px 0px $olive;
   }
 }
 
@@ -67,6 +73,9 @@
   }
   &.red {
     background: $red;
+  }
+  &.olive {
+    background: $olive;
   }
 }
 
@@ -109,6 +118,9 @@
   }
   &.red {
     background: linear-gradient(to bottom right, #fff 0%, #fff 50%, $red 50%, $red 100%);
+  }
+  &.olive {
+    background: linear-gradient(to bottom right, #fff 0%, #fff 50%, $olive 50%, $olive 100%);
   }
 }
 

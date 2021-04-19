@@ -9,7 +9,26 @@ class OutletsController < ApplicationController
 
   def show
     authorize @outlet
-    @sales = @outlet.sales.order("date DESC")
+    if params[:query].present?
+      @query = params[:query]
+      month_number = I18n.t(:month_numbers)[params[:query].to_sym]
+      paid_not_paid_list = ["payé", "payée", "pay", "impayé", "impayée", "impay", "imp"]
+      panier_list = ["paniers", "pan", "panier"]
+
+      if month_number != nil
+        sales_for_month(month_number)
+      elsif paid_not_paid_list.include?(@query)
+        paid_not_paid_sales(params[:query])
+      elsif panier_list.include?(@query)
+        panier_sales(params[:query])
+      else
+        @sales = @farm.sales.order("date DESC")
+        @sale_count = @sales.length
+      end
+    else
+      @sales = @farm.sales.order("date DESC")
+      @sale_count = @sales.length
+    end
   end
 
   def new
@@ -47,6 +66,29 @@ class OutletsController < ApplicationController
   end
 
   private
+
+  def sales_for_month(month)
+    @sales = Sale.where('extract(month from date) = ?', month).order("date DESC")
+    @sale_count = @sales.length
+  end
+
+  def paid_not_paid_sales(query)
+    paid_list = ["payé", "payée", "pay",]
+    not_paid_list = ["impayé", "impayée", "impay", "imp"]
+    if not_paid_list.include?(query)
+      @sales = Sale.all.select { |sale| !sale.is_paid? && sale.ttc_total != 0 }.sort_by(&:date).reverse!
+      @sale_count = @sales.length
+      @total_unpaid = @sales.map{|s| s.ttc_total}.sum
+    elsif paid_list.include?(query)
+      @sales = Sale.all.select { |sale| sale.is_paid? }.sort_by(&:date).reverse!
+      @sale_count = @sales.length
+    end
+  end
+
+  def panier_sales(query)
+    @sales = Sale.all.select { |sale| sale.has_baskets? }.sort_by(&:date).reverse!
+    @sale_count = @sales.length
+  end
 
   def set_farm
     @farm = Farm.find(params[:farm_id])
