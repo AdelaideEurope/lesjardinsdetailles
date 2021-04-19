@@ -131,8 +131,9 @@ class SalesController < ApplicationController
     paid_list = ["payé", "payée", "pay",]
     not_paid_list = ["impayé", "impayée", "impay", "imp"]
     if not_paid_list.include?(query)
-      @sales = Sale.all.select { |sale| !sale.is_paid? }.sort_by(&:date).reverse!
+      @sales = Sale.all.select { |sale| !sale.is_paid? && sale.ttc_total != 0 }.sort_by(&:date).reverse!
       @sale_count = @sales.length
+      @total_unpaid = @sales.map{|s| s.ttc_total}.sum
     elsif paid_list.include?(query)
       @sales = Sale.all.select { |sale| sale.is_paid? }.sort_by(&:date).reverse!
       @sale_count = @sales.length

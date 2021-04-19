@@ -62,7 +62,18 @@
         </div>
       </div>
     </div>
-    <h3><%= @sale_count %> <%= pluralize(@sale_count, "vente", "ventes") %> <%= @query ? "(pour la recherche : #{@query})" :  "" %></h3>
+    <div>
+      <% if @total_unpaid != 0 && !@total_unpaid.nil? %>
+        <div><h3><%= @sale_count %> <%= pluralize(@sale_count, "vente impayée", "ventes impayées") %></h3>
+        </div>
+        <div>
+          ⚠️ Reste à percevoir : <%= get_price_in_cents(@total_unpaid) %>
+        </div>
+        <% else %>
+        <div><h3><%= @sale_count %> <%= pluralize(@sale_count, "vente", "ventes") %> <%= @query ? "(pour la recherche : #{@query})" :  "" %></h3>
+        </div>
+      <% end %>
+    </div>
     <div class="my-4 desktop_only">
       <% @sales.each do |sale| %>
         <div class="d-flex justify-content-between list-item-block my-2">
