@@ -1,9 +1,9 @@
 <div class="container custom-container">
-   <div class="page-header non-scrolled-page-header scrollable-page-header">
-      <h2 class="green">Les paniers de
-          <%= link_to farm_pointsdevente_sale_path(@farm, @sale.outlet, @sale) do %><span class="green">la vente <%= @outlet.full_name %> du </span><span class="green"><%= @sale.date.to_date.strftime('%-d') %>  <%= I18n.t(:month_names)[@sale.date.to_date.strftime('%b').to_sym]%></span>
-        <% end %>
-      </h2>
+  <div class="page-header non-scrolled-page-header scrollable-page-header">
+    <h2 class="green">Les paniers de
+        <%= link_to farm_pointsdevente_sale_path(@farm, @sale.outlet, @sale) do %><span class="green">la vente <%= @outlet.full_name %> du </span><span class="green"><%= @sale.date.to_date.strftime('%-d') %>  <%= I18n.t(:month_names)[@sale.date.to_date.strftime('%b').to_sym]%></span>
+      <% end %>
+    </h2>
   </div>
 
   <div class="page-content">
@@ -69,7 +69,7 @@
               <table class="table basket-lines-table new-basket-line-table">
                 <%= simple_form_for @new_basket_line, url: farm_pointsdevente_sale_basket_basket_lines_path(@farm, @outlet, @sale, basket.id, @basket_line), method: :post do |form| %>
                   <tbody>
-                    <tr class="new-sales-line" id="quantitejs<%= basket.id %>"
+                    <tr class="new-sales-line" id="quantitejs<%= basket.id %>">
                       <td class="basket-product"><%= form.select :product, @products %></td>
                       <td class="basket-other-col"><%= form.select :unit, ["-", "botte", "pièce", "kg", "boîte"] %></td>
                       <td style="text-align-last: end" class="basket-other-col"><%= form.number_field :quantity, step: 0.01, placeholder: "Qté", input_html: { id: "quantitejs#{basket.id}" }, class: "quantity-column" %></td>

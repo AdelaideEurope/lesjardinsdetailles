@@ -19,8 +19,8 @@ const autoFillPrice = () => {
 
     getPUTTC.addEventListener('change', (event) => {
       const calculTVA = parseFloat(getPUTTC.value * 0.055);
-      // const totalPUHT = Math.round(((parseFloat(getPUTTC.value) - calculTVA) + Number.EPSILON) * 100) / 100;
-      // const calculPUHT = totalPUHT
+      const totalPUHT = Math.round(((parseFloat(getPUTTC.value) - calculTVA) + Number.EPSILON) * 100) / 100;
+      const calculPUHT = totalPUHT
       getPUHT.value = calculPUHT;
       const totalTTC = Math.round(((parseFloat(getPUTTC.value) * parseFloat(getQuantite.value)) + Number.EPSILON) * 100) / 100;
       getPTTTC.value = totalTTC
