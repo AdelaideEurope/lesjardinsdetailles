@@ -18,11 +18,11 @@
         <%= form_with model: admin_event, url: farm_calendrier_path(farm, admin_event.id, start_date: params[:start_date]), method: :patch, local: true do |form| %>
 
         <h4 class="mt-4">Description</h4>
-        <%= form.text_area :description, value: admin_event&.description, class: "mt-2 w-100", rows: "1" %>
+        <%= form.text_area :description, value: admin_event&.description, class: "mt-2 w-100", rows: "1", id: "event_description#{admin_event}" %>
         <h4 class="mt-4">Détails</h4>
-        <%= form.text_area :details, value: admin_event&.details, class: "mt-2 w-100", rows: "1" %>
+        <%= form.text_area :details, value: admin_event&.details, class: "mt-2 w-100", rows: "1", id: "event_details#{admin_event}" %>
         <h4 class="mt-4">Commentaire</h4>
-        <%= form.text_area :comment, value: admin_event&.comment, class: "mt-2 w-100", rows: "1" %>
+        <%= form.text_area :comment, value: admin_event&.comment, class: "mt-2 w-100", rows: "1", id: "event_comment#{admin_event}" %>
         <% if !admin_event.is_done? %>
           <h4 class="mt-4">Prévu pour la semaine</h4>
           <%= form.number_field :planned_week, in: 1..52, value: params[:start_date].to_date.strftime("%W") %>

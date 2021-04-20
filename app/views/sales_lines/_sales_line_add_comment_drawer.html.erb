@@ -18,7 +18,7 @@
       <div>
         <%= form_with model: line, url: farm_sales_line_path(farm, line, add_comment: true), method: :patch, local: true do |form| %>
         <h4 class="mt-4">Commentaire</h4>
-        <%= form.text_area :comment, class: "mt-2 w-100", rows: "4" %>
+        <%= form.text_area :comment, id: "sales_line_comment#{line.id}", class: "mt-2 w-100", rows: "4" %>
       </div>
       <div class="drawer-edit-bottom-buttons px-sm-4">
         <div><%= form.submit value: "Valider", class: "btn txt-button-background olive mt-2", 'data-disable-with': "..." %></div>

@@ -69,14 +69,21 @@
               <table class="table basket-lines-table new-basket-line-table">
                 <%= simple_form_for @new_basket_line, url: farm_pointsdevente_sale_basket_basket_lines_path(@farm, @outlet, @sale, basket.id, @basket_line), method: :post do |form| %>
                   <tbody>
-                    <tr class="new-sales-line" id="quantitejs<%= basket.id %>">
-                      <td class="basket-product"><%= form.select :product, @products %></td>
+                    <tr class="new-sales-line">
+                      <td class="basket-product basket-product-select"><%= form.select :product, @products, id: "basket_line_product#{basket.id}" %></td>
                       <td class="basket-other-col"><%= form.select :unit, ["-", "botte", "pièce", "kg", "boîte"] %></td>
-                      <td style="text-align-last: end" class="basket-other-col"><%= form.number_field :quantity, step: 0.01, placeholder: "Qté", input_html: { id: "quantitejs#{basket.id}" }, class: "quantity-column" %></td>
-                      <td style="text-align-last: end" class="basket-other-col"><%= form.number_field :ttc_unit_price, step: 0.01, placeholder: "PU TTC", input_html: { id: "prixunitairejs#{basket.id}" }, class: "price-column" %></td>
-                      <%= form.hidden_field :ht_total_price, step: 0.01 %>
-                      <td style="text-align-last: end" class="basket-other-col"><div><%= form.number_field :ttc_total_price, step: 0.01, placeholder: "TTC", input_html: { id: "prixtotaljs#{basket.id}" }, class: "price-column" %></div></td>
-                      <td class="d-flex justify-content-end basket-last-col d-flex justify-content-end" style="border-top: none"><%= form.submit value: "OK", 'data-disable-with': "..." %></td>
+                      <td style="text-align-last: end" class="basket-other-col">
+                        <%= form.number_field :quantity, step: 0.01, placeholder: "Qté", id: "basket_line_quantity#{basket.id}", class: "quantity-column" %>
+                      </td>
+                      <td style="text-align-last: end" class="basket-other-col">
+                        <%= form.number_field :ttc_unit_price, step: 0.01, placeholder: "PU TTC", id: "basket_line_ttc_unit_price#{basket.id}", class: "price-column" %>
+                      </td>
+                      <%= form.hidden_field :ht_total_price, step: 0.01, id: "basket_line_ht_total#{basket.id}" %>
+                      <td style="text-align-last: end" class="basket-other-col">
+                        <%= form.number_field :ttc_total_price, step: 0.01, placeholder: "TTC", id: "basket_line_ttc_total#{basket.id}", class: "price-column" %>
+                      </td>
+                      <td class="d-flex justify-content-end basket-last-col d-flex justify-content-end" style="border-top: none"><%= form.submit value: "OK", 'data-disable-with': "..." %>
+                      </td>
                     </tr>
                   </tbody>
                 <% end %>

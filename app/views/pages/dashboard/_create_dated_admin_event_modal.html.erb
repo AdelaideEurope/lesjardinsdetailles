@@ -1,9 +1,9 @@
 <!-- Modal create event (dated_admin - calendar)-->
-<div class="modal fade" id="modal-new-dated-admin-event" tabindex="-1" aria-labelledby="modal-new-admin-eventLabel" aria-hidden="true">
+<div class="modal fade" id="modal-new-dated-admin-event<%= date %>" tabindex="-1" aria-labelledby="modal-new-dated-admin-eventLabel<%= date %>" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content" style="height: 400px; overflow: scroll;">
       <div class="modal-header modal-new-admin-header">
-        <h2 class="modal-title" id="modal-new-admin-eventLabel">Nouvel événement 🗓</h2>
+        <h2 class="modal-title" id="modal-new-dated-admin-eventLabel<%= date %>">Nouvel événement 🗓</h2>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -33,11 +33,11 @@
               <div class="d-flex event-type-select"><%= form.select :event_subcategory, ["vente", "rdv", "mission"], class: "mt-2", rows: "1" %></div>
             </div>
             <h4 class="mt-4">Titre</h4>
-            <%= form.text_area :description, class: "mt-2  w-100", rows: "1" %>
+            <%= form.text_area :description, class: "mt-2  w-100", rows: "1", id: "event_description#{date}" %>
             <h4 class="mt-4">Description</h4>
-            <%= form.text_area :details, class: "mt-2 w-100", rows: "1" %>
+            <%= form.text_area :details, class: "mt-2 w-100", rows: "1", id: "event_details#{date}" %>
             <h4 class="mt-4">Commentaire</h4>
-            <%= form.text_area :comment, class: "mt-2 w-100", rows: "1" %>
+            <%= form.text_area :comment, class: "mt-2 w-100", rows: "1", id: "event_comment#{date}" %>
             <div class="d-flex">
               <div>
                 <h4 class="mt-4">C'est pour qui ?</h4>

@@ -19,7 +19,7 @@
         <%= form_with model: cple, url: farm_crop_plan_line_event_path(farm, cple, add_comment: true, start_date: params[:start_date]), method: :patch, local: true do |form| %>
 
         <h4 class="mt-4">Commentaire</h4>
-        <%= form.text_area :comment, class: "mt-2 w-100", rows: "4" %>
+        <%= form.text_area :comment, class: "mt-2 w-100", rows: "4", id: "crop_plan_line_event_comment#{cple.id}" %>
 
 
       </div>
