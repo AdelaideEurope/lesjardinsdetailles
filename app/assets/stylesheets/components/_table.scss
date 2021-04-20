@@ -28,6 +28,11 @@
   }
 }
 
+.basket-lines-table-drawer {
+  th {
+    border-top: none;
+  }
+}
 
 .new-sales-line {
   border-top: 1px solid $lightgrey;

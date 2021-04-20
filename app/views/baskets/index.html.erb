@@ -94,10 +94,10 @@
             <div class="card-bottom-right-triangle <%= @colors[i%3] %> pointer" data-drawer-trigger aria-controls="drawer-previous-baskets-<%= basket.id %>"><i class="fas fa-search"></i></div>
           </div>
         </div>
-        <%= render "drawer_previous_baskets", basket: basket, farm: @farm, outlet: @sale.outlet %>
-      <% end %>
+        <%= render "drawer_previous_baskets", basket: basket, farm: @farm, outlet: @sale.outlet, color: @colors[i%3]  %>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>
 
 
