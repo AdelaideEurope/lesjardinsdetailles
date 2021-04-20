@@ -58,9 +58,9 @@ class BasketLinesController < ApplicationController
     sale = @basket_line.basket.sale
     outlet = @basket_line.basket.sale.outlet
     authorize @basket_line
+    ht_total = @basket_line.ht_total_price.to_i
+    ttc_total = @basket_line.ttc_total_price.to_i
     if @basket_line.destroy
-      ht_total = (params[:ht_actual_total].to_i)
-      ttc_total = (params[:ttc_actual_total].to_i)
       ht_actual_total = @basket_line.basket.ht_actual_total -= ht_total
       ttc_actual_total = @basket_line.basket.ttc_actual_total -= ttc_total
       @basket_line.basket.update(ttc_actual_total: ttc_actual_total, ht_actual_total: ht_actual_total)
