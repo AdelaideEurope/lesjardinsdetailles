@@ -26,15 +26,15 @@ class SalesLinesController < ApplicationController
     if last_price.nil?
       last_price_amount = (params[:sales_line][:ht_unit_price].to_f * 100).round
       LastPrice.create(outlet_id: outlet_id, product_id: params[:sales_line][:product].to_i, amount: [last_price_amount], unit: [params[:sales_line][:unit]])
-    elsif !last_price.unit.include?(params[:sales_line][:unit])
+    elsif !last_price.unit.include?(unit)
       last_price_amount = (params[:sales_line][:ht_unit_price].to_f * 100).round
-      last_price_unit = params[:sales_line][:unit]
+      last_price_unit = unit
       last_price_amounts = last_price.amount.push(last_price_amount)
       last_price_units = last_price.unit.push(last_price_unit)
       last_price.update(amount: last_price_amounts, unit: last_price_units)
     else
       last_price_amount = (params[:sales_line][:ht_unit_price].to_f * 100).round
-      index_amount_to_replace = last_price.unit.find_index(params[:sales_line][:unit])
+      index_amount_to_replace = last_price.unit.find_index(unit)
       last_price.amount[index_amount_to_replace] = last_price_amount
       last_price.save
     end

@@ -5,6 +5,23 @@ const autoFillPrice = () => {
     const getPTTTC = document.getElementById('sales_line_ttc_total');
     const getQuantite = document.getElementById('sales_line_quantity');
 
+    // const select = document.getElementById('select2-sales_line_product-container')
+    // select.on("select2:select", function(e) {
+    //   console.log("oiuhg")
+    //   const idLegumeSelectionne = $("select2-sales_line_product-container").title
+    //   console.log(idLegumeSelectionne)
+    // })
+    // const pricesHash = document.querySelector('[data-product-prices]').dataset.productPrices;
+    // const arrPrix = JSON.parse("[" + pricesHash + "]");
+
+    // console.log(arrPrix)
+    // // const arrPrix = JSON.parse("[" + arrayPrix + "]");
+
+    // $('#sales_line_product').on('select2:select', function (e) {
+    //     var data = e.params.data;
+    //     console.log(data);
+    // });
+
   if (getPUHT) {
     getPUHT.addEventListener('change', (event) => {
       const calculTVA = parseFloat(getPUHT.value * 0.055);

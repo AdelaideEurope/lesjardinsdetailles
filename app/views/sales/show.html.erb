@@ -242,6 +242,7 @@
       <%= form_with model: @new_sales_line, url: farm_sales_lines_path(@farm, outlet: @sale.outlet.id, sale: @sale.id), method: :post, local: true do |form| %>
         <tr class="new-sales-line">
           <td><%= form.select :product, @products %></td>
+          <div class="hidden" data-product-prices="<%= @last_prices %>"></div>
           <td class="bed-list">
             <%= select_tag "beds[]", options_for_select(@beds, :full_name), multiple: true%>
           </td>
@@ -252,6 +253,7 @@
           <td style="text-align-last: end"><%= form.number_field :ht_total, step: 0.01, class: "price-column" %></td>
           <td style="text-align-last: end"><div><%= form.number_field :ttc_total, step: 0.01, class: "price-column" %></div></td>
           <td class="d-flex justify-content-end" style="border-top: none"><%= form.submit value: "Valider", 'data-disable-with': "..." %></td>
+
         </tr>
         <tr class="total-line">
           <td></td>
@@ -279,8 +281,8 @@
         <td></td>
         <td></td>
         <td class="total-separation-line" colspan="2" style="padding-left: 80px">Montant réglé</td>
-        <td class="total-separation-line text-right"><%= get_price_in_cents(@sale.rounded_ht_total) %></td>
-        <td class="total-separation-line text-right"><%= get_price_in_cents(@sale.rounded_ttc_total) %></td>
+        <td class="total-separation-line text-right"></td>
+        <td class="total-separation-line text-right <%= 'olive fw-500' if @sale.is_paid? %>"><%= get_price_in_cents(@sale.amount_paid) %></td>
       </tr>
     </tbody>
   </table>

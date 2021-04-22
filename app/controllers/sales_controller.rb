@@ -34,6 +34,9 @@ class SalesController < ApplicationController
   def show
     @sale = Sale.find(params[:id])
     authorize @sale
+
+    # last_prices(@sale)
+
     @new_sales_line = SalesLine.new
     @sales_lines = @sale.sales_lines.order(:created_at)
     @beds = Bed.all.order(:full_name).pluck(:full_name, :id)
@@ -149,6 +152,20 @@ class SalesController < ApplicationController
     sql_query = "full_name ILIKE :query"
     @sales = Outlet.where(sql_query, query: "%#{params[:query]}%").where(farm_id: current_user.farm_id).map(&:sales).flatten.sort_by(&:date).reverse!
     @sale_count = @sales.length
+  end
+
+  def last_prices(sale)
+    @last_prices = {}
+    products = Product.where(farm_id: @farm.id)
+    products.each do |product|
+      product_last_prices = []
+      last_prices = LastPrice.all.where('product_id = ?', 1)
+      last = last_prices.map do |last_price|
+        ((last_price.amount[0].to_i)/100).to_s + " €/" + last_price.unit[0]
+      end
+    end
+    @last_prices = LastPrice.all.group_by(&:product_id).each {|p, v| v.group_by(&:unit)}.transform_keys{|k| Product.find(k).name.capitalize}
+    @last_prices.map{|k, v| @last_prices[k] = [v[0].amount, v[0].unit]}.to_json
   end
 
 end

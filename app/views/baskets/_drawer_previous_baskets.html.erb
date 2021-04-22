@@ -14,49 +14,50 @@
       </div>
     </div>
     <div class="drawer__content">
-      <% @previous_baskets[basket.ttc_price].each_with_index do |basket, i| %>
-        <% if basket.basket_lines.length > 0 %>
-          <div class="d-flex justify-content-between pb-4">
-            <div class="dashboard-crop-plan-line-card dashboard-admin-event-card <%= color %>">
-              <div class="card-colored-top-part-fixed-color <%= color %>">
-                <div class="card-top-part-text"><%= basket.name %> du <%= basket.date.to_date.strftime('%-d') %> <%= I18n.t(:month_names)[basket.date.to_date.strftime('%b').to_sym] %>
+      <% if @previous_baskets != nil %>
+        <% @previous_baskets[basket.ttc_price].each_with_index do |basket, i| %>
+          <% if basket.basket_lines.length > 0 %>
+            <div class="d-flex justify-content-between pb-4">
+              <div class="dashboard-crop-plan-line-card dashboard-admin-event-card <%= color %>">
+                <div class="card-colored-top-part-fixed-color <%= color %>">
+                  <div class="card-top-part-text"><%= basket.name %> du <%= basket.date.to_date.strftime('%-d') %> <%= I18n.t(:month_names)[basket.date.to_date.strftime('%b').to_sym] %>
+                  </div>
                 </div>
-              </div>
-              <div class="card-bottom-part">
-                <div class="card-bottom-part-text p-0">
-                  <table class="table basket-lines-table-drawer">
-                    <thead>
-                      <tr>
-                        <th scope="col" class="basket-product">Légume</th>
-                        <th scope="col" class="basket-other-col">Unité</th>
-                        <th scope="col" class="basket-other-col text-right">Qté</th>
-                        <th scope="col" class="basket-other-col text-right">PU TTC</th>
-                        <th scope="col" class="basket-other-col text-right d-none">HT</th>
-                        <th scope="col" class="basket-other-col text-right">TTC</th>
-                        <th scope="col" class="basket-last-col d-flex justify-content-end"></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <% basket.basket_lines.each do |basket_line| %>
+                <div class="card-bottom-part">
+                  <div class="card-bottom-part-text p-0">
+                    <table class="table basket-lines-table-drawer">
+                      <thead>
                         <tr>
-                          <td class="basket-product"><%= basket_line.product.name.capitalize %></td>
-                          <td class="basket-other-col"><%= basket_line.unit %></td>
-                          <td class="text-right basket-other-col"><%= remove_trailing_zero(basket_line.quantity) %></td>
-                          <td class="text-right basket-other-col"><%= get_price_in_cents(basket_line.ttc_unit_price) %></td>
-                          <td class="text-right basket-other-col d-none"><%= get_price_in_cents(basket_line.ht_total_price) %></td>
-                          <td class="text-right basket-other-col"><%= get_price_in_cents(basket_line.ttc_total_price) %></td>
-                          <td class="basket-last-col d-flex justify-content-end">
-                          </td>
+                          <th scope="col" class="basket-product">Légume</th>
+                          <th scope="col" class="basket-other-col">Unité</th>
+                          <th scope="col" class="basket-other-col text-right">Qté</th>
+                          <th scope="col" class="basket-other-col text-right">PU TTC</th>
+                          <th scope="col" class="basket-other-col text-right d-none">HT</th>
+                          <th scope="col" class="basket-other-col text-right">TTC</th>
+                          <th scope="col" class="basket-last-col d-flex justify-content-end"></th>
                         </tr>
-                      <% end %>
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        <% basket.basket_lines.each do |basket_line| %>
+                          <tr>
+                            <td class="basket-product"><%= basket_line.product.name.capitalize %></td>
+                            <td class="basket-other-col"><%= basket_line.unit %></td>
+                            <td class="text-right basket-other-col"><%= remove_trailing_zero(basket_line.quantity) %></td>
+                            <td class="text-right basket-other-col"><%= get_price_in_cents(basket_line.ttc_unit_price) %></td>
+                            <td class="text-right basket-other-col d-none"><%= get_price_in_cents(basket_line.ht_total_price) %></td>
+                            <td class="text-right basket-other-col"><%= get_price_in_cents(basket_line.ttc_total_price) %></td>
+                            <td class="basket-last-col d-flex justify-content-end">
+                            </td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          <% end %>
         <% end %>
-      <% end %>
     </div>
   </div>
 </section>

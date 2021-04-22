@@ -8,6 +8,7 @@ class Product < ApplicationRecord
   has_many :crop_plan_line_events
   has_many :sales_lines
   has_many :basket_lines
+  has_one :last_price
 
   extend FriendlyId
   friendly_id :name, use: :slugged
