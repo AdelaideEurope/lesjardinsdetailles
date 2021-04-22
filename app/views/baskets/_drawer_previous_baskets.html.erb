@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="drawer__content">
-      <% if @previous_baskets != nil %>
+      <% if @previous_baskets[basket.ttc_price] != nil %>
         <% @previous_baskets[basket.ttc_price].each_with_index do |basket, i| %>
           <% if basket.basket_lines.length > 0 %>
             <div class="d-flex justify-content-between pb-4">
