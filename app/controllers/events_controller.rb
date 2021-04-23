@@ -16,9 +16,9 @@ class EventsController < ApplicationController
   end
 
   def create
-    array_dates = params[:event][:start_date].split(", ")
-    array_parsed_dates = array_dates.map {|d| DateTime.parse(d)}
     if params[:event_category] == "dated_admin"
+      array_dates = params[:event][:start_date].split(", ")
+      array_parsed_dates = array_dates.map {|d| DateTime.parse(d)}
       array_parsed_dates.each do |event_date|
         is_all_day = params[:event][:is_all_day] == '1'
         end_date_with_hour = DateTime.parse(event_date.to_s[0..-16] + " " + params[:event]["end_hour(4i)"]+":"+params[:event]["end_hour(5i)"])
