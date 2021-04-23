@@ -11,8 +11,8 @@ class BasketLinesController < ApplicationController
     outlet = Outlet.find(outlet_id)
     ht_unit_price = ((params[:basket_line][:ttc_unit_price].to_f  / 1.055) * 100).round
     ttc_unit_price = (params[:basket_line][:ttc_unit_price].to_f * 100).round
-    ht_total = ((params[:basket_line][:ttc_total].to_f  / 1.055) * 100).round
-    ttc_total = (params[:basket_line][:ttc_total].to_f * 100).round
+    ht_total = ((params[:basket_line][:ttc_total_price].to_f  / 1.055) * 100).round
+    ttc_total = (params[:basket_line][:ttc_total_price].to_f * 100).round
     bed_id = params[:basket_line][:bed].to_i == 0 ? nil : params[:basket_line][:bed].to_i
 
     if params[:basket_line][:product].to_i == 0
