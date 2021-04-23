@@ -10,9 +10,9 @@
   </div>
   <div class="text-right mb-4"><%= link_to new_farm_pointsdevente_basket_path(@farm, @outlet) do %> Ajouter des paniers <% end %>
   </div>
-  <div class="d-flex justify-content-between flex-wrap mt-4">
+  <div class="d-flex justify-content-between flex-wrap">
     <% @baskets.each_with_index do |basket, i| %>
-      <div class="dashboard-crop-plan-line-card dashboard-admin-event-card <%= @colors[i%3] %>">
+      <div class="dashboard-crop-plan-line-card dashboard-admin-event-card <%= @colors[i%3] %> mt-4">
         <div class="card-colored-top-part-fixed-color <%= @colors[i%3] %>">
           <div class="card-top-part-text"><%= basket.name %> x <%= basket.quantity %></div>
         </div>
