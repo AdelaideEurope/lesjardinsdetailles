@@ -104,10 +104,10 @@ class BasketsController < ApplicationController
       if @basket.update(confirmed: true)
         basket_ht_total = @basket.sale.ht_total += @basket.ht_price * @basket.quantity
         basket_ttc_total = @basket.sale.ttc_total += @basket.ttc_price * @basket.quantity
-        outlet_ht_turnover = @outlet.ht_turnover += @basket.ht_price
-        outlet_ttc_turnover = @outlet.ttc_turnover += @basket.ttc_price
-        farm_ht_turnover = @farm.ht_turnover += @basket.ht_price
-        farm_ttc_turnover = @farm.ttc_turnover += @basket.ttc_price
+        outlet_ht_turnover = @outlet.ht_turnover += @basket.ht_price * @basket.quantity
+        outlet_ttc_turnover = @outlet.ttc_turnover += @basket.ttc_price * @basket.quantity
+        farm_ht_turnover = @farm.ht_turnover += @basket.ht_price * @basket.quantity
+        farm_ttc_turnover = @farm.ttc_turnover += @basket.ttc_price * @basket.quantity
 
         @basket.basket_lines.each do |basket_lines|
           product_ht_total = basket_lines.product.ht_turnover += (basket_lines.ht_total_price * @basket.quantity)
