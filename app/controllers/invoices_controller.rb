@@ -16,7 +16,7 @@ class InvoicesController < ApplicationController
     @invoice_ht_total = @invoice.sales.map{|s| s.ht_total}.sum
     @tva = (@invoice_ht_total / 100) * 5.5
 
-    @all_sales = @invoice.sales.map{|sale| "#{sale.date.to_date.strftime('%-d')} #{I18n.t(:month_names)[sale.date.to_date.strftime('%b').to_sym]}"}.to_sentence(words_connector: ', ', last_word_connector: ' et ')
+    @all_sales = @invoice.sales.order(:date).map{|sale| "#{sale.date.to_date.strftime('%-d')} #{I18n.t(:month_names)[sale.date.to_date.strftime('%b').to_sym]}"}.to_sentence(words_connector: ', ', last_word_connector: ' et ')
 
     respond_to do |format|
       format.html { render :show }
