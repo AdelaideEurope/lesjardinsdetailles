@@ -36,9 +36,9 @@ class EventsController < ApplicationController
       end
 
       if params[:to_calendar] == "true"
-        redirect_to farm_calendrier_index_path(@farm, start_date: params[:event][:start_date].split(", ")[0])
+        redirect_to farm_calendrier_index_path(@farm, start_date: params[:event][:start_date].split(", ")[0].to_date.strftime)
       else
-        redirect_to farm_dashboard_path(@farm, start_date: params[:event][:start_date].split(", ")[0])
+        redirect_to farm_dashboard_path(@farm, start_date: params[:event][:start_date].split(", ")[0].to_date.strftime)
       end
 
     else
@@ -63,9 +63,9 @@ class EventsController < ApplicationController
           # anchor = "admin-event-#{@new_event.id}"
           flash[:notice] = "All good, on oublie 😎"
         end
-        redirect_to farm_dashboard_path(@farm, start_date: params_start_date)
+        redirect_to farm_dashboard_path(@farm, start_date: params_start_date.to_date.strftime)
       else
-        redirect_to farm_dashboard_path(@farm, start_date: params_start_date)
+        redirect_to farm_dashboard_path(@farm, start_date: params_start_date.to_date.strftime)
       end
     end
   end
@@ -78,10 +78,10 @@ class EventsController < ApplicationController
       start_date = params[:start_date]
       if @event.update(date_done: Date.today)
         # , anchor: "garden-event-#{@event.id}"
-        redirect_to farm_dashboard_path(@farm, start_date: start_date)
+        redirect_to farm_dashboard_path(@farm, start_date: start_date.to_date.strftime)
       else
         # , anchor: "garden-event-#{@event.id}"
-        redirect_to farm_dashboard_path(@farm, start_date: start_date)
+        redirect_to farm_dashboard_path(@farm, start_date: start_date.to_date.strftime)
       end
     elsif params[:postpone]
       start_date = params[:start_date]
@@ -89,12 +89,12 @@ class EventsController < ApplicationController
       if @event.update(date: new_date)
         flash[:notice] = "Tâche décalée à la semaine #{new_date.strftime('%W').to_i}  !"
         if @event.event_category == "garden"
-          redirect_to farm_dashboard_path(@farm, start_date: start_date)
+          redirect_to farm_dashboard_path(@farm, start_date: start_date.to_date.strftime)
         elsif @event.event_category == "admin"
-          redirect_to farm_dashboard_path(@farm, start_date: start_date)
+          redirect_to farm_dashboard_path(@farm, start_date: start_date.to_date.strftime)
         end
       else
-        redirect_to farm_dashboard_path(@farm, start_date: start_date)
+        redirect_to farm_dashboard_path(@farm, start_date: start_date.to_date.strftime)
       end
     elsif params[:event_category] == "dated_admin_event"
       start_date = params[:start_date]
@@ -111,49 +111,49 @@ class EventsController < ApplicationController
 
       if @event.update(description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details], event_subcategory: params[:event][:event_subcategory])
         if params[:to_calendar] == "true"
-          redirect_to farm_calendrier_index_path(@farm, start_date: start_date)
+          redirect_to farm_calendrier_index_path(@farm, start_date: start_date.to_date.strftime)
         else
-          redirect_to farm_dashboard_path(@farm, start_date: start_date)
+          redirect_to farm_dashboard_path(@farm, start_date: start_date.to_date.strftime)
         end
       else
         if params[:to_calendar] == "true"
-          redirect_to farm_calendrier_index_path(@farm, start_date: start_date)
+          redirect_to farm_calendrier_index_path(@farm, start_date: start_date.to_date.strftime)
         else
-          redirect_to farm_dashboard_path(@farm, start_date: start_date)
+          redirect_to farm_dashboard_path(@farm, start_date: start_date.to_date.strftime)
         end
       end
     elsif params[:event][:cancel_done] == "1"
       start_date = params[:start_date]
       if @event.update(date_done: nil, description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details])
-        redirect_to farm_dashboard_path(@farm, start_date: start_date)
+        redirect_to farm_dashboard_path(@farm, start_date: start_date.to_date.strftime)
       else
-        redirect_to farm_dashboard_path(@farm, start_date: start_date)
+        redirect_to farm_dashboard_path(@farm, start_date: start_date.to_date.strftime)
       end
     elsif params[:event][:planned_week]
       date = Date.commercial(Date.today.year, params[:event][:planned_week].to_i)
       start_date = params[:start_date]
       if @event.update(description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details], date_done: params[:event][:date_done], date: date)
         # , anchor: "garden-event-#{@event.id}"
-        redirect_to farm_dashboard_path(@farm, start_date: start_date)
+        redirect_to farm_dashboard_path(@farm, start_date: start_date.to_date.strftime)
       else
         # , anchor: "garden-event-#{@event.id}"
-        redirect_to farm_dashboard_path(@farm, start_date: start_date)
+        redirect_to farm_dashboard_path(@farm, start_date: start_date.to_date.strftime)
       end
     else
       start_date = params[:start_date]
       if @event.update(description: params[:event][:description], comment: params[:event][:comment], details: params[:event][:details], date_done: params[:event][:date_done])
         # , anchor: "garden-event-#{@event.id}"
-        redirect_to farm_dashboard_path(@farm, start_date: start_date)
+        redirect_to farm_dashboard_path(@farm, start_date: start_date.to_date.strftime)
       else
         # , anchor: "garden-event-#{@event.id}"
-        redirect_to farm_dashboard_path(@farm, start_date: start_date)
+        redirect_to farm_dashboard_path(@farm, start_date: start_date.to_date.strftime)
       end
     end
     authorize @event
   end
 
   def events_multiple_update
-    start_date = params[:start_date]
+    start_date = params[:start_date].to_date.strftime
     @todo_admin_events = Event.todo_admin_events(start_date, @farm.id)
     @todo_admin_events.each {|event| event.update(date: event.date + 1.week)}
     flash[:notice] = "Toutes les tâches non faites ont bien été décalées d'une semaine !"
@@ -163,7 +163,7 @@ class EventsController < ApplicationController
 
   def destroy
     authorize @event
-    start_date = params[:start_date]
+    start_date = params[:start_date].to_date.strftime
     @event.destroy
     if params[:event_subcategory] == "rdv"
       flash[:notice] = "Rendez-vous supprimé avec succès !"

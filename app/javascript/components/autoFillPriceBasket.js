@@ -9,13 +9,11 @@ const autoFillPriceBasket = () => {
 
       getQuantity.addEventListener('keyup', (event) => {
         const totalTTC = Math.round(((parseFloat(getPUTTC.value) * parseFloat(getQuantity.value)) + Number.EPSILON) * 100) / 100;
-        console.log(totalTTC)
         getPTTTC.value = totalTTC;
       });
 
       getPUTTC.addEventListener('keyup', (event) => {
         const totalTTC = Math.round(((parseFloat(getPUTTC.value) * parseFloat(getQuantity.value)) + Number.EPSILON) * 100) / 100;
-        console.log(totalTTC)
         getPTTTC.value = totalTTC;
       });
 
