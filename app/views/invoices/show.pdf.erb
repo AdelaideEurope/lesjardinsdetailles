@@ -1,15 +1,16 @@
 <html>
   <head>
-    <title>Les Jardins détaillés</title>
+    <title>GAEC Les Jardins détaillés</title>
   </head>
 
   <body>
     <div style="text-align: right">
       <div>Numéro de facture : <%= @invoice.number %></div>
+      <div>Date de la facture : <%= @invoice.date.to_date.strftime('%d/%m/%Y') %></div>
     </div>
 
     <div class="farm-information">
-      <div style="font-size: 24px; font-style: italic;"><%= @farm.full_name %></div>
+      <div style="font-size: 24px; font-style: italic;">GAEC <%= @farm.full_name %></div>
       <div class="ljd-address">
         <div><%= @farm.address %></div>
         <div><%= @farm.zip_code%> <%= @farm.city %></div>
