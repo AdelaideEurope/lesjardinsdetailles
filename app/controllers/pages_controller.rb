@@ -36,6 +36,8 @@ class PagesController < ApplicationController
     else
       to_harvest(Date.today)
     end
+    @egg_count = DailyEggCount.new
+    @daily_egg_counts_this_week = DailyEggCount.week_egg_count(params[:start_date])
   end
 
   private

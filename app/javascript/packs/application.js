@@ -25,6 +25,7 @@ require("channels")
 // External imports
 import "bootstrap";
 import 'select2/dist/css/select2.css';
+import "chartkick/chart.js";
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';

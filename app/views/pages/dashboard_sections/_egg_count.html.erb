@@ -1,0 +1,52 @@
+<div class="mt-4 dashboard-crop-plan-line-card green" id="tour-des-jardins">
+  <div class="card-colored-top-part-fixed-color green">
+    <a href="#" data-toggle="modal" data-target="#modal-new-egg-count-query">
+      <div class="card-top-part-text"><%= link_to farm_poulettes_path(current_user.farm_id), class: "white" do %>
+        La ponte cette semaine 🥚<% end %></div>
+    </a>
+  </div>
+  <div class="card-bottom-part">
+    <div class="card-bottom-part-text">
+      <div class="mt-2 raisin">
+        <% if @daily_egg_counts_this_week.empty? %>
+          Vous n'avez encore rien renseigné 🙃
+        <% end %>
+        <% @daily_egg_counts_this_week.each do |egg_count| %>
+          <div> <%= egg_count.date.to_date.strftime('%-d') %> <%= I18n.t(:month_names)[egg_count.date.to_date.strftime('%b').to_sym] %> : <%= egg_count.egg_count %> œufs pondus</div>
+        <% end %>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end card-bottom-section-with-icon" id="search-harvest">
+      <a href="#" data-toggle="modal" data-target="#modal-new-egg-count-query">
+        <div class="card-bottom-right-triangle green">
+          <i class="fas fa-plus"></i>
+        </div>
+      </a>
+    </div>
+
+    <div class="modal fade" id="modal-new-egg-count-query" tabindex="-1" aria-labelledby="modal-new-egg-count-queryLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>Enregistrer la ponte du jour</h2>
+          </div>
+          <div class="modal-body">
+            <%= simple_form_for [farm, @egg_count], url: farm_daily_egg_counts_path(@farm.id, start_date: params[:start_date]) do |f| %>
+              <div class="flex-wrap d-flex justify-content-between">
+                <div>
+                  <h3>Date</h3>
+                  <div><%= f.input :date, as: :string, label: false, input_html: { class: "datepickernotime fit-content search-input-target-date" } %></div>
+                  <h3 class="mt-4">Alors, combien ?</h3>
+                  <div><%= f.input :egg_count, as: :integer, label: false, class: "w-100" %></div>
+                </div>
+              </div>
+              <div class="d-flex">
+                <%= f.submit "Valider", class: "btn txt-button mt-4 mx-auto" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

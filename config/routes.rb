@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     post "events_multiple_update", to: 'events#events_multiple_update'
 
     resources :produits, controller: 'products', only: [ :index, :show, :edit, :update, :create, :new ]
+    resources :daily_egg_counts, only: [ :index, :show, :edit, :update, :create, :new, :destroy ]
     resources :variets, controller: 'vegetable_variets', only: [ :edit, :update, :create, :new ]
     get "product_variets_multiple_new", to: 'products#product_variets_multiple_new'
     post "product_variets_multiple_create", to: 'products#product_variets_multiple_create'

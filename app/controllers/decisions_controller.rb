@@ -21,11 +21,8 @@ class DecisionsController < ApplicationController
     end
 
     def create
-      year = params[:decision]["date(1i)"]
-      month = params[:decision]["date(2i)"].length == 1 ? "0" + params[:decision]["date(2i)"] : params[:decision]["date(2i)"]
-      day = params[:decision]["date(3i)"]
-      date = year + month + day
-      @decision = Decision.new(farm_id: params[:farm_id], comment: params[:decision][:comment], object: params[:decision][:object], details: params[:decision][:details], date: Date.parse(date))
+      date = Date.parse(params[:decision][:date])
+      @decision = Decision.new(farm_id: params[:farm_id], comment: params[:decision][:comment], object: params[:decision][:object], details: params[:decision][:details], date: date)
       authorize @decision
       if @decision.save
         flash[:notice] = "Allez hop, ça c'est fait ! 🤓"

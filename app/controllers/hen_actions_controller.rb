@@ -13,6 +13,7 @@ class HenActionsController < ApplicationController
         @hen_actions = HenAction.where(farm_id: @farm.id).order("date DESC")
       end
       authorize @hen_actions
+      daily_egg_counts
     end
 
     def new
@@ -48,6 +49,7 @@ class HenActionsController < ApplicationController
       authorize @hen_action
     end
 
+    private
 
     def set_farm
       @farm = Farm.find(params[:farm_id])
@@ -55,6 +57,11 @@ class HenActionsController < ApplicationController
 
     def set_hen_action
       @hen_action = HenAction.find(params[:id])
+    end
+
+    def daily_egg_counts
+      @daily_egg_counts = {}
+      DailyEggCount.all.order(:date).each {|c| @daily_egg_counts[c.date.strftime('%d/%m')] = c.egg_count}
     end
 
 end

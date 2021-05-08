@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_18_174539) do
+ActiveRecord::Schema.define(version: 2021_05_08_184509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,6 +123,15 @@ ActiveRecord::Schema.define(version: 2021_04_18_174539) do
     t.index ["bed_id"], name: "index_crop_plan_lines_on_bed_id"
     t.index ["product_id"], name: "index_crop_plan_lines_on_product_id"
     t.index ["vegetable_variet_id"], name: "index_crop_plan_lines_on_vegetable_variet_id"
+  end
+
+  create_table "daily_egg_counts", force: :cascade do |t|
+    t.datetime "date"
+    t.integer "egg_count"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "farm_id"
+    t.index ["farm_id"], name: "index_daily_egg_counts_on_farm_id"
   end
 
   create_table "decisions", force: :cascade do |t|
@@ -472,6 +481,7 @@ ActiveRecord::Schema.define(version: 2021_04_18_174539) do
   add_foreign_key "crop_plan_lines", "beds"
   add_foreign_key "crop_plan_lines", "products"
   add_foreign_key "crop_plan_lines", "vegetable_variets"
+  add_foreign_key "daily_egg_counts", "farms"
   add_foreign_key "decisions", "farms"
   add_foreign_key "delivery_slips", "sales"
   add_foreign_key "events", "farms"

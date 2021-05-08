@@ -18,6 +18,8 @@
     </button>
   <% end %>
   </div>
+  <h3>Ça pond ?</h3>
+  <%= line_chart @daily_egg_counts, colors: ["#A1BD7F"] %>
   <div>
     <div class="my-4">
       <% @hen_actions.each do |hen_action| %>
