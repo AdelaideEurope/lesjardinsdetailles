@@ -11,9 +11,23 @@
         <% if @daily_egg_counts_this_week.empty? %>
           Vous n'avez encore rien renseigné 🙃
         <% end %>
-        <% @daily_egg_counts_this_week.each do |egg_count| %>
-          <div> <%= egg_count.date.to_date.strftime('%-d') %> <%= I18n.t(:month_names)[egg_count.date.to_date.strftime('%b').to_sym] %> : <%= egg_count.egg_count %> œufs pondus</div>
-        <% end %>
+        <div>
+          <% @daily_egg_counts_this_week.each do |egg_count| %>
+            <div class="list-item-block d-flex justify-content-between mt-2">
+              <div class="mt-2">
+                <%= egg_count.date.to_date.strftime('%-d') %> <%= I18n.t(:month_names)[egg_count.date.to_date.strftime('%b').to_sym] %>
+              </div>
+              <div class="mt-2">
+                <%= egg_count.egg_count %> œufs pondus
+              </div>
+              <%= link_to farm_daily_egg_count_path(@farm, egg_count.id, start_date: params[:start_date]), method: :delete, data: { confirm: "T'es #{current_user.is_female? ? 'sûre' : 'sûr'} ? 🤨"} do %>
+              <div class="round-button red">
+                <i class="fas fa-times round-txt-button"></i>
+              </div>
+            <% end %>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
     <div class="d-flex justify-content-end card-bottom-section-with-icon" id="search-harvest">

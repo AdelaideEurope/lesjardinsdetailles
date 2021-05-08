@@ -28,4 +28,10 @@ class DailyEggCountPolicy < ApplicationPolicy
       true
     end
   end
+
+  def destroy?
+    if user.worker
+      true
+    end
+  end
 end
