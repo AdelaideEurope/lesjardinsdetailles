@@ -71,7 +71,7 @@ class InvoicesController < ApplicationController
         if !@sales_lines[[line.product, line.unit]].nil?
           ht_total = @sales_lines[[line.product, line.unit]][:ht_total] += line.ht_total
           quantity = @sales_lines[[line.product, line.unit]][:quantity] += line.quantity
-          ht_unit_price = @sales_lines[[line.product, line.unit]][:ht_unit_price] += line.ht_unit_price
+          ht_unit_price = @sales_lines[[line.product, line.unit]][:ht_unit_price] = line.ht_unit_price
           @sales_lines[[line.product, line.unit]] = {ht_total: ht_total, quantity: quantity, ht_unit_price: ht_unit_price}
         else
           @sales_lines[[line.product, line.unit]] = {ht_total: line.ht_total, quantity: line.quantity, ht_unit_price: line.ht_unit_price}
