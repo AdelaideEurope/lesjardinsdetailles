@@ -96,6 +96,7 @@ class BasketsController < ApplicationController
     @beds.unshift(["-"])
     @new_basket_line = BasketLine.new
     @previous_baskets = @outlet.baskets.where("baskets.date < ?", @sale.date).sort_by(&:date).reverse.group_by(&:ttc_price)
+    to_harvest(@sale)
   end
 
   def update
@@ -123,6 +124,18 @@ class BasketsController < ApplicationController
   end
 
   private
+
+  def to_harvest(sale)
+    @no_sale_today = true
+    @basket_lines_today = BasketLine.all.select{|b| b.basket.sale.id == sale.id}
+    @basket_lines_today.length != 0 ? @no_sale_today = false : true
+    @to_harvest_lines = Hash.new { |to_harvest, product| to_harvest[product] = { unit: "", quantity: "".to_f, bed: [] } }
+    @basket_lines_today.sort_by(&:product).each do |line|
+      @to_harvest_lines[line.product.name.capitalize][:unit] = line.unit
+      @to_harvest_lines[line.product.name.capitalize][:quantity] += (line.quantity * line.basket.quantity)
+      @to_harvest_lines[line.product.name.capitalize][:bed].push(line.bed.full_name) if !line.bed.nil?
+    end
+  end
 
   def set_farm
     @farm = Farm.find(params[:farm_id])

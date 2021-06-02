@@ -48,15 +48,15 @@ class PagesController < ApplicationController
     @basket_lines_today = BasketLine.where(date: date)
     @sales_lines_today.length != 0 || @basket_lines_today.length != 0 ? @no_sale_today = false : true
     @to_harvest_lines = Hash.new { |to_harvest, product| to_harvest[product] = { unit: "", quantity: "".to_f, bed: [] } }
-        @basket_lines_today.sort_by(&:product).each do |line|
-          @to_harvest_lines[line.product.name.capitalize][:unit] = line.unit
-          @to_harvest_lines[line.product.name.capitalize][:quantity] += (line.quantity * line.basket.quantity)
-          @to_harvest_lines[line.product.name.capitalize][:bed].push(line.bed.full_name) if !line.bed.nil?
-        end
-        @sales_lines_today.sort_by(&:product).each do |line|
-          @to_harvest_lines[line.product.name.capitalize][:unit] = line.unit
-          @to_harvest_lines[line.product.name.capitalize][:quantity] += line.quantity
-          @to_harvest_lines[line.product.name.capitalize][:bed].push(line.bed.full_name) if !line.bed.nil?
-        end
+    @basket_lines_today.sort_by(&:product).each do |line|
+      @to_harvest_lines[line.product.name.capitalize][:unit] = line.unit
+      @to_harvest_lines[line.product.name.capitalize][:quantity] += (line.quantity * line.basket.quantity)
+      @to_harvest_lines[line.product.name.capitalize][:bed].push(line.bed.full_name) if !line.bed.nil?
+    end
+    @sales_lines_today.sort_by(&:product).each do |line|
+      @to_harvest_lines[line.product.name.capitalize][:unit] = line.unit
+      @to_harvest_lines[line.product.name.capitalize][:quantity] += line.quantity
+      @to_harvest_lines[line.product.name.capitalize][:bed].push(line.bed.full_name) if !line.bed.nil?
+    end
   end
 end
