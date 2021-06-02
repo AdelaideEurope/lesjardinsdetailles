@@ -9,8 +9,15 @@ class SalesLinesController < ApplicationController
     outlet = Outlet.find(outlet_id)
     ht_unit_price = (params[:sales_line][:ht_unit_price].to_f * 100).round
     ttc_unit_price = (params[:sales_line][:ttc_unit_price].to_f * 100).round
-    ht_total = (params[:sales_line][:ht_total].to_f * 100).round
-    ttc_total = (params[:sales_line][:ttc_total].to_f * 100).round
+    if params[:sales_line][:quantity].include?("+")
+      quantity = params[:sales_line][:quantity].split("+").map{|q| q.to_i}.sum
+    else
+      quantity = params[:sales_line][:quantity].to_f
+    end
+    ht_total = params[:sales_line][:quantity].include?("+") ? quantity * ht_unit_price : (params[:sales_line][:ht_total].to_f * 100).round
+    ttc_total = ht_total * 1.055
+
+
     if params[:sales_line][:product].to_i == 0
       flash[:alert] = "Attention, tu n'as pas indiqué le légume"
       redirect_to farm_pointsdevente_sale_path(@farm, outlet, sale)
@@ -41,18 +48,18 @@ class SalesLinesController < ApplicationController
 
     if params[:beds] && params[:beds].length == 1
       bed_id = params[:sales_line][:bed].to_i == 0 ? nil : params[:sales_line][:bed].to_i
-      @sales_line = SalesLine.create(product_id: params[:sales_line][:product].to_i, bed_id: bed_id, unit: unit, ht_unit_price: ht_unit_price, ttc_unit_price: ttc_unit_price, ht_total: ht_total, ttc_total: ttc_total, quantity: params[:sales_line][:quantity].to_f, sale_id: sale_id, date: sale.date)
+      @sales_line = SalesLine.create(product_id: params[:sales_line][:product].to_i, bed_id: bed_id, unit: unit, ht_unit_price: ht_unit_price, ttc_unit_price: ttc_unit_price, ht_total: ht_total, ttc_total: ttc_total, quantity: quantity, sale_id: sale_id, date: sale.date)
     elsif params[:beds]
       params[:beds].each do |bed|
         bed_id = bed.to_i
         each_ttc_total = ttc_total / params[:beds].length
         each_ht_total = ht_total / params[:beds].length
-        each_quantity = params[:sales_line][:quantity].to_f / params[:beds].length
+        each_quantity = quantity / params[:beds].length
 
         @sales_line = SalesLine.create(product_id: params[:sales_line][:product].to_i, bed_id: bed_id, unit: unit, ht_unit_price: ht_unit_price, ttc_unit_price: ttc_unit_price, ht_total: each_ht_total, ttc_total: each_ttc_total, quantity: each_quantity, sale_id: sale_id, date: sale.date)
       end
     else
-      @sales_line = SalesLine.create(product_id: params[:sales_line][:product].to_i, unit: unit, ht_unit_price: ht_unit_price, ttc_unit_price: ttc_unit_price, ht_total: ht_total, ttc_total: ttc_total, quantity: params[:sales_line][:quantity].to_f, sale_id: sale_id, date: sale.date)
+      @sales_line = SalesLine.create(product_id: params[:sales_line][:product].to_i, unit: unit, ht_unit_price: ht_unit_price, ttc_unit_price: ttc_unit_price, ht_total: ht_total, ttc_total: ttc_total, quantity: quantity, sale_id: sale_id, date: sale.date)
     end
     sale_ht_total = sale.ht_total += ht_total
     sale_ttc_total = sale.ttc_total += ttc_total
