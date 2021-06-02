@@ -95,7 +95,7 @@ class BasketsController < ApplicationController
     @beds = Bed.all.map { |bed| [bed.full_name, bed.id] }
     @beds.unshift(["-"])
     @new_basket_line = BasketLine.new
-    @previous_baskets = @outlet.baskets.where("baskets.date < ?", @sale.date).group_by(&:ttc_price)
+    @previous_baskets = @outlet.baskets.where("baskets.date < ?", @sale.date).sort_by(&:date).reverse.group_by(&:ttc_price)
   end
 
   def update
