@@ -55,7 +55,7 @@ class SalesController < ApplicationController
       authorize @sale
       if @sale.save
         flash[:notice] = "Vente du #{date.to_date.strftime('%-d')} #{I18n.t(:month_names)[date.to_date.strftime('%b').to_sym]} créée avec succès !"
-        redirect_to farm_ventes_path(@farm)
+        redirect_to farm_pointsdevente_sale_path(@farm, @sale.outlet, @sale)
       else
         flash[:alert] = "Il doit manquer quelques infos"
         render :new
