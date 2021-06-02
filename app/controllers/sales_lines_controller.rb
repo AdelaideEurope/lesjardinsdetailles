@@ -15,7 +15,8 @@ class SalesLinesController < ApplicationController
       quantity = params[:sales_line][:quantity].to_f
     end
     ht_total = params[:sales_line][:quantity].include?("+") ? quantity * ht_unit_price : (params[:sales_line][:ht_total].to_f * 100).round
-    ttc_total = ht_total * 1.055
+    ttc_total = params[:sales_line][:quantity].include?("+") ? ht_total * 1.055 : (params[:sales_line][:ttc_total].to_f * 100).round
+    # ttc_total = ht_total * 1.055
 
 
     if params[:sales_line][:product].to_i == 0
