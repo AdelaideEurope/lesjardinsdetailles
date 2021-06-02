@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     resources :ventes, controller: 'sales', only: [ :index, :show ]
     resources :poulettes, controller: 'hen_actions', only: [ :index, :show, :new, :create, :destroy, :edit, :update ]
     resources :decisions, only: [ :index, :show, :new, :create, :destroy, :edit, :update ]
-    resources :pointsdevente, controller: 'outlets', only: [ :index, :show, :new, :create ] do
+    resources :pointsdevente, controller: 'outlets', only: [ :index, :show, :new, :create, :edit, :update ] do
       resources :baskets, only: [ :new, :create ]
       resources :factures, controller: "invoices", only: [ :new, :create, :index, :show, :update, :destroy ]
       resources :paiements, controller: "payments", only: [ :new, :create, :index, :show, :update, :destroy ]

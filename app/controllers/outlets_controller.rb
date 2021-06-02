@@ -1,6 +1,6 @@
 class OutletsController < ApplicationController
-  before_action :set_farm, only: [:new, :create, :show, :last_prices_multiple_new, :last_prices_multiple_create]
-  before_action :set_outlet, only: [:show]
+  before_action :set_farm, only: [:new, :create, :show, :edit, :update, :last_prices_multiple_new, :last_prices_multiple_create]
+  before_action :set_outlet, only: [:show, :edit, :update]
 
   def index
     @outlets = Outlet.where(farm_id: current_user.farm_id)
@@ -50,7 +50,18 @@ class OutletsController < ApplicationController
       flash[:alert] = "Il doit manquer quelques infos"
       render :new
     end
+  end
 
+  def edit
+    authorize @outlet
+  end
+
+  def update
+    authorize @outlet
+    if @outlet.update(full_name: params[:outlet][:full_name], shortened_name: params[:outlet][:shortened_name], address: params[:outlet][:address], zip_code: params[:outlet][:zip_code], city: params[:outlet][:city], email: params[:outlet][:email], phone_number: params[:outlet][:phone_number], has_customers: params[:outlet][:has_customers], outlet_group_id: params[:outlet][:outlet_group_id], farm_id: @farm.id, color: params[:outlet][:color], preferred_payment_method: params[:outlet][:preferred_payment_method], comment: params[:outlet][:comment], invoicing: params[:outlet][:invoicing], phone_number_owner: params[:outlet][:phone_number_owner])
+      flash[:notice] = "Ligne de plan de culture mise à jour !"
+      redirect_to farm_path(@farm)
+    end
   end
 
   def last_prices_multiple_new
