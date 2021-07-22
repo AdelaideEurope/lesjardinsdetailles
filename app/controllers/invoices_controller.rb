@@ -14,7 +14,8 @@ class InvoicesController < ApplicationController
     authorize @invoice
     grouped_sales_lines
     @invoice_ht_total = @invoice.sales.map{|s| s.ht_total}.sum
-    @tva = (@invoice_ht_total / 100) * 5.5
+    @invoice_ttc_total = @invoice.sales.map{|s| s.ttc_total}.sum
+    @tva = @invoice_ttc_total - @invoice_ht_total
 
     @all_sales = @invoice.sales.order(:date).map{|sale| "#{sale.date.to_date.strftime('%-d')} #{I18n.t(:month_names)[sale.date.to_date.strftime('%b').to_sym]}"}.to_sentence(words_connector: ', ', last_word_connector: ' et ')
 
