@@ -6,6 +6,7 @@
         <div class="drawer__title">
           <div>
             <h2>Les anciens paniers à <%= get_price_in_cents(basket.ttc_price) %></h2>
+            <h3>Somme des écarts = <%= get_price_in_cents(@differences[basket.ttc_price]) %></h3>
           </div>
         </div>
         <button class="drawer__close" data-drawer-close aria-label="Fermer le drawer">

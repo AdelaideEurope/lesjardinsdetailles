@@ -97,6 +97,10 @@ class BasketsController < ApplicationController
     @new_basket_line = BasketLine.new
     @previous_baskets = @outlet.baskets.where("baskets.date < ?", @sale.date).sort_by(&:date).reverse.group_by(&:ttc_price)
     to_harvest(@sale)
+    @differences = Hash.new { |difference, basket_price| difference[basket_price] = "".to_i }
+    @outlet.baskets.each do |basket|
+      @differences[basket.ttc_price] += ((basket.basket_lines.reduce(0) { |sum, num| sum + num.ttc_total_price }) - basket.ttc_price)
+    end
   end
 
   def update
