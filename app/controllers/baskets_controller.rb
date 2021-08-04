@@ -99,7 +99,8 @@ class BasketsController < ApplicationController
     to_harvest(@sale)
     @differences = Hash.new { |difference, basket_price| difference[basket_price] = "".to_i }
     @outlet.baskets.each do |basket|
-      @differences[basket.ttc_price] += ((basket.basket_lines.reduce(0) { |sum, num| sum + num.ttc_total_price }) - basket.ttc_price)
+      actual_total = basket.ttc_actual_total.nil? ? 0 : basket.ttc_actual_total
+      @differences[basket.ttc_price] += (actual_total - basket.ttc_price)
     end
   end
 
